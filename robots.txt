@@ -1,0 +1,12 @@
+# remova os diretorios
+User-agent: *
+Disallow: /wordpress/
+Disallow: /laravel/
+
+# permitir o adsense em qualquer url
+User-agent: Mediapartners-Google*
+Disallow:
+Allow: /*
+
+#Sitemap
+Sitemap: https://winserv.com.br/sitemap.xml
