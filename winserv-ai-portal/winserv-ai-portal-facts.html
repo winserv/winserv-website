@@ -426,11 +426,11 @@
 
   <h3>2.1 Web Grounding nativo — busca em tempo real</h3>
   <p>O Gemini tem integração nativa com Google Search. A IA <strong>busca informações atualizadas na internet no momento da pergunta</strong>, reduzindo drasticamente alucinações. ChatGPT e Claude cobram por busca externa — ou simplesmente não têm.</p>
-  <div class="callout"><strong>No portal:</strong> o grounding é <strong>gratuito</strong> (~1.500 consultas/dia via AI Studio). ChatGPT Enterprise cobra por query no Bing. Claude Enterprise não tem web search.</div>
+  <div class="callout"><strong>No portal:</strong> o grounding é <strong>integrado</strong> (~1.500 consultas/dia via AI Studio). ChatGPT Enterprise cobra por query no Bing. Claude Enterprise não tem web search.</div>
 
   <h3>2.2 Visão computacional e OCR superiores</h3>
   <p>Para processamento de PDFs pesados, tabelas complexas e imagens, a capacidade de visão do Gemini é nativa e superior. ChatGPT requer múltiplos modelos separados. Claude tem janela menor (200K vs 1M tokens).</p>
-  <div class="callout"><strong>No portal:</strong> usamos In-Context Learning — o documento inteiro cabe na janela de 1M tokens do Gemini 3.1 Pro, sem precisar de RAG, chunking ou vector stores. O conteúdo completo fica auditável.</div>
+  <div class="callout"><strong>No portal:</strong> usamos In-Context Learning — o documento inteiro cabe na janela de 1M tokens do Gemini 2.5 Pro, sem precisar de RAG, chunking ou vector stores. O conteúdo completo fica auditável.</div>
 
   <h3>2.3 Multimodalidade unificada</h3>
   <p>O portal processa PDF, DOCX, XLSX, PPTX, imagens, áudio e ZIP. O Gemini faz tudo isso em <strong>uma única API</strong>. ChatGPT exigiria Whisper (áudio) + GPT-4o (texto/imagem) + plugins — mais complexo, mais caro, mais pontos de falha.</p>
@@ -468,7 +468,7 @@
     </tr>
     <tr>
       <td>Web Search</td>
-      <td class="yes">✅ grátis</td><td class="warn">⚠️ pago</td><td class="warn">⚠️ Bing</td><td class="no">❌</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td>
+      <td class="yes">✅ incluso</td><td class="warn">⚠️ pago</td><td class="warn">⚠️ Bing</td><td class="no">❌</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td>
     </tr>
     <tr>
       <td>Fact-Check</td>
@@ -559,7 +559,106 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>4. O que o portal entrega que nenhum concorrente entrega</h2>
+  <h2>4. Conformidade com o PL 2338/2023 <span style="font-weight:400;color:#64748b;font-size:15px;">— Marco Legal da IA no Brasil</span></h2>
+
+  <p>O <strong>PL 2338/2023</strong>, em tramitação no Senado, estabelece exigências de <strong>transparência, supervisão humana e auditabilidade</strong> para sistemas de IA de alto risco — incluindo saúde, avaliação de crédito, recrutamento, segurança pública e identificação biométrica. O projeto segue a abordagem baseada em risco do AI Act europeu.</p>
+
+  <p>Abaixo, como o portal atende cada pilar <strong>hoje</strong> — não como promessa futura:</p>
+
+  <h3>4.1 Pilar 1 — Transparência e Explicabilidade</h3>
+
+  <div class="table-wrap">
+  <table>
+    <tr>
+      <th>Exigência do PL 2338</th>
+      <th>Winserv AI Portal</th>
+      <th style="background:#fee2e2;">ChatGPT Enterprise</th>
+    </tr>
+    <tr>
+      <td><strong>Direito à informação clara:</strong> pessoas devem saber quando interagem com IA</td>
+      <td><span class="yes">✅</span> Sistema prompt: "sou o assistente do portal" — nunca finge ser humano</td>
+      <td><span class="no">❌</span> Sem controle do prompt pelo gestor</td>
+    </tr>
+    <tr>
+      <td><strong>Explicação dos critérios e lógica:</strong> fornecer dados e raciocínio usados na decisão</td>
+      <td><span class="yes">✅</span> <strong>Fact-Check afirmação por afirmação</strong> — extrai cada alegação, verifica contra fontes web, atribui veredito com justificativa</td>
+      <td><span class="no">❌</span> Sem verificação de claims</td>
+    </tr>
+    <tr>
+      <td><strong>Permitir contestação:</strong> usuário pode questionar e corrigir decisões algorítmicas</td>
+      <td><span class="yes">✅</span> Botão "Verificar" audita cada resposta. Botão "Regenerar" corrige</td>
+      <td><span class="no">❌</span> Sem mecanismo de auditoria por resposta</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>4.2 Pilar 2 — Supervisão Humana</h3>
+
+  <div class="table-wrap">
+  <table>
+    <tr>
+      <th>Exigência do PL 2338</th>
+      <th>Winserv AI Portal</th>
+      <th style="background:#fee2e2;">ChatGPT Enterprise</th>
+    </tr>
+    <tr>
+      <td><strong>Supervisão humana efetiva:</strong> sistemas de alto risco devem permitir acompanhamento constante</td>
+      <td><span class="yes">✅</span> <strong>RBAC 4 níveis</strong> — global_admin, llm_manager, auditor, user. Gestor define quem supervisiona o quê</td>
+      <td><span class="no">❌</span> Apenas 2 tiers (admin/user)</td>
+    </tr>
+    <tr>
+      <td><strong>Revisão de decisões automatizadas:</strong> direito de solicitar intervenção humana em decisões significativas</td>
+      <td><span class="yes">✅</span> <strong>Fact-Check on-demand</strong> — cada resposta pode ser auditada com 1 clique. Modo auto_head para verificação automática de todas as respostas</td>
+      <td><span class="no">❌</span> Sem verificação de decisões</td>
+    </tr>
+    <tr>
+      <td><strong>Prevenir operação 100% autônoma:</strong> IA não pode decidir sozinha quando há impacto em direitos fundamentais</td>
+      <td><span class="yes">✅</span> <strong>Safety Gate</strong> classifica cada pergunta e cada resposta ANTES de entregar ao usuário. Bloqueia conteúdos inadequados</td>
+      <td><span class="warn">⚠️</span> Filtros básicos, sem classificação estruturada</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>4.3 Pilar 3 — Auditabilidade e Governança</h3>
+
+  <div class="table-wrap">
+  <table>
+    <tr>
+      <th>Exigência do PL 2338</th>
+      <th>Winserv AI Portal</th>
+      <th style="background:#fee2e2;">ChatGPT Enterprise</th>
+    </tr>
+    <tr>
+      <td><strong>Avaliação de Impacto Algorítmico (AIA):</strong> documentar riscos e mitigação antes de ativar o sistema</td>
+      <td><span class="yes">✅</span> <strong>System settings audit</strong> — toda alteração de modelo, prompt, limite é registrada com quem alterou e quando</td>
+      <td><span class="no">❌</span> Sem registro de alterações de configuração</td>
+    </tr>
+    <tr>
+      <td><strong>Registros (logs) para rastreabilidade:</strong> capacidade técnica de registrar eventos para auditoria de falhas</td>
+      <td><span class="yes">✅</span> <strong>Audit trail JSONB imutável</strong> — mensagens completas, tokens, custo, latência, modelo. Exportável, agrupado por conversa</td>
+      <td><span class="no">❌</span> Logs de API parciais, sem conteúdo das mensagens</td>
+    </tr>
+    <tr>
+      <td><strong>Testes para vieses discriminatórios:</strong> identificar e corrigir preconceitos de raça, gênero, etc.</td>
+      <td><span class="yes">✅</span> <strong>Safety Gate</strong> classifica input e output. <strong>Fact-Check</strong> detecta viés factual por verificação contra fontes</td>
+      <td><span class="no">❌</span> Sem ferramentas de detecção de viés</td>
+    </tr>
+    <tr>
+      <td><strong>Documentação de mitigação:</strong> comprovar medidas adotadas para reduzir riscos</td>
+      <td><span class="yes">✅</span> <strong>Single-tenant</strong> (dados isolados). <strong>Zero CDN externo</strong> (soberania). <strong>Cliente dono das API Keys</strong> (sem intermediação)</td>
+      <td><span class="no">❌</span> Multi-tenant, dados nos EUA, dependência de CDNs</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="callout" style="margin-top:24px; border-left-color: var(--green); background: #ecfdf5;">
+    <strong>🏛️ Compliance de fábrica — não adaptação futura:</strong> Quando o PL 2338 for sancionado, empresas usando ChatGPT Enterprise terão 6-12 meses para se adaptar. Migrar dados, treinar pessoas, mudar processos — isso custa <strong>mais caro que adoção planejada</strong>. O Winserv AI Portal já entrega todos os requisitos como arquitetura de fábrica. Não é "vamos implementar quando a lei passar" — <strong>já está em produção</strong>.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section>
+  <h2>5. O que o portal entrega que nenhum concorrente entrega</h2>
 
   <div class="table-wrap">
   <table style="min-width:600px;">
@@ -591,7 +690,7 @@
       <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
     </tr>
     <tr>
-      <td>Grounding gratuito</td>
+      <td>Grounding incluso</td>
       <td class="no">❌ (pago)</td><td class="no">❌ (não tem)</td><td class="yes">✅</td><td class="yes">✅</td>
     </tr>
     <tr>
@@ -612,7 +711,7 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>5. Resumo para o gestor</h2>
+  <h2>6. Resumo para o gestor</h2>
 
   <p><strong>Usar Gemini/ChatGPT/Claude direto</strong> resolve o problema de <strong>1 funcionário</strong>. Funciona para experimentação. Mas quando a empresa coloca IA nas mãos de 50+ pessoas, o que importa não é só a qualidade da resposta — é <strong>quem perguntou o quê, quanto custou, se a resposta era verdadeira, e se está tudo documentado para o dia em que o auditor ou o DPO bater na porta.</strong></p>
 
@@ -644,7 +743,7 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>6. Arquitetura</h2>
+  <h2>7. Arquitetura</h2>
 
   <div class="arch-diagram">
     <div class="arch-row">
@@ -683,7 +782,7 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>7. Interessado?</h2>
+  <h2>8. Interessado?</h2>
 
   <p style="text-align:center; font-size:17px; margin:32px 0;">
     Cada implantação é tratada como caso único.<br>
