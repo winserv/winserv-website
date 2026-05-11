@@ -336,7 +336,7 @@
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
   <h2>Introdução</h2>
-  <p>Empresas brasileiras que adotam IA sem governança expõem-se a <strong>riscos reais e mensuráveis</strong>: multas da LGPD (até 2% do faturamento), exposição de dados confidenciais em APIs públicas, e impossibilidade de responder a auditorias regulatórias (Bacen, ANPD, CVM). O <strong>Winserv AI Portal</strong> foi projetado para eliminar esses riscos sem sacrificar a potência dos modelos de IA modernos. Diferente de plataformas que usam RAG (Retrieval-Augmented Generation) — que fragmentam documentos em pedaços, exigem bancos vetoriais e perdem contexto — o portal envia o documento <strong>íntegro diretamente ao Google Gemini</strong> via In-Context Learning na janela de 1 milhão de tokens. Isso significa que um PDF de 200 páginas é processado por inteiro, preservando tabelas, hierarquia e relações entre seções. Sem chunking, sem embeddings, sem complexidade. Além disso, o portal conta com <strong>Content Safety Gate</strong> — uma camada de classificação que analisa cada pergunta e cada resposta antes de entregá-la ao usuário, bloqueando conteúdos inadequados sem depender de filtros externos. E o <strong>Fact-Check afirmação por afirmação</strong> — exclusivo no mercado — extrai cada alegação individual da resposta e a verifica contra fontes web, atribuindo veredito (Precisa, Imprecisa, Contestada, etc.). Para um departamento jurídico, isso significa que <strong>nenhum parecer gerado por IA vai para um processo sem verificação</strong>.</p>
+  <p>Empresas brasileiras que adotam IA sem governança expõem-se a <strong>riscos reais e mensuráveis</strong>: multas da LGPD, exposição de dados confidenciais em APIs públicas, e impossibilidade de responder a auditorias regulatórias (Bacen, ANPD, CVM). O <strong>Winserv AI Portal</strong> foi projetado para eliminar esses riscos sem sacrificar a potência dos modelos de IA modernos. Diferente de plataformas que usam RAG (Retrieval-Augmented Generation) — que fragmentam documentos em pedaços, exigem bancos vetoriais e perdem contexto — o portal envia o documento <strong>íntegro diretamente ao Google Gemini</strong> via In-Context Learning na janela de 1 milhão de tokens. Isso significa que um PDF de 200 páginas é processado por inteiro, preservando tabelas, hierarquia e relações entre seções. Sem chunking, sem embeddings, sem complexidade. Além disso, o portal conta com <strong>Content Safety Gate</strong> — uma camada de classificação que analisa cada pergunta e cada resposta antes de entregá-la ao usuário, bloqueando conteúdos inadequados sem depender de filtros externos. E o <strong>Fact-Check afirmação por afirmação</strong> — exclusivo no mercado — extrai cada alegação individual da resposta e a verifica contra fontes web, atribuindo veredito (Precisa, Imprecisa, Contestada, etc.). Para um departamento jurídico, isso significa que <strong>nenhum parecer gerado por IA vai para um processo sem verificação</strong>.</p>
 
   <div class="intro-grid">
     <div class="intro-card">
@@ -354,6 +354,10 @@
       <strong>Single-tenant por natureza</strong>
       <p>Cada cliente recebe <strong>sua própria VM e seu próprio banco</strong>. Não há compartilhamento de infraestrutura. Isso é compliance-ready para setores regulados.</p>
     </div>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <strong>📜 Compliance à frente da lei:</strong> O PL 2338/2023 — marco regulatório da IA no Brasil em tramitação no Senado — estabelecerá exigências de <strong>auditabilidade, transparência e supervisão humana</strong> para sistemas de IA de alto risco. O Winserv AI Portal já entrega todos esses requisitos como arquitetura de fábrica — não como adaptação futura. Audit Trail imutável, Fact-Check afirmação por afirmação, Safety Gate e RBAC 4 níveis são a resposta pronta para o que a lei vai exigir.
   </div>
 </section>
 
@@ -438,53 +442,11 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>3. Comparação de custo <span style="font-weight:400;color:#64748b;font-size:15px;">(100 usuários, 1 ano)</span></h2>
-
-  <div class="table-wrap">
-  <table style="min-width:500px;">
-    <tr>
-      <th>Solução</th>
-      <th>Preço anual (BRL)</th>
-      <th>vs. Portal</th>
-    </tr>
-    <tr>
-      <td>ChatGPT Enterprise</td>
-      <td>~R$ 330.000</td>
-      <td><span class="no">5.5× mais caro</span></td>
-    </tr>
-    <tr>
-      <td>Microsoft Copilot Studio</td>
-      <td>~R$ 435.000</td>
-      <td><span class="no">7.3× mais caro</span></td>
-    </tr>
-    <tr>
-      <td>Claude Enterprise</td>
-      <td>~R$ 264.000</td>
-      <td><span class="no">4.4× mais caro</span></td>
-    </tr>
-    <tr>
-      <td>Usar Gemini direto + construir governança</td>
-      <td>Incalculável (meses de dev)</td>
-      <td>—</td>
-    </tr>
-    <tr style="background:#eff6ff;">
-      <td><strong>Winserv AI Portal (Professional)</strong></td>
-      <td><strong>R$ 59.880</strong></td>
-      <td><span class="highlight">1.0×</span></td>
-    </tr>
-  </table>
-  </div>
-
-  <blockquote>O portal custa <strong>menos de 1/5 do ChatGPT Enterprise</strong> e entrega governança que nenhum deles tem.</blockquote>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<section>
-  <h2>4. E as outras plataformas? <span style="font-weight:400;color:#64748b;font-size:15px;">Por que não Open WebUI, Dify ou Copilot?</span></h2>
+  <h2>3. E as outras plataformas? <span style="font-weight:400;color:#64748b;font-size:15px;">Por que não Open WebUI, Dify ou Copilot?</span></h2>
 
   <p>O gestor de TI mais informado vai além da pergunta "por que não usar a API direta" e questiona: <strong>"já existem plataformas prontas que fazem isso — por que o portal de vocês?"</strong></p>
 
-  <h3>4.1 Matriz completa de funcionalidades</h3>
+  <h3>3.1 Matriz completa de funcionalidades</h3>
 
   <div class="callout"><strong>Controle granular de acesso:</strong> o portal permite que o gestor atribua <strong>modelos, funcionalidades e limites de custo por usuário ou grupo</strong>. Ex: o time jurídico usa Gemini Pro com Fact-Check automático e teto de $10/dia, enquanto estagiários usam apenas Flash Standard com 50 consultas/dia. Nenhum concorrente oferece feature flags por escopo (global → grupo → usuário) com herança em cascata.</div>
 
@@ -556,23 +518,19 @@
       <td>LGPD</td>
       <td class="yes">✅</td><td class="warn">⚠️ EUA</td><td class="yes">✅ EU</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="yes">✅</td>
     </tr>
-    <tr>
-      <td><strong>100u/mês</strong></td>
-      <td class="highlight">R$ 4.990</td><td>R$ 27.5K</td><td>R$ 36.3K</td><td>R$ 22K</td><td>R$ 22K</td><td>$0+infra</td><td>$0+infra</td>
-    </tr>
   </table>
   </div>
 
-  <h3>4.2 Análise qualitativa por concorrente</h3>
+  <h3>3.2 Análise qualitativa por concorrente</h3>
 
   <div class="competitor-grid">
     <div class="comp-card">
       <strong>ChatGPT Enterprise</strong>
-      <p>Melhor marca, melhor modelo. Mas: dados nos EUA (LGPD frágil), sem audit trail real, sem Fact-Check, custo 5.5× maior. Bom para produtividade individual, não resolve governança.</p>
+      <p>Melhor marca, melhor modelo. Mas: dados nos EUA (LGPD frágil), sem audit trail real, sem Fact-Check. Bom para produtividade individual, não resolve governança.</p>
     </div>
     <div class="comp-card">
       <strong>Microsoft Copilot Studio</strong>
-      <p>Integração nativa com M365 e Entra ID. Mas: licenciamento notoriamente complexo, custo 7.3× maior, sem Fact-Check, sem audit trail completo. Só faz sentido para empresas 100% Microsoft.</p>
+      <p>Integração nativa com M365 e Entra ID. Mas: licenciamento notoriamente complexo, sem Fact-Check, sem audit trail completo. Só faz sentido para empresas 100% Microsoft.</p>
     </div>
     <div class="comp-card">
       <strong>Claude Enterprise</strong>
@@ -592,17 +550,16 @@
     </div>
   </div>
 
-  <h3>4.3 O que nenhum deles tem e o portal tem</h3>
+  <h3>3.3 O que nenhum deles tem e o portal tem</h3>
 
   <div class="callout"><strong>Fact-Check afirmação por afirmação:</strong> o portal extrai cada afirmação individual de uma resposta e verifica contra fontes web. Nenhum concorrente oferece isso — nem ChatGPT, nem Perplexity, nem Open WebUI.</div>
   <div class="callout"><strong>Audit Trail JSONB com conteúdo completo:</strong> o portal registra cada interação com mensagens completas, custo, latência e modelo. ChatGPT tem logs de API parciais. Os demais simplesmente não têm.</div>
   <div class="callout"><strong>Single-tenant + cliente soberano:</strong> cada empresa tem seu banco PostgreSQL isolado e 100% das configurações abertas. ChatGPT, Claude e Copilot são multi-tenant. Open WebUI e Dify exigem que o cliente monte e mantenha a infra.</div>
-  <div class="callout"><strong>Preço 4-7× menor</strong> que os concorrentes enterprise, com mais funcionalidades de governança.</div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>5. O que o portal entrega que nenhum concorrente entrega</h2>
+  <h2>4. O que o portal entrega que nenhum concorrente entrega</h2>
 
   <div class="table-wrap">
   <table style="min-width:600px;">
@@ -655,7 +612,7 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>6. Resumo para o gestor</h2>
+  <h2>5. Resumo para o gestor</h2>
 
   <p><strong>Usar Gemini/ChatGPT/Claude direto</strong> resolve o problema de <strong>1 funcionário</strong>. Funciona para experimentação. Mas quando a empresa coloca IA nas mãos de 50+ pessoas, o que importa não é só a qualidade da resposta — é <strong>quem perguntou o quê, quanto custou, se a resposta era verdadeira, e se está tudo documentado para o dia em que o auditor ou o DPO bater na porta.</strong></p>
 
@@ -669,7 +626,6 @@
         <li>Compliance regulatório (LGPD, normas setoriais)</li>
         <li>Previsibilidade de custo (daily limit por usuário)</li>
         <li>Rastreabilidade total (quem, o quê, quando, quanto custou)</li>
-        <li><strong>80% menos custo</strong> que ChatGPT Enterprise</li>
         <li>Dados em <strong>PostgreSQL isolado na VM</strong> do cliente</li>
         <li><strong>API Keys próprias</strong> — sem intermediação ou revenda de tokens</li>
       </ul>
@@ -688,7 +644,7 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>7. Arquitetura</h2>
+  <h2>6. Arquitetura</h2>
 
   <div class="arch-diagram">
     <div class="arch-row">
@@ -727,7 +683,7 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>8. Interessado?</h2>
+  <h2>7. Interessado?</h2>
 
   <p style="text-align:center; font-size:17px; margin:32px 0;">
     Cada implantação é tratada como caso único.<br>
