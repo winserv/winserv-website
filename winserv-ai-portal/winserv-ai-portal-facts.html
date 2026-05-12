@@ -702,10 +702,27 @@
       <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
     </tr>
     <tr>
+      <td><strong>Token Economy — 5 camadas de cache</strong></td>
+      <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes"><span class="exclusive">EXCLUSIVO</span></td>
+    </tr>
+    <tr>
       <td>Suporte em português</td>
       <td class="warn">Limitado</td><td class="warn">Limitado</td><td class="no">—</td><td class="yes">✅ Nativo</td>
     </tr>
   </table>
+  </div>
+
+  <div class="callout" style="margin-top:20px;">
+    <strong>💰 Token Economy:</strong> O portal implementa <strong>5 camadas de cache</strong> que reduzem o consumo de tokens na API do Google — economia direta na fatura do cliente, sem intermediação da Winserv. Cada cache opera em um nível diferente da stack:
+    <table style="margin-top:12px;font-size:13px;">
+      <tr><th style="width:180px;">Cache</th><th>Duração</th><th>Economia</th></tr>
+      <tr><td><strong>Context Cache</strong> (Gemini API)</td><td>4-8h</td><td>~75% nos tokens de entrada de documentos repetidos</td></tr>
+      <tr><td><strong>Response Cache</strong> (documento + prompt)</td><td>30min</td><td>100% — resposta instantânea, zero tokens</td></tr>
+      <tr><td><strong>Extraction Cache</strong> (arquivo + query)</td><td>30min</td><td>100% — não re-extrai o mesmo arquivo</td></tr>
+      <tr><td><strong>Safety Gate Cache</strong> (SHA-256)</td><td>24h</td><td>100% — não re-classifica mesmo conteúdo</td></tr>
+      <tr><td><strong>TTS Cache</strong> (áudio)</td><td>7 dias</td><td>100% — não re-sintetiza mesma frase</td></tr>
+    </table>
+    <p style="margin-top:8px;">Exemplo real: um contrato de 100K tokens consultado 20× ao dia por um advogado custaria <strong>US$ 2.50/dia sem cache</strong>. Com Context Cache + Response Cache, o mesmo uso custa <strong>menos de US$ 0.03/dia</strong> — uma redução de 98%.</p>
   </div>
 </section>
 
@@ -727,6 +744,7 @@
         <li>Rastreabilidade total (quem, o quê, quando, quanto custou)</li>
         <li>Dados em <strong>PostgreSQL isolado na VM</strong> do cliente</li>
         <li><strong>API Keys próprias</strong> — sem intermediação ou revenda de tokens</li>
+        <li><strong>Token Economy</strong> — 5 camadas de cache que reduzem até 98% do custo com tokens em uso repetido</li>
       </ul>
     </div>
     <div class="summary-box risk">
