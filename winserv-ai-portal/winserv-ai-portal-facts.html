@@ -330,6 +330,7 @@
       <span>Produto: winserv-ai-portal</span>
       <span>Infra: VM dedicada · Single-tenant</span>
       <span><strong>🔑 API Keys do cliente</strong> — sem revenda de tokens</span>
+      <span style="color:#64748b;">Versão 2.0 · Maio 2026</span>
     </div>
   </div>
 </div>
@@ -344,8 +345,8 @@
   <div class="intro-grid">
     <div class="intro-card">
       <div class="icon">🔐</div>
-      <strong>Dados na guarda do cliente</strong>
-      <p>Todo o histórico de conversas, documentos e configurações reside no <strong>PostgreSQL isolado</strong> da VM do cliente. Nenhum dado transita ou persiste em infraestrutura da Winserv.</p>
+      <strong>Dados isolados por cliente</strong>
+      <p>Todo o histórico de conversas, documentos e configurações reside no <strong>PostgreSQL isolado</strong> da VM do cliente (single-tenant). A Winserv provisiona a infraestrutura, mas cada cliente tem seu banco dedicado — sem compartilhamento.</p>
     </div>
     <div class="intro-card">
       <div class="icon">🔑</div>
@@ -428,19 +429,19 @@
   <h2>2. Por que Gemini é o motor certo <span style="font-weight:400;color:#64748b;font-size:15px;">(e o portal potencializa isso)</span></h2>
 
   <h3>2.1 Web Grounding nativo — busca em tempo real</h3>
-  <p>O Gemini tem integração nativa com Google Search. A IA <strong>busca informações atualizadas na internet no momento da pergunta</strong>, reduzindo drasticamente alucinações. ChatGPT e Claude cobram por busca externa — ou simplesmente não têm.</p>
-  <div class="callout"><strong>No portal:</strong> o grounding é <strong>integrado</strong> (~1.500 consultas/dia via AI Studio). ChatGPT Enterprise cobra por query no Bing. Claude Enterprise não tem web search.</div>
+  <p>O Gemini tem integração nativa com Google Search. A IA <strong>busca informações atualizadas na internet no momento da pergunta</strong>, reduzindo drasticamente alucinações. ChatGPT cobra por busca externa. Claude tem web search via Brave Search — uma alternativa poderosa e independente de Big Tech. O Brave também oferece API de Contexto para LLM (lançada em fevereiro de 2026) que entrega "Smart Chunks" pré-processados, reduzindo latência e consumo de tokens.</p>
+  <div class="callout"><strong>No portal:</strong> o grounding é <strong>integrado</strong> (~1.500 consultas/dia via AI Studio, sem custo adicional). Para quem prefere stack aberta (Brave + qualquer LLM), o portal é compatível com a API do Brave via abstração multi-provedor no roadmap. A vantagem do portal não é o motor de busca — é a <strong>camada de governança sobre ele</strong>: Fact-Check, Audit Trail, RBAC.</div>
 
   <h3>2.2 Visão computacional e OCR superiores</h3>
-  <p>Para processamento de PDFs pesados, tabelas complexas e imagens, a capacidade de visão do Gemini é nativa e superior. ChatGPT requer múltiplos modelos separados. Claude tem janela menor (200K vs 1M tokens).</p>
+  <p>Para processamento de PDFs pesados, tabelas complexas e imagens, a capacidade de visão do Gemini é nativa e superior. ChatGPT requer múltiplos modelos separados. Claude tem janela de 500K tokens (Enterprise).</p>
   <div class="callout"><strong>No portal:</strong> usamos In-Context Learning — o documento inteiro cabe na janela de 1M tokens do Gemini 2.5 Pro, sem precisar de RAG, chunking ou vector stores. O conteúdo completo fica auditável.</div>
 
   <h3>2.3 Multimodalidade unificada</h3>
-  <p>O portal processa PDF, DOCX, XLSX, PPTX, imagens, áudio e ZIP. O Gemini faz tudo isso em <strong>uma única API</strong>. ChatGPT exigiria Whisper (áudio) + GPT-4o (texto/imagem) + plugins — mais complexo, mais caro, mais pontos de falha.</p>
+  <p>O portal processa PDF, DOCX, XLSX, PPTX, imagens, áudio e ZIP. O Gemini faz tudo isso em <strong>uma única API</strong>. Para ChatGPT, o processamento de áudio requer Whisper (separado) e a extração de documentos exige parsing adicional — mais componentes, mais pontos de falha.</p>
 
-  <h3>2.4 Segurança de dados centralizada</h3>
-  <p>Google não usa dados de clientes para treinar modelos (via AI Studio / Vertex AI). Para ter a mesma garantia com GPT (Azure OpenAI) e Claude (AWS Bedrock), o cliente gerenciaria <strong>2 ou 3 nuvens diferentes</strong> — acessos, faturamento, auditoria.</p>
-  <div class="callout"><strong>No portal:</strong> uma única conta Google Cloud. Uma única VM. Um único contrato.</div>
+  <h3>2.4 Stack aberta vs integrada — o debate real</h3>
+  <p>Em 2026, a combinação <strong>Brave Search API + GPT-4/Claude/Qwen</strong> é considerada por muitos desenvolvedores a escolha superior para cenários que exigem controle fino sobre busca e geração. A API de Contexto para LLM do Brave (fevereiro de 2026) entrega "Smart Chunks" — texto principal, tabelas e blocos de código extraídos e comprimidos, prontos para o modelo. Latência abaixo de 600ms. Custo fixo de US$ 5/1.000 buscas — mais barato que grounding do Google em escala.</p>
+  <p><strong>Para um desenvolvedor solo ou uma startup, Brave + GPT é imbatível.</strong> Para uma empresa com 50+ funcionários usando IA, o que falta nessa stack é exatamente o que o portal entrega: <strong>quem perguntou o quê, quanto custou, se a resposta era verdadeira, e se está tudo documentado para o auditor.</strong> O portal não compete com o Brave — ele opera sobre qualquer motor de busca como camada de governança. A abstração multi-provedor no roadmap permitirá usar Brave como fonte de grounding, mantendo Fact-Check, Audit Trail e RBAC intactos.</p>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
@@ -464,62 +465,63 @@
       <th>Perplexity</th>
       <th>OpenWebUI</th>
       <th>Dify</th>
+      <th>Manus</th>
     </tr>
     <tr>
       <td>Chat IA</td>
-      <td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td>
+      <td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td>
     </tr>
     <tr>
       <td>Web Search</td>
-      <td class="yes">✅ incluso</td><td class="warn">⚠️ pago</td><td class="warn">⚠️ Bing</td><td class="no">❌</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td>
+      <td class="yes">✅ incluso</td><td class="warn">⚠️ pago</td><td class="warn">⚠️ Bing</td><td class="yes">✅</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="yes">✅</td>
     </tr>
     <tr>
       <td>Fact-Check</td>
-      <td class="yes"><span class="exclusive">EXCLUSIVO</span></td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
+      <td class="yes"><span class="exclusive">EXCLUSIVO</span></td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>Audit Trail</td>
-      <td class="yes">✅ JSONB</td><td class="warn">⚠️ API</td><td class="warn">⚠️ PP</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
+      <td class="yes">✅ JSONB</td><td class="warn">⚠️ API</td><td class="warn">⚠️ PP</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>RBAC</td>
-      <td class="yes">✅ 4 níveis</td><td class="no">❌ 2</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="no">❌</td><td class="warn">⚠️</td>
+      <td class="yes">✅ 4 níveis</td><td class="no">❌ 2</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>Single-tenant</td>
-      <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td>
+      <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>Cliente soberano</td>
-      <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td>
+      <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>Docs (ICL/RAG)</td>
-      <td class="yes">✅ 1M tok</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅ 200K</td><td class="warn">⚠️</td><td class="no">❌</td><td class="yes">✅ RAG</td>
+      <td class="yes">✅ 1M tok</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅ 500K</td><td class="warn">⚠️</td><td class="yes">✅ RAG</td><td class="yes">✅ RAG</td><td class="yes">✅</td>
     </tr>
     <tr>
       <td>STT/TTS</td>
-      <td class="yes">✅</td><td class="warn">⚠️ API</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
+      <td class="yes">✅</td><td class="warn">⚠️ API</td><td class="warn">⚠️</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>White Label</td>
-      <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️</td>
+      <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>FinOps</td>
-      <td class="yes">✅</td><td class="warn">⚠️ API</td><td class="warn">⚠️ PBI</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
+      <td class="yes">✅</td><td class="warn">⚠️ API</td><td class="warn">⚠️ PBI</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>Zero CDN</td>
-      <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td>
+      <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td><td class="no">❌</td>
     </tr>
     <tr>
       <td>Suporte pt-BR</td>
-      <td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️</td>
+      <td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️ EN</td>
     </tr>
     <tr>
       <td>LGPD</td>
-      <td class="yes">✅</td><td class="warn">⚠️ EUA</td><td class="yes">✅ EU</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="yes">✅</td>
+      <td class="yes">✅</td><td class="warn">⚠️ EUA</td><td class="yes">✅ EU</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="yes">✅</td><td class="warn">⚠️</td>
     </tr>
   </table>
   </div>
@@ -529,7 +531,7 @@
   <div class="competitor-grid">
     <div class="comp-card">
       <strong>ChatGPT Enterprise</strong>
-      <p>Melhor marca, melhor modelo. Mas: dados nos EUA (LGPD frágil), sem audit trail real, sem Fact-Check. Bom para produtividade individual, não resolve governança.</p>
+      <p>Melhor marca, melhor modelo. Mas: dados nos EUA (LGPD frágil), audit trail limitado via API, sem Fact-Check. Bom para produtividade individual, não resolve governança.</p>
     </div>
     <div class="comp-card">
       <strong>Microsoft Copilot Studio</strong>
@@ -537,26 +539,30 @@
     </div>
     <div class="comp-card">
       <strong>Claude Enterprise</strong>
-      <p>Melhor segurança de modelo (Constitutional AI). Mas: sem web search, sem Fact-Check, sem STT/TTS, janela de contexto menor (200K vs 1M tokens). Foco em segurança do modelo, não em governança.</p>
+      <p>Melhor segurança de modelo (Constitutional AI). Web search via Brave Search — com API de Contexto para LLM que entrega dados pré-processados, reduzindo alucinações. 500K tokens de contexto. Mas: sem Fact-Check, sem STT/TTS nativo, sem audit trail completo. Foco em segurança do modelo, não em governança corporativa.</p>
     </div>
     <div class="comp-card">
       <strong>Perplexity Enterprise</strong>
-      <p>Excelente pesquisa web. Mas: não verifica claims individuais (cita fontes, não audita afirmações), sem RBAC granular, sem audit trail. É motor de busca com IA, não plataforma de governança.</p>
+      <p>Excelente pesquisa web com citações. Tem RBAC, SSO e audit logs no tier Enterprise Pro. Mas: não verifica claims individuais (cita fontes, não audita afirmações), sem single-tenant. É motor de busca com IA, não plataforma de governança.</p>
     </div>
     <div class="comp-card">
       <strong>Open WebUI</strong>
-      <p>Open source, gratuito, multi-modelo. Mas: RBAC limitado a admin/user, sem audit trail, sem Fact-Check, suporte depende de comunidade. Cliente teria que construir toda a camada de governança do zero.</p>
+      <p>Open source, gratuito, multi-modelo, self-hosted. Tem RAG, voice, plugins. Mas: RBAC limitado a admin/user, sem audit trail de conteúdo, sem Fact-Check, suporte depende de comunidade. Cliente teria que construir toda a camada de governança do zero.</p>
     </div>
     <div class="comp-card">
       <strong>Dify</strong>
-      <p>Open source, RAG visual, multi-modelo. Mas: RBAC avançado só no tier Enterprise pago, sem Fact-Check, complexidade operacional alta (gerenciar embeddings, vector stores).</p>
+      <p>Open source, RAG visual, multi-modelo. Enterprise tem RBAC avançado e audit logging. Mas: sem Fact-Check, complexidade operacional alta (gerenciar embeddings, vector stores).</p>
+    </div>
+    <div class="comp-card">
+      <strong>Manus AI</strong>
+      <p>Agentes autônomos para pesquisa web, análise de documentos e execução de tarefas. Fora do território da China disponível apenas em nuvem.</p>
     </div>
   </div>
 
   <h3>3.3 O que nenhum deles tem e o portal tem</h3>
 
   <div class="callout"><strong>Fact-Check afirmação por afirmação:</strong> o portal extrai cada afirmação individual de uma resposta e verifica contra fontes web. Nenhum concorrente oferece isso — nem ChatGPT, nem Perplexity, nem Open WebUI.</div>
-  <div class="callout"><strong>Audit Trail JSONB com conteúdo completo:</strong> o portal registra cada interação com mensagens completas, custo, latência e modelo. ChatGPT tem logs de API parciais. Os demais simplesmente não têm.</div>
+  <div class="callout"><strong>Audit Trail JSONB com conteúdo completo:</strong> o portal registra cada interação com mensagens completas, custo, latência e modelo. ChatGPT, Perplexity e Dify têm logs parciais. Claude, Open WebUI e Manus simplesmente não têm.</div>
   <div class="callout"><strong>Single-tenant + cliente soberano:</strong> cada empresa tem seu banco PostgreSQL isolado e 100% das configurações abertas. ChatGPT, Claude e Copilot são multi-tenant. Open WebUI e Dify exigem que o cliente monte e mantenha a infra.</div>
 </section>
 
@@ -694,7 +700,7 @@
     </tr>
     <tr>
       <td>Grounding incluso</td>
-      <td class="no">❌ (pago)</td><td class="no">❌ (não tem)</td><td class="yes">✅</td><td class="yes">✅</td>
+      <td class="no">❌ (pago)</td><td class="yes">✅ Brave</td><td class="yes">✅</td><td class="yes">✅</td>
     </tr>
     <tr>
       <td>Zero CDN externo (air-gap ready)</td>
@@ -711,6 +717,10 @@
     <tr>
       <td>Suporte em português</td>
       <td class="warn">Limitado</td><td class="warn">Limitado</td><td class="no">—</td><td class="yes">✅ Nativo</td>
+    </tr>
+    <tr>
+      <td><strong>Motor de LLM flexível</strong></td>
+      <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅ Gemini + OpenAI (Brave em roadmap)</td>
     </tr>
   </table>
   </div>
@@ -775,35 +785,198 @@
       <div class="arch-box caddy">🔒 Caddy<br><small>TLS · Let's Encrypt</small></div>
     </div>
     <div class="arch-arrow">▼</div>
-    <div class="arch-row">
-      <div class="arch-box fastapi">⚡ FastAPI :4001<br><small>winserv-llm-proxy</small></div>
-      <div class="arch-arrow-h">→</div>
-      <div class="arch-box gemini">🧠 Google Gemini<br><small>AI Studio API</small></div>
+    <div class="arch-row" style="flex-wrap:wrap;gap:12px;">
+      <div class="arch-box fastapi" style="min-width:200px;">⚡ FastAPI :4001<br><small>winserv-llm-proxy</small></div>
     </div>
     <div class="arch-sub">
-      <span>Routers: Chat · Auth · Audio · Extract · Admin · Fact-Check</span>
-      <span>Middleware: Security · Rate Limit · Payload Guard</span>
-      <span>Gov: RBAC 4-tier · Audit Trail JSONB · Safety Gate · FinOps</span>
+      <span>🗂️ StaticFiles: frontend/ (HTML+JS+CSS)</span>
+      <span>🔐 Middleware: CSP · HSTS · Rate Limit · BodyGuard</span>
+      <span>📋 Routers: Chat · Auth · Audio · Extract · Admin · Fact-Check</span>
+      <span>🛡️ RBAC 4-tier · Safety Gate · Audit Trail · FinOps</span>
+    </div>
+    <div class="arch-arrow">▼</div>
+    <div class="arch-row" style="gap:16px;flex-wrap:wrap;">
+      <div class="arch-box gemini">🧠 Google Gemini<br><small>AI Studio API Key</small></div>
+      <div class="arch-box gemini" style="border-color:#c4b5fd;">🎤 Google STT/TTS<br><small>Cloud API Key</small></div>
     </div>
     <div class="arch-arrow">▼</div>
     <div class="arch-row">
       <div class="arch-box postgres">🗄️ PostgreSQL 16<br><small>Schema portal_ai</small></div>
     </div>
     <div class="arch-sub">
-      <span>LOGGED: users · roles · groups · conversations · telemetry</span>
-      <span>UNLOGGED: rate-limit · cache TTS · cache docs · context cache</span>
+      <span>LOGGED: users · roles · groups · conversations · request_telemetry · system_settings</span>
+      <span>UNLOGGED: rate_limit · tts_cache · extract_cache · context_caches · safety_cache</span>
     </div>
     <div class="arch-footer">
       <span>🐳 Docker Compose</span>
       <span>💻 VM Ubuntu 24.04</span>
-      <span>☁️ Azure · AWS · GCP · On-Premise</span>
+      <span>☁️ AWS Lightsail · Azure · GCP · On-Premise</span>
     </div>
+  </div>
+
+  <div class="callout" style="margin-top:16px;">
+    <strong>🧩 Stack completa:</strong> O portal é um monorepo com backend FastAPI (<code>winserv-llm-proxy/</code>) e frontend vanilla JS (<code>frontend/</code>). O backend serve a API, o frontend estático e o painel admin. Tudo roda em 3 containers Docker: PostgreSQL (banco isolado), Portal (FastAPI+frontend) e Caddy (TLS automático via Let's Encrypt). Zero Redis, zero fila, zero CDN externo, zero Microsoft Graph. Superfície mínima para segurança máxima.
   </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
-  <h2>8. Interessado?</h2>
+  <h2>8. Glossário — Termos de IA e Infraestrutura</h2>
+
+  <p style="margin-bottom:16px;">Para gestores, auditores e parceiros que precisam dominar o vocabulário da área. Organizado do conceito mais fundamental ao mais específico do portal.</p>
+
+  <h3>Conceitos fundamentais de IA</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Termo</th><th>Significado</th><th>Por que importa</th></tr>
+    <tr>
+      <td><strong>LLM</strong> (Large Language Model)</td>
+      <td>Modelo de IA treinado em bilhões de textos para entender e gerar linguagem natural. Ex: Gemini, GPT-4, Claude.</td>
+      <td>É o "cérebro" por trás de qualquer chat de IA.</td>
+    </tr>
+    <tr>
+      <td><strong>Token</strong></td>
+      <td>Unidade de processamento do modelo. ~1 token = ¾ de uma palavra em português. Modelos cobram por token de entrada (input) e de saída (output).</td>
+      <td>Determina o custo da API. 1M tokens ≈ 750 mil palavras ≈ um livro de 3.000 páginas.</td>
+    </tr>
+    <tr>
+      <td><strong>Context Window</strong> (Janela de Contexto)</td>
+      <td>Quantidade máxima de tokens que o modelo "enxerga" de uma vez. Gemini 2.5 Pro: 1M tokens. Claude Enterprise: 500K. GPT-4: 128K.</td>
+      <td>Define quanto conteúdo cabe numa conversa. 1M tokens = cabem PDFs de 500+ páginas inteiros.</td>
+    </tr>
+    <tr>
+      <td><strong>Grounding</strong> (Web Search)</td>
+      <td>Capacidade do modelo de buscar informações atualizadas na internet durante a resposta. O Gemini faz nativamente via Google Search.</td>
+      <td>Reduz alucinações — o modelo consulta fontes reais em vez de "adivinhar".</td>
+    </tr>
+    <tr>
+      <td><strong>Alucinação</strong> (Hallucination)</td>
+      <td>Quando o modelo gera informação convincente mas factualmente incorreta. Ex: inventar um artigo de lei, um valor, uma data.</td>
+      <td>É o principal risco jurídico do uso de IA. Fact-Check existe para mitigar isso.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>Técnicas de processamento de documentos</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Termo</th><th>Significado</th><th>O portal usa?</th></tr>
+    <tr>
+      <td><strong>RAG</strong> (Retrieval-Augmented Generation)</td>
+      <td>Técnica que fatia documentos em pedaços (chunks), armazena em banco vetorial e recupera trechos relevantes durante a pergunta. Usada por Dify, AnythingLLM, Copilot.</td>
+      <td><span class="no">❌ Não usa</span> — substituído por ICL. RAG perde contexto entre seções e exige manutenção de embeddings.</td>
+    </tr>
+    <tr>
+      <td><strong>ICL</strong> (In-Context Learning)</td>
+      <td>Envia o documento <strong>íntegro</strong> na janela de contexto do modelo, sem fatiar. O modelo lê o documento inteiro a cada conversa.</td>
+      <td><span class="yes">✅ Sim</span> — viável graças à janela de 1M tokens do Gemini 2.5 Pro.</td>
+    </tr>
+    <tr>
+      <td><strong>Chunking</strong></td>
+      <td>Processo de dividir um documento em pedaços menores (chunks) para indexação. Ex: quebrar um PDF de 100 páginas em 500 pedaços de 200 tokens cada.</td>
+      <td><span class="no">❌ Não usa</span> — desnecessário com ICL.</td>
+    </tr>
+    <tr>
+      <td><strong>Embedding</strong></td>
+      <td>Representação numérica (vetor) do significado de um texto. Usado para busca semântica — encontrar trechos "parecidos" com a pergunta.</td>
+      <td><span class="no">❌ Não usa</span> — não há busca vetorial no portal.</td>
+    </tr>
+    <tr>
+      <td><strong>Vector Store</strong></td>
+      <td>Banco de dados especializado em armazenar e buscar embeddings. Ex: pgvector, Pinecone, ChromaDB.</td>
+      <td><span class="no">❌ Não usa</span> — o portal usa apenas PostgreSQL tradicional.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>Arquitetura e Infraestrutura</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Termo</th><th>Significado</th><th>No portal</th></tr>
+    <tr>
+      <td><strong>Single-tenant</strong></td>
+      <td>Cada cliente tem seu próprio banco de dados e infraestrutura isolada. Oposto de multi-tenant (todos compartilham).</td>
+      <td>Cada cliente recebe VM + PostgreSQL dedicados.</td>
+    </tr>
+    <tr>
+      <td><strong>JSONB</strong></td>
+      <td>Formato binário de JSON no PostgreSQL. Permite armazenar documentos estruturados com consultas indexadas.</td>
+      <td>Usado no audit trail — cada mensagem completa é armazenada em JSONB.</td>
+    </tr>
+    <tr>
+      <td><strong>RBAC</strong> (Role-Based Access Control)</td>
+      <td>Controle de acesso baseado em papéis. Cada usuário recebe um nível (ex: user, auditor, admin) que define o que pode fazer.</td>
+      <td>4 níveis: user → auditor → llm_manager → global_admin.</td>
+    </tr>
+    <tr>
+      <td><strong>SSE</strong> (Server-Sent Events)</td>
+      <td>Protocolo que permite ao servidor enviar dados ao navegador em tempo real. Usado para streaming de texto (resposta aparece palavra por palavra).</td>
+      <td>Chat streaming usa SSE — tokens chegam em tempo real.</td>
+    </tr>
+  </table>
+  </div>
+
+  <h3>Componentes específicos do portal</h3>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Termo</th><th>Significado</th><th>Por que importa</th></tr>
+    <tr>
+      <td><strong>JSONB Imutável</strong></td>
+      <td>JSONB (Binary JSON) é o formato nativo do PostgreSQL para armazenar documentos estruturados com indexação e consultas rápidas — superior ao JSON texto. No portal, o audit trail é <strong>imutável por arquitetura</strong>: cada registro é criado via INSERT e jamais sofre UPDATE ou DELETE. Isso significa que nenhum administrador, nem mesmo o global_admin, pode alterar ou apagar o histórico após gravado.</td>
+      <td>É o que torna o portal <strong>auditável de verdade</strong>. Numa auditoria real (Bacen, ANPD, CRC), logs que permitem UPDATE não têm valor probatório. JSONB imutável garante que o dado original — incluindo conteúdo completo das mensagens — permanece íntegro e verificável. Técnica usada em sistemas financeiros e de compliance regulatório.</td>
+    </tr>
+    <tr>
+      <td><strong>Fact-Check</strong></td>
+      <td>Sistema que extrai cada afirmação individual de uma resposta da IA e verifica contra fontes web. Atribui um dos 5 vereditos: <strong>Precisa</strong> (confirmada por fontes), <strong>Imprecisa</strong> (parcialmente correta), <strong>Contestada</strong> (fontes divergem), <strong>Não Verificável</strong> (sem fontes disponíveis), <strong>Enganosa</strong> (fontes contradizem).</td>
+      <td>Exclusivo do portal. Elimina o risco de um advogado protocolar uma petição com jurisprudência inventada pela IA, ou um contador enviar um parecer com artigo de lei que não existe. O veredito vem com fontes — o auditor humano decide.</td>
+    </tr>
+    <tr>
+      <td><strong>Safety Gate</strong></td>
+      <td>Camada de classificação que analisa pergunta e resposta em <strong>10 categorias de segurança</strong> (discurso de ódio, violência, conteúdo sexual, automutilação, etc.) antes da entrega ao usuário. Usa modelo Gemini Flash-Lite com cache SHA-256 (24h TTL). <strong>Política fail-open:</strong> se o classificador falhar, o conteúdo passa — segurança não pode bloquear produtividade.</td>
+      <td>Diferente de filtros de API que simplesmente rejeitam, o Safety Gate classifica e registra. O gestor audita depois quais conteúdos foram bloqueados e por quê. Transparência total sobre o que a IA está entregando.</td>
+    </tr>
+    <tr>
+      <td><strong>Audit Trail</strong></td>
+      <td>Registro completo e imutável de cada interação: <strong>quem</strong> perguntou (user_id), <strong>o quê</strong> (messages_json completo), <strong>qual modelo</strong> respondeu, <strong>quantos tokens</strong> (input + output), <strong>quanto custou</strong> (USD com 6 casas decimais), <strong>qual latência</strong> (ms), e se usou web search. Tudo armazenado em JSONB imutável, exportável em CSV agrupado por conversa.</td>
+      <td>Quando o auditor do Bacen bater na porta perguntando "onde está o histórico de uso de IA desta equipe?", a resposta é um clique: exportar CSV. Sem audit trail, a resposta é "não temos como saber" — e isso custa a licença de funcionamento.</td>
+    </tr>
+    <tr>
+      <td><strong>FinOps</strong></td>
+      <td>Dashboard de operações financeiras integrado ao portal. Mostra custo por modelo, por usuário, por dia. Projeções mensais com base no uso atual. Comparativo entre tiers (Standard vs Advanced). Permite configurar <strong>daily cost limit</strong> por usuário ou grupo — a IA bloqueia novas requisições quando o teto diário é atingido.</td>
+      <td>O gestor financeiro não precisa acessar o billing do Google Cloud para saber quanto a IA está custando. Tudo visível no painel admin. Isso evita a "surpresa da fatura" e permite orçamento previsível.</td>
+    </tr>
+    <tr>
+      <td><strong>Token Economy</strong></td>
+      <td>Conjunto de 5 caches independentes que reduzem o consumo de tokens: <strong>Context Cache</strong> (Gemini API, 4-8h, ~75% economia), <strong>Response Cache</strong> (documento+prompt, 30min, 100%), <strong>Extraction Cache</strong> (arquivo, 30min, 100%), <strong>Safety Gate Cache</strong> (SHA-256, 24h, 100%), <strong>TTS Cache</strong> (áudio, 7 dias, 100%).</td>
+      <td>Exclusivo do portal. Exemplo real: um contrato de 100K tokens consultado 20× ao dia custaria US$ 2.50/dia sem cache. Com Context Cache + Response Cache, o mesmo uso custa <strong>menos de US$ 0.03/dia — redução de 98%</strong>. Isso impacta direto o orçamento de TI.</td>
+    </tr>
+    <tr>
+      <td><strong>OIDC</strong> (OpenID Connect)</td>
+      <td>Protocolo de autenticação baseado em OAuth 2.0. O portal usa OIDC puro com Microsoft Entra ID: escopos mínimos (openid, profile, email), sem tokens Microsoft Graph, sem acesso a arquivos do cliente. Validação com JWKS, nonce anti-replay, cookie assinado HMAC-SHA256.</td>
+      <td>Princípio do menor privilégio: o portal sabe <strong>quem</strong> é o usuário, não <strong>o que</strong> ele tem no Microsoft 365. Se o PostgreSQL for comprometido, o invasor não consegue escalar para o tenant Microsoft do cliente. Defesa em profundidade.</td>
+    </tr>
+    <tr>
+      <td><strong>STT</strong> (Speech-to-Text)</td>
+      <td>Transcrição de áudio em texto via Google Cloud Speech-to-Text com modelo <strong>latest_short</strong> otimizado para comandos de voz curtos em pt-BR. VAD (Voice Activity Detection) nativo no navegador detecta silêncio de 1.5s e encerra a gravação automaticamente.</td>
+      <td>Motor acústico — zero alucinação na transcrição. Diferente de LLMs que "escutam" e podem interpretar errado, o STT é processamento de sinal determinístico. O áudio original é preservado para auditoria.</td>
+    </tr>
+    <tr>
+      <td><strong>TTS</strong> (Text-to-Speech)</td>
+      <td>Síntese de voz via Google Cloud TTS Neural2 com voz <strong>pt-BR-Neural2-B</strong>. Áudio gerado sob demanda, cache de 7 dias, truncado a 5000 caracteres por payload.</td>
+      <td>Voz natural em português brasileiro. Com cache de 7 dias, frases repetidas (ex: "Como posso ajudar?") não geram custo adicional de API.</td>
+    </tr>
+    <tr>
+      <td><strong>Entra ID</strong></td>
+      <td>Plataforma de identidade da Microsoft (antigo Azure AD). Usado para login corporativo no portal. Google Workspaces e autenticação local em roadmap (🔴 prioridade alta).</td>
+      <td>Single Sign-On corporativo — o usuário não cria mais uma senha. O admin do Entra ID controla quem acessa. Em caso de desligamento, o acesso ao portal cessa automaticamente.</td>
+    </tr>
+  </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<section>
+  <h2>9. Interessado?</h2>
 
   <p style="text-align:center; font-size:17px; margin:32px 0;">
     Cada implantação é tratada como caso único.<br>
@@ -816,6 +989,8 @@
     </strong>
   </p>
 </section>
+
+<p style="text-align:center;font-size:12px;color:#94a3b8;padding:0 0 40px;">Última atualização: Maio 2026 · Versão 2.0 · winserv-ai-portal</p>
 
 </div>
 </body>
