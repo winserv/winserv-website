@@ -956,13 +956,13 @@
     </tr>
     <tr>
       <td><strong>OIDC</strong> (OpenID Connect)</td>
-      <td>Protocolo de autenticação baseado em OAuth 2.0. O portal usa OIDC puro com Microsoft Entra ID: escopos mínimos (openid, profile, email), sem tokens Microsoft Graph, sem acesso a arquivos do cliente. Validação com JWKS, nonce anti-replay, cookie assinado HMAC-SHA256.</td>
+      <td>Protocolo de autenticação baseado em OAuth 2.0. O portal usa OIDC puro multi-provider (Microsoft Entra ID, Google Workspaces). Conta de recuperação administrativa local (`winserv`, PBKDF2-SHA256) para emergências. Escopos mínimos (openid, profile, email), sem tokens Microsoft Graph. Validação com JWKS, nonce anti-replay, cookie assinado HMAC-SHA256.</td>
       <td>Princípio do menor privilégio: o portal sabe <strong>quem</strong> é o usuário, não <strong>o que</strong> ele tem no Microsoft 365. Se o PostgreSQL for comprometido, o invasor não consegue escalar para o tenant Microsoft do cliente. Defesa em profundidade.</td>
     </tr>
     <tr>
       <td><strong>STT</strong> (Speech-to-Text)</td>
       <td>Transcrição de áudio em texto via Google Cloud Speech-to-Text com modelo <strong>latest_short</strong> otimizado para comandos de voz curtos em pt-BR. VAD (Voice Activity Detection) nativo no navegador detecta silêncio de 1.5s e encerra a gravação automaticamente.</td>
-      <td>Motor acústico — zero alucinação na transcrição. Diferente de LLMs que "escutam" e podem interpretar errado, o STT é processamento de sinal determinístico. O áudio original é preservado para auditoria.</td>
+      <td>Motor acústico — zero alucinação na transcrição. Diferente de LLMs que "escutam" e podem interpretar errado, o STT é processamento de sinal determinístico. O áudio original é preservado no banco para auditoria — acessível via painel admin.</td>
     </tr>
     <tr>
       <td><strong>TTS</strong> (Text-to-Speech)</td>
@@ -971,7 +971,7 @@
     </tr>
     <tr>
       <td><strong>Entra ID</strong></td>
-      <td>Plataforma de identidade da Microsoft (antigo Azure AD). Usado para login corporativo no portal. Google Workspaces e autenticação local em roadmap (🔴 prioridade alta).</td>
+      <td>Plataforma de identidade da Microsoft (antigo Azure AD). Usado para login corporativo no portal. Google Workspaces também disponível como IdP alternativo. Conta de recuperação local `winserv` para emergências administrativas (V10).</td>
       <td>Single Sign-On corporativo — o usuário não cria mais uma senha. O admin do Entra ID controla quem acessa. Em caso de desligamento, o acesso ao portal cessa automaticamente.</td>
     </tr>
   </table>
