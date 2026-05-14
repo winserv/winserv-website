@@ -330,12 +330,16 @@
       <span>Produto: winserv-ai-portal</span>
       <span>Infra: VM dedicada · Single-tenant</span>
       <span><strong>🔑 API Keys do cliente</strong> — sem revenda de tokens</span>
-      <span style="color:#64748b;">Versão 2.0 · Maio 2026</span>
+      <span style="color:#64748b;">Versão 2.1 · Maio 2026</span>
     </div>
   </div>
 </div>
 
 <div class="container">
+
+<div style="background:#fffbeb;border-left:4px solid #d97706;padding:12px 16px;margin:24px 0;border-radius:6px;font-size:13px;color:#92400e;">
+  <strong>Documento vivo:</strong> Preços, funcionalidades e comparativos refletem as informações disponíveis em Maio 2026. Todos os valores estão sujeitos a alterações pelos respectivos fornecedores a qualquer momento. Consulte a documentação oficial de cada vendor antes de tomar decisões baseadas neste documento.
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section>
@@ -429,11 +433,11 @@
   <h2>2. Por que Gemini é o motor certo <span style="font-weight:400;color:#64748b;font-size:15px;">(e o portal potencializa isso)</span></h2>
 
   <h3>2.1 Web Grounding nativo — busca em tempo real</h3>
-  <p>O Gemini tem integração nativa com Google Search. A IA <strong>busca informações atualizadas na internet no momento da pergunta</strong>, reduzindo drasticamente alucinações. ChatGPT cobra por busca externa. Claude tem web search via Brave Search — uma alternativa poderosa e independente de Big Tech. O Brave também oferece API de Contexto para LLM (lançada em fevereiro de 2026) que entrega "Smart Chunks" pré-processados, reduzindo latência e consumo de tokens.</p>
-  <div class="callout"><strong>No portal:</strong> o grounding é <strong>integrado</strong> (~1.500 consultas/dia via AI Studio, sem custo adicional). Para quem prefere stack aberta (Brave + qualquer LLM), o portal é compatível com a API do Brave via abstração multi-provedor no roadmap. A vantagem do portal não é o motor de busca — é a <strong>camada de governança sobre ele</strong>: Fact-Check, Audit Trail, RBAC.</div>
+  <p>O Gemini tem integração nativa com Google Search. A IA <strong>busca informações atualizadas na internet no momento da pergunta</strong>, reduzindo drasticamente alucinações. ChatGPT inclui busca web (Bing) em todos os planos pagos desde 2025. Claude tem web search via Brave Search — uma alternativa poderosa e independente de Big Tech. O Brave também oferece API de Contexto para LLM (lançada em fevereiro de 2026) que entrega "Smart Chunks" pré-processados, reduzindo latência e consumo de tokens.</p>
+  <div class="callout"><strong>No portal:</strong> o grounding é <strong>integrado</strong> (~1.500 consultas/dia via AI Studio, sem custo adicional). A vantagem do portal não é o motor de busca — é a <strong>camada de governança sobre ele</strong>: Fact-Check, Audit Trail, RBAC.</div>
 
   <h3>2.2 Visão computacional e OCR superiores</h3>
-  <p>Para processamento de PDFs pesados, tabelas complexas e imagens, a capacidade de visão do Gemini é nativa e superior. ChatGPT requer múltiplos modelos separados. Claude tem janela de 500K tokens (Enterprise).</p>
+  <p>Para processamento de PDFs pesados, tabelas complexas e imagens, a capacidade de visão do Gemini é nativa e superior. ChatGPT requer múltiplos modelos separados. Claude tem janela de 1M tokens (Enterprise, 2026).</p>
   <div class="callout"><strong>No portal:</strong> usamos In-Context Learning — o documento inteiro cabe na janela de 1M tokens do Gemini 2.5 Pro, sem precisar de RAG, chunking ou vector stores. O conteúdo completo fica auditável.</div>
 
   <h3>2.3 Multimodalidade unificada</h3>
@@ -441,7 +445,7 @@
 
   <h3>2.4 Stack aberta vs integrada — o debate real</h3>
   <p>Em 2026, a combinação <strong>Brave Search API + GPT-4/Claude/Qwen</strong> é considerada por muitos desenvolvedores a escolha superior para cenários que exigem controle fino sobre busca e geração. A API de Contexto para LLM do Brave (fevereiro de 2026) entrega "Smart Chunks" — texto principal, tabelas e blocos de código extraídos e comprimidos, prontos para o modelo. Latência abaixo de 600ms. Custo fixo de US$ 5/1.000 buscas — mais barato que grounding do Google em escala.</p>
-  <p><strong>Para um desenvolvedor solo ou uma startup, Brave + GPT é imbatível.</strong> Para uma empresa com 50+ funcionários usando IA, o que falta nessa stack é exatamente o que o portal entrega: <strong>quem perguntou o quê, quanto custou, se a resposta era verdadeira, e se está tudo documentado para o auditor.</strong> O portal não compete com o Brave — ele opera sobre qualquer motor de busca como camada de governança. A abstração multi-provedor no roadmap permitirá usar Brave como fonte de grounding, mantendo Fact-Check, Audit Trail e RBAC intactos.</p>
+  <p><strong>Para um desenvolvedor solo ou uma startup, Brave + GPT é imbatível.</strong> Para uma empresa com 50+ funcionários usando IA, o que falta nessa stack é exatamente o que o portal entrega: <strong>quem perguntou o quê, quanto custou, se a resposta era verdadeira, e se está tudo documentado para o auditor.</strong></p>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
@@ -473,7 +477,7 @@
     </tr>
     <tr>
       <td>Web Search</td>
-      <td class="yes">✅ incluso</td><td class="warn">⚠️ pago</td><td class="warn">⚠️ Bing</td><td class="yes">✅</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="yes">✅</td>
+      <td class="yes">✅ incluso</td><td class="yes">✅ Bing</td><td class="warn">⚠️ Bing</td><td class="yes">✅</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="yes">✅</td>
     </tr>
     <tr>
       <td>Fact-Check</td>
@@ -497,7 +501,7 @@
     </tr>
     <tr>
       <td>Docs (ICL/RAG)</td>
-      <td class="yes">✅ 1M tok</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅ 500K</td><td class="warn">⚠️</td><td class="yes">✅ RAG</td><td class="yes">✅ RAG</td><td class="yes">✅</td>
+      <td class="yes">✅ 1M tok</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅ 1M</td><td class="warn">⚠️</td><td class="yes">✅ RAG</td><td class="yes">✅ RAG</td><td class="yes">✅</td>
     </tr>
     <tr>
       <td>STT/TTS</td>
@@ -539,7 +543,7 @@
     </div>
     <div class="comp-card">
       <strong>Claude Enterprise</strong>
-      <p>Melhor segurança de modelo (Constitutional AI). Web search via Brave Search — com API de Contexto para LLM que entrega dados pré-processados, reduzindo alucinações. 500K tokens de contexto. Mas: sem Fact-Check, sem STT/TTS nativo, sem audit trail completo. Foco em segurança do modelo, não em governança corporativa.</p>
+      <p>Melhor segurança de modelo (Constitutional AI). Web search via Brave Search. 1M tokens de contexto (2026, Sonnet 4.6+). Mas: sem Fact-Check, sem STT/TTS nativo, sem audit trail de conteúdo completo. Foco em segurança do modelo, não em governança corporativa.</p>
     </div>
     <div class="comp-card">
       <strong>Perplexity Enterprise</strong>
@@ -700,7 +704,7 @@
     </tr>
     <tr>
       <td>Grounding incluso</td>
-      <td class="no">❌ (pago)</td><td class="yes">✅ Brave</td><td class="yes">✅</td><td class="yes">✅</td>
+      <td class="yes">✅ Bing</td><td class="yes">✅ Brave</td><td class="yes">✅</td><td class="yes">✅</td>
     </tr>
     <tr>
       <td>Zero CDN externo (air-gap ready)</td>
@@ -711,22 +715,14 @@
       <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
     </tr>
     <tr>
-      <td><strong>Token Economy — 5 camadas de cache</strong></td>
-      <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes"><span class="exclusive">EXCLUSIVO</span></td>
-    </tr>
-    <tr>
       <td>Suporte em português</td>
       <td class="warn">Limitado</td><td class="warn">Limitado</td><td class="no">—</td><td class="yes">✅ Nativo</td>
-    </tr>
-    <tr>
-      <td><strong>Motor de LLM flexível</strong></td>
-      <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅ Gemini + OpenAI (Brave em roadmap)</td>
     </tr>
   </table>
   </div>
 
   <div class="callout" style="margin-top:12px; border-left-color: var(--amber); background: #fffbeb;">
-    <strong>💡 Nota sobre pricing de API:</strong> Os preços na tabela acima referem-se aos modelos <strong>default (Gemini 2.5)</strong>. Modelos preview 3.x, se selecionados manualmente pelo admin no painel, têm custos maiores (ex: Gemini 3 Flash: US$ 0.50 input / US$ 3.00 output por 1M tokens). O <strong>FinOps dashboard reflete o custo real automaticamente</strong> — o cliente sempre sabe exatamente quanto está gastando, independentemente do modelo escolhido.
+    <strong>💡 Nota sobre pricing de API:</strong> Os preços na tabela acima referem-se aos modelos em produção: <strong>Gemini 2.5 Flash</strong> (Standard) e <strong>Gemini 2.5 Pro</strong> (Advanced). O <strong>FinOps dashboard reflete o custo real automaticamente</strong> — o cliente sempre sabe exatamente quanto está gastando.
   </div>
 
   <div class="callout" style="margin-top:20px;">
@@ -845,7 +841,7 @@
     </tr>
     <tr>
       <td><strong>Context Window</strong> (Janela de Contexto)</td>
-      <td>Quantidade máxima de tokens que o modelo "enxerga" de uma vez. Gemini 2.5 Pro: 1M tokens. Claude Enterprise: 500K. GPT-4: 128K.</td>
+      <td>Quantidade máxima de tokens que o modelo "enxerga" de uma vez. Gemini 2.5 Pro: 1M tokens. Claude Enterprise (2026): 1M tokens. GPT-4o: 128K.</td>
       <td>Define quanto conteúdo cabe numa conversa. 1M tokens = cabem PDFs de 500+ páginas inteiros.</td>
     </tr>
     <tr>
@@ -926,7 +922,7 @@
     <tr><th>Termo</th><th>Significado</th><th>Por que importa</th></tr>
     <tr>
       <td><strong>JSONB Imutável</strong></td>
-      <td>JSONB (Binary JSON) é o formato nativo do PostgreSQL para armazenar documentos estruturados com indexação e consultas rápidas — superior ao JSON texto. No portal, a API expõe apenas INSERT — sem UPDATE nem DELETE. Na infra SaaS Winserv, o banco é inacessível. Em implantações on-premises, a proteção do banco recai sobre a política de acesso do cliente.</td>
+      <td>JSONB (Binary JSON) é o formato nativo do PostgreSQL para armazenar documentos estruturados com indexação e consultas rápidas — superior ao JSON texto. No portal, a API expõe apenas INSERT — sem UPDATE nem DELETE. Na infra SaaS Winserv, não existe painel, API ou ferramenta que permita apagar registros — a imutabilidade é arquitetural. Em implantações on-premises, a proteção do banco recai sobre a política de acesso (IAM) do cliente.</td>
       <td>É o que torna o portal <strong>auditável de verdade</strong>. Numa auditoria real (Bacen, ANPD, CRC), logs que permitem UPDATE via aplicação não têm valor probatório. O portal elimina o fator humano da equação ao não expor nenhum mecanismo de adulteração via API. <strong>Ninguém pode ser coagido a apagar evidência porque simplesmente não existe o botão.</strong> A responsabilidade pela segurança do banco é compartilhada: Winserv na camada de aplicação, cliente na camada de infraestrutura (quando on-premises).</td>
     </tr>
     <tr>
@@ -983,18 +979,11 @@
   <h2>9. Interessado?</h2>
 
   <p style="text-align:center; font-size:17px; margin:32px 0;">
-    Cada implantação é tratada como caso único.<br>
-    Fale com quem construiu o produto.
-  </p>
-
-  <p style="text-align:center; font-size:18px; margin:28px 0;">
-    <strong>
-      <a href="https://winserv.com.br" style="color:var(--blue);">winserv.com.br</a>
-    </strong>
+    Fale com o consultor que apresentou este material para agendar uma demonstração.
   </p>
 </section>
 
-<p style="text-align:center;font-size:12px;color:#94a3b8;padding:0 0 40px;">Feito por Marcelo · WinServ TI · Maio 2026 · Versão 2.0</p>
+<p style="text-align:center;font-size:12px;color:#94a3b8;padding:0 0 40px;">Feito por msamoilenko · WinServ TI · Maio 2026 · Versão 2.1</p>
 
 </div>
 </body>
