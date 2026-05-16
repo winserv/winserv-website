@@ -175,25 +175,46 @@
 					<section id="footer">
 						<div class="inner">
 							<h2 class="major">Fale conosco</h2>
-							<p>Mantemos o diálogo e comunicação como prioridade (afinal, é a nossa área)!<br> 
-								Dúvidas, sugestões, parcerias ou curiosidade? Entre em contato, teremos prazer em lhe ajudar. </p>
-								
-							<!-- <form method="post" action="#">
-								<iframe width="640px" height= "480px" src= "https://forms.office.com/Pages/ResponsePage.aspx?id=KswSBIb5nkSquzj3Bojxjz860Ru60uJMvn4JOUI3LV1UOVZVUEJMSFZNOFNKUzROTFpYSkFOWERYRy4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
-							</form>-->
-							<ul class="contact">
+							<p>Dúvidas, sugestões ou oportunidades de parceria? Preencha o formulário e retornaremos em breve.</p>
+
+							<form id="contact-form" novalidate>
+								<div class="fields">
+									<div class="field half">
+										<label for="name">Nome *</label>
+										<input type="text" id="name" name="name" required placeholder="Seu nome completo" />
+									</div>
+									<div class="field half">
+										<label for="email">E-mail *</label>
+										<input type="email" id="email" name="email" required placeholder="seu@email.com.br" />
+									</div>
+									<div class="field">
+										<label for="company">Empresa</label>
+										<input type="text" id="company" name="company" placeholder="Nome da empresa (opcional)" />
+									</div>
+									<div class="field">
+										<label for="message">Mensagem *</label>
+										<textarea id="message" name="message" rows="5" required placeholder="Como podemos ajudar?"></textarea>
+									</div>
+								</div>
+								<div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAADQhUb-15u1qD4ST" data-theme="dark"></div>
+								<p id="form-status" style="margin-top:1rem;display:none;"></p>
+								<ul class="actions" style="margin-top:1rem;">
+									<li><button type="submit" class="primary">Enviar mensagem</button></li>
+									<li><button type="reset">Limpar</button></li>
+								</ul>
+							</form>
+
+							<ul class="contact" style="margin-top:3rem;">
 								<li class="icon solid fa-home">
 									Winserv Tecnologia da Informação<br />
-									Rua João Alfredo 562 # Apt 203<br />
-									Rio Grande, RS 96200-260
+									CNPJ 10.411.266/0001-80<br />
+									Rua João Alfredo, 562 &mdash; Rio Grande, RS 96200-260
 								</li>
-								<!--<li class="icon solid fa-phone">+5553999282423</li>-->
-								<li class="icon solid fa-envelope">comercial@winserv.com.br</li>
 								<li class="icon brands fa-github"><a href="https://github.com/winserv" target="_blank">github.com/winserv</a></li>
-								<li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/company/winserv/" target="_blank">linkedin.com/winserv</a></li>
+								<li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/company/winserv/" target="_blank">linkedin.com/company/winserv</a></li>
 							</ul>
 							<ul class="copyright">
-								<li>&copy; Winserv TI</li><li>Feito com <a href="http://html5up.net" target="_blank">HTML5 UP</a> & <a href="http://www.freepik.com" target="_blank"> slidesgo / Freepik</a></li>
+								<li>&copy; Winserv TI</li><li>Feito com <a href="http://html5up.net" target="_blank">HTML5 UP</a></li>
 							</ul>
 						</div>
 					</section>
@@ -217,26 +238,73 @@
 				gtag('config', 'G-3J9ESTRVQG');
 			</script>
 
-		<script type="text/javascript" src="../floating-wpp.min.js"></script>
-			
-		<!--Div where the WhatsApp will be rendered-->   
-			<div id="WAButton"></div>
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+		<script>
+			(function () {
+				var WORKER_URL = 'https://winserv-contact.celosam.workers.dev';
 
-<script type="text/javascript">   
-   $(function () { 
-           $('#WAButton').floatingWhatsApp({ 
-               phone: '5553999282423', //WhatsApp Business phone number 
-               headerTitle: 'Chat with us on WhatsApp!', //Popup Title 
-               popupMessage: 'Hello, how can we help you?', //Popup Message 
-               showPopup: false, //Enables popup display 
-               buttonImage: '<img src="../whatsapp.svg" />', //Button Image 
-               //headerColor: 'crimson', //Custom header color 
-               //backgroundColor: 'crimson', //Custom background button color 
-               position: "right" //Position: left | right 
- 
-           }); 
-       }); 
-</script>
+				var form = document.getElementById('contact-form');
+				var status = document.getElementById('form-status');
+
+				function showStatus(msg, isError) {
+					status.textContent = msg;
+					status.style.color = isError ? '#f66' : '#6f6';
+					status.style.display = 'block';
+				}
+
+				form.addEventListener('reset', function () {
+					if (typeof turnstile !== 'undefined') turnstile.reset();
+					status.style.display = 'none';
+				});
+
+				form.addEventListener('submit', function (e) {
+					e.preventDefault();
+
+					var name    = document.getElementById('name').value.trim();
+					var email   = document.getElementById('email').value.trim();
+					var company = document.getElementById('company').value.trim();
+					var message = document.getElementById('message').value.trim();
+					var token   = (typeof turnstile !== 'undefined') ? turnstile.getResponse() : '';
+
+					if (!name || !email || !message) {
+						showStatus('Preencha os campos obrigatórios.', true);
+						return;
+					}
+					if (!token) {
+						showStatus('Complete a verificação de segurança.', true);
+						return;
+					}
+
+					var btn = form.querySelector('button[type="submit"]');
+					btn.disabled = true;
+					btn.textContent = 'Enviando…';
+					status.style.display = 'none';
+
+					fetch(WORKER_URL, {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ name: name, email: email, company: company, message: message, turnstileToken: token }),
+					})
+					.then(function (res) { return res.json(); })
+					.then(function (data) {
+						if (data.ok) {
+							showStatus('Mensagem enviada! Entraremos em contato em breve.', false);
+							form.reset();
+							if (typeof turnstile !== 'undefined') turnstile.reset();
+						} else {
+							showStatus(data.error || 'Erro ao enviar. Tente novamente.', true);
+						}
+					})
+					.catch(function () {
+						showStatus('Falha de conexão. Tente novamente.', true);
+					})
+					.finally(function () {
+						btn.disabled = false;
+						btn.textContent = 'Enviar mensagem';
+					});
+				});
+			})();
+		</script>
 
 <!-- Meta Pixel Code -->
 <script>
