@@ -749,10 +749,128 @@ section.alt { background: var(--surface); }
   line-height: 1.9;
 }
 
+/* ── Portal Promo (index) ── */
+.portal-promo {
+  padding: 5.5rem 0;
+  background: linear-gradient(160deg, rgba(16,185,129,0.05) 0%, rgba(62,123,250,0.07) 100%);
+  border-top: 1px solid rgba(16,185,129,0.2);
+  border-bottom: 1px solid rgba(16,185,129,0.12);
+  position: relative;
+  overflow: hidden;
+}
+.portal-promo::before {
+  content: '';
+  position: absolute;
+  top: -40%; right: -8%;
+  width: 520px; height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.portal-promo-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4.5rem;
+  align-items: center;
+  position: relative;
+}
+.portal-promo-lead {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.78;
+  max-width: 460px;
+  margin-bottom: 1.5rem;
+}
+.portal-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.portal-pills span {
+  background: var(--green-dim);
+  border: 1px solid rgba(16,185,129,0.25);
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.28rem 0.8rem;
+  border-radius: 99px;
+  letter-spacing: 0.05em;
+}
+.portal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.portal-mockup {
+  background: var(--surface2);
+  border: 1px solid rgba(16,185,129,0.28);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 48px rgba(16,185,129,0.07);
+}
+.mockup-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.875rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+.mockup-dot.red    { background: #ff5f57; }
+.mockup-dot.yellow { background: #febc2e; }
+.mockup-dot.grn    { background: #28c840; }
+.mockup-title {
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin-left: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.mockup-body {
+  padding: 1.5rem 1.75rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  display: flex;
+  flex-direction: column;
+}
+.mockup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(62,123,250,0.07);
+}
+.mockup-row:last-child { border-bottom: none; }
+.mockup-key { color: var(--muted); }
+.mockup-val.c-green { color: var(--green); }
+.mockup-val.c-blue  { color: var(--blue);  }
+.mockup-val.c-gold  { color: var(--gold);  }
+.mockup-val.c-text  { color: var(--text);  }
+.mockup-sep { height: 1px; background: var(--border); margin: 0.35rem 0; }
+
+/* Nav "novo" badge */
+.nav-new {
+  display: inline-block;
+  background: var(--green);
+  color: #070A12;
+  font-size: 0.58rem;
+  font-weight: 800;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 0.3rem;
+  line-height: 1.5;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .services-grid { grid-template-columns: 1fr; }
   .about-grid    { grid-template-columns: 1fr; gap: 2.5rem; }
+  .portal-promo-inner { grid-template-columns: 1fr; gap: 2.5rem; }
   .sol-inner     { grid-template-columns: 1fr; gap: 2rem; }
   .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
   .footer-grid   { grid-template-columns: 1fr 1fr; gap: 2rem; }
