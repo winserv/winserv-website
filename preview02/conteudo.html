@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Winserv TI | Conteúdo</title>
+  <meta name="description" content="Artigos e materiais educativos da Winserv sobre tecnologia, segurança e boas práticas digitais." />
+  <link rel="icon" href="/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07100F;
+      --surface:  #0D1A18;
+      --border:   rgba(16,185,129,0.15);
+      --teal:     #10B981;
+      --teal-dim: rgba(16,185,129,0.12);
+      --amber:    #F59E0B;
+      --text:     #E2EDE9;
+      --muted:    #6B8F82;
+      --font:     'Plus Jakarta Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 64px;
+      background: rgba(7,16,15,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-brand img { height: 32px; }
+    .nav-brand-text { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .nav-brand-text span { color: var(--teal); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta { display: flex; align-items: center; }
+    .btn-nav {
+      padding: 0.45rem 1.2rem; border-radius: 6px; font-size: 0.875rem; font-weight: 600;
+      font-family: var(--font); text-decoration: none; border: 1.5px solid var(--teal);
+      color: var(--teal); background: transparent; cursor: pointer; transition: background 0.2s, color 0.2s;
+    }
+    .btn-nav:hover { background: var(--teal); color: #07100F; }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-burger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2.5rem; z-index: 99; flex-direction: column; gap: 1rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { color: var(--text); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    .nav-mobile a:last-child { border-bottom: none; }
+
+    .page-hero {
+      padding: 9rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(16,185,129,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; }
+    .page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .page-hero p { color: var(--muted); max-width: 520px; margin: 0 auto; font-size: 1.05rem; }
+
+    .content-section { padding: 4rem 2rem 5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .content-category { margin-bottom: 3.5rem; }
+    .content-category-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--amber); border-bottom: 1px solid rgba(245,158,11,0.2);
+      padding-bottom: 0.6rem; margin-bottom: 1.5rem;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+    .content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .content-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+    .content-card img { width: 100%; height: 170px; object-fit: cover; opacity: 0.8; }
+    .content-card-body { padding: 1.35rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+    .content-card h3 { font-size: 1rem; font-weight: 700; }
+    .content-card p { font-size: 0.875rem; color: var(--muted); flex: 1; }
+    .content-card-link { font-size: 0.8rem; font-weight: 600; color: var(--teal); margin-top: 0.5rem; }
+
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 3rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; }
+    .footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+    .footer-brand img { height: 36px; }
+    .footer-brand p { font-size: 0.875rem; color: var(--muted); }
+    .footer-col h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col a { color: var(--muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-burger { display: flex; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="topnav">
+  <a class="nav-brand" href="index.html">
+    <img src="/images/logo.png" alt="Winserv" />
+    <span class="nav-brand-text"><span>Win</span>serv TI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="solucoes.html">Soluções</a></li>
+    <li><a href="conteudo.html" class="active">Conteúdo</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a class="btn-nav" href="contato.html">Contato</a>
+  </div>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="mobile-menu">
+  <a href="index.html">Início</a>
+  <a href="solucoes.html">Soluções</a>
+  <a href="conteudo.html">Conteúdo</a>
+  <a href="contato.html">Contato</a>
+</div>
+
+<div class="page-hero">
+  <div class="section-label">Aprenda mais</div>
+  <h1>Conteúdo</h1>
+  <p>Artigos e materiais sobre tecnologia, segurança e boas práticas digitais.</p>
+</div>
+
+<section class="content-section">
+  <div class="container">
+
+    <div class="content-category">
+      <div class="content-category-label">Empresa</div>
+      <div class="content-grid">
+        <a class="content-card" href="/missao.html">
+          <img src="/images/missao.jpg" alt="Nossa missão" />
+          <div class="content-card-body">
+            <h3>Nossa missão</h3>
+            <p>O que nos define como empresa na jornada de melhorar vidas em conjunto a clientes e usuários.</p>
+            <span class="content-card-link">Ler &#8594;</span>
+          </div>
+        </a>
+        <a class="content-card" href="/valores.html">
+          <img src="/images/valores.jpg" alt="Valores e Princípios" />
+          <div class="content-card-body">
+            <h3>Valores e Princípios</h3>
+            <p>Uma lista de práticas, objetivos e doutrinas que nos define e guia diariamente.</p>
+            <span class="content-card-link">Ler &#8594;</span>
+          </div>
+        </a>
+        <a class="content-card" href="/ti.html">
+          <img src="/images/ti.jpg" alt="O que é TI?" />
+          <div class="content-card-body">
+            <h3>O que é "TI"?</h3>
+            <p>Turma de Inteligentes? Técnicos de Impressoras? Vamos esclarecer essa ideia de uma vez!</p>
+            <span class="content-card-link">Ler &#8594;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="content-category">
+      <div class="content-category-label">Tecnologia e Sociedade</div>
+      <div class="content-grid">
+        <a class="content-card" href="/tiverde.html">
+          <img src="/images/tiverde.jpg" alt="Tecnologia verde" />
+          <div class="content-card-body">
+            <h3>Tecnologia Verde</h3>
+            <p>Como a utilização responsável de recursos e soluções sustentáveis pode garantir um futuro para todos.</p>
+            <span class="content-card-link">Ler &#8594;</span>
+          </div>
+        </a>
+        <a class="content-card" href="/telas.html">
+          <img src="/images/telas.jpg" alt="Uso Excessivo de Telas" />
+          <div class="content-card-body">
+            <h3>Uso Excessivo de Telas</h3>
+            <p>Entenda porque a exposição descontrolada a telas pode trazer consequências inesperadas no futuro.</p>
+            <span class="content-card-link">Ler &#8594;</span>
+          </div>
+        </a>
+        <a class="content-card" href="/exposicao.html">
+          <img src="/images/exposicao.jpg" alt="Exposição à Pornografia" />
+          <div class="content-card-body">
+            <h3>Exposição à Pornografia</h3>
+            <p>Uma reflexão sobre como o acesso a conteúdo adulto pode afetar crianças de maneiras trágicas.</p>
+            <span class="content-card-link">Ler &#8594;</span>
+          </div>
+        </a>
+        <a class="content-card" href="/filtro.html">
+          <img src="/images/filtro.jpg" alt="Filtrando a Internet" />
+          <div class="content-card-body">
+            <h3>Filtrando a Internet</h3>
+            <p>Dicas práticas de como bloquear conteúdos impróprios e proteger seus filhos online.</p>
+            <span class="content-card-link">Ler &#8594;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/images/logo.png" alt="Winserv" />
+      <p>Tecnologia da Informação para empresas que precisam de resultados práticos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegar</h4>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="solucoes.html">Soluções</a></li>
+        <li><a href="conteudo.html">Conteúdo</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="/missao.html">Nossa missão</a></li>
+        <li><a href="/valores.html">Valores e Princípios</a></li>
+        <li><a href="https://www.linkedin.com/company/winserv/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Winserv Tecnologia da Informação &mdash; CNPJ 10.411.266/0001-80 &mdash; Rio Grande, RS</span>
+    <span>&copy; 2026 Winserv TI</span>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3J9ESTRVQG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3J9ESTRVQG');
+</script>
+
+<script>
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', function() {
+    var open = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>

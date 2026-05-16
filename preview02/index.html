@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Winserv TI</title>
+  <meta name="description" content="A Winserv completa 22 anos de experiência no desenvolvimento de projetos de TI para adequar as necessidades de comunicação e modernização da sua empresa." />
+  <meta name="google-site-verification" content="TQqPbuFjQCHTHJWI7Zq3Xsj2b2bOWCpkmeR4A2NDkB0" />
+  <link rel="icon" href="/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07100F;
+      --surface:  #0D1A18;
+      --border:   rgba(16,185,129,0.15);
+      --teal:     #10B981;
+      --teal-dim: rgba(16,185,129,0.12);
+      --amber:    #F59E0B;
+      --amber-dim:rgba(245,158,11,0.12);
+      --text:     #E2EDE9;
+      --muted:    #6B8F82;
+      --font:     'Plus Jakarta Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+      background: rgba(7,16,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .nav-brand img { height: 32px; width: auto; }
+    .nav-brand-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+    .nav-brand-text span { color: var(--teal); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .btn-nav {
+      padding: 0.45rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: var(--font);
+      text-decoration: none;
+      border: 1.5px solid var(--teal);
+      color: var(--teal);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-nav:hover { background: var(--teal); color: #07100F; }
+
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2.5rem;
+      z-index: 99;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 30%, rgba(16,185,129,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 70%, rgba(245,158,11,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; max-width: 760px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--teal-dim);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero-logo {
+      width: 90px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 24px rgba(16,185,129,0.3));
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 .w { color: var(--teal); }
+    .hero h1 .s { color: var(--amber); }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: var(--teal);
+      color: #07100F;
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-family: var(--font);
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: transparent;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      font-family: var(--font);
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
+
+    /* ── Section common ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      font-size: 1.05rem;
+    }
+
+    /* ── Services ── */
+    .services { background: var(--surface); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .service-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: var(--teal-dim);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .service-icon.amber { background: var(--amber-dim); border-color: rgba(245,158,11,0.2); }
+
+    .service-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .service-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+
+    .service-link {
+      margin-top: auto;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .about-stat-row {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .about-stat { text-align: center; }
+    .about-stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+    .about-text { color: var(--muted); font-size: 1rem; line-height: 1.8; }
+    .about-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .about-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .about-item-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      margin-top: 0.45rem;
+      flex-shrink: 0;
+    }
+    .about-item-dot.amber { background: var(--amber); }
+    .about-item-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .about-item-desc { font-size: 0.875rem; color: var(--muted); }
+
+    /* ── Content cards ── */
+    .content-section { background: var(--surface); }
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .content-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s;
+    }
+    .content-card:hover { border-color: var(--teal); }
+    .content-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+    .content-card-body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+    .content-card h3 { font-size: 1rem; font-weight: 700; }
+    .content-card p { font-size: 0.875rem; color: var(--muted); flex: 1; }
+    .content-card-link { font-size: 0.8rem; font-weight: 600; color: var(--teal); margin-top: 0.5rem; }
+
+    /* ── CTA strip ── */
+    .cta-strip {
+      background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(245,158,11,0.06) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .cta-strip h2 {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .cta-strip p { color: var(--muted); max-width: 480px; margin: 0 auto 2rem; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+    .footer-brand img { height: 36px; width: auto; }
+    .footer-brand p { font-size: 0.875rem; color: var(--muted); }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col a { color: var(--muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--text); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ── Whatsapp ── */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+      text-decoration: none;
+      z-index: 200;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .whatsapp-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+    .whatsapp-fab svg { width: 30px; height: 30px; fill: #fff; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-burger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .about-stat-row { justify-content: space-around; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="topnav">
+  <a class="nav-brand" href="index.html">
+    <img src="/images/logo.png" alt="Winserv" />
+    <span class="nav-brand-text"><span>Win</span>serv TI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="solucoes.html">Soluções</a></li>
+    <li><a href="conteudo.html">Conteúdo</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a class="btn-nav" href="contato.html">Contato</a>
+  </div>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="mobile-menu">
+  <a href="index.html">Início</a>
+  <a href="solucoes.html">Soluções</a>
+  <a href="conteudo.html">Conteúdo</a>
+  <a href="contato.html">Contato</a>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">22 anos de experiência em TI</div>
+    <img class="hero-logo" src="/images/logo.png" alt="Winserv" />
+    <h1><span class="w">Win</span><span class="s">serv</span></h1>
+    <p class="hero-sub">Tecnologia da Informação para modernizar, conectar e proteger o negócio da sua empresa.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="solucoes.html">Ver soluções</a>
+      <a class="btn-secondary" href="contato.html">Fale conosco</a>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="services">
+  <div class="container">
+    <div class="section-label">O que fazemos</div>
+    <h2 class="section-title">Nossas soluções</h2>
+    <p class="section-desc">Projetos desenvolvidos sob medida para adequar sua empresa à nova era digital.</p>
+    <div class="services-grid">
+      <a class="service-card" href="solucoes.html#cloud">
+        <div class="service-icon">&#9729;</div>
+        <h3>Computação em Nuvem</h3>
+        <p>Virtualização de servidores, redes e sistemas com Azure, Google Cloud, AWS e outros — sem dores de cabeça com infraestrutura local.</p>
+        <span class="service-link">Saiba mais &#8594;</span>
+      </a>
+      <a class="service-card" href="solucoes.html#comms">
+        <div class="service-icon">&#128222;</div>
+        <h3>Soluções de Comunicação</h3>
+        <p>Telefonia IP, VoIP e comunicação unificada com 3CX. Modernize sua estrutura e elimine planos de operadoras retrógradas.</p>
+        <span class="service-link">Saiba mais &#8594;</span>
+      </a>
+      <a class="service-card" href="solucoes.html#monitor">
+        <div class="service-icon amber">&#128202;</div>
+        <h3>Monitoramento e Auditoria</h3>
+        <p>Supervisão de redes, adequação à LGPD e auditorias de segurança. Transforme incertezas legais em conformidade comprovada.</p>
+        <span class="service-link">Saiba mais &#8594;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <div class="section-label">Sobre nós</div>
+        <h2 class="section-title">Mais de duas décadas resolvendo problemas de TI</h2>
+        <p class="about-text">A Winserv acumula 22 anos de experiência no desenvolvimento de projetos que adequam as necessidades de comunicação e modernização de empresas. Cada projeto começa com um criterioso estudo de caso e levantamento preciso de custos — nada de soluções genéricas.</p>
+        <div class="about-stat-row">
+          <div class="about-stat">
+            <div class="about-stat-num">22</div>
+            <div class="about-stat-label">anos de mercado</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">3</div>
+            <div class="about-stat-label">áreas de atuação</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">RS</div>
+            <div class="about-stat-label">Rio Grande, RS</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-item">
+          <div class="about-item-dot"></div>
+          <div>
+            <div class="about-item-title">Nossa missão</div>
+            <div class="about-item-desc">Melhorar vidas — de clientes, usuários e parceiros — por meio de tecnologia aplicada com responsabilidade.</div>
+          </div>
+        </div>
+        <div class="about-item">
+          <div class="about-item-dot amber"></div>
+          <div>
+            <div class="about-item-title">Valores e Princípios</div>
+            <div class="about-item-desc">Um conjunto de práticas e objetivos que nos define e guia diariamente — nosso código de honra.</div>
+          </div>
+        </div>
+        <div class="about-item">
+          <div class="about-item-dot"></div>
+          <div>
+            <div class="about-item-title">Tecnologia sustentável</div>
+            <div class="about-item-desc">Uso responsável de recursos e soluções que garantem eficiência sem desperdício.</div>
+          </div>
+        </div>
+        <div class="about-item">
+          <div class="about-item-dot amber"></div>
+          <div>
+            <div class="about-item-title">Proteção digital</div>
+            <div class="about-item-desc">Educação e ferramentas para proteger famílias e organizações no ambiente digital.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Content -->
+<section class="content-section" id="conteudo">
+  <div class="container">
+    <div class="section-label">Aprenda mais</div>
+    <h2 class="section-title">Conteúdo</h2>
+    <p class="section-desc">Artigos e materiais sobre tecnologia, segurança e boas práticas digitais.</p>
+    <div class="content-grid">
+      <a class="content-card" href="/missao.html">
+        <img src="/images/missao.jpg" alt="Nossa missão" />
+        <div class="content-card-body">
+          <h3>Nossa missão</h3>
+          <p>O que nos define como empresa na jornada de melhorar vidas em conjunto a clientes e usuários.</p>
+          <span class="content-card-link">Ler &#8594;</span>
+        </div>
+      </a>
+      <a class="content-card" href="/valores.html">
+        <img src="/images/valores.jpg" alt="Valores e Princípios" />
+        <div class="content-card-body">
+          <h3>Valores e Princípios</h3>
+          <p>Uma lista de práticas, objetivos e doutrinas que nos define e guia diariamente.</p>
+          <span class="content-card-link">Ler &#8594;</span>
+        </div>
+      </a>
+      <a class="content-card" href="/ti.html">
+        <img src="/images/ti.jpg" alt="O que é TI?" />
+        <div class="content-card-body">
+          <h3>O que é "TI"?</h3>
+          <p>Turma de Inteligentes? Técnicos de Impressoras? Vamos esclarecer essa ideia de uma vez!</p>
+          <span class="content-card-link">Ler &#8594;</span>
+        </div>
+      </a>
+      <a class="content-card" href="/tiverde.html">
+        <img src="/images/tiverde.jpg" alt="Tecnologia verde" />
+        <div class="content-card-body">
+          <h3>Tecnologia Verde</h3>
+          <p>Como a utilização responsável de recursos e soluções sustentáveis pode garantir um futuro para todos.</p>
+          <span class="content-card-link">Ler &#8594;</span>
+        </div>
+      </a>
+      <a class="content-card" href="/telas.html">
+        <img src="/images/telas.jpg" alt="Uso Excessivo de Telas" />
+        <div class="content-card-body">
+          <h3>Uso Excessivo de Telas</h3>
+          <p>Entenda porque a exposição descontrolada a telas pode trazer consequências inesperadas no futuro.</p>
+          <span class="content-card-link">Ler &#8594;</span>
+        </div>
+      </a>
+      <a class="content-card" href="/filtro.html">
+        <img src="/images/filtro.jpg" alt="Filtrando a Internet" />
+        <div class="content-card-body">
+          <h3>Filtrando a Internet</h3>
+          <p>Dicas práticas de como bloquear conteúdos impróprios e proteger seus filhos online.</p>
+          <span class="content-card-link">Ler &#8594;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA strip -->
+<section class="cta-strip">
+  <div class="container">
+    <h2>Pronto para modernizar sua empresa?</h2>
+    <p>Fazemos um levantamento completo das suas necessidades antes de propor qualquer solução.</p>
+    <a class="btn-primary" href="contato.html">Fale com a equipe</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/images/logo.png" alt="Winserv" />
+      <p>Tecnologia da Informação para empresas que precisam de resultados práticos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegar</h4>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="solucoes.html">Soluções</a></li>
+        <li><a href="conteudo.html">Conteúdo</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="/missao.html">Nossa missão</a></li>
+        <li><a href="/valores.html">Valores e Princípios</a></li>
+        <li><a href="https://www.linkedin.com/company/winserv/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Winserv Tecnologia da Informação &mdash; CNPJ 10.411.266/0001-80 &mdash; Rio Grande, RS</span>
+    <span>&copy; 2026 Winserv TI</span>
+  </div>
+</footer>
+
+<!-- WhatsApp FAB -->
+<a class="whatsapp-fab" href="https://wa.me/5553999282423" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3J9ESTRVQG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3J9ESTRVQG');
+</script>
+
+<!-- Meta Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','5917027785086033');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=5917027785086033&ev=PageView&noscript=1"/></noscript>
+
+<script>
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', function() {
+    var open = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>

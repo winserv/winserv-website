@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Winserv TI | Soluções</title>
+  <meta name="description" content="Computação em Nuvem, Soluções de Comunicação e Monitoramento — projetos de TI sob medida para a sua empresa." />
+  <link rel="icon" href="/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #07100F;
+      --surface:  #0D1A18;
+      --border:   rgba(16,185,129,0.15);
+      --teal:     #10B981;
+      --teal-dim: rgba(16,185,129,0.12);
+      --amber:    #F59E0B;
+      --amber-dim:rgba(245,158,11,0.12);
+      --text:     #E2EDE9;
+      --muted:    #6B8F82;
+      --font:     'Plus Jakarta Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 64px;
+      background: rgba(7,16,15,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-brand img { height: 32px; }
+    .nav-brand-text { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .nav-brand-text span { color: var(--teal); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta { display: flex; align-items: center; }
+    .btn-nav {
+      padding: 0.45rem 1.2rem; border-radius: 6px; font-size: 0.875rem; font-weight: 600;
+      font-family: var(--font); text-decoration: none; border: 1.5px solid var(--teal);
+      color: var(--teal); background: transparent; cursor: pointer; transition: background 0.2s, color 0.2s;
+    }
+    .btn-nav:hover { background: var(--teal); color: #07100F; }
+
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-burger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2.5rem; z-index: 99; flex-direction: column; gap: 1rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { color: var(--text); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    .nav-mobile a:last-child { border-bottom: none; }
+
+    /* Page hero */
+    .page-hero {
+      padding: 9rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(16,185,129,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; }
+    .page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .page-hero p { color: var(--muted); max-width: 520px; margin: 0 auto; font-size: 1.05rem; }
+
+    /* Solution sections */
+    .solution { padding: 5rem 2rem; }
+    .solution:nth-child(even) { background: var(--surface); }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .sol-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .sol-inner.reverse { direction: rtl; }
+    .sol-inner.reverse > * { direction: ltr; }
+
+    .sol-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--teal-dim);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .sol-label.amber { background: var(--amber-dim); border-color: rgba(245,158,11,0.2); color: var(--amber); }
+
+    .sol-content h2 {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      line-height: 1.15;
+    }
+    .sol-content p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .sol-content p b { color: var(--text); font-weight: 600; }
+
+    .sol-proposal {
+      margin-top: 1.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .solution:nth-child(even) .sol-proposal { background: var(--bg); }
+    .sol-proposal h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1rem;
+    }
+    .sol-proposal ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .sol-proposal li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .sol-proposal li::before {
+      content: '✓';
+      color: var(--teal);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    .sol-image-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    .sol-image-wrap img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+    .sol-image-placeholder {
+      width: 100%;
+      height: 360px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      opacity: 0.4;
+    }
+
+    /* CTA */
+    .cta-strip {
+      background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(245,158,11,0.06) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .cta-strip h2 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; margin-bottom: 1rem; }
+    .cta-strip p { color: var(--muted); max-width: 480px; margin: 0 auto 2rem; }
+    .btn-primary {
+      display: inline-block; padding: 0.8rem 2rem; background: var(--teal); color: #07100F;
+      font-weight: 700; font-size: 0.95rem; font-family: var(--font); border-radius: 8px;
+      text-decoration: none; transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* Footer */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 3rem 2rem; }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem;
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+    .footer-brand img { height: 36px; }
+    .footer-brand p { font-size: 0.875rem; color: var(--muted); }
+    .footer-col h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col a { color: var(--muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-burger { display: flex; }
+      .sol-inner, .sol-inner.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2rem; }
+      .sol-image-wrap { order: -1; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="topnav">
+  <a class="nav-brand" href="index.html">
+    <img src="/images/logo.png" alt="Winserv" />
+    <span class="nav-brand-text"><span>Win</span>serv TI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="solucoes.html" class="active">Soluções</a></li>
+    <li><a href="conteudo.html">Conteúdo</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a class="btn-nav" href="contato.html">Contato</a>
+  </div>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="mobile-menu">
+  <a href="index.html">Início</a>
+  <a href="solucoes.html">Soluções</a>
+  <a href="conteudo.html">Conteúdo</a>
+  <a href="contato.html">Contato</a>
+</div>
+
+<div class="page-hero">
+  <div class="section-label">Produtos e Serviços</div>
+  <h1>Soluções de TI sob medida</h1>
+  <p>Maneiras de ajudar sua empresa a participar da indústria 4.0 com segurança e eficiência.</p>
+</div>
+
+<!-- Cloud -->
+<section class="solution" id="cloud">
+  <div class="container">
+    <div class="sol-inner">
+      <div class="sol-content">
+        <div class="sol-label">&#9729; Infraestrutura</div>
+        <h2>Computação em Nuvem</h2>
+        <p>A constante evolução de softwares traz uma alta demanda de hardware — memória, processamento e capacidade que muitas empresas não conseguem suprir localmente sem incorrer em gastos constantes com manutenção e configurações.</p>
+        <p>A Winserv utiliza tecnologias de ponta para <b>virtualizar computadores ou servidores</b> com serviços de gigantes como <b>Microsoft Azure, Google Cloud, Amazon AWS, Oracle Cloud e DigitalOcean</b> — plataformas nas quais possuímos amplo conhecimento e experiência.</p>
+        <p>Nossas soluções são voltadas para empresas que buscam modernização e dinâmica em suas operações para <b>prevenir problemas típicos de instalações físicas e reduzir custos com infraestrutura</b>.</p>
+        <div class="sol-proposal">
+          <h4>Nossa proposta</h4>
+          <ul>
+            <li>Dinâmica e segurança para seus sistemas ou servidores</li>
+            <li>Implementação de acordo com suas necessidades específicas</li>
+            <li>Flexibilidade em diversos modelos de hospedagem</li>
+            <li>Preços acessíveis e moldados de acordo com sua operação</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sol-image-wrap">
+        <img src="/images/cloudhosting.jpg" alt="Computação em Nuvem" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comms -->
+<section class="solution" id="comms">
+  <div class="container">
+    <div class="sol-inner reverse">
+      <div class="sol-content">
+        <div class="sol-label">&#128222; Comunicação</div>
+        <h2>Soluções de Comunicação</h2>
+        <p>Conferências virtuais sem instalação de aplicativos complexos, ligações sem manutenção de pacotes engessados, sistemas de comunicação para trabalho remoto, chat interno para separar vida pessoal da profissional e integrações de telefonia com e-mail.</p>
+        <p>Aqui na Winserv tornamos essas ideias realidade utilizando o sistema <b>3CX</b> — muito mais que VoIP ou telefonia SIP. É uma <b>solução completa de comunicação interna e externa</b> para sua empresa não depender de vários sistemas com múltiplas configurações e planos diferentes.</p>
+        <p>Com amplo conhecimento em configurações de rede, telefonia IP e gerenciamento de infraestrutura VoIP, entregamos uma solução completa e eficiente para empresas de todas as áreas.</p>
+        <div class="sol-proposal">
+          <h4>Nossa proposta</h4>
+          <ul>
+            <li>Agilizar a organização e comunicação da sua empresa</li>
+            <li>Simplificar antigas configurações complicadas de telefonia</li>
+            <li>Desvincular-se de operadoras retrógradas e planos confusos</li>
+            <li>Providenciar controle completo de seus telefones e canais</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sol-image-wrap">
+        <img src="/images/webchatting.jpg" alt="Soluções de Comunicação" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Monitoring -->
+<section class="solution" id="monitor">
+  <div class="container">
+    <div class="sol-inner">
+      <div class="sol-content">
+        <div class="sol-label amber">&#128202; Segurança</div>
+        <h2>Monitoramento e Auditoria</h2>
+        <p>Sua empresa está adequada às recomendações internacionais de segurança e infraestrutura de TI? Seus recursos computacionais estão sendo utilizados da melhor forma? Você possui visibilidade de todos os aplicativos e sistemas instalados na sua rede?</p>
+        <p>Muitas empresas têm dúvidas sobre novas legislações e regras de proteção de dados, especialmente a <b>LGPD</b>. Por isso, desenvolvemos uma solução de auditoria, regulamentação e revisão de segurança de redes, computadores e dados que substitui consultorias arbitrárias por resultados mensuráveis.</p>
+        <p>A Winserv gerencia redes e estruturas de TI desde o início de suas operações, com experiência comprovada em ferramentas e métodos para <b>otimizar recursos e trazer mais resultados com menos investimento</b>.</p>
+        <div class="sol-proposal">
+          <h4>Nossa proposta</h4>
+          <ul>
+            <li>Aperfeiçoar a utilização de seus recursos de computação</li>
+            <li>Fornecer supervisão completa do seu negócio e equipamentos</li>
+            <li>Adequar técnica e legalmente sua empresa à nova era digital</li>
+            <li>Reduzir custos com consultorias vagas e sem resultados claros</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sol-image-wrap">
+        <img src="/images/monitoring.jpg" alt="Monitoramento e Auditoria" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <div class="container">
+    <h2>Possui outro problema?</h2>
+    <p>A Winserv analisa qualquer caso sobre gerenciamento de redes, infraestrutura de TI ou situações similares. Nossa experiência nos permite atuar em diversas áreas mantendo sempre o foco em resultados práticos.</p>
+    <a class="btn-primary" href="contato.html">Entre em contato</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/images/logo.png" alt="Winserv" />
+      <p>Tecnologia da Informação para empresas que precisam de resultados práticos.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegar</h4>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="solucoes.html">Soluções</a></li>
+        <li><a href="conteudo.html">Conteúdo</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="/missao.html">Nossa missão</a></li>
+        <li><a href="/valores.html">Valores e Princípios</a></li>
+        <li><a href="https://www.linkedin.com/company/winserv/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>Winserv Tecnologia da Informação &mdash; CNPJ 10.411.266/0001-80 &mdash; Rio Grande, RS</span>
+    <span>&copy; 2026 Winserv TI</span>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3J9ESTRVQG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3J9ESTRVQG');
+</script>
+
+<script>
+  var burger = document.getElementById('burger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  burger.addEventListener('click', function() {
+    var open = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      mobileMenu.classList.remove('open');
+      burger.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
