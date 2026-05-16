@@ -4,226 +4,682 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Winserv AI Portal — Governança de IA para empresas reguladas</title>
-  <meta name="description" content="Portal SaaS de governança de IA com fact-check por afirmação, audit trail imutável e conformidade com LGPD e PL 2338. Para jurídico, contabilidade e PMEs reguladas." />
+  <meta name="description" content="Portal SaaS de governança de IA com fact-check afirmação por afirmação, audit trail imutável e conformidade LGPD/PL 2338. Single-tenant. R$ 500/mês." />
   <link rel="icon" href="/images/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Nunito+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy:     #070C18;
-      --surface:  #0D1526;
-      --card:     #111827;
-      --teal:     #249EA0;   /* matches winserv.com.br logo */
-      --teal-dk:  #005F60;   /* matches winserv.com.br header/buttons */
-      --amber:    #FAAB36;   /* matches winserv.com.br spotlight */
-      --text:     #E2E8F4;
-      --muted:    #6B7A99;
-      --border:   rgba(36,158,160,0.14);
-      --glow:     rgba(36,158,160,0.07);
+      --bg:        #070A12;
+      --surface:   #0C1220;
+      --card:      #111C2E;
+      --card-hover:#152035;
+      --blue:      #3E7BFA;
+      --blue-dk:   #2563EB;
+      --blue-lt:   #60A5FA;
+      --gold:      #F59E0B;
+      --green:     #10B981;
+      --red:       #EF4444;
+      --orange:    #F97316;
+      --text:      #E2E8F4;
+      --muted:     #64748B;
+      --muted-lt:  #94A3B8;
+      --border:    rgba(62, 123, 250, 0.15);
+      --border-lt: rgba(255,255,255,0.06);
+      --glow:      rgba(62, 123, 250, 0.08);
+      --glow-md:   rgba(62, 123, 250, 0.12);
+      --radius:    8px;
+      --radius-lg: 14px;
     }
 
     html { scroll-behavior: smooth; }
-    body { background: var(--navy); color: var(--text); font-family: 'DM Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
-
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2.5rem; background: rgba(7,12,24,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-    .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
-    .nav-brand img { height: 28px; opacity: 0.9; }
-    .nav-brand-text { font-size: 0.85rem; color: var(--muted); }
-    .nav-brand-text strong { color: var(--text); font-weight: 600; }
-    .nav-links { display: flex; align-items: center; gap: 2rem; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-    .btn { display: inline-flex; align-items: center; padding: 0.6rem 1.4rem; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; border: none; }
-    .btn-primary { background: var(--teal); color: #fff; }
-    .btn-primary:hover { background: #2BBCBE; transform: translateY(-1px); }
-    .btn-amber  { background: var(--amber); color: #000; }
-    .btn-amber:hover  { background: #FFC04D; transform: translateY(-1px); }
-    .btn-outline { background: transparent; color: var(--teal); border: 1px solid var(--teal); }
-    .btn-outline:hover { background: var(--glow); }
-    .btn-lg { padding: 0.9rem 2.2rem; font-size: 1rem; border-radius: 6px; }
-
-    /* HERO */
-    #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden; }
-    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(36,158,160,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(36,158,160,0.05) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
-    .hero-glow { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(0,95,96,0.12) 0%, transparent 70%); pointer-events: none; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 1rem; border-radius: 20px; border: 1px solid var(--border); background: rgba(36,158,160,0.07); font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--teal); margin-bottom: 2rem; animation: fadeUp 0.6s ease both; }
-    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-    h1.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; max-width: 820px; animation: fadeUp 0.6s 0.1s ease both; }
-    h1.hero-title .hi { color: var(--teal); font-style: italic; }
-    h1.hero-title .ha { color: var(--amber); }
-    .hero-sub { margin-top: 1.5rem; font-size: 1.1rem; color: var(--muted); max-width: 540px; line-height: 1.75; animation: fadeUp 0.6s 0.2s ease both; }
-    .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.6s 0.3s ease both; }
-    .hero-note { margin-top: 1.25rem; font-size: 0.8rem; color: var(--muted); font-family: 'DM Mono', monospace; animation: fadeUp 0.6s 0.4s ease both; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-
-    /* STATS */
-    #stats { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .stat-item { padding: 3rem 2rem; text-align: center; border-right: 1px solid var(--border); }
-    .stat-item:last-child { border-right: none; }
-    .stat-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: var(--amber); line-height: 1; }
-    .stat-num sup { font-size: 1.6rem; vertical-align: top; margin-top: 0.4rem; display: inline-block; }
-    .stat-label { margin-top: 0.5rem; color: var(--muted); font-size: 0.88rem; }
-
-    /* SECTIONS */
-    section { padding: 6rem 2rem; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    .sec-label { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--teal); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; display: block; }
-    h2.sec-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.9rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
-    h2.sec-title em { font-style: italic; color: var(--teal); }
-    h2.sec-title .a { color: var(--amber); }
-    .sec-intro { color: var(--muted); font-size: 1rem; max-width: 560px; line-height: 1.75; margin-top: 1rem; }
-
-    /* TABBED DEMO */
-    #demo { background: var(--surface); }
-    .demo-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-top: 3rem; }
-    .demo-tab { padding: 0.75rem 1.5rem; font-size: 0.85rem; font-weight: 500; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'DM Sans', sans-serif; }
-    .demo-tab:hover { color: var(--text); }
-    .demo-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
-
-    .demo-panel { display: none; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; padding-top: 2.5rem; }
-    .demo-panel.active { display: grid; }
-
-    .demo-screen { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .demo-bar { padding: 0.75rem 1rem; background: rgba(0,95,96,0.15); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    .dot-r { background:#FF5F57; } .dot-y { background:#FEBC2E; } .dot-g { background:#28C840; }
-    .demo-bar-title { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--muted); margin-left:0.5rem; }
-    .demo-body { padding: 1.25rem; }
-    .demo-prompt { font-size: 0.82rem; color: var(--muted); font-family: 'DM Mono', monospace; padding: 0.75rem 1rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 1.25rem; border-left: 2px solid var(--teal-dk); line-height: 1.5; }
-    .claim { display: flex; align-items: flex-start; gap: 0.65rem; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.81rem; opacity: 0; transform: translateX(-6px); transition: opacity 0.35s ease, transform 0.35s ease; }
-    .claim.vis { opacity: 1; transform: translateX(0); }
-    .ci { width: 18px; height: 18px; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; flex-shrink:0; margin-top:1px; }
-    .ci-ok   { background:rgba(0,210,100,0.12); color:#00D264; }
-    .ci-warn { background:rgba(250,171,54,0.15); color:#FAAB36; }
-    .ci-err  { background:rgba(255,80,80,0.12); color:#FF5050; }
-    .ct { flex:1; line-height:1.4; }
-    .bk { display:inline-block; font-family:'DM Mono',monospace; font-size:0.62rem; padding:0.08rem 0.35rem; border-radius:3px; margin-left:0.35rem; }
-    .bk-ok   { background:rgba(0,210,100,0.1); color:#00D264; }
-    .bk-warn { background:rgba(250,171,54,0.12); color:#FAAB36; }
-    .bk-err  { background:rgba(255,80,80,0.1); color:#FF5050; }
-    .demo-summary { margin-top:0.85rem; padding:0.65rem 1rem; background:rgba(36,158,160,0.07); border:1px solid var(--border); border-radius:6px; font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--teal); opacity:0; transition:opacity 0.5s ease; }
-    .demo-summary.vis { opacity:1; }
-
-    .demo-copy h3 { font-family:'Playfair Display',serif; font-size:1.65rem; font-weight:700; line-height:1.25; margin-bottom:0.85rem; }
-    .demo-copy h3 em { font-style:italic; color:var(--teal); }
-    .demo-copy p { color:var(--muted); font-size:0.9rem; line-height:1.7; margin-bottom:1.25rem; }
-    .demo-list { list-style:none; }
-    .demo-list li { display:flex; align-items:flex-start; gap:0.65rem; padding:0.55rem 0; font-size:0.88rem; color:var(--muted); border-bottom:1px solid rgba(255,255,255,0.04); }
-    .demo-list li::before { content:'→'; color:var(--teal); font-weight:600; flex-shrink:0; }
-
-    /* CODE BLOCK */
-    .code-block { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-top:2.5rem; }
-    .code-bar { padding:0.65rem 1rem; background:rgba(0,95,96,0.12); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.5rem; }
-    .code-bar span { font-family:'DM Mono',monospace; font-size:0.7rem; color:var(--muted); }
-    .code-body { padding:1.25rem; font-family:'DM Mono',monospace; font-size:0.78rem; line-height:1.75; overflow-x:auto; }
-    .ck  { color:#569CD6; } /* keyword */
-    .cs  { color:#CE9178; } /* string */
-    .cn  { color:#B5CEA8; } /* number */
-    .cc  { color:#6A9955; } /* comment */
-    .cp  { color:var(--teal); } /* property/key */
-    .cv  { color:var(--amber); } /* value highlight */
-
-    /* FEATURES */
-    #features { background:var(--navy); }
-    .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3.5rem; }
-    .fc { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:1.75rem; transition:border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
-    .fc:hover { border-color:var(--teal); transform:translateY(-4px); box-shadow:0 12px 40px rgba(36,158,160,0.08); }
-    .fc.span2 { grid-column:span 2; border-color:var(--teal); background:linear-gradient(135deg,var(--card) 0%,rgba(36,158,160,0.05) 100%); }
-    .fi { width:42px; height:42px; border-radius:8px; background:rgba(36,158,160,0.1); display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:1.25rem; }
-    .fc h3 { font-size:1rem; font-weight:600; margin-bottom:0.5rem; }
-    .fc p { color:var(--muted); font-size:0.85rem; line-height:1.6; }
-    .ftag { display:inline-block; margin-top:0.85rem; font-family:'DM Mono',monospace; font-size:0.66rem; padding:0.18rem 0.55rem; border-radius:3px; background:rgba(36,158,160,0.1); color:var(--teal); }
-    .ftag-a { background:rgba(250,171,54,0.1); color:var(--amber); }
-
-    /* AUDIT LOG */
-    #audit { background:var(--surface); }
-    .audit-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; margin-top:4rem; }
-    .audit-log { background:var(--card); border:1px solid var(--border); border-radius:10px; overflow:hidden; font-family:'DM Mono',monospace; font-size:0.74rem; }
-    .al-head { padding:0.7rem 1rem; background:rgba(0,95,96,0.2); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
-    .al-head .t { color:var(--teal); } .al-head .b { font-size:0.64rem; color:var(--muted); }
-    .al-row { padding:0.7rem 1rem; border-bottom:1px solid rgba(255,255,255,0.04); display:grid; grid-template-columns:auto 1fr auto; gap:1rem; align-items:center; }
-    .al-time { color:var(--muted); white-space:nowrap; }
-    .al-act { color:var(--text); }
-    .al-act span { color:var(--teal); }
-    .al-hash { color:var(--muted); font-size:0.64rem; }
-    .audit-copy h3 { font-family:'Playfair Display',serif; font-size:1.75rem; font-weight:700; line-height:1.25; margin-bottom:0.85rem; }
-    .audit-copy h3 em { font-style:italic; color:var(--teal); }
-    .audit-copy p { color:var(--muted); font-size:0.92rem; line-height:1.7; margin-bottom:1rem; }
-
-    /* SEGMENTS */
-    #segments { background:var(--navy); }
-    .seg-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.25rem; margin-top:3.5rem; }
-    .seg-card { padding:1.5rem; border:1px solid var(--border); border-radius:10px; background:var(--card); transition:border-color 0.2s; }
-    .seg-card:hover { border-color:rgba(36,158,160,0.4); }
-    .seg-icon { font-size:1.8rem; margin-bottom:0.85rem; }
-    .seg-card h3 { font-size:0.95rem; font-weight:600; margin-bottom:0.4rem; }
-    .seg-card p { font-size:0.82rem; color:var(--muted); line-height:1.55; }
-
-    /* PRICING */
-    #pricing { background:var(--surface); }
-    .price-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:3.5rem; }
-    .pc { border:1px solid var(--border); border-radius:12px; padding:2.5rem; background:var(--card); }
-    .pc.feat { border-color:var(--teal); background:linear-gradient(160deg,var(--card) 0%,rgba(36,158,160,0.05) 100%); position:relative; }
-    .pc-badge { position:absolute; top:-1px; right:2rem; background:var(--teal); color:#fff; font-size:0.68rem; font-weight:700; padding:0.22rem 0.7rem; border-radius:0 0 6px 6px; font-family:'DM Mono',monospace; }
-    .pc-name { font-size:0.82rem; color:var(--muted); font-family:'DM Mono',monospace; margin-bottom:1rem; }
-    .pc-price { font-family:'Playfair Display',serif; font-size:3rem; font-weight:900; line-height:1; }
-    .pc-price sup { font-size:1.1rem; vertical-align:top; margin-top:0.55rem; display:inline-block; }
-    .pc-price .per { font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--muted); font-weight:400; }
-    .pc-inc { margin-top:0.5rem; font-size:0.78rem; color:var(--muted); font-family:'DM Mono',monospace; }
-    .pc-div { border:none; border-top:1px solid var(--border); margin:1.75rem 0; }
-    .pc-feats { list-style:none; }
-    .pc-feats li { display:flex; align-items:flex-start; gap:0.55rem; padding:0.45rem 0; font-size:0.85rem; border-bottom:1px solid rgba(255,255,255,0.04); }
-    .pc-feats li::before { content:'✓'; color:var(--teal); font-weight:700; flex-shrink:0; }
-    .pc-cta { margin-top:1.75rem; display:block; text-align:center; }
-    .pc-note { margin-top:0.85rem; font-size:0.72rem; color:var(--muted); text-align:center; font-family:'DM Mono',monospace; }
-    .price-vs { margin-top:2.5rem; padding:1.75rem; background:rgba(250,171,54,0.05); border:1px solid rgba(250,171,54,0.2); border-radius:10px; text-align:center; }
-    .price-vs p { font-size:0.9rem; color:var(--muted); }
-    .price-vs strong { color:var(--amber); font-size:1.35rem; font-family:'Playfair Display',serif; }
-
-    /* PARTNER CTA */
-    #partner { background: linear-gradient(160deg, var(--teal-dk) 0%, #003C3D 100%); border-top:1px solid rgba(36,158,160,0.3); text-align:center; padding:6rem 2rem; }
-    #partner .partner-label { font-family:'DM Mono',monospace; font-size:0.72rem; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.15em; margin-bottom:1rem; display:block; }
-    #partner h2 { font-family:'Playfair Display',serif; font-size:clamp(2rem,4.5vw,3.2rem); font-weight:900; max-width:700px; margin:0 auto 1.25rem; line-height:1.15; }
-    #partner h2 .a { color:var(--amber); }
-    #partner p { color:rgba(255,255,255,0.65); max-width:500px; margin:0 auto 2.5rem; line-height:1.75; font-size:1rem; }
-    .partner-perks { display:flex; justify-content:center; gap:3rem; margin-bottom:3rem; flex-wrap:wrap; }
-    .perk { text-align:center; }
-    .perk-num { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:900; color:var(--amber); }
-    .perk-label { font-size:0.8rem; color:rgba(255,255,255,0.55); margin-top:0.2rem; font-family:'DM Mono',monospace; }
-    .partner-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
-    .partner-note { margin-top:2rem; font-size:0.78rem; color:rgba(255,255,255,0.4); font-family:'DM Mono',monospace; }
-
-    /* FOOTER */
-    footer { background:var(--navy); border-top:1px solid var(--border); padding:2.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
-    footer a { color:var(--muted); text-decoration:none; font-size:0.85rem; }
-    footer a:hover { color:var(--teal); }
-    .footer-copy { font-size:0.78rem; color:var(--muted); font-family:'DM Mono',monospace; }
-
-    /* REVEAL */
-    .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.55s ease, transform 0.55s ease; }
-    .reveal.vis { opacity:1; transform:translateY(0); }
-
-    /* RESPONSIVE */
-    @media(max-width:900px){
-      nav { padding:1rem 1.5rem; }
-      .nav-links { display:none; }
-      #stats, .audit-grid, .price-grid { grid-template-columns:1fr; }
-      .stat-item { border-right:none; border-bottom:1px solid var(--border); }
-      .stat-item:last-child { border-bottom:none; }
-      .features-grid { grid-template-columns:1fr; }
-      .fc.span2 { grid-column:span 1; }
-      .seg-grid { grid-template-columns:1fr 1fr; }
-      .demo-panel { grid-template-columns:1fr; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito Sans', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
     }
-    @media(max-width:600px){
-      section { padding:4rem 1.25rem; }
-      .seg-grid, .partner-perks { grid-template-columns:1fr; }
+
+    /* ── NAV ─────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(7,10,18,0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-lt);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.7rem;
+      text-decoration: none; color: var(--text);
+    }
+    .nav-brand img { height: 26px; opacity: 0.85; }
+    .nav-brand-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; }
+    .nav-brand-name span { color: var(--blue-lt); }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .nav-links a {
+      color: var(--muted-lt); text-decoration: none;
+      font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; gap: 0.75rem; align-items: center; }
+
+    /* ── BUTTONS ─────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: var(--radius);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: all 0.18s; border: none;
+      white-space: nowrap;
+    }
+    .btn-primary   { background: var(--blue); color: #fff; }
+    .btn-primary:hover { background: var(--blue-dk); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(62,123,250,0.35); }
+    .btn-outline   { background: transparent; color: var(--text); border: 1px solid var(--border-lt); }
+    .btn-outline:hover { background: var(--border-lt); border-color: rgba(255,255,255,0.12); }
+    .btn-gold      { background: var(--gold); color: #0C0A00; }
+    .btn-gold:hover { background: #FBBF24; transform: translateY(-1px); }
+    .btn-lg { padding: 0.8rem 2rem; font-size: 0.975rem; border-radius: 10px; }
+    .btn-xl { padding: 1rem 2.5rem; font-size: 1.05rem; border-radius: 10px; }
+
+    /* ── SECTIONS ────────────────────────────── */
+    section { position: relative; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── HERO ────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
+      padding: 7rem 2rem 5rem;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(62,123,250,0.18) 0%, transparent 70%),
+        var(--bg);
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(62,123,250,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(62,123,250,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--glow-md);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--blue-lt);
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.03em;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    #hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #fff;
+      max-width: 820px;
+      margin-bottom: 1.25rem;
+    }
+    #hero h1 em { font-style: normal; color: var(--blue-lt); }
+    #hero .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.175rem);
+      color: var(--muted-lt);
+      max-width: 600px;
+      margin-bottom: 2.25rem;
+      font-weight: 400;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .hero-note {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── STATS STRIP ─────────────────────────── */
+    #stats {
+      background: var(--surface);
+      border-top: 1px solid var(--border-lt);
+      border-bottom: 1px solid var(--border-lt);
+      padding: 2rem 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 1.25rem 1rem;
+      border-right: 1px solid var(--border-lt);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      color: #fff; line-height: 1;
+    }
+    .stat-num span { color: var(--blue-lt); }
+    .stat-label {
+      font-size: 0.8rem; color: var(--muted);
+      margin-top: 0.35rem; font-weight: 500;
+    }
+
+    /* ── PROBLEM ─────────────────────────────── */
+    #problem {
+      padding: 5rem 0;
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.02em; color: #fff;
+      max-width: 640px; margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--muted-lt);
+      max-width: 540px; margin-bottom: 3rem;
+      font-weight: 400;
+    }
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    .risk-card {
+      background: var(--card);
+      border: 1px solid var(--border-lt);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: grid; grid-template-columns: auto 1fr; gap: 1rem;
+    }
+    .risk-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .risk-icon.danger { background: rgba(239,68,68,0.1); }
+    .risk-icon.warn   { background: rgba(249,115,22,0.1); }
+    .risk-card h4 {
+      font-size: 0.925rem; font-weight: 700; color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .risk-card p {
+      font-size: 0.825rem; color: var(--muted-lt);
+      line-height: 1.5;
+    }
+    .risk-card .portal-fix {
+      font-size: 0.78rem; color: var(--green);
+      margin-top: 0.5rem; font-weight: 600;
+      display: flex; align-items: flex-start; gap: 0.35rem;
+    }
+
+    /* ── FEATURES ────────────────────────────── */
+    #features {
+      padding: 5rem 0;
+      background: var(--surface);
+    }
+    .features-header { text-align: center; margin-bottom: 3.5rem; }
+    .features-header .section-sub { margin: 0 auto 0; }
+
+    .tabs-nav {
+      display: flex; gap: 0.5rem;
+      background: var(--card);
+      border: 1px solid var(--border-lt);
+      border-radius: 10px;
+      padding: 0.35rem;
+      margin-bottom: 2.5rem;
+      max-width: 640px;
+      margin-left: auto; margin-right: auto;
+    }
+    .tab-btn {
+      flex: 1; padding: 0.65rem 1rem;
+      border-radius: 7px;
+      font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; border: none;
+      background: transparent; color: var(--muted-lt);
+      transition: all 0.2s; white-space: nowrap;
+      font-family: 'Nunito Sans', sans-serif;
+    }
+    .tab-btn.active {
+      background: var(--blue); color: #fff;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+
+    .feature-desc h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem; font-weight: 800;
+      color: #fff; margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .feature-desc p {
+      color: var(--muted-lt); font-size: 0.95rem; margin-bottom: 1.5rem;
+    }
+    .feature-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .feature-bullets li {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.875rem; color: var(--text);
+    }
+    .feature-bullets li::before {
+      content: '✓';
+      color: var(--green); font-weight: 700;
+      flex-shrink: 0; margin-top: 0.05rem;
+    }
+
+    .feature-demo {
+      background: var(--bg);
+      border: 1px solid var(--border-lt);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .demo-bar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border-lt);
+      padding: 0.6rem 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .demo-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .demo-title {
+      font-size: 0.75rem; color: var(--muted);
+      margin-left: 0.25rem; font-weight: 600; letter-spacing: 0.04em;
+    }
+    .demo-body { padding: 1.25rem; }
+
+    /* Fact-check demo */
+    .claim-row {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border-lt);
+      font-size: 0.8rem;
+    }
+    .claim-row:last-child { border-bottom: none; }
+    .verdict-badge {
+      padding: 0.15rem 0.55rem;
+      border-radius: 100px;
+      font-size: 0.7rem; font-weight: 700;
+      white-space: nowrap; flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .verdict-badge.accurate   { background: rgba(16,185,129,0.15); color: var(--green); }
+    .verdict-badge.inaccurate { background: rgba(239,68,68,0.15);  color: var(--red); }
+    .verdict-badge.disputed   { background: rgba(249,115,22,0.15); color: var(--orange); }
+    .verdict-badge.unsupported{ background: rgba(100,116,139,0.2); color: var(--muted-lt); }
+    .verdict-badge.na         { background: rgba(100,116,139,0.12);color: var(--muted); }
+    .claim-text { color: var(--text); line-height: 1.45; flex: 1; }
+    .claim-just { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* Safety gate demo */
+    .safety-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border-lt);
+      font-size: 0.8rem;
+    }
+    .safety-row:last-child { border-bottom: none; }
+    .safety-label { color: var(--muted-lt); }
+    .safety-val { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
+    .safety-val.safe   { color: var(--green); }
+    .safety-val.unsafe { color: var(--red); }
+    .safety-val.num    { color: var(--blue-lt); }
+
+    /* Audit trail demo */
+    .audit-entry {
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border-lt);
+      font-size: 0.8rem;
+    }
+    .audit-entry:last-child { border-bottom: none; }
+    .audit-meta {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+    .audit-user {
+      font-weight: 700; color: var(--blue-lt);
+      font-size: 0.75rem;
+    }
+    .audit-time { color: var(--muted); font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; }
+    .audit-role {
+      padding: 0.1rem 0.4rem; border-radius: 4px;
+      font-size: 0.68rem; font-weight: 700;
+      background: rgba(62,123,250,0.12); color: var(--blue-lt);
+    }
+    .audit-q { color: var(--muted-lt); }
+    .audit-a { color: var(--text); margin-top: 0.15rem; }
+    .audit-tags { display: flex; gap: 0.4rem; margin-top: 0.35rem; flex-wrap: wrap; }
+    .audit-tag {
+      padding: 0.1rem 0.45rem; border-radius: 4px;
+      font-size: 0.68rem; font-weight: 600;
+    }
+    .audit-tag.verified { background: rgba(16,185,129,0.12); color: var(--green); }
+    .audit-tag.safe     { background: rgba(16,185,129,0.08); color: var(--green); }
+    .audit-tag.cost     { background: rgba(62,123,250,0.1); color: var(--blue-lt); }
+
+    /* ── CODE SHOWCASE ───────────────────────── */
+    #code-demo {
+      padding: 5rem 0;
+    }
+    .code-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;
+    }
+    .code-block {
+      background: #09111F;
+      border: 1px solid var(--border-lt);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .code-block-header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border-lt);
+      padding: 0.7rem 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .code-block-title {
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--muted-lt); letter-spacing: 0.04em;
+    }
+    .code-block-lang {
+      font-size: 0.68rem; font-weight: 600;
+      padding: 0.15rem 0.5rem; border-radius: 4px;
+      background: var(--glow-md); color: var(--blue-lt);
+    }
+    pre {
+      padding: 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.775rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      tab-size: 2;
+    }
+    .tok-key     { color: #7DD3FC; }
+    .tok-str     { color: #86EFAC; }
+    .tok-num     { color: #FCA5A5; }
+    .tok-bool    { color: #F9A8D4; }
+    .tok-method  { color: #C4B5FD; }
+    .tok-url     { color: var(--muted); }
+    .tok-comment { color: var(--muted); font-style: italic; }
+    .tok-kw      { color: #FBBF24; }
+    .tok-badge   { color: #6EE7B7; font-weight: 700; }
+
+    .code-desc {
+      display: flex; flex-direction: column; gap: 1.25rem; justify-content: center;
+    }
+    .code-desc h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem; font-weight: 800;
+      color: #fff; letter-spacing: -0.02em;
+    }
+    .code-desc p { color: var(--muted-lt); font-size: 0.925rem; }
+    .code-tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .code-tag {
+      background: var(--glow);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--blue-lt);
+    }
+    .sse-stream {
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .sse-line {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+    .sse-prefix { color: var(--muted); flex-shrink: 0; }
+    .sse-data   { color: #86EFAC; }
+    .sse-final  { color: #FBBF24; }
+    .sse-done   { color: var(--blue-lt); }
+
+    /* ── COMPARISON ──────────────────────────── */
+    #comparison {
+      padding: 5rem 0;
+      background: var(--surface);
+    }
+    .comp-table-wrap { overflow-x: auto; margin-top: 3rem; }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    thead tr {
+      border-bottom: 2px solid var(--border);
+    }
+    th {
+      padding: 0.9rem 1rem; text-align: left;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    th.portal-col {
+      color: var(--blue-lt);
+      background: rgba(62,123,250,0.05);
+      border-left: 2px solid var(--blue);
+      border-right: 2px solid var(--blue);
+    }
+    td {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--border-lt);
+      color: var(--muted-lt);
+      vertical-align: middle;
+    }
+    td.portal-col {
+      background: rgba(62,123,250,0.04);
+      border-left: 2px solid rgba(62,123,250,0.25);
+      border-right: 2px solid rgba(62,123,250,0.25);
+      color: var(--text);
+    }
+    td.row-head {
+      color: var(--text); font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .ic-yes  { color: var(--green); font-weight: 700; font-size: 0.9rem; }
+    .ic-no   { color: var(--red); font-size: 0.9rem; }
+    .ic-part { color: var(--orange); font-size: 0.9rem; }
+    .ic-excl {
+      color: var(--blue-lt); font-weight: 700; font-size: 0.8rem;
+    }
+    tfoot td {
+      border-top: 2px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    /* ── PRICING ─────────────────────────────── */
+    #pricing {
+      padding: 5rem 0;
+    }
+    .pricing-header { text-align: center; margin-bottom: 3rem; }
+    .pricing-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      max-width: 800px; margin: 0 auto;
+    }
+    .price-card {
+      background: var(--card);
+      border: 1px solid var(--border-lt);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+    .price-card.featured {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 1px rgba(62,123,250,0.2),
+                  0 20px 40px rgba(62,123,250,0.08);
+    }
+    .price-badge {
+      display: inline-block;
+      background: var(--blue); color: #fff;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 0.2rem 0.65rem; border-radius: 100px;
+      letter-spacing: 0.04em; margin-bottom: 1rem;
+    }
+    .price-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: #fff; margin-bottom: 0.5rem;
+    }
+    .price-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.6rem; font-weight: 800;
+      color: #fff; line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .price-value span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .price-note {
+      font-size: 0.8rem; color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .price-separator {
+      border: none; border-top: 1px solid var(--border-lt);
+      margin: 1.25rem 0;
+    }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .price-features li {
+      display: flex; align-items: flex-start; gap: 0.55rem;
+      font-size: 0.85rem; color: var(--muted-lt);
+    }
+    .price-features li .icon { flex-shrink: 0; color: var(--green); margin-top: 0.05rem; }
+    .price-features li strong { color: var(--text); }
+    .price-cta { margin-top: 1.75rem; width: 100%; text-align: center; display: block; }
+    .price-footnote {
+      font-size: 0.8rem; color: var(--muted);
+      text-align: center; margin-top: 1.5rem; max-width: 540px; margin-left: auto; margin-right: auto;
+    }
+
+    /* ── CTA SECTION ─────────────────────────── */
+    #cta {
+      padding: 5rem 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border-lt);
+    }
+    .cta-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      max-width: 900px; margin: 0 auto;
+    }
+    .cta-card {
+      background: var(--card);
+      border: 1px solid var(--border-lt);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+    }
+    .cta-card.primary {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 1px rgba(62,123,250,0.15);
+    }
+    .cta-card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1.25rem;
+    }
+    .cta-card-icon.blue { background: rgba(62,123,250,0.12); }
+    .cta-card-icon.gold { background: rgba(245,158,11,0.12); }
+    .cta-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.25rem; font-weight: 800;
+      color: #fff; margin-bottom: 0.6rem;
+    }
+    .cta-card p {
+      font-size: 0.875rem; color: var(--muted-lt);
+      margin-bottom: 1.5rem; line-height: 1.6;
+    }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border-lt);
+      padding: 3rem 0 1.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: #fff; margin-bottom: 0.6rem;
+    }
+    .footer-brand-name span { color: var(--blue-lt); }
+    .footer-brand-desc {
+      font-size: 0.85rem; color: var(--muted);
+      line-height: 1.6; max-width: 300px;
+    }
+    .footer-col-title {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted-lt); margin-bottom: 1rem;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .footer-links a {
+      font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border-lt);
+      padding-top: 1.25rem;
+      flex-wrap: wrap; gap: 0.75rem;
+    }
+    .footer-legal {
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .footer-linkedin {
+      font-size: 0.78rem; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-linkedin:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .risk-grid { grid-template-columns: 1fr; }
+      .tab-panel.active { grid-template-columns: 1fr; }
+      .code-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .cta-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-brand-col { grid-column: 1 / -1; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -231,167 +687,126 @@
 
 <!-- NAV -->
 <nav>
-  <a href="/preview/" class="nav-brand">
+  <a href="/" class="nav-brand">
     <img src="/images/logo.png" alt="Winserv" />
-    <span class="nav-brand-text"><strong>Winserv</strong> AI Portal</span>
+    <div class="nav-brand-name">Winserv <span>AI Portal</span></div>
   </a>
   <div class="nav-links">
-    <a href="#demo">Como funciona</a>
-    <a href="#features">Funcionalidades</a>
+    <a href="#features">Recursos</a>
+    <a href="#comparison">Comparativo</a>
     <a href="#pricing">Preços</a>
-    <a href="#partner" class="btn btn-amber">Seja parceiro</a>
+    <a href="#cta">Parceiros</a>
+  </div>
+  <div class="nav-actions">
+    <a href="#cta" class="btn btn-outline">Fale conosco</a>
+    <a href="#cta" class="btn btn-primary">Ver demonstração</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-badge">Governança de IA · Já disponível</div>
-  <h1 class="hero-title">
-    Cada afirmação <span class="hi">verificada.</span><br />
-    Cada decisão <span class="ha">documentada.</span>
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Governança de IA para empresas reguladas
+  </div>
+  <h1>
+    IA corporativa com<br />
+    <em>auditoria real</em> — não só<br />
+    produtividade
   </h1>
   <p class="hero-sub">
-    Portal de governança de IA para empresas que operam em ambientes regulados —
-    com fact-check por afirmação, audit trail imutável e conformidade com LGPD e PL&nbsp;2338.
+    Fact-check afirmação por afirmação. Audit trail imutável. Safety Gate com
+    10 categorias. Single-tenant. Compliance LGPD e PL 2338 de fábrica.
   </p>
-  <div class="hero-actions">
-    <a href="#partner" class="btn btn-amber btn-lg">Seja um parceiro</a>
-    <a href="#demo" class="btn btn-outline btn-lg">Ver como funciona</a>
+  <div class="hero-ctas">
+    <a href="#cta" class="btn btn-primary btn-xl">Solicitar demonstração</a>
+    <a href="#features" class="btn btn-outline btn-xl">Explorar recursos</a>
   </div>
-  <p class="hero-note">R$&nbsp;500/mês · 50 usuários · 25% comissão recorrente para parceiros</p>
+  <p class="hero-note">R$ 500/mês · 50 usuários inclusos · Todas as funcionalidades</p>
 </section>
 
-<!-- STATS -->
-<div id="stats">
-  <div class="stat-item reveal">
-    <div class="stat-num">9<sup>×</sup></div>
-    <div class="stat-label">mais barato por usuário que ChatGPT Plus</div>
-  </div>
-  <div class="stat-item reveal">
-    <div class="stat-num">100<sup>%</sup></div>
-    <div class="stat-label">das afirmações verificadas individualmente</div>
-  </div>
-  <div class="stat-item reveal">
-    <div class="stat-num">0</div>
-    <div class="stat-label">dados compartilhados entre clientes</div>
-  </div>
-</div>
-
-<!-- TABBED DEMO -->
-<section id="demo">
+<!-- STATS STRIP -->
+<section id="stats">
   <div class="container">
-    <span class="sec-label reveal">Funcionalidade exclusiva</span>
-    <h2 class="sec-title reveal">Fact-Check <em>afirmação por afirmação</em></h2>
-    <p class="sec-intro reveal">A IA verifica cada parte da resposta de forma independente — não só o resultado final. Única solução do mercado com essa granularidade.</p>
-
-    <div class="demo-tabs reveal" id="demo-tabs">
-      <button class="demo-tab active" data-panel="legal">⚖️ Jurídico</button>
-      <button class="demo-tab" data-panel="contab">📊 Contabilidade</button>
-      <button class="demo-tab" data-panel="compliance">🛡️ Compliance</button>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num"><span>5</span></div>
+        <div class="stat-label">Vereditos de fact-check por afirmação</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span>10</span></div>
+        <div class="stat-label">Categorias de ataque bloqueadas pelo Safety Gate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98<span>%</span></div>
+        <div class="stat-label">Redução de custo com 5 camadas de cache</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">27<span>×</span></div>
+        <div class="stat-label">Mais barato que ChatGPT Enterprise (100 usuários)</div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <!-- JURÍDICO -->
-    <div class="demo-panel active" id="panel-legal">
-      <div class="demo-screen" id="demo-legal">
-        <div class="demo-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="demo-bar-title">AI Portal · Fact-Check · Jurídico</span></div>
-        <div class="demo-body">
-          <div class="demo-prompt">▸ "Qual o prazo prescricional para ação de cobrança de honorários advocatícios?"</div>
-          <div class="claim" data-delay="350"><div class="ci ci-ok">✓</div><div class="ct">O prazo prescricional é de 5 anos (art. 206, §5°, II, CC).<span class="bk bk-ok">verificado</span></div></div>
-          <div class="claim" data-delay="800"><div class="ci ci-ok">✓</div><div class="ct">O prazo conta a partir da data de prestação dos serviços.<span class="bk bk-ok">verificado</span></div></div>
-          <div class="claim" data-delay="1250"><div class="ci ci-warn">!</div><div class="ct">O STJ tem jurisprudência divergente sobre o marco inicial em contratos com parcelas.<span class="bk bk-warn">atenção</span></div></div>
-          <div class="claim" data-delay="1700"><div class="ci ci-err">✗</div><div class="ct">A prescrição pode ser interrompida por simples notificação extrajudicial.<span class="bk bk-err">impreciso</span></div></div>
-          <div class="demo-summary" id="sum-legal">⊕ 4 afirmações analisadas · 2 verificadas · 1 divergência · 1 imprecisão · salvo no audit trail</div>
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <div class="section-label">O problema</div>
+    <h2 class="section-title">Acesso direto à IA resolve produtividade. Não resolve governança.</h2>
+    <p class="section-sub">
+      Quando a empresa tem 50, 100 ou 500 funcionários usando IA sem controle, surgem riscos jurídicos,
+      financeiros e regulatórios que se tornam visíveis apenas na auditoria.
+    </p>
+    <div class="risk-grid">
+      <div class="risk-card">
+        <div class="risk-icon danger">⚠️</div>
+        <div>
+          <h4>Shadow AI — invisibilidade total</h4>
+          <p>Sem o portal, ninguém no TI sabe o que os funcionários estão perguntando ou recebendo de resposta.</p>
+          <div class="portal-fix">✓ Toda interação registrada em audit trail JSONB imutável</div>
         </div>
       </div>
-      <div class="demo-copy">
-        <h3>A IA não erra menos.<br />Você <em>enxerga mais.</em></h3>
-        <p>Modelos de IA produzem respostas com confiança mesmo quando estão incorretos. O Winserv AI Portal não elimina esse risco — torna-o visível, rastreável e documentado para cada consulta.</p>
-        <ul class="demo-list">
-          <li>Cada afirmação recebe veredito independente</li>
-          <li>Referência e nível de confiança por claim</li>
-          <li>Resultado salvo automaticamente no audit trail</li>
-          <li>Exportável para pareceres e documentos de compliance</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- CONTABILIDADE -->
-    <div class="demo-panel" id="panel-contab">
-      <div class="demo-screen" id="demo-contab">
-        <div class="demo-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="demo-bar-title">AI Portal · Fact-Check · Contabilidade</span></div>
-        <div class="demo-body">
-          <div class="demo-prompt">▸ "Empresa optante pelo Simples Nacional pode deduzir despesas com vale-refeição no IRPJ?"</div>
-          <div class="claim" data-delay="350"><div class="ci ci-ok">✓</div><div class="ct">Empresas no Simples Nacional não apuram IRPJ separadamente — tributos são unificados no DAS.<span class="bk bk-ok">verificado</span></div></div>
-          <div class="claim" data-delay="800"><div class="ci ci-ok">✓</div><div class="ct">A dedução de vale-refeição no Lucro Real é permitida como despesa operacional (Lei 6.321/76).<span class="bk bk-ok">verificado</span></div></div>
-          <div class="claim" data-delay="1250"><div class="ci ci-warn">!</div><div class="ct">O benefício fiscal do PAT exige adesão prévia ao programa pelo empregador.<span class="bk bk-warn">atenção · verificar adesão</span></div></div>
-          <div class="claim" data-delay="1700"><div class="ci ci-err">✗</div><div class="ct">Empresas do Simples podem optar pelo Lucro Real para aproveitar deduções específicas.<span class="bk bk-err">incorreto</span></div></div>
-          <div class="demo-summary" id="sum-contab">⊕ 4 afirmações analisadas · 2 verificadas · 1 atenção · 1 incorreta · salvo no audit trail</div>
+      <div class="risk-card">
+        <div class="risk-icon danger">🔓</div>
+        <div>
+          <h4>Vazamento de dados confidenciais</h4>
+          <p>Contratos, planilhas e dados sensíveis colados em APIs públicas saem do controle da empresa.</p>
+          <div class="portal-fix">✓ Banco isolado por cliente, API Keys próprias — a Winserv não intermedia tokens</div>
         </div>
       </div>
-      <div class="demo-copy">
-        <h3>Consultas fiscais com <em>rastreabilidade total.</em></h3>
-        <p>Cada orientação tributária assistida por IA fica documentada com veredito por afirmação — pronto para fiscalizações, auditorias do CRC e contestações junto à Receita Federal.</p>
-        <ul class="demo-list">
-          <li>Audit trail de todas as consultas fiscais</li>
-          <li>Identificação de afirmações incorretas antes de usar</li>
-          <li>Evidência documental para o CRC e órgãos reguladores</li>
-          <li>Histórico imutável por usuário e por cliente</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- COMPLIANCE -->
-    <div class="demo-panel" id="panel-compliance">
-      <div class="demo-screen" id="demo-compliance">
-        <div class="demo-bar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><span class="demo-bar-title">AI Portal · Fact-Check · Compliance / LGPD</span></div>
-        <div class="demo-body">
-          <div class="demo-prompt">▸ "Qual o prazo para notificar a ANPD após um incidente de vazamento de dados pessoais?"</div>
-          <div class="claim" data-delay="350"><div class="ci ci-err">✗</div><div class="ct">A LGPD estabelece prazo de 72 horas para notificação de incidentes à ANPD.<span class="bk bk-err">incorreto · prazo é 2 dias úteis</span></div></div>
-          <div class="claim" data-delay="800"><div class="ci ci-ok">✓</div><div class="ct">A notificação deve incluir a natureza dos dados afetados e as medidas adotadas (art. 48, LGPD).<span class="bk bk-ok">verificado</span></div></div>
-          <div class="claim" data-delay="1250"><div class="ci ci-warn">!</div><div class="ct">Incidentes sem risco relevante aos titulares podem não exigir comunicação imediata à ANPD.<span class="bk bk-warn">depende do caso</span></div></div>
-          <div class="claim" data-delay="1700"><div class="ci ci-ok">✓</div><div class="ct">A multa por descumprimento pode chegar a 2% do faturamento, limitada a R$&nbsp;50 milhões por infração.<span class="bk bk-ok">verificado</span></div></div>
-          <div class="demo-summary" id="sum-compliance">⊕ 4 afirmações analisadas · 2 verificadas · 1 atenção · 1 incorreta · salvo no audit trail</div>
+      <div class="risk-card">
+        <div class="risk-icon warn">🎲</div>
+        <div>
+          <h4>Alucinações sem verificação</h4>
+          <p>A IA inventa um dado, o funcionário usa. Um parecer jurídico com erro vai para um processo.</p>
+          <div class="portal-fix">✓ Fact-Check afirmação por afirmação — exclusivo no mercado</div>
         </div>
       </div>
-      <div class="demo-copy">
-        <h3>LGPD e PL 2338 <em>sem margem para erro.</em></h3>
-        <p>Em ambientes regulados, uma orientação incorreta de IA pode gerar multas milionárias. O fact-check por afirmação detecta imprecisões antes de qualquer decisão ser tomada.</p>
-        <ul class="demo-list">
-          <li>Detecta erros factuais em orientações regulatórias</li>
-          <li>Audit trail prontos para relatórios de impacto (RIPD)</li>
-          <li>Evidência de due diligence em uso de IA para DPOs</li>
-          <li>PL 2338-ready de fábrica — sem customização adicional</li>
-        </ul>
+      <div class="risk-card">
+        <div class="risk-icon warn">💳</div>
+        <div>
+          <h4>Custo imprevisível de API</h4>
+          <p>Sem controle, a conta Google/OpenAI no fim do mês é uma surpresa. Sem limites por usuário.</p>
+          <div class="portal-fix">✓ Daily cost limit por usuário + dashboard FinOps com projeções</div>
+        </div>
       </div>
-    </div>
-
-    <!-- CODE BLOCK -->
-    <div class="code-block reveal" style="margin-top:3rem;">
-      <div class="code-bar">
-        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-        <span>audit_trail_entry.json — exemplo de registro imutável</span>
+      <div class="risk-card">
+        <div class="risk-icon warn">📋</div>
+        <div>
+          <h4>Auditoria regulatória (Bacen, ANPD, CVM)</h4>
+          <p>A reguladora chega e pede trilha de auditoria de uso de IA. Sem o portal, não há o que apresentar.</p>
+          <div class="portal-fix">✓ Histórico completo exportável, agrupado por conversa — pronto para auditoria</div>
+        </div>
       </div>
-      <div class="code-body">
-<span class="cc">// Cada entrada é gravada uma vez e bloqueada para edição</span>
-{
-  <span class="cp">"id"</span>: <span class="cs">"atr_01HZ9K3M..."</span>,
-  <span class="cp">"tenant"</span>: <span class="cs">"escritorio-xyz"</span>,
-  <span class="cp">"user"</span>: <span class="cs">"dra.ana@escritorio.com.br"</span>,
-  <span class="cp">"ts"</span>: <span class="cs">"2026-05-16T09:14:02.341Z"</span>,
-  <span class="cp">"prompt"</span>: <span class="cs">"Qual o prazo prescricional para..."</span>,
-  <span class="cp">"response_hash"</span>: <span class="cs">"sha256:9f4a2c..."</span>,
-  <span class="cp">"fact_check"</span>: {
-    <span class="cp">"claims_total"</span>: <span class="cn">4</span>,
-    <span class="cp">"verified"</span>: <span class="cn">2</span>,
-    <span class="cp">"attention"</span>: <span class="cn">1</span>,
-    <span class="cp">"incorrect"</span>: <span class="cn">1</span>,
-    <span class="cp">"entries"</span>: [ <span class="cc">/* array completo preservado */</span> ]
-  },
-  <span class="cp">"immutable"</span>: <span class="cv">true</span>,   <span class="cc">// bloqueado após gravação</span>
-  <span class="cp">"pl_2338_compliant"</span>: <span class="cv">true</span>
-}</div>
+      <div class="risk-card">
+        <div class="risk-icon danger">👥</div>
+        <div>
+          <h4>Acesso sem controle de perfil</h4>
+          <p>Estagiário e diretor usando o mesmo modelo, com as mesmas permissões, sem limites.</p>
+          <div class="portal-fix">✓ RBAC 4 níveis + feature flags por grupo/usuário com herança em cascata</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -399,90 +814,426 @@
 <!-- FEATURES -->
 <section id="features">
   <div class="container">
-    <span class="sec-label reveal">Diferenciais</span>
-    <h2 class="sec-title reveal">Construído para quem<br /><em>não pode errar.</em></h2>
-    <div class="features-grid">
-      <div class="fc span2 reveal">
-        <div class="fi">⚖️</div>
-        <h3>Fact-Check por afirmação</h3>
-        <p>Exclusivo no mercado. Cada claim da resposta da IA é verificado individualmente com referência, nível de confiança e veredito — verificado, atenção ou incorreto. Não é revisão do texto final: é análise cirúrgica de cada proposição.</p>
-        <span class="ftag">exclusivo no mercado</span>
-        <span class="ftag ftag-a" style="margin-left:0.4rem;">diferencial competitivo</span>
+    <div class="features-header">
+      <div class="section-label">Funcionalidades exclusivas</div>
+      <h2 class="section-title" style="margin: 0 auto 0.75rem; text-align: center;">O que nenhum concorrente entrega</h2>
+      <p class="section-sub" style="text-align: center;">
+        Três diferenciais que o ChatGPT Enterprise, o Copilot e o Perplexity não oferecem simultaneamente.
+      </p>
+    </div>
+
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="openTab(event, 'tab-fc')">Fact-Check</button>
+      <button class="tab-btn" onclick="openTab(event, 'tab-sg')">Safety Gate</button>
+      <button class="tab-btn" onclick="openTab(event, 'tab-at')">Audit Trail</button>
+    </div>
+
+    <!-- TAB: Fact-Check -->
+    <div id="tab-fc" class="tab-panel active">
+      <div class="feature-desc">
+        <h3>Fact-Check afirmação por afirmação</h3>
+        <p>
+          O portal extrai cada afirmação individual de uma resposta e a verifica contra fontes
+          reais na web via Google Search grounding. Cinco vereditos possíveis.
+          Nenhum concorrente — nem ChatGPT, nem Perplexity — faz isso.
+        </p>
+        <ul class="feature-bullets">
+          <li>Verifica claims individualmente, não a resposta como um todo</li>
+          <li>Fontes reais com URLs para rastreabilidade</li>
+          <li>Modelo leve (Gemini Flash-Lite) — custo médio US$ 0,005/auditoria</li>
+          <li>Dois modos: sob demanda (botão "Verificar") ou automático</li>
+          <li>Reviser corrige automaticamente respostas com erros identificados</li>
+          <li>Fallback automático Flash-Lite → Flash em caso de sobrecarga</li>
+        </ul>
       </div>
-      <div class="fc reveal">
-        <div class="fi">🔒</div>
-        <h3>Audit Trail imutável</h3>
-        <p>Cada interação registrada em JSONB com conteúdo completo. Nenhum registro pode ser alterado retroativamente — por design, não por política.</p>
-        <span class="ftag">LGPD · PL 2338</span>
+      <div class="feature-demo">
+        <div class="demo-bar">
+          <div class="demo-dot" style="background:#ef4444"></div>
+          <div class="demo-dot" style="background:#f59e0b"></div>
+          <div class="demo-dot" style="background:#10b981"></div>
+          <div class="demo-title">FACT-CHECK · audit.py</div>
+        </div>
+        <div class="demo-body">
+          <div class="claim-row">
+            <span class="verdict-badge accurate">Accurate</span>
+            <div>
+              <div class="claim-text">O GDPR entrou em vigor em maio de 2018</div>
+              <div class="claim-just">Confirmado: Regulation (EU) 2016/679, aplicável desde 25/05/2018</div>
+            </div>
+          </div>
+          <div class="claim-row">
+            <span class="verdict-badge inaccurate">Inaccurate</span>
+            <div>
+              <div class="claim-text">A LGPD entrou em vigor em agosto de 2020</div>
+              <div class="claim-just">Incorreto: a LGPD entrou em vigor em setembro de 2020 (Lei 13.709/2018)</div>
+            </div>
+          </div>
+          <div class="claim-row">
+            <span class="verdict-badge disputed">Disputed</span>
+            <div>
+              <div class="claim-text">O PL 2338 já é lei vigente no Brasil</div>
+              <div class="claim-just">Contestado: aprovado no Senado, ainda em tramitação na Câmara em mai/2026</div>
+            </div>
+          </div>
+          <div class="claim-row">
+            <span class="verdict-badge unsupported">Unsupported</span>
+            <div>
+              <div class="claim-text">Multas por violação chegam a R$ 50 milhões por infração</div>
+              <div class="claim-just">Sem fonte confiável que confirme este valor específico</div>
+            </div>
+          </div>
+          <div class="claim-row">
+            <span class="verdict-badge na">Not Applicable</span>
+            <div>
+              <div class="claim-text">A conformidade é um processo contínuo, não um projeto</div>
+              <div class="claim-just">Opinião subjetiva — não verificável factualmente</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="fc reveal">
-        <div class="fi">🏛️</div>
-        <h3>Single-tenant</h3>
-        <p>VM e banco dedicados por cliente. Zero compartilhamento de dados entre empresas, sem exceção.</p>
+    </div>
+
+    <!-- TAB: Safety Gate -->
+    <div id="tab-sg" class="tab-panel">
+      <div class="feature-desc">
+        <h3>Safety Gate — dupla camada de classificação</h3>
+        <p>
+          Analisa cada pergunta do usuário e cada resposta do modelo antes de entregar.
+          Um modelo leve classifica em 10 categorias de ataque. Fail-open em 800ms — nunca
+          trava o chat por indisponibilidade do classificador.
+        </p>
+        <ul class="feature-bullets">
+          <li>Classifica input E output — dupla camada de proteção</li>
+          <li>10 categorias: persona hacking, prompt injection, ofuscação, evasão multi-turn e mais</li>
+          <li>Cache SHA-256 com TTL 24h — zero custo em mensagens repetidas</li>
+          <li>Master switch por env (operador) + feature flag por escopo (admin)</li>
+          <li>Custo mínimo: ~US$ 0,0001/classificação com 68% de cache hit</li>
+          <li>Stats em tempo real no painel admin: bloqueios, taxa, custo 24h</li>
+        </ul>
       </div>
-      <div class="fc reveal">
-        <div class="fi">🔑</div>
-        <h3>Multi-IdP</h3>
-        <p>Login local, Microsoft Entra ID e Google Workspace. Integra com o que o cliente já usa — sem fricção no onboarding.</p>
+      <div class="feature-demo">
+        <div class="demo-bar">
+          <div class="demo-dot" style="background:#ef4444"></div>
+          <div class="demo-dot" style="background:#f59e0b"></div>
+          <div class="demo-dot" style="background:#10b981"></div>
+          <div class="demo-title">SAFETY GATE · safety.py</div>
+        </div>
+        <div class="demo-body">
+          <div class="safety-row">
+            <span class="safety-label">Categorizações (24h)</span>
+            <span class="safety-val num">1.247</span>
+          </div>
+          <div class="safety-row">
+            <span class="safety-label">Bloqueios (24h)</span>
+            <span class="safety-val num">3</span>
+          </div>
+          <div class="safety-row">
+            <span class="safety-label">Taxa de bloqueio</span>
+            <span class="safety-val num">0,24%</span>
+          </div>
+          <div class="safety-row">
+            <span class="safety-label">Cache hit rate</span>
+            <span class="safety-val num">68,5%</span>
+          </div>
+          <div class="safety-row">
+            <span class="safety-label">Custo estimado (24h)</span>
+            <span class="safety-val num">US$ 0,071</span>
+          </div>
+          <div class="safety-row">
+            <span class="safety-label">Timeout / fail-open</span>
+            <span class="safety-val num">800ms → SAFE</span>
+          </div>
+          <div class="safety-row">
+            <span class="safety-label">Último input bloqueado</span>
+            <span class="safety-val unsafe">UNSAFE · persona_roleplay</span>
+          </div>
+          <div class="safety-row">
+            <span class="safety-label">Status</span>
+            <span class="safety-val safe">● ATIVO</span>
+          </div>
+        </div>
       </div>
-      <div class="fc reveal">
-        <div class="fi">☁️</div>
-        <h3>SaaS ou On-premises</h3>
-        <p>Deploy gerenciado pela Winserv ou na infraestrutura do cliente. Flexível para exigências de segurança de cada setor.</p>
+    </div>
+
+    <!-- TAB: Audit Trail -->
+    <div id="tab-at" class="tab-panel">
+      <div class="feature-desc">
+        <h3>Audit Trail JSONB imutável</h3>
+        <p>
+          Cada conversa registrada no PostgreSQL do cliente com usuário, papel, timestamp,
+          custo e resultado de verificações. Exportável em CSV. Pronto para auditoria regulatória.
+        </p>
+        <ul class="feature-bullets">
+          <li>Registro imutável em PostgreSQL isolado por cliente</li>
+          <li>Agrupa perguntas e respostas por conversa, com ramificações</li>
+          <li>Vincula resultado do fact-check e safety gate a cada mensagem</li>
+          <li>RBAC 4 níveis: usuário → auditor → llm_manager → global_admin</li>
+          <li>Export CSV para Bacen, ANPD, CVM e outras reguladoras</li>
+          <li>Soft-delete preserva histórico — auditoria nunca perde dados</li>
+        </ul>
+      </div>
+      <div class="feature-demo">
+        <div class="demo-bar">
+          <div class="demo-dot" style="background:#ef4444"></div>
+          <div class="demo-dot" style="background:#f59e0b"></div>
+          <div class="demo-dot" style="background:#10b981"></div>
+          <div class="demo-title">AUDIT TRAIL · PostgreSQL JSONB</div>
+        </div>
+        <div class="demo-body">
+          <div class="audit-entry">
+            <div class="audit-meta">
+              <span class="audit-user">ana.lima</span>
+              <span class="audit-role">auditor</span>
+              <span class="audit-time">2026-05-16 09:14:32</span>
+            </div>
+            <div class="audit-q">↑ Quais são as obrigações do controlador sob o art. 37 da LGPD?</div>
+            <div class="audit-a">↓ O controlador deve manter registro das operações de tratamento...</div>
+            <div class="audit-tags">
+              <span class="audit-tag verified">fact-check: Accurate</span>
+              <span class="audit-tag safe">safety: SAFE</span>
+              <span class="audit-tag cost">US$ 0,023</span>
+            </div>
+          </div>
+          <div class="audit-entry">
+            <div class="audit-meta">
+              <span class="audit-user">pedro.souza</span>
+              <span class="audit-role">user</span>
+              <span class="audit-time">2026-05-16 09:21:07</span>
+            </div>
+            <div class="audit-q">↑ Resuma o contrato de prestação de serviços [doc: contrato-xpto.pdf]</div>
+            <div class="audit-a">↓ O contrato prevê vigência de 12 meses com renovação automática...</div>
+            <div class="audit-tags">
+              <span class="audit-tag safe">safety: SAFE</span>
+              <span class="audit-tag cost">US$ 0,041 · ICL 1M tok</span>
+            </div>
+          </div>
+          <div class="audit-entry">
+            <div class="audit-meta">
+              <span class="audit-user">marcos.f</span>
+              <span class="audit-role">llm_manager</span>
+              <span class="audit-time">2026-05-16 09:38:51</span>
+            </div>
+            <div class="audit-q">↑ [Bloqueado pelo Safety Gate]</div>
+            <div class="audit-a" style="color:var(--red)">↓ Mensagem bloqueada · categoria: prompt_injection</div>
+            <div class="audit-tags">
+              <span class="audit-tag" style="background:rgba(239,68,68,0.12);color:var(--red)">safety: UNSAFE</span>
+              <span class="audit-tag cost">US$ 0,000</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AUDIT VISUAL -->
-<section id="audit">
+<!-- CODE DEMO -->
+<section id="code-demo">
   <div class="container">
-    <div class="audit-grid">
-      <div class="audit-log reveal">
-        <div class="al-head"><span class="t">audit_trail</span><span class="b">JSONB · imutável · winserv-ai-portal</span></div>
-        <div class="al-row"><span class="al-time">09:14:02</span><span class="al-act">query por <span>dra.ana@escritorio.com.br</span></span><span class="al-hash">0xf4a2</span></div>
-        <div class="al-row"><span class="al-time">09:14:03</span><span class="al-act">fact-check <span>4 claims</span> executado</span><span class="al-hash">0xb19c</span></div>
-        <div class="al-row"><span class="al-time">09:14:04</span><span class="al-act">hash <span>gerado e assinado</span></span><span class="al-hash">0x9e3f</span></div>
-        <div class="al-row"><span class="al-time">09:14:04</span><span class="al-act">registro <span>bloqueado para edição</span></span><span class="al-hash">0xc71a</span></div>
-        <div class="al-row"><span class="al-time">09:21:17</span><span class="al-act">exportação <span>PDF</span> gerada pelo usuário</span><span class="al-hash">0x3d88</span></div>
-        <div class="al-row"><span class="al-time">10:05:44</span><span class="al-act">acesso de <span>auditor externo</span> registrado</span><span class="al-hash">0x1ae9</span></div>
+    <div style="text-align:center; margin-bottom: 3rem;">
+      <div class="section-label">API real</div>
+      <h2 class="section-title" style="margin: 0 auto 0.75rem; text-align: center; max-width: 640px;">
+        Integra com suas ferramentas existentes
+      </h2>
+      <p class="section-sub" style="text-align: center; margin: 0 auto;">
+        API REST documentada. SSE streaming nativo. Respostas em JSON estruturado para auditoria programática.
+      </p>
+    </div>
+    <div class="code-grid">
+      <div>
+        <div class="code-block" style="margin-bottom: 1.25rem;">
+          <div class="code-block-header">
+            <span class="code-block-title">POST /v1/fact-check/audit</span>
+            <span class="code-block-lang">JSON</span>
+          </div>
+          <pre>{
+  <span class="tok-key">"question"</span>: <span class="tok-str">"Qual o prazo para notificar a ANPD?"</span>,
+  <span class="tok-key">"answer"</span>:   <span class="tok-str">"O controlador tem 72 horas para notificar..."</span>,
+  <span class="tok-key">"enable_reviser"</span>: <span class="tok-bool">true</span>
+}
+
+<span class="tok-comment">// Response 200:</span>
+{
+  <span class="tok-key">"claims"</span>: [
+    {
+      <span class="tok-key">"claim"</span>: <span class="tok-str">"O prazo é 72 horas"</span>,
+      <span class="tok-key">"verdict"</span>:       <span class="tok-badge">"Disputed"</span>,
+      <span class="tok-key">"justification"</span>: <span class="tok-str">"A LGPD não define prazo fixo..."</span>,
+      <span class="tok-key">"source_urls"</span>:   [<span class="tok-str">"https://www.gov.br/anpd"</span>]
+    }
+  ],
+  <span class="tok-key">"overall_verdict"</span>:  <span class="tok-badge">"Disputed"</span>,
+  <span class="tok-key">"corrected_answer"</span>: <span class="tok-str">"A LGPD não especifica prazo..."</span>,
+  <span class="tok-key">"cost_usd"</span>:         <span class="tok-num">0.00531</span>,
+  <span class="tok-key">"latency_ms"</span>:       <span class="tok-num">1870</span>
+}</pre>
+        </div>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-title">GET /admin/api/safety/stats</span>
+            <span class="code-block-lang">JSON</span>
+          </div>
+          <pre>{
+  <span class="tok-key">"classified_24h"</span>:  <span class="tok-num">1247</span>,
+  <span class="tok-key">"blocked_24h"</span>:      <span class="tok-num">3</span>,
+  <span class="tok-key">"block_rate_pct"</span>:   <span class="tok-num">0.24</span>,
+  <span class="tok-key">"cache_hit_pct"</span>:    <span class="tok-num">68.5</span>,
+  <span class="tok-key">"cost_24h_usd"</span>:     <span class="tok-num">0.071</span>,
+  <span class="tok-key">"model_used"</span>:       <span class="tok-str">"gemini-2.5-flash-lite"</span>,
+  <span class="tok-key">"process_enabled"</span>:  <span class="tok-bool">true</span>
+}</pre>
+        </div>
       </div>
-      <div class="audit-copy reveal">
-        <span class="sec-label">Audit Trail</span>
-        <h3>Toda interação.<br /><em>Para sempre registrada.</em></h3>
-        <p>O audit trail é imutável por design — não por política interna. Cada consulta, resposta e fact-check ficam registrados com usuário, timestamp e hash criptográfico, prontos para auditorias, defesas jurídicas e adequações regulatórias.</p>
-        <p>Não é um log de acesso. É uma prova documental.</p>
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-block-title">POST /v1/chat/completions · SSE stream</span>
+          <span class="code-block-lang">SSE</span>
+        </div>
+        <pre><span class="tok-comment">// Streaming em tempo real — cada chunk:</span>
+<span class="tok-kw">data:</span> <span class="tok-str">{"t":"O contrato"}</span>
+<span class="tok-kw">data:</span> <span class="tok-str">{"t":" prevê cláusula"}</span>
+<span class="tok-kw">data:</span> <span class="tok-str">{"t":" de rescisão"}</span>
+<span class="tok-kw">data:</span> <span class="tok-str">{"t":" por justa causa"}</span>
+<span class="tok-kw">data:</span> <span class="tok-str">{"t":"..."}</span>
+
+<span class="tok-comment">// Evento final com metadados:</span>
+<span class="tok-kw">data:</span> {
+  <span class="tok-key">"done"</span>: <span class="tok-bool">true</span>,
+  <span class="tok-key">"sources"</span>: [
+    {
+      <span class="tok-key">"title"</span>: <span class="tok-str">"Código Civil — Art. 475"</span>,
+      <span class="tok-key">"url"</span>:   <span class="tok-str">"https://www.planalto.gov.br/..."</span>
+    }
+  ],
+  <span class="tok-key">"meta"</span>: {
+    <span class="tok-key">"model"</span>:      <span class="tok-str">"gemini-2.5-flash"</span>,
+    <span class="tok-key">"tokens_in"</span>:  <span class="tok-num">12450</span>,
+    <span class="tok-key">"tokens_out"</span>: <span class="tok-num">380</span>,
+    <span class="tok-key">"cost_usd"</span>:   <span class="tok-num">0.00412</span>,
+    <span class="tok-key">"cache_hit"</span>:  <span class="tok-bool">true</span>,
+    <span class="tok-key">"safety"</span>:     <span class="tok-str">"SAFE"</span>
+  }
+}
+
+<span class="tok-comment">// 5 camadas de cache reduzem até 98% do custo:</span>
+<span class="tok-comment">// L0 Response  (PostgreSQL,  30min TTL) → hit: zero custo</span>
+<span class="tok-comment">// L1 Context   (Gemini API,   8h TTL)  → hit: 75% mais barato</span>
+<span class="tok-comment">// L2 TTS Audio (PostgreSQL,   7d TTL)  → hit: zero custo</span>
+<span class="tok-comment">// L3 Safety    (PostgreSQL,  24h TTL)  → hit: zero custo</span>
+<span class="tok-comment">// L4 Extraction(PostgreSQL,  30min TTL)→ hit: zero custo</span></pre>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SEGMENTS -->
-<section id="segments">
+<!-- COMPARISON -->
+<section id="comparison">
   <div class="container">
-    <span class="sec-label reveal">Segmentos</span>
-    <h2 class="sec-title reveal">Para quem a governança<br /><em>não é opcional.</em></h2>
-    <div class="seg-grid">
-      <div class="seg-card reveal">
-        <div class="seg-icon">⚖️</div>
-        <h3>Jurídico</h3>
-        <p>Fact-check para pareceres e consultas. Rastreabilidade de pesquisas assistidas por IA. Proteção contra alucinações em peças e contratos.</p>
-      </div>
-      <div class="seg-card reveal">
-        <div class="seg-icon">📊</div>
-        <h3>Contabilidade</h3>
-        <p>Audit trail para o CRC. Histórico completo de consultas fiscais e tributárias. Evidência documental para fiscalizações.</p>
-      </div>
-      <div class="seg-card reveal">
-        <div class="seg-icon">🏦</div>
-        <h3>PMEs Reguladas</h3>
-        <p>Conformidade com Bacen, ANPD e CVM. PL 2338-ready sem investimento em infraestrutura própria.</p>
-      </div>
-      <div class="seg-card reveal">
-        <div class="seg-icon">🛡️</div>
-        <h3>Compliance / DPO</h3>
-        <p>Evidências de governança de IA para RIPDs. Logs auditáveis para inspetores e auditores externos.</p>
-      </div>
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <div class="section-label">Comparativo</div>
+      <h2 class="section-title" style="margin: 0 auto 0.75rem; text-align: center; max-width: 640px;">
+        O que o mercado não entrega junto
+      </h2>
+      <p class="section-sub" style="text-align: center; margin: 0 auto;">
+        Governança corporativa de IA exige uma combinação que nenhum concorrente oferece no mercado brasileiro.
+      </p>
+    </div>
+    <div class="comp-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Funcionalidade</th>
+            <th class="portal-col">AI Portal</th>
+            <th>ChatGPT Ent.</th>
+            <th>MS Copilot</th>
+            <th>Open WebUI</th>
+            <th>Dify</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-head">Fact-Check por afirmação</td>
+            <td class="portal-col"><span class="ic-excl">EXCLUSIVO</span></td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="row-head">Audit Trail completo e exportável</td>
+            <td class="portal-col"><span class="ic-yes">✓</span> JSONB imutável</td>
+            <td><span class="ic-part">~</span> Compliance API</td>
+            <td><span class="ic-part">~</span> parcial</td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-part">~</span> Enterprise</td>
+          </tr>
+          <tr>
+            <td class="row-head">Safety Gate (dupla camada)</td>
+            <td class="portal-col"><span class="ic-yes">✓</span> 10 categorias</td>
+            <td><span class="ic-part">~</span> modelo</td>
+            <td><span class="ic-part">~</span> modelo</td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-no">✗</span></td>
+          </tr>
+          <tr>
+            <td class="row-head">Single-tenant (banco isolado)</td>
+            <td class="portal-col"><span class="ic-yes">✓</span></td>
+            <td><span class="ic-no">✗</span> multi-tenant</td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-yes">✓</span></td>
+            <td><span class="ic-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-head">API Keys do cliente (soberania)</td>
+            <td class="portal-col"><span class="ic-yes">✓</span></td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-yes">✓</span></td>
+            <td><span class="ic-yes">✓</span></td>
+          </tr>
+          <tr>
+            <td class="row-head">RBAC 4 níveis + feature flags</td>
+            <td class="portal-col"><span class="ic-yes">✓</span></td>
+            <td><span class="ic-part">~</span> 2 níveis</td>
+            <td><span class="ic-yes">✓</span></td>
+            <td><span class="ic-part">~</span> básico</td>
+            <td><span class="ic-part">~</span> Enterprise</td>
+          </tr>
+          <tr>
+            <td class="row-head">Docs ICL (1M tokens, sem chunking)</td>
+            <td class="portal-col"><span class="ic-yes">✓</span></td>
+            <td><span class="ic-yes">✓</span></td>
+            <td><span class="ic-part">~</span></td>
+            <td><span class="ic-part">~</span> RAG</td>
+            <td><span class="ic-part">~</span> RAG</td>
+          </tr>
+          <tr>
+            <td class="row-head">Suporte pt-BR + LGPD</td>
+            <td class="portal-col"><span class="ic-yes">✓</span> nativo</td>
+            <td><span class="ic-part">~</span> dados nos EUA</td>
+            <td><span class="ic-yes">✓</span></td>
+            <td><span class="ic-part">~</span></td>
+            <td><span class="ic-part">~</span></td>
+          </tr>
+          <tr>
+            <td class="row-head">White Label (FQDN + logo)</td>
+            <td class="portal-col"><span class="ic-yes">✓</span> incluso</td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-no">✗</span></td>
+            <td><span class="ic-part">~</span></td>
+            <td><span class="ic-part">~</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="row-head">Preço referência (100 usuários)</td>
+            <td class="portal-col" style="color: var(--green); font-weight: 700;">R$ ~1.000/mês</td>
+            <td>~R$ 27.500/mês</td>
+            <td>~R$ 11.000/mês</td>
+            <td>Infra própria</td>
+            <td>Infra própria</td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </div>
 </section>
@@ -490,122 +1241,143 @@
 <!-- PRICING -->
 <section id="pricing">
   <div class="container">
-    <span class="sec-label reveal">Preços</span>
-    <h2 class="sec-title reveal">Simples. Previsível.<br /><em>Sem surpresas.</em></h2>
-    <div class="price-grid">
-      <div class="pc feat reveal">
-        <div class="pc-badge">MAIS POPULAR</div>
-        <p class="pc-name">AI Portal · SaaS</p>
-        <div class="pc-price"><sup>R$</sup>500<span class="per">/mês</span></div>
-        <p class="pc-inc">50 usuários inclusos · R$&nbsp;10/usuário extra</p>
-        <hr class="pc-div" />
-        <ul class="pc-feats">
-          <li>Fact-check por afirmação (exclusivo)</li>
-          <li>Audit trail JSONB imutável</li>
-          <li>Single-tenant (VM + banco dedicados)</li>
-          <li>Multi-IdP: Local, Entra ID, Google</li>
-          <li>PL 2338-ready de fábrica</li>
-          <li>Suporte Winserv incluso</li>
-          <li>TLS gerenciado (Caddy)</li>
+    <div class="pricing-header">
+      <div class="section-label">Preços</div>
+      <h2 class="section-title" style="margin: 0 auto 0.75rem; text-align: center;">Simples. Sem feature gating.</h2>
+      <p class="section-sub" style="text-align: center; margin: 0 auto;">
+        Todos os clientes têm todas as funcionalidades. A diferença é apenas o volume de usuários.
+      </p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card featured">
+        <span class="price-badge">MAIS POPULAR</span>
+        <div class="price-label">Plano Base</div>
+        <div class="price-value">R$ 500<span>/mês</span></div>
+        <div class="price-note">50 usuários inclusos · R$ 10/usuário adicional</div>
+        <hr class="price-separator" />
+        <ul class="price-features">
+          <li><span class="icon">✓</span> <span>Fact-Check afirmação por afirmação</span></li>
+          <li><span class="icon">✓</span> <span>Safety Gate — 10 categorias de ataque</span></li>
+          <li><span class="icon">✓</span> <span>Audit Trail JSONB imutável + export CSV</span></li>
+          <li><span class="icon">✓</span> <span>RBAC 4 níveis + feature flags por grupo</span></li>
+          <li><span class="icon">✓</span> <span>Upload docs — In-Context Learning 1M tokens</span></li>
+          <li><span class="icon">✓</span> <span>Web search nativo + STT/TTS</span></li>
+          <li><span class="icon">✓</span> <span>White Label — FQDN + logo própria</span></li>
+          <li><span class="icon">✓</span> <span>FinOps: daily limit por usuário + dashboard</span></li>
+          <li><span class="icon">✓</span> <span><strong>Single-tenant dedicado</strong> — banco isolado</span></li>
+          <li><span class="icon">✓</span> <span>Suporte L1 via parceiro · L2/L3 Winserv</span></li>
         </ul>
-        <a href="#partner" class="btn btn-primary btn-lg pc-cta">Distribuir este plano</a>
-        <p class="pc-note">Sem fidelidade · Cancele quando quiser</p>
+        <a href="#cta" class="btn btn-primary btn-lg price-cta">Solicitar demonstração</a>
       </div>
-      <div class="pc reveal">
-        <p class="pc-name">On-premises · Enterprise</p>
-        <div class="pc-price" style="font-size:2.2rem;">Sob consulta</div>
-        <p class="pc-inc" style="margin-top:0.75rem;">250+ usuários · Infraestrutura dedicada</p>
-        <hr class="pc-div" />
-        <ul class="pc-feats">
-          <li>Tudo do plano SaaS</li>
-          <li>Deploy na infraestrutura do cliente</li>
-          <li>Chave de IA própria (Google Gemini)</li>
-          <li>Proteção de código-fonte (Cython)</li>
-          <li>SLA customizado</li>
-          <li>Onboarding presencial</li>
+      <div class="price-card">
+        <div class="price-label">Enterprise</div>
+        <div class="price-value" style="font-size: 1.8rem; margin-bottom: 0.6rem;">250+ usuários</div>
+        <div class="price-note">Sob consulta · SLA diferenciado · Onboarding assistido</div>
+        <hr class="price-separator" />
+        <ul class="price-features">
+          <li><span class="icon">✓</span> <span>Tudo do Plano Base</span></li>
+          <li><span class="icon">✓</span> <span>Capacidade de infra dedicada (Hetzner scale)</span></li>
+          <li><span class="icon">✓</span> <span>SLA e suporte negociados por contrato</span></li>
+          <li><span class="icon">✓</span> <span>Onboarding assistido pela equipe Winserv</span></li>
+          <li><span class="icon">✓</span> <span>Treinamento para equipes</span></li>
+          <li><span class="icon">✓</span> <span>Customizações sob demanda</span></li>
         </ul>
-        <a href="#partner" class="btn btn-outline btn-lg pc-cta">Indicar um cliente</a>
-        <p class="pc-note">Bancos, reguladores, grandes escritórios</p>
+        <a href="#cta" class="btn btn-outline btn-lg price-cta" style="margin-top: auto; display: block;">Falar com a Winserv</a>
       </div>
     </div>
-    <div class="price-vs reveal">
-      <p>ChatGPT Plus custa R$&nbsp;100/usuário/mês — sem governança, sem audit trail, sem fact-check.<br />Winserv AI Portal custa <strong>R$&nbsp;10/usuário/mês</strong> com tudo isso.</p>
-    </div>
+    <p class="price-footnote">
+      * O consumo da API Google (Gemini) é pago diretamente pelo cliente com suas próprias chaves.
+      A Winserv não intermedeia tokens nem tem acesso ao billing Google Cloud do cliente.
+      Estimativa: R$ 50–150/mês para 10 usuários em uso moderado.
+    </p>
   </div>
 </section>
 
-<!-- PARTNER CTA -->
-<section id="partner">
+<!-- CTA -->
+<section id="cta">
   <div class="container">
-    <span class="partner-label reveal">Programa de parceiros</span>
-    <h2 class="reveal">Distribua IA com <span class="a">governança.</span><br />Ganhe recorrente.</h2>
-    <p class="reveal">Parceiros autônomos da Winserv distribuem o AI Portal para seus clientes e recebem comissão recorrente — enquanto o cliente estiver ativo.</p>
-    <div class="partner-perks reveal">
-      <div class="perk">
-        <div class="perk-num">25%</div>
-        <div class="perk-label">comissão recorrente vitalícia</div>
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <div class="section-label">Contato</div>
+      <h2 class="section-title" style="margin: 0 auto 0.75rem; text-align: center;">
+        Pronto para ver o portal em ação?
+      </h2>
+      <p class="section-sub" style="text-align: center; margin: 0 auto;">
+        Fale diretamente com a Winserv ou entre em contato com um parceiro na sua região.
+      </p>
+    </div>
+    <div class="cta-inner">
+      <div class="cta-card primary">
+        <div class="cta-card-icon blue">💬</div>
+        <h3>Fale com a Winserv</h3>
+        <p>
+          Dúvidas técnicas, demonstração do produto ou interesse em contrato Enterprise.
+          Respondemos diretamente pela equipe de produto.
+        </p>
+        <a href="/preview/contato.html" class="btn btn-primary btn-lg">Enviar mensagem</a>
       </div>
-      <div class="perk">
-        <div class="perk-num">R$0</div>
-        <div class="perk-label">investimento inicial para parceiros</div>
-      </div>
-      <div class="perk">
-        <div class="perk-num">∞</div>
-        <div class="perk-label">clientes por parceiro</div>
+      <div class="cta-card">
+        <div class="cta-card-icon gold">🤝</div>
+        <h3>Contate um parceiro</h3>
+        <p>
+          Nossos parceiros autorizados fazem o onboarding, treinamento e suporte inicial
+          na sua região. São o primeiro ponto de contato para novos clientes.
+        </p>
+        <a href="/preview/contato.html" class="btn btn-outline btn-lg">Encontrar parceiro</a>
       </div>
     </div>
-    <div class="partner-actions reveal">
-      <a href="/preview/contato.html" class="btn btn-amber btn-lg">Quero ser parceiro</a>
-      <a href="winserv-ai-portal-facts.html" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.3);">Especificações técnicas</a>
-    </div>
-    <p class="partner-note reveal">winserv.com.br · CNPJ 10.411.266/0001-80 · Rio Grande, RS</p>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <a href="/preview/">← Winserv Tecnologia da Informação</a>
-  <span class="footer-copy">&copy; 2026 Winserv TI · AI Portal</span>
-  <a href="/preview/contato.html">Contato</a>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand-col">
+        <div class="footer-brand-name">Winserv <span>AI Portal</span></div>
+        <p class="footer-brand-desc">
+          Portal SaaS de governança de IA para empresas reguladas.
+          Fact-check, audit trail imutável e compliance LGPD/PL 2338 de fábrica.
+          Single-tenant. Desde 2004.
+        </p>
+      </div>
+      <div>
+        <div class="footer-col-title">Produto</div>
+        <ul class="footer-links">
+          <li><a href="#features">Fact-Check</a></li>
+          <li><a href="#features">Safety Gate</a></li>
+          <li><a href="#features">Audit Trail</a></li>
+          <li><a href="#comparison">Comparativo</a></li>
+          <li><a href="#pricing">Preços</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Winserv TI</div>
+        <ul class="footer-links">
+          <li><a href="/preview/index.html">Site principal</a></li>
+          <li><a href="/preview/solucoes.html">Soluções</a></li>
+          <li><a href="/preview/contato.html">Contato</a></li>
+          <li><a href="https://www.linkedin.com/company/winserv/" target="_blank">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">
+        © 2026 Winserv Tecnologia da Informação · CNPJ 10.411.266/0001-80 · Rio Grande, RS
+      </p>
+      <a href="https://www.linkedin.com/company/winserv/" target="_blank" class="footer-linkedin">
+        linkedin.com/company/winserv
+      </a>
+    </div>
+  </div>
 </footer>
 
 <script>
-  // Scroll reveal
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-  // Tabs
-  document.getElementById('demo-tabs').addEventListener('click', e => {
-    const btn = e.target.closest('.demo-tab');
-    if (!btn) return;
-    document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.demo-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
-    triggerDemo('demo-' + btn.dataset.panel, 'sum-' + btn.dataset.panel);
-  });
-
-  // Animated fact-check
-  const animated = new Set();
-  function triggerDemo(demoId, sumId) {
-    if (animated.has(demoId)) return;
-    animated.add(demoId);
-    const screen = document.getElementById(demoId);
-    const summary = document.getElementById(sumId);
-    screen.querySelectorAll('.claim').forEach(c => {
-      setTimeout(() => c.classList.add('vis'), parseInt(c.dataset.delay) || 0);
-    });
-    setTimeout(() => summary && summary.classList.add('vis'), 2100);
+  function openTab(evt, tabId) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
   }
-
-  // Auto-trigger legal panel on scroll
-  const legalObs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) triggerDemo('demo-legal', 'sum-legal');
-  }, { threshold: 0.4 });
-  const legalEl = document.getElementById('demo-legal');
-  if (legalEl) legalObs.observe(legalEl);
 </script>
-
 </body>
 </html>
