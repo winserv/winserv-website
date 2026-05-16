@@ -1,0 +1,11 @@
+title: Winserv Tecnologia da Informação
+url: "https://winserv.com.br"
+baseurl: ""
+
+exclude:
+  - cloudflare-worker-contact/
+  - "*.zip"
+  - "*.png"
+  - node_modules/
+  - CLAUDE.md
+  - README.md
