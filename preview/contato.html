@@ -1,13 +1,173 @@
----
-layout: default
-title: WinServ TI | Contato
-description: "Entre em contato com a Winserv para dúvidas, sugestões ou oportunidades de parceria."
-contact_form: true
----
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WINSERV | Contato</title>
+  <meta name="description" content="Entre em contato com a Winserv para dúvidas, sugestões ou oportunidades de parceria." />
+  <link rel="icon" href="/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-<section id="banner">
-	<div class="inner">
-		<h2>Fale conosco</h2>
-		<p>Respondemos a dúvidas, sugestões e oportunidades de parceria.</p>
-	</div>
-</section>
+<nav class="topnav">
+  <a class="wordmark" href="index.html"><span class="win">WIN</span><span class="serv">SERV</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Início</a></li>
+    <li><a href="solucoes.html">Soluções</a></li>
+    <li><a href="conteudo.html">Conteúdo</a></li>
+    <li><a href="winserv-ai-portal/">Portal IA<span class="nav-new">novo</span></a></li>
+  </ul>
+  <a class="btn-nav" href="contato.html">Contato</a>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobile-menu">
+  <a href="index.html">Início</a>
+  <a href="solucoes.html">Soluções</a>
+  <a href="conteudo.html">Conteúdo</a>
+  <a href="winserv-ai-portal/">Portal IA</a>
+  <a href="contato.html">Contato</a>
+</div>
+
+<div style="padding-top:64px;">
+  <div class="container">
+    <div class="contact-layout">
+      <!-- Info -->
+      <div class="contact-info">
+        <div class="section-label">Fale conosco</div>
+        <h1>Mantemos o diálogo como prioridade</h1>
+        <p class="lead">Dúvidas, sugestões, parcerias ou curiosidade? Preenchendo o formulário ou nos encontrando nas redes, teremos prazer em ajudar.</p>
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-card-icon">&#127963;</div>
+            <div>
+              <div class="contact-card-label">Empresa</div>
+              <div class="contact-card-val">Winserv Tecnologia da Informação<br />CNPJ 10.411.266/0001-80<br />Rio Grande, RS</div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">&#128172;</div>
+            <div>
+              <div class="contact-card-label">WhatsApp</div>
+              <div class="contact-card-val"><a href="https://wa.me/5553999282423" target="_blank" rel="noopener">+55 53 9 9928-2423</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">&#128279;</div>
+            <div>
+              <div class="contact-card-label">LinkedIn</div>
+              <div class="contact-card-val"><a href="https://www.linkedin.com/company/winserv/" target="_blank" rel="noopener">linkedin.com/company/winserv</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form-box">
+        <h2>Envie uma mensagem</h2>
+        <p class="form-sub">Respondemos em breve. Campos marcados com * são obrigatórios.</p>
+        <form id="contact-form" novalidate>
+          <div class="field-row">
+            <div class="field half">
+              <label for="name">Nome *</label>
+              <input type="text" id="name" name="name" required placeholder="Seu nome completo" />
+            </div>
+            <div class="field half">
+              <label for="email">E-mail *</label>
+              <input type="email" id="email" name="email" required placeholder="seu@email.com.br" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="company">Empresa</label>
+            <input type="text" id="company" name="company" placeholder="Nome da empresa (opcional)" />
+          </div>
+          <div class="field">
+            <label for="message">Mensagem *</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Como podemos ajudar?"></textarea>
+          </div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADQhUb-15u1qD4ST" data-theme="dark"></div>
+          <div id="form-status"></div>
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Enviar mensagem</button>
+            <button type="reset" class="btn-reset">Limpar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="wordmark" href="index.html"><span class="win">WIN</span><span class="serv">SERV</span></a>
+        <p>Tecnologia da Informação para empresas que precisam de resultados práticos.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="solucoes.html">Soluções</a></li>
+          <li><a href="conteudo.html">Conteúdo</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="missao.html">Nossa missão</a></li>
+          <li><a href="valores.html">Valores e Princípios</a></li>
+          <li><a href="https://www.linkedin.com/company/winserv/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Winserv Tecnologia da Informação &mdash; CNPJ 10.411.266/0001-80 &mdash; Rio Grande, RS</span>
+      <span>&copy; 2026 Winserv TI</span>
+    </div>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3J9ESTRVQG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3J9ESTRVQG');</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+(function(){
+  var WORKER_URL='https://winserv-contact.celosam.workers.dev';
+  var form=document.getElementById('contact-form');
+  var status=document.getElementById('form-status');
+  function showStatus(msg,isErr){status.textContent=msg;status.className=isErr?'err':'ok';status.style.display='block';}
+  form.addEventListener('reset',function(){if(typeof turnstile!=='undefined')turnstile.reset();status.style.display='none';});
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('name').value.trim();
+    var email=document.getElementById('email').value.trim();
+    var company=document.getElementById('company').value.trim();
+    var message=document.getElementById('message').value.trim();
+    var token=(typeof turnstile!=='undefined')?turnstile.getResponse():'';
+    if(!name||!email||!message){showStatus('Preencha os campos obrigatórios.',true);return;}
+    if(!token){showStatus('Complete a verificação de segurança.',true);return;}
+    var btn=form.querySelector('.btn-submit');
+    btn.disabled=true;btn.textContent='Enviando…';status.style.display='none';
+    fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,company:company,message:message,turnstileToken:token})})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d.ok){showStatus('Mensagem enviada! Entraremos em contato em breve.',false);form.reset();if(typeof turnstile!=='undefined')turnstile.reset();}
+      else{showStatus(d.error||'Erro ao enviar. Tente novamente.',true);}
+    })
+    .catch(function(){showStatus('Falha de conexão. Tente novamente.',true);})
+    .finally(function(){btn.disabled=false;btn.textContent='Enviar mensagem';});
+  });
+})();
+</script>
+<script>
+  var b=document.getElementById('burger'),m=document.getElementById('mobile-menu');
+  b.addEventListener('click',function(){var o=m.classList.toggle('open');b.classList.toggle('open',o);});
+  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');b.classList.remove('open');});});
+</script>
+</body>
+</html>
