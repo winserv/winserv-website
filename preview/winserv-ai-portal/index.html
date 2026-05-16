@@ -292,6 +292,7 @@
     .vbadge.contestada { background: rgba(249,115,22,0.13); color: var(--orange); }
     .vbadge.nverif     { background: rgba(100,116,139,0.18);color: var(--muted-lt); }
     .vbadge.na         { background: rgba(100,116,139,0.1); color: var(--muted); }
+    .vbadge.enganosa   { background: rgba(245,158,11,0.13); color: var(--gold); }
     .claim-text { color: var(--text); line-height: 1.45; flex: 1; }
     .claim-just { font-size: 0.73rem; color: var(--muted); margin-top: 0.18rem; }
 
@@ -629,7 +630,7 @@
     <a href="#pricing">Preços</a>
   </div>
   <div class="nav-actions">
-    <a href="#cta" class="btn btn-ghost">Para parceiros</a>
+    <a href="contato.html" class="btn btn-ghost">Para parceiros</a>
     <a href="#cta" class="btn btn-primary">Solicitar demonstração</a>
   </div>
 </nav>
@@ -833,10 +834,10 @@
             </div>
           </div>
           <div class="claim-row">
-            <span class="vbadge na">Não Aplicável</span>
+            <span class="vbadge enganosa">Enganosa</span>
             <div>
-              <div class="claim-text">Conformidade é um processo contínuo, não um projeto</div>
-              <div class="claim-just">Opinião subjetiva — não verificável factualmente</div>
+              <div class="claim-text">Armazenar dados em servidores no Brasil garante conformidade com a LGPD</div>
+              <div class="claim-just">Enganoso: localização é relevante mas insuficiente — LGPD exige minimização, finalidade, consentimento e segurança técnica, não apenas soberania geográfica</div>
             </div>
           </div>
         </div>
@@ -1304,7 +1305,7 @@
           <tr>
             <td class="rh">Docs sem chunking (ICL 1M tokens)</td>
             <td class="portal"><span class="ic-y">✓</span></td>
-            <td><span class="ic-y">✓</span></td>
+            <td><span class="ic-p">~</span> RAG/128K</td>
             <td><span class="ic-p">~</span></td>
             <td><span class="ic-p">~</span> RAG</td>
             <td><span class="ic-p">~</span> RAG</td>
@@ -1382,13 +1383,13 @@
           <li><span class="ok">✓</span> <span>Treinamento para times e customizações</span></li>
           <li><span class="ok">✓</span> <span>Implantação on-premise disponível (air-gapped, data residency)</span></li>
         </ul>
-        <a href="mailto:parceiros@winserv.com.br" class="btn btn-outline btn-lg price-cta">Falar com a equipe</a>
+        <a href="contato.html" class="btn btn-outline btn-lg price-cta">Falar com a equipe</a>
       </div>
     </div>
     <p class="price-fn">
-      * O consumo da API Google (Gemini) é pago diretamente pelo cliente com suas próprias chaves.
-      Estimativa: R$ 30–150/mês para 10 usuários, dependendo do uso.
-      O portal tem 5 camadas de cache que reduzem o custo real em até 98%.
+      * A API do Google (Gemini) é faturada em USD diretamente pelo Google com as chaves do próprio cliente.
+      Estimativa: US$ 10–50/mês para 10 usuários em uso moderado (Gemini 2.5 Flash Standard).
+      O portal tem 5 camadas de cache que reduzem esse custo em até 98%.
     </p>
   </div>
 </section>
@@ -1424,7 +1425,7 @@
           O modelo de parceria é simples: você vende e onboarda, a Winserv cuida
           da infra e do suporte técnico.
         </p>
-        <a href="mailto:parceiros@winserv.com.br" class="btn btn-outline btn-lg">parceiros@winserv.com.br</a>
+        <a href="contato.html" class="btn btn-outline btn-lg">Solicitar parceria</a>
       </div>
     </div>
   </div>
@@ -1437,7 +1438,7 @@
       <div class="footer-brand-col">
         <div class="footer-brand-name">Winserv <span>AI Portal</span></div>
         <p class="footer-brand-desc">
-          Portal corporativo de IA com fact-check afirmação por afirmação, audit trail imutável e compliance LGPD/PL 2338 de fábrica. Single-tenant. Desde 2004.
+          Governança de IA corporativa com fact-check, audit trail imutável e compliance LGPD/PL 2338 de fábrica. Single-tenant. Desde 2004.
         </p>
       </div>
       <div>
@@ -1456,7 +1457,7 @@
           <li><a href="/preview/index.html">Site principal</a></li>
           <li><a href="/preview/solucoes.html">Soluções</a></li>
           <li><a href="contato.html">Contato</a></li>
-          <li><a href="mailto:parceiros@winserv.com.br">parceiros@winserv.com.br</a></li>
+          <li><a href="contato.html">Formulário de contato</a></li>
           <li><a href="https://www.linkedin.com/company/winserv/" target="_blank">LinkedIn</a></li>
         </ul>
       </div>
