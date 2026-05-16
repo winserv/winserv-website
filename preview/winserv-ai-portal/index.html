@@ -1,1 +1,549 @@
- 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winserv AI Portal — Governança de IA para empresas reguladas</title>
+  <meta name="description" content="Portal SaaS de governança de IA com fact-check por afirmação, audit trail imutável e conformidade com a LGPD e PL 2338. Para jurídico, contabilidade e PMEs reguladas." />
+  <link rel="icon" href="/images/logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #070C18;
+      --surface: #0D1526;
+      --card:    #111827;
+      --teal:    #00B4B4;
+      --teal-dim:#006E6E;
+      --amber:   #FAAB36;
+      --text:    #E2E8F4;
+      --muted:   #6B7A99;
+      --border:  rgba(0,180,180,0.12);
+      --glow:    rgba(0,180,180,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(7,12,24,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-brand img { height: 28px; opacity: 0.9; }
+    .nav-brand-text { font-size: 0.85rem; color: var(--muted); }
+    .nav-brand-text strong { color: var(--text); font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.4rem; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; border: none; }
+    .btn-primary { background: var(--teal); color: #000; }
+    .btn-primary:hover { background: #00CCCC; transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--teal); border: 1px solid var(--teal); }
+    .btn-outline:hover { background: var(--glow); }
+    .btn-large { padding: 0.9rem 2.2rem; font-size: 1rem; border-radius: 6px; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(0,180,180,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,180,180,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,180,180,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 1rem; border-radius: 20px;
+      border: 1px solid var(--border); background: rgba(0,180,180,0.06);
+      font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--teal);
+      margin-bottom: 2rem; animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    h1.hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900;
+      line-height: 1.1; letter-spacing: -0.02em; max-width: 800px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    h1.hero-title em { font-style: italic; color: var(--teal); }
+    .hero-sub {
+      margin-top: 1.5rem; font-size: 1.15rem; color: var(--muted);
+      max-width: 540px; line-height: 1.7; animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.6s 0.3s ease both; }
+    .hero-note { margin-top: 1.25rem; font-size: 0.8rem; color: var(--muted); font-family: 'DM Mono', monospace; animation: fadeUp 0.6s 0.4s ease both; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    /* STATS */
+    #stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stat-item { padding: 3rem 2rem; text-align: center; border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-right: none; }
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900; color: var(--teal); line-height: 1; }
+    .stat-number span { font-size: 2rem; }
+    .stat-label { margin-top: 0.5rem; color: var(--muted); font-size: 0.9rem; }
+
+    /* SECTIONS */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--teal); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1rem; }
+    h2.section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h2.section-title em { font-style: italic; color: var(--teal); }
+    .section-intro { color: var(--muted); font-size: 1.05rem; max-width: 560px; line-height: 1.7; margin-top: 1rem; }
+
+    /* FACT-CHECK DEMO */
+    #demo { background: var(--surface); }
+    .demo-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 4rem; }
+    .demo-screen { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 0 60px rgba(0,180,180,0.05); }
+    .demo-topbar { padding: 0.75rem 1rem; background: rgba(0,180,180,0.05); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+    .demo-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .demo-dot:nth-child(1) { background: #FF5F57; }
+    .demo-dot:nth-child(2) { background: #FEBC2E; }
+    .demo-dot:nth-child(3) { background: #28C840; }
+    .demo-title { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-left: 0.5rem; }
+    .demo-body { padding: 1.5rem; }
+    .demo-prompt { font-size: 0.85rem; color: var(--muted); font-family: 'DM Mono', monospace; padding: 0.75rem 1rem; background: rgba(255,255,255,0.03); border-radius: 6px; margin-bottom: 1.25rem; border-left: 2px solid var(--teal-dim); }
+    .claim { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.83rem; opacity: 0; transform: translateX(-8px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .claim.visible { opacity: 1; transform: translateX(0); }
+    .claim-icon { font-size: 0.9rem; margin-top: 1px; flex-shrink: 0; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+    .claim-icon.ok  { background: rgba(0,210,100,0.12); color: #00D264; }
+    .claim-icon.warn{ background: rgba(255,165,0,0.12);  color: #FFA500; }
+    .claim-icon.err { background: rgba(255,80,80,0.12);  color: #FF5050; }
+    .claim-text { flex: 1; line-height: 1.4; color: var(--text); }
+    .badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 3px; margin-left: 0.4rem; }
+    .badge-ok   { background: rgba(0,210,100,0.12); color: #00D264; }
+    .badge-warn { background: rgba(255,165,0,0.12);  color: #FFA500; }
+    .badge-err  { background: rgba(255,80,80,0.12);  color: #FF5050; }
+    .demo-summary { margin-top: 1rem; padding: 0.75rem 1rem; background: rgba(0,180,180,0.06); border-radius: 6px; border: 1px solid var(--border); font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--teal); opacity: 0; transition: opacity 0.5s ease 0.2s; }
+    .demo-summary.visible { opacity: 1; }
+    .demo-copy h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+    .demo-copy h3 em { font-style: italic; color: var(--teal); }
+    .demo-copy p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .demo-feature-list { list-style: none; }
+    .demo-feature-list li { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.6rem 0; font-size: 0.9rem; color: var(--muted); border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .demo-feature-list li::before { content: '→'; color: var(--teal); font-weight: 600; flex-shrink: 0; }
+
+    /* FEATURES */
+    #features { background: var(--navy); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+    .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 2rem; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+    .feature-card:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,180,180,0.08); }
+    .feature-card.featured { border-color: var(--teal); background: linear-gradient(135deg, var(--card) 0%, rgba(0,180,180,0.05) 100%); grid-column: span 2; }
+    .feature-icon { width: 44px; height: 44px; border-radius: 8px; background: rgba(0,180,180,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.25rem; }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .feature-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.6; }
+    .feature-tag { display: inline-block; margin-top: 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; padding: 0.2rem 0.6rem; border-radius: 3px; background: rgba(0,180,180,0.1); color: var(--teal); }
+
+    /* SEGMENTS */
+    #segments { background: var(--surface); }
+    .segments-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+    .segment-card { padding: 1.75rem; border: 1px solid var(--border); border-radius: 10px; background: var(--card); transition: border-color 0.2s; }
+    .segment-card:hover { border-color: rgba(0,180,180,0.4); }
+    .segment-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .segment-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .segment-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
+
+    /* PRICING */
+    #pricing { background: var(--navy); }
+    .pricing-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3.5rem; }
+    .pricing-card { border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; background: var(--card); }
+    .pricing-card.featured { border-color: var(--teal); background: linear-gradient(160deg, var(--card) 0%, rgba(0,180,180,0.04) 100%); position: relative; }
+    .pricing-badge { position: absolute; top: -1px; right: 2rem; background: var(--teal); color: #000; font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 0 0 6px 6px; font-family: 'DM Mono', monospace; }
+    .pricing-name { font-size: 0.85rem; color: var(--muted); font-family: 'DM Mono', monospace; margin-bottom: 1rem; }
+    .pricing-price { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; line-height: 1; }
+    .pricing-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 0.5rem; display: inline-block; }
+    .pricing-price .period { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--muted); font-weight: 400; }
+    .pricing-included { margin-top: 0.5rem; font-size: 0.8rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+    .pricing-divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+    .pricing-features { list-style: none; }
+    .pricing-features li { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.5rem 0; font-size: 0.875rem; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .pricing-features li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; }
+    .pricing-cta { margin-top: 2rem; display: block; text-align: center; }
+    .pricing-note { margin-top: 1rem; font-size: 0.75rem; color: var(--muted); text-align: center; font-family: 'DM Mono', monospace; }
+    .pricing-compare { margin-top: 3rem; padding: 2rem; background: rgba(0,180,180,0.04); border: 1px solid var(--border); border-radius: 10px; text-align: center; }
+    .pricing-compare p { font-size: 0.9rem; color: var(--muted); }
+    .pricing-compare strong { color: var(--amber); font-size: 1.3rem; font-family: 'Playfair Display', serif; }
+
+    /* AUDIT TRAIL */
+    #audit { background: var(--surface); }
+    .audit-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 4rem; }
+    .audit-log { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-family: 'DM Mono', monospace; font-size: 0.75rem; }
+    .audit-log-header { padding: 0.75rem 1rem; background: rgba(0,0,0,0.3); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .audit-log-title { color: var(--teal); }
+    .audit-log-badge { font-size: 0.65rem; color: var(--muted); }
+    .audit-entry { padding: 0.75rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; }
+    .audit-time { color: var(--muted); white-space: nowrap; }
+    .audit-action { color: var(--text); }
+    .audit-action span { color: var(--teal); }
+    .audit-hash { color: var(--muted); font-size: 0.65rem; }
+    .audit-copy h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; }
+    .audit-copy h3 em { font-style: italic; color: var(--teal); }
+    .audit-copy p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
+
+    /* CTA */
+    #cta { background: linear-gradient(135deg, var(--surface) 0%, rgba(0,180,180,0.03) 100%); border-top: 1px solid var(--border); text-align: center; }
+    #cta h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; max-width: 700px; margin: 0 auto 1.25rem; }
+    #cta h2 em { font-style: italic; color: var(--teal); }
+    #cta p { color: var(--muted); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .cta-footnote { margin-top: 3rem; font-size: 0.8rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+    /* FOOTER */
+    footer { background: var(--navy); border-top: 1px solid var(--border); padding: 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    footer a { color: var(--muted); text-decoration: none; font-size: 0.85rem; }
+    footer a:hover { color: var(--teal); }
+    .footer-copy { font-size: 0.8rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #stats { grid-template-columns: 1fr; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-item:last-child { border-bottom: none; }
+      .demo-layout, .audit-layout, .pricing-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card.featured { grid-column: span 1; }
+      .segments-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 4rem 1.25rem; }
+      .segments-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/preview/" class="nav-brand">
+    <img src="/images/logo.png" alt="Winserv" />
+    <span class="nav-brand-text"><strong>Winserv</strong> AI Portal</span>
+  </a>
+  <div class="nav-links">
+    <a href="#demo">Como funciona</a>
+    <a href="#features">Funcionalidades</a>
+    <a href="#pricing">Preços</a>
+    <a href="/preview/contato.html" class="btn btn-primary">Solicitar demo</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-badge">Disponível agora · POC com Sagres ativo</div>
+  <h1 class="hero-title">
+    Cada afirmação verificada.<br />
+    Cada decisão <em>auditada.</em>
+  </h1>
+  <p class="hero-sub">
+    Portal de governança de IA para empresas que operam em ambientes regulados —
+    com fact-check por afirmação, audit trail imutável e conformidade com LGPD e PL&nbsp;2338.
+  </p>
+  <div class="hero-actions">
+    <a href="/preview/contato.html" class="btn btn-primary btn-large">Solicitar demonstração</a>
+    <a href="#demo" class="btn btn-outline btn-large">Ver como funciona</a>
+  </div>
+  <p class="hero-note">R$&nbsp;500/mês · 50 usuários inclusos · Sem fidelidade mínima</p>
+</section>
+
+<div id="stats">
+  <div class="stat-item reveal">
+    <div class="stat-number">9<span>×</span></div>
+    <div class="stat-label">mais barato por usuário que ChatGPT Plus</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number">100<span>%</span></div>
+    <div class="stat-label">das afirmações verificadas individualmente</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number">0</div>
+    <div class="stat-label">dados compartilhados entre tenants</div>
+  </div>
+</div>
+
+<section id="demo">
+  <div class="container">
+    <p class="section-label reveal">Funcionalidade exclusiva</p>
+    <h2 class="section-title reveal">Fact-Check <em>afirmação por afirmação</em></h2>
+    <p class="section-intro reveal">
+      A IA verifica cada parte da resposta de forma independente — não apenas o resultado final.
+      Única solução do mercado com essa granularidade.
+    </p>
+    <div class="demo-layout">
+      <div class="demo-screen reveal" id="fact-check-demo">
+        <div class="demo-topbar">
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-dot"></div>
+          <div class="demo-title">AI Portal · Fact-Check em tempo real</div>
+        </div>
+        <div class="demo-body">
+          <div class="demo-prompt">
+            ▸ "Qual o prazo prescricional para ação de cobrança de honorários advocatícios?"
+          </div>
+          <div class="claim" data-delay="400">
+            <div class="claim-icon ok">✓</div>
+            <div class="claim-text">O prazo prescricional é de 5 anos (art. 206, §5°, II, CC).<span class="badge badge-ok">verificado</span></div>
+          </div>
+          <div class="claim" data-delay="900">
+            <div class="claim-icon ok">✓</div>
+            <div class="claim-text">O prazo conta a partir da data de prestação dos serviços.<span class="badge badge-ok">verificado</span></div>
+          </div>
+          <div class="claim" data-delay="1400">
+            <div class="claim-icon warn">!</div>
+            <div class="claim-text">O STJ tem jurisprudência divergente sobre o marco inicial em contratos com parcelas.<span class="badge badge-warn">atenção</span></div>
+          </div>
+          <div class="claim" data-delay="1900">
+            <div class="claim-icon err">✗</div>
+            <div class="claim-text">A prescrição pode ser interrompida por simples notificação extrajudicial.<span class="badge badge-err">impreciso · verificar</span></div>
+          </div>
+          <div class="demo-summary" id="demo-summary">
+            ⊕ Análise concluída · 4 afirmações · 2 verificadas · 1 divergência · 1 imprecisão
+          </div>
+        </div>
+      </div>
+      <div class="demo-copy reveal">
+        <h3>A IA não erra menos.<br />Você <em>enxerga mais.</em></h3>
+        <p>Modelos de IA produzem respostas com confiança mesmo quando estão errados. O Winserv AI Portal não elimina esse risco — ele o torna visível, rastreável e documentado.</p>
+        <ul class="demo-feature-list">
+          <li>Cada afirmação recebe um veredito independente</li>
+          <li>Fonte e nível de confiança exibidos por claim</li>
+          <li>Resultados salvos no audit trail imutável</li>
+          <li>Relatório exportável para pareceres e compliance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <p class="section-label reveal">Diferenciais</p>
+    <h2 class="section-title reveal">Construído para quem<br /><em>não pode errar.</em></h2>
+    <div class="features-grid">
+      <div class="feature-card featured reveal">
+        <div class="feature-icon">⚖️</div>
+        <h3>Fact-Check por afirmação</h3>
+        <p>Exclusivo no mercado. Cada claim da resposta da IA é verificado individualmente com referências, nível de confiança e veredito — verificado, divergente ou impreciso.</p>
+        <span class="feature-tag">exclusivo no mercado</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔒</div>
+        <h3>Audit Trail imutável</h3>
+        <p>Cada interação registrada em JSONB com conteúdo completo. Nenhum registro pode ser alterado retroativamente.</p>
+        <span class="feature-tag">LGPD ready</span>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🏛️</div>
+        <h3>Single-tenant por padrão</h3>
+        <p>VM e banco de dados dedicados para cada cliente. Seus dados nunca são misturados com os de outra empresa.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📋</div>
+        <h3>PL 2338-ready de fábrica</h3>
+        <p>Arquitetura alinhada ao Marco Legal da IA desde a primeira versão. Auditabilidade, transparência e responsabilidade embutidas.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔑</div>
+        <h3>Multi-IdP Authentication</h3>
+        <p>Login local, Microsoft Entra ID e Google Workspace. Integra com a estrutura de identidade que sua empresa já usa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="audit">
+  <div class="container">
+    <div class="audit-layout">
+      <div class="audit-log reveal">
+        <div class="audit-log-header">
+          <span class="audit-log-title">audit_trail</span>
+          <span class="audit-log-badge">JSONB · imutável · 2026-05-16</span>
+        </div>
+        <div class="audit-entry">
+          <span class="audit-time">09:14:02</span>
+          <span class="audit-action">query por <span>dr.marcos@sagresrg.com.br</span></span>
+          <span class="audit-hash">0xf4a2</span>
+        </div>
+        <div class="audit-entry">
+          <span class="audit-time">09:14:03</span>
+          <span class="audit-action">fact-check <span>4 claims</span> executado</span>
+          <span class="audit-hash">0xb19c</span>
+        </div>
+        <div class="audit-entry">
+          <span class="audit-time">09:14:04</span>
+          <span class="audit-action">resultado <span>salvo</span> · hash gerado</span>
+          <span class="audit-hash">0x9e3f</span>
+        </div>
+        <div class="audit-entry">
+          <span class="audit-time">09:14:04</span>
+          <span class="audit-action">registro <span>bloqueado para edição</span></span>
+          <span class="audit-hash">0xc71a</span>
+        </div>
+        <div class="audit-entry">
+          <span class="audit-time">09:21:17</span>
+          <span class="audit-action">exportação <span>PDF</span> solicitada</span>
+          <span class="audit-hash">0x3d88</span>
+        </div>
+      </div>
+      <div class="audit-copy reveal">
+        <p class="section-label">Audit Trail</p>
+        <h3>Toda interação.<br /><em>Para sempre registrada.</em></h3>
+        <p>O audit trail do Winserv AI Portal é imutável por design. Cada consulta, resposta e fact-check ficam registrados com usuário, timestamp e hash — prontos para auditorias, defesas jurídicas e adequações regulatórias.</p>
+        <p>Não é um log de acesso. É uma prova documental.</p>
+        <a href="/preview/contato.html" class="btn btn-outline" style="margin-top:0.5rem;">Solicitar demonstração</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="segments">
+  <div class="container">
+    <p class="section-label reveal">Segmentos</p>
+    <h2 class="section-title reveal">Para quem a governança<br /><em>não é opcional.</em></h2>
+    <div class="segments-grid">
+      <div class="segment-card reveal">
+        <div class="segment-icon">⚖️</div>
+        <h3>Jurídico</h3>
+        <p>Fact-check para pareceres e consultas. Rastreabilidade de pesquisas assistidas por IA. Proteção contra alucinações em peças e contratos.</p>
+      </div>
+      <div class="segment-card reveal">
+        <div class="segment-icon">📊</div>
+        <h3>Contabilidade</h3>
+        <p>Audit trail para CRC. Histórico completo de consultas fiscais e tributárias assistidas por IA. Evidência documental para fiscalizações.</p>
+      </div>
+      <div class="segment-card reveal">
+        <div class="segment-icon">🏦</div>
+        <h3>PMEs Reguladas</h3>
+        <p>Empresas sob Bacen, ANPD e CVM. Conformidade com PL 2338 sem investimento em infraestrutura própria.</p>
+      </div>
+      <div class="segment-card reveal">
+        <div class="segment-icon">🛡️</div>
+        <h3>Compliance / DPO</h3>
+        <p>Evidências de governança de IA para relatórios de impacto. Logs auditáveis para inspetores e auditores externos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <p class="section-label reveal">Preços</p>
+    <h2 class="section-title reveal">Simples. Previsível.<br /><em>Sem surpresas.</em></h2>
+    <div class="pricing-layout">
+      <div class="pricing-card featured reveal">
+        <div class="pricing-badge">MAIS POPULAR</div>
+        <p class="pricing-name">AI Portal · SaaS</p>
+        <div class="pricing-price"><sup>R$</sup>500<span class="period">/mês</span></div>
+        <p class="pricing-included">50 usuários inclusos · R$&nbsp;10 por usuário extra</p>
+        <hr class="pricing-divider" />
+        <ul class="pricing-features">
+          <li>Fact-check por afirmação (exclusivo)</li>
+          <li>Audit trail JSONB imutável</li>
+          <li>Single-tenant (VM + banco dedicados)</li>
+          <li>Multi-IdP: Local, Entra ID, Google</li>
+          <li>PL 2338-ready de fábrica</li>
+          <li>Suporte Winserv incluso</li>
+          <li>TLS gerenciado (Caddy)</li>
+        </ul>
+        <a href="/preview/contato.html" class="btn btn-primary btn-large pricing-cta">Solicitar demonstração</a>
+        <p class="pricing-note">Sem fidelidade · Cancele quando quiser</p>
+      </div>
+      <div class="pricing-card reveal">
+        <p class="pricing-name">On-premises · Enterprise</p>
+        <div class="pricing-price" style="font-size:2.2rem;">Sob consulta</div>
+        <p class="pricing-included" style="margin-top:0.75rem;">250+ usuários · Infraestrutura dedicada</p>
+        <hr class="pricing-divider" />
+        <ul class="pricing-features">
+          <li>Tudo do plano SaaS</li>
+          <li>Deploy na infraestrutura do cliente</li>
+          <li>Chave de IA própria (Google Gemini)</li>
+          <li>Proteção de código-fonte (Cython)</li>
+          <li>SLA customizado</li>
+          <li>Treinamento e onboarding presencial</li>
+        </ul>
+        <a href="/preview/contato.html" class="btn btn-outline btn-large pricing-cta">Falar com especialista</a>
+        <p class="pricing-note">Para bancos, reguladores e grandes escritórios</p>
+      </div>
+    </div>
+    <div class="pricing-compare reveal">
+      <p>ChatGPT Plus custa R$&nbsp;100/usuário/mês sem governança, sem audit trail e sem fact-check.<br />Winserv AI Portal custa <strong>R$&nbsp;10/usuário/mês</strong> — com tudo isso e mais.</p>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container">
+    <h2 class="reveal">Sua empresa já usa IA.<br /><em>Quem governa?</em></h2>
+    <p class="reveal">Converse com a Winserv e veja o portal em funcionamento com dados reais do seu segmento.</p>
+    <div class="cta-actions reveal">
+      <a href="/preview/contato.html" class="btn btn-primary btn-large">Solicitar demonstração</a>
+      <a href="/preview/winserv-ai-portal/winserv-ai-portal-facts.html" class="btn btn-outline btn-large">Especificações técnicas</a>
+    </div>
+    <p class="cta-footnote reveal">winserv.com.br · CNPJ 10.411.266/0001-80 · Rio Grande, RS</p>
+  </div>
+</section>
+
+<footer>
+  <a href="/preview/">← Winserv Tecnologia da Informação</a>
+  <span class="footer-copy">&copy; 2026 Winserv TI · AI Portal</span>
+  <a href="/preview/contato.html">Contato</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const demoEl = document.getElementById('fact-check-demo');
+  const summaryEl = document.getElementById('demo-summary');
+  let animated = false;
+  const demoObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !animated) {
+      animated = true;
+      document.querySelectorAll('.claim').forEach(claim => {
+        setTimeout(() => claim.classList.add('visible'), parseInt(claim.dataset.delay) || 0);
+      });
+      setTimeout(() => summaryEl.classList.add('visible'), 2400);
+    }
+  }, { threshold: 0.4 });
+  demoObserver.observe(demoEl);
+</script>
+
+</body>
+</html>
