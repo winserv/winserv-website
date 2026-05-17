@@ -314,7 +314,8 @@ hr.sep { border: none; border-top: 1px solid var(--border-n); margin: 1.2rem 0; 
 .finops-header-val   { font-family: var(--mono); font-size: 0.72rem; color: var(--gold); }
 .finops-row { display: flex; align-items: center; gap: 0.5rem; padding: 0.38rem 0; border-bottom: 1px solid var(--border-n); font-size: 0.78rem; }
 .finops-row:last-child { border-bottom: none; }
-.finops-user { color: var(--muted-lt); min-width: 72px; font-size: 0.74rem; }
+.finops-user { color: var(--muted-lt); min-width: 72px; max-width: 110px; font-size: 0.74rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.finops-model { font-size: 0.62rem; font-weight: 600; padding: 0.05rem 0.3rem; border-radius: 4px; white-space: nowrap; margin-left: 0.2rem; background: rgba(62,123,250,0.12); color: var(--blue-lt); font-family: var(--mono); }
 .finops-bar-wrap { flex: 1; height: 4px; background: var(--border-n); border-radius: 100px; overflow: hidden; }
 .finops-bar { height: 100%; background: var(--blue); border-radius: 100px; }
 .finops-val  { font-family: var(--mono); font-size: 0.7rem; color: var(--blue-lt); white-space: nowrap; }
