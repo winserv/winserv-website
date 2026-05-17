@@ -458,7 +458,7 @@ section.alt { background: var(--surface); }
   transition: border-color 0.25s, transform 0.2s;
 }
 .content-card:hover { border-color: var(--blue); transform: translateY(-2px); }
-.content-card img { width: 100%; height: 155px; object-fit: cover; opacity: 0.75; }
+.content-card img { width: 100%; aspect-ratio: 3/2; object-fit: cover; opacity: 0.75; }
 .content-card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
 .content-card h3  { font-size: 0.95rem; font-weight: 700; }
 .content-card p   { font-size: 0.845rem; color: var(--muted); flex: 1; }
@@ -528,7 +528,7 @@ section.alt { background: var(--surface); }
   border: 1px solid var(--border);
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
-.sol-img img { width: 100%; height: 380px; object-fit: cover; opacity: 0.8; }
+.sol-img img { width: 100%; aspect-ratio: 3/2; object-fit: cover; opacity: 0.8; }
 
 /* ── Contato ── */
 .contact-layout {
@@ -691,7 +691,7 @@ section.alt { background: var(--surface); }
   float: left;
   margin: 0 2rem 1.5rem 0;
 }
-.article-img img { width: 100%; height: 220px; object-fit: cover; opacity: 0.85; }
+.article-img img { width: 100%; aspect-ratio: 3/2; object-fit: cover; opacity: 0.85; }
 
 .article-body { color: var(--muted); font-size: 0.975rem; line-height: 1.85; }
 .article-body p { margin-bottom: 1.1rem; }
