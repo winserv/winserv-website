@@ -1,0 +1,9 @@
+# OS
+.DS_Store
+
+# Wrangler / Cloudflare
+.wrangler/
+cloudflare-worker-contact/.wrangler/
+
+# Dev tooling
+.playwright-mcp/
