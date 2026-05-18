@@ -233,13 +233,13 @@ table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
 thead tr { border-bottom: 2px solid var(--border); }
 th { padding: 0.8rem 0.9rem; text-align: left; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
 th.portal { color: var(--blue-lt); background: rgba(62,123,250,0.05); border-left: 2px solid var(--blue); border-right: 2px solid var(--blue); }
-td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border-n); color: var(--muted-lt); vertical-align: middle; }
+td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border-n); color: var(--muted-lt); vertical-align: middle; background: rgba(255,255,255,0.03); }
 td.portal { background: rgba(62,123,250,0.04); border-left: 2px solid rgba(62,123,250,0.22); border-right: 2px solid rgba(62,123,250,0.22); color: var(--text); }
 td.rh { color: var(--text); font-weight: 600; font-size: 0.8rem; }
 .ic-y  { color: var(--green); font-weight: 700; }
-.ic-n  { color: rgba(239,68,68,0.6); }
+.ic-n  { color: rgba(239,68,68,0.8); }
 .ic-p  { color: var(--orange); }
-tbody tr:nth-child(even) td:not(.portal) { background: rgba(255,255,255,0.045); }
+tbody tr:nth-child(even) td:not(.portal) { background: rgba(255,255,255,0.065); }
 .ic-ex { color: var(--blue-lt); font-weight: 700; font-size: 0.78rem; }
 tfoot td { border-top: 2px solid var(--border); padding-top: 0.9rem; }
 

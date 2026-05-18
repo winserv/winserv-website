@@ -22,6 +22,7 @@
   border-radius: 12px;
   padding: 2rem 2.5rem;
   margin-bottom: 1.75rem;
+  font-size: 0.9rem;
 }
 
 .doc-section h2 {
@@ -107,15 +108,16 @@
   vertical-align: middle;
   color: var(--text);
   line-height: 1.55;
+  background: rgba(255,255,255,0.03);
 }
 .doc-content table.compact td { padding: 7px 10px; }
 .doc-content tr:last-child td { border-bottom: none; }
-.doc-content tr:nth-child(even) td { background: rgba(255,255,255,0.045); }
+.doc-content tr:nth-child(even) td { background: rgba(255,255,255,0.065); }
 .doc-content tr:hover td { background: var(--blue-dim); }
 
 /* Status markers */
 .doc-content .yes  { color: var(--green); font-weight: 700; }
-.doc-content .no   { color: rgba(239,68,68,0.6); }
+.doc-content .no   { color: rgba(239,68,68,0.75); }
 .doc-content .warn { color: #FBBF24; }
 .doc-content .highlight { font-weight: 700; color: var(--blue); }
 .doc-content .exclusive {

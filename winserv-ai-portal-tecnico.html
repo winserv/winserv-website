@@ -118,32 +118,32 @@
           </tr>
           <tr>
             <td><strong>Shadow AI</strong> — ninguém sabe o que está sendo perguntado nem respondido</td>
-            <td><span class="no">✗</span> Invisível para o TI</td>
+            <td><span class="no">❌</span> Invisível para o TI</td>
             <td><span class="yes">✅</span> Toda interação registrada em <strong>audit trail JSONB imutável</strong></td>
           </tr>
           <tr>
             <td><strong>Vazamento de dados</strong> — funcionário cola contrato, planilha, documento confidencial</td>
-            <td><span class="no">✗</span> Dados enviados para nuvem do provedor sem controle</td>
+            <td><span class="no">❌</span> Dados enviados para nuvem do provedor sem controle</td>
             <td><span class="yes">✅</span> Dados no banco <strong>isolado do cliente</strong> (single-tenant), API Keys próprias</td>
           </tr>
           <tr>
             <td><strong>Custo imprevisível</strong> — conta de API no fim do mês</td>
-            <td><span class="no">✗</span> Surpresa no billing do Google/OpenAI</td>
+            <td><span class="no">❌</span> Surpresa no billing do Google/OpenAI</td>
             <td><span class="yes">✅</span> <strong>Daily cost limit por usuário</strong> + dashboard FinOps com projeções</td>
           </tr>
           <tr>
             <td><strong>Alucinações sem verificação</strong> — IA inventa dado, funcionário usa</td>
-            <td><span class="no">✗</span> Sem mecanismo de checagem</td>
+            <td><span class="no">❌</span> Sem mecanismo de checagem</td>
             <td><span class="yes">✅</span> <strong>Fact-Check afirmação por afirmação</strong> <span class="exclusive">EXCLUSIVO</span></td>
           </tr>
           <tr>
             <td><strong>Acesso descontrolado</strong> — estagiário usa o mesmo tier que o diretor</td>
-            <td><span class="no">✗</span> Mesmo modelo para todos</td>
+            <td><span class="no">❌</span> Mesmo modelo para todos</td>
             <td><span class="yes">✅</span> <strong>RBAC 4 níveis</strong> + feature flags por grupo/usuário</td>
           </tr>
           <tr>
             <td><strong>LGPD / Compliance</strong> — auditoria regulatória (Bacen, ANPD) chega</td>
-            <td><span class="no">✗</span> Sem trilha de auditoria</td>
+            <td><span class="no">❌</span> Sem trilha de auditoria</td>
             <td><span class="yes">✅</span> Histórico completo, exportável, agrupado por conversa</td>
           </tr>
         </table>
@@ -203,23 +203,23 @@
           </tr>
           <tr>
             <td>Fact-Check</td>
-            <td class="yes"><span class="exclusive">EXCLUSIVO</span></td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td>
+            <td class="yes"><span class="exclusive">EXCLUSIVO</span></td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>Audit Trail</td>
-            <td class="yes">✅ JSONB</td><td class="warn">⚠️ Compliance API</td><td class="warn">⚠️ PP</td><td class="no">✗</td><td class="warn">⚠️</td><td class="no">✗</td><td class="warn">⚠️</td><td class="no">✗</td>
+            <td class="yes">✅ JSONB</td><td class="warn">⚠️ Compliance API</td><td class="warn">⚠️ PP</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>RBAC</td>
-            <td class="yes">✅ 4 níveis</td><td class="no">✗ 2</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="no">✗</td>
+            <td class="yes">✅ 4 níveis</td><td class="no">❌ 2</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>Single-tenant</td>
-            <td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">✗</td>
+            <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>Cliente soberano</td>
-            <td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">✗</td>
+            <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>Docs (ICL/RAG)</td>
@@ -227,19 +227,19 @@
           </tr>
           <tr>
             <td>STT/TTS</td>
-            <td class="yes">✅</td><td class="warn">⚠️ API</td><td class="warn">⚠️</td><td class="no">✗</td><td class="no">✗</td><td class="warn">⚠️</td><td class="no">✗</td><td class="no">✗</td>
+            <td class="yes">✅</td><td class="warn">⚠️ API</td><td class="warn">⚠️</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>White Label</td>
-            <td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="no">✗</td>
+            <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>FinOps</td>
-            <td class="yes">✅</td><td class="warn">⚠️ API</td><td class="warn">⚠️ PBI</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td>
+            <td class="yes">✅</td><td class="warn">⚠️ API</td><td class="warn">⚠️ PBI</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>Zero CDN</td>
-            <td class="yes">✅</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="warn">⚠️</td><td class="no">✗</td><td class="no">✗</td>
+            <td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>Suporte pt-BR</td>
@@ -312,17 +312,17 @@
           <tr>
             <td><strong>Direito à informação clara:</strong> pessoas devem saber quando interagem com IA</td>
             <td><span class="yes">✅</span> Sistema prompt: "sou o assistente do portal" — nunca finge ser humano</td>
-            <td><span class="no">✗</span> Sem controle do prompt pelo gestor</td>
+            <td><span class="no">❌</span> Sem controle do prompt pelo gestor</td>
           </tr>
           <tr>
             <td><strong>Explicação dos critérios e lógica:</strong> fornecer dados e raciocínio usados na decisão</td>
             <td><span class="yes">✅</span> <strong>Fact-Check afirmação por afirmação</strong> — extrai cada alegação, verifica contra fontes web, atribui veredito com justificativa</td>
-            <td><span class="no">✗</span> Sem verificação de claims</td>
+            <td><span class="no">❌</span> Sem verificação de claims</td>
           </tr>
           <tr>
             <td><strong>Permitir contestação:</strong> usuário pode questionar e corrigir decisões algorítmicas</td>
             <td><span class="yes">✅</span> Botão "Verificar" audita cada resposta. Botão "Regenerar" corrige</td>
-            <td><span class="no">✗</span> Sem mecanismo de auditoria por resposta</td>
+            <td><span class="no">❌</span> Sem mecanismo de auditoria por resposta</td>
           </tr>
         </table>
         </div>
@@ -339,12 +339,12 @@
           <tr>
             <td><strong>Supervisão humana efetiva:</strong> sistemas de alto risco devem permitir acompanhamento constante</td>
             <td><span class="yes">✅</span> <strong>RBAC 4 níveis</strong> — global_admin, llm_manager, auditor, user. Gestor define quem supervisiona o quê</td>
-            <td><span class="no">✗</span> Apenas 2 tiers (admin/user)</td>
+            <td><span class="no">❌</span> Apenas 2 tiers (admin/user)</td>
           </tr>
           <tr>
             <td><strong>Revisão de decisões automatizadas:</strong> direito de solicitar intervenção humana em decisões significativas</td>
             <td><span class="yes">✅</span> <strong>Fact-Check on-demand</strong> — cada resposta pode ser auditada com 1 clique. Modo auto_head para verificação automática de todas as respostas</td>
-            <td><span class="no">✗</span> Sem verificação de decisões</td>
+            <td><span class="no">❌</span> Sem verificação de decisões</td>
           </tr>
           <tr>
             <td><strong>Prevenir operação 100% autônoma:</strong> IA não pode decidir sozinha quando há impacto em direitos fundamentais</td>
@@ -366,22 +366,22 @@
           <tr>
             <td><strong>Avaliação de Impacto Algorítmico (AIA):</strong> documentar riscos e mitigação antes de ativar o sistema</td>
             <td><span class="yes">✅</span> <strong>System settings audit</strong> — toda alteração de modelo, prompt, limite é registrada com quem alterou e quando</td>
-            <td><span class="no">✗</span> Sem registro de alterações de configuração</td>
+            <td><span class="no">❌</span> Sem registro de alterações de configuração</td>
           </tr>
           <tr>
             <td><strong>Registros (logs) para rastreabilidade:</strong> capacidade técnica de registrar eventos para auditoria de falhas</td>
             <td><span class="yes">✅</span> <strong>Audit trail JSONB imutável</strong> — mensagens completas, tokens, custo, latência, modelo. Exportável, agrupado por conversa</td>
-            <td><span class="no">✗</span> Logs de API parciais, sem conteúdo das mensagens</td>
+            <td><span class="no">❌</span> Logs de API parciais, sem conteúdo das mensagens</td>
           </tr>
           <tr>
             <td><strong>Testes para vieses discriminatórios:</strong> identificar e corrigir preconceitos de raça, gênero, etc.</td>
             <td><span class="yes">✅</span> <strong>Safety Gate</strong> classifica input e output. <strong>Fact-Check</strong> detecta viés factual por verificação contra fontes</td>
-            <td><span class="no">✗</span> Sem ferramentas de detecção de viés</td>
+            <td><span class="no">❌</span> Sem ferramentas de detecção de viés</td>
           </tr>
           <tr>
             <td><strong>Documentação de mitigação:</strong> comprovar medidas adotadas para reduzir riscos</td>
             <td><span class="yes">✅</span> <strong>Single-tenant</strong> (dados isolados). <strong>Zero CDN externo</strong> (soberania). <strong>Cliente dono das API Keys</strong> (sem intermediação)</td>
-            <td><span class="no">✗</span> Multi-tenant, dados nos EUA, dependência de CDNs</td>
+            <td><span class="no">❌</span> Multi-tenant, dados nos EUA, dependência de CDNs</td>
           </tr>
         </table>
         </div>
@@ -406,23 +406,23 @@
           </tr>
           <tr>
             <td>Fact-Check afirmação por afirmação</td>
-            <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes"><span class="exclusive">EXCLUSIVO</span></td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes"><span class="exclusive">EXCLUSIVO</span></td>
           </tr>
           <tr>
             <td>Audit trail com conteúdo completo</td>
-            <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✅ JSONB imutável</td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅ JSONB imutável</td>
           </tr>
           <tr>
             <td>RBAC 4 níveis com feature flags</td>
-            <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✅</td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
           </tr>
           <tr>
             <td>Single-tenant (banco isolado)</td>
-            <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✅</td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
           </tr>
           <tr>
             <td>Cliente soberano (100% configs abertas)</td>
-            <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✅</td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
           </tr>
           <tr>
             <td>Grounding incluso</td>
@@ -430,11 +430,11 @@
           </tr>
           <tr>
             <td>Zero CDN externo (air-gap ready)</td>
-            <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✅</td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
           </tr>
           <tr>
             <td>Custo previsível com daily limit</td>
-            <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✅</td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
           </tr>
           <tr>
             <td>Suporte em português</td>
@@ -483,7 +483,7 @@
             </ul>
           </div>
           <div class="summary-box risk">
-            <h4>✗ Sem o portal, o cliente assume:</h4>
+            <h4>❌ Sem o portal, o cliente assume:</h4>
             <ul>
               <li>Risco de exposição de dados corporativos em APIs públicas</li>
               <li>Impossibilidade de auditar uso de IA</li>
@@ -586,7 +586,7 @@
           <tr>
             <td><strong>RAG</strong> (Retrieval-Augmented Generation)</td>
             <td>Técnica que fatia documentos em pedaços (chunks), armazena em banco vetorial e recupera trechos relevantes durante a pergunta. Usada por Dify, AnythingLLM, Copilot.</td>
-            <td><span class="no">✗ Não usa</span> — substituído por ICL. RAG é eficiente em custo de tokens, mas sacrifica contexto integral entre seções do documento e exige manutenção de embeddings. O portal escolheu ICL para preservar contexto profundo — o trade-off de custo é mitigado por 5 camadas de cache.</td>
+            <td><span class="no">❌ Não usa</span> — substituído por ICL. RAG é eficiente em custo de tokens, mas sacrifica contexto integral entre seções do documento e exige manutenção de embeddings. O portal escolheu ICL para preservar contexto profundo — o trade-off de custo é mitigado por 5 camadas de cache.</td>
           </tr>
           <tr>
             <td><strong>ICL</strong> (In-Context Learning)</td>
@@ -596,17 +596,17 @@
           <tr>
             <td><strong>Chunking</strong></td>
             <td>Processo de dividir um documento em pedaços menores (chunks) para indexação. Ex: quebrar um PDF de 100 páginas em 500 pedaços de 200 tokens cada.</td>
-            <td><span class="no">✗ Não usa</span> — desnecessário com ICL.</td>
+            <td><span class="no">❌ Não usa</span> — desnecessário com ICL.</td>
           </tr>
           <tr>
             <td><strong>Embedding</strong></td>
             <td>Representação numérica (vetor) do significado de um texto. Usado para busca semântica — encontrar trechos "parecidos" com a pergunta.</td>
-            <td><span class="no">✗ Não usa</span> — não há busca vetorial no portal.</td>
+            <td><span class="no">❌ Não usa</span> — não há busca vetorial no portal.</td>
           </tr>
           <tr>
             <td><strong>Vector Store</strong></td>
             <td>Banco de dados especializado em armazenar e buscar embeddings. Ex: pgvector, Pinecone, ChromaDB.</td>
-            <td><span class="no">✗ Não usa</span> — o portal usa apenas PostgreSQL tradicional.</td>
+            <td><span class="no">❌ Não usa</span> — o portal usa apenas PostgreSQL tradicional.</td>
           </tr>
         </table>
         </div>
