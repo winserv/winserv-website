@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/images/winserv-logo.svg" type="image/svg+xml" />
+  <title>WINSERV | Página não encontrada</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script>
+    // ── Redirect map ──────────────────────────────────────────────
+    // Add entries here as { '/old/path': '/new/path' }
+    var REDIRECTS = {
+      '/winserv-ai-portal/winserv-ai-portal-facts.html': '/winserv-ai-portal.html'
+    };
+    // ─────────────────────────────────────────────────────────────
+    var dest = REDIRECTS[window.location.pathname];
+    if (dest) window.location.replace(dest);
+  </script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="wordmark" href="/index.html"><span class="win">WIN</span><span class="serv">SERV</span></a>
+  <ul class="nav-links">
+    <li><a href="/index.html">Início</a></li>
+    <li><a href="/solucoes.html">Soluções</a></li>
+    <li><a href="/conteudo.html">Conteúdo</a></li>
+    <li><a href="/winserv-ai-portal.html">Portal IA<span class="nav-new">novo</span></a></li>
+  </ul>
+  <a class="btn-nav" href="/contato.html">Contato</a>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobile-menu">
+  <a href="/index.html">Início</a>
+  <a href="/solucoes.html">Soluções</a>
+  <a href="/conteudo.html">Conteúdo</a>
+  <a href="/winserv-ai-portal.html">Portal IA</a>
+  <a href="/contato.html">Contato</a>
+</div>
+
+<div class="page-hero" style="min-height:40vh;">
+  <div class="section-label blue">Erro 404</div>
+  <h1 style="font-size:clamp(2rem,5vw,3.5rem);">Página não encontrada</h1>
+  <p style="max-width:480px;margin:0 auto;">O endereço que você acessou não existe ou foi movido.</p>
+  <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="/index.html" class="btn-primary">Ir para o início</a>
+    <a href="/contato.html" class="btn-outline">Falar com a equipe</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="wordmark" href="/index.html"><span class="win">WIN</span><span class="serv">SERV</span></a>
+        <p>Tecnologia da Informação para empresas que precisam de resultados práticos.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegar</h4>
+        <ul>
+          <li><a href="/index.html">Início</a></li>
+          <li><a href="/solucoes.html">Soluções</a></li>
+          <li><a href="/conteudo.html">Conteúdo</a></li>
+          <li><a href="/winserv-ai-portal.html">Portal IA</a></li>
+          <li><a href="/contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="/missao.html">Nossa missão</a></li>
+          <li><a href="/valores.html">Valores e Princípios</a></li>
+          <li><a href="https://www.linkedin.com/company/winserv/" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Winserv Tecnologia da Informação &mdash; CNPJ 10.411.266/0001-80 &mdash; Rio Grande, RS</span>
+      <span>&copy; 2026 Winserv TI</span>
+    </div>
+  </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3J9ESTRVQG"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3J9ESTRVQG');</script>
+<script>
+  var b=document.getElementById('burger'),m=document.getElementById('mobile-menu');
+  b.addEventListener('click',function(){var o=m.classList.toggle('open');b.classList.toggle('open',o);});
+  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');b.classList.remove('open');});});
+</script>
+</body>
+</html>
