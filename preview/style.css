@@ -11,8 +11,8 @@
   --blue-dim:   rgba(62,123,250,0.12);
   --green:      #10B981;
   --green-dim:  rgba(16,185,129,0.12);
-  --gold:       #F59E0B;
-  --gold-dim:   rgba(245,158,11,0.12);
+  --gold:       #3E7BFA;
+  --gold-dim:   rgba(62,123,250,0.12);
   --text:       #E8EDF8;
   --muted:      #6B7A99;
   --font:       'Plus Jakarta Sans', sans-serif;
@@ -313,7 +313,7 @@ section.alt { background: var(--surface); }
 }
 .hero-wordmark .win { color: var(--text); }
 .hero-wordmark .serv {
-  background: linear-gradient(90deg, #3CCBF4 0%, #2892DF 100%);
+  background: linear-gradient(90deg, #3E7BFA 0%, #0D52B4 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -374,7 +374,7 @@ section.alt { background: var(--surface); }
   font-size: 1.35rem;
 }
 .service-icon.green { background: var(--green-dim); border-color: rgba(16,185,129,0.2); }
-.service-icon.gold  { background: var(--gold-dim);  border-color: rgba(245,158,11,0.2); }
+.service-icon.gold  { background: var(--gold-dim);  border-color: rgba(62,123,250,0.2); }
 
 .service-card h3 { font-size: 1.05rem; font-weight: 700; }
 .service-card p  { color: var(--muted); font-size: 0.9rem; line-height: 1.65; flex: 1; }
@@ -461,9 +461,6 @@ section.alt { background: var(--surface); }
   align-items: start;
 }
 
-.sol-icon-wrap { margin-bottom: 1.25rem; }
-.sol-icon-wrap svg { width: 52px; height: 52px; display: block; }
-
 .sol-badge {
   display: inline-flex;
   align-items: center;
@@ -479,7 +476,7 @@ section.alt { background: var(--surface); }
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
-.sol-badge.gold { background: var(--gold-dim); border-color: rgba(245,158,11,0.2); color: var(--gold); }
+.sol-badge.gold { background: var(--gold-dim); border-color: rgba(62,123,250,0.2); color: var(--gold); }
 
 .sol-content h2 {
   font-size: clamp(1.5rem, 3vw, 2rem);
@@ -648,7 +645,7 @@ section.alt { background: var(--surface); }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold);
-  border-bottom: 1px solid rgba(245,158,11,0.2);
+  border-bottom: 1px solid rgba(62,123,250,0.2);
   padding-bottom: 0.6rem;
   margin-bottom: 1.5rem;
 }
