@@ -1,0 +1,14 @@
+name = "winserv-contact"
+main = "src/index.js"
+compatibility_date = "2026-05-16"
+
+[vars]
+ALLOWED_ORIGIN = "https://winserv.com.br"
+TO_EMAIL       = "comercial@winserv.com.br"
+MAILBOX        = "msamoilenko@winserv.com.br"
+TENANT_ID      = "0412cc2a-f986-449e-aabb-38f70688f18f"
+CLIENT_ID      = "14a48b03-9e0a-47c9-ac39-8a9c1a56ac06"
+
+# Secrets (set via `wrangler secret put`):
+#   CLIENT_SECRET    — Azure app registration client secret
+#   TURNSTILE_SECRET — secret key do Cloudflare Turnstile
