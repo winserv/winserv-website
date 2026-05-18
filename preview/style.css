@@ -312,7 +312,12 @@ section.alt { background: var(--surface); }
   margin-bottom: 1rem;
 }
 .hero-wordmark .win { color: var(--text); }
-.hero-wordmark .serv { color: var(--blue); }
+.hero-wordmark .serv {
+  background: linear-gradient(90deg, #3CCBF4 0%, #2892DF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 .hero-tagline {
   font-size: 0.85rem;
@@ -455,6 +460,9 @@ section.alt { background: var(--surface); }
   gap: 4rem;
   align-items: start;
 }
+
+.sol-icon-wrap { margin-bottom: 1.25rem; }
+.sol-icon-wrap svg { width: 52px; height: 52px; display: block; }
 
 .sol-badge {
   display: inline-flex;
