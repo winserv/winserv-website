@@ -1,45 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-   <url>
-
-      <loc>https://winserv.com.br/</loc>
-
-      <lastmod>2021-08-30</lastmod>
-
-      <changefreq>monthly</changefreq>
-
-      <priority>1</priority>
-
-   </url>
-
-   <url>
-
-      <loc>https://winserv.com.br/ti.html</loc>
-
-      <changefreq>monthly</changefreq>
-
-      <priority>0.8</priority>
-
-   </url>
-
-   <url>
-
-      <loc>https://winserv.com.br/solucoes.html</loc>
-
-      <changefreq>weekly</changefreq>
-
-      <priority>0.9</priority>
-
-   </url>
-
-   <url>
-
-      <loc>https://winserv.com.br/index.html#footer</loc>
-
-      <priority>0.7</priority>
-
-   </url>
-   
+  <url>
+    <loc>https://winserv.com.br/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/solucoes.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/winserv-ai-portal/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/contato.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/conteudo.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/missao.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/valores.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/ti.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/tiverde.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/telas.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/exposicao.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://winserv.com.br/filtro.html</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
