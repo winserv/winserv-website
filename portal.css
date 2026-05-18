@@ -236,9 +236,9 @@ th.portal { color: var(--blue-lt); background: rgba(62,123,250,0.05); border-lef
 td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--border-n); color: var(--muted-lt); vertical-align: middle; background: rgba(255,255,255,0.03); }
 td.portal { background: rgba(62,123,250,0.04); border-left: 2px solid rgba(62,123,250,0.22); border-right: 2px solid rgba(62,123,250,0.22); color: var(--text); }
 td.rh { color: var(--text); font-weight: 600; font-size: 0.8rem; }
-.ic-y  { color: var(--green); font-weight: 700; font-size: 1.2em; }
-.ic-n  { color: rgba(239,68,68,0.8); font-size: 1.2em; }
-.ic-p  { color: var(--orange); }
+.ic-y  { color: var(--green); font-weight: 700; font-size: 1.2em; margin-right: 0.25em; }
+.ic-n  { color: rgba(239,68,68,0.8); font-size: 1.2em; margin-right: 0.25em; }
+.ic-p  { color: var(--orange); font-size: 1.2em; margin-right: 0.25em; }
 tbody tr:nth-child(even) td:not(.portal) { background: rgba(255,255,255,0.065); }
 .ic-ex { color: var(--blue-lt); font-weight: 700; font-size: 0.78rem; }
 tfoot td { border-top: 2px solid var(--border); padding-top: 0.9rem; }
