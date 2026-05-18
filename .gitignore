@@ -7,3 +7,7 @@ cloudflare-worker-contact/.wrangler/
 
 # Dev tooling
 .playwright-mcp/
+
+# Internal dev docs (not for public repo)
+CLAUDE.md
+docs/
