@@ -41,8 +41,18 @@ a { color: inherit; }
   text-decoration: none;
   line-height: 1;
 }
-.wordmark .win { color: var(--text); }
-.wordmark .serv { color: var(--blue); }
+.wordmark .win {
+  background: linear-gradient(90deg, #E8EDF8 0%, #E8EDF8 60%, #9BBCFA 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.wordmark .serv {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 /* ── Nav ── */
 .topnav {
