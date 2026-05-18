@@ -110,7 +110,7 @@
 }
 .doc-content table.compact td { padding: 7px 10px; }
 .doc-content tr:last-child td { border-bottom: none; }
-.doc-content tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.doc-content tr:nth-child(even) td { background: rgba(255,255,255,0.045); }
 .doc-content tr:hover td { background: var(--blue-dim); }
 
 /* Status markers */
