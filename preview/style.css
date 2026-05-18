@@ -266,25 +266,6 @@ section.alt { background: var(--surface); }
   gap: 0.5rem;
 }
 
-/* ── WhatsApp FAB ── */
-.whatsapp-fab {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: #25D366;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.3);
-  text-decoration: none;
-  z-index: 200;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.whatsapp-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(37,211,102,0.45); }
-.whatsapp-fab svg { width: 28px; height: 28px; fill: #fff; }
 
 /* ── Home — Hero ── */
 .hero {
