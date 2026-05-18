@@ -9,6 +9,7 @@
   --border:     rgba(62,123,250,0.15);
   --blue:       #3E7BFA;
   --blue-dim:   rgba(62,123,250,0.12);
+  --grad:       linear-gradient(90deg, #3E7BFA 0%, #0D52B4 100%);
   --green:      #10B981;
   --green-dim:  rgba(16,185,129,0.12);
   --gold:       #3E7BFA;
@@ -86,7 +87,7 @@ a { color: inherit; }
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
-.btn-nav:hover { background: var(--blue); color: #070A12; }
+.btn-nav:hover { background: var(--grad); color: #070A12; }
 
 .nav-burger {
   display: none;
@@ -135,7 +136,7 @@ a { color: inherit; }
 .btn-primary {
   display: inline-block;
   padding: 0.75rem 1.9rem;
-  background: var(--blue);
+  background: var(--grad);
   color: #070A12;
   font-weight: 700;
   font-size: 0.925rem;
@@ -311,7 +312,12 @@ section.alt { background: var(--surface); }
   line-height: 1;
   margin-bottom: 1rem;
 }
-.hero-wordmark .win { color: var(--text); }
+.hero-wordmark .win {
+  background: linear-gradient(90deg, #E8EDF8 0%, #E8EDF8 60%, #9BBCFA 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .hero-wordmark .serv {
   background: linear-gradient(90deg, #3E7BFA 0%, #0D52B4 100%);
   -webkit-background-clip: text;
@@ -599,7 +605,7 @@ section.alt { background: var(--surface); }
 .form-actions { display: flex; gap: 0.75rem; margin-top: 1.35rem; flex-wrap: wrap; }
 .btn-submit {
   padding: 0.7rem 1.8rem;
-  background: var(--blue);
+  background: var(--grad);
   color: #070A12;
   font-weight: 700;
   font-size: 0.9rem;
