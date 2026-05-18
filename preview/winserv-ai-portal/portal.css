@@ -343,4 +343,11 @@ hr.sep { border: none; border-top: 1px solid var(--border-n); margin: 1.2rem 0; 
   .flow-step { border-right: none; border-bottom: 1px solid var(--border-n); }
   .flow-step:last-child { border-bottom: none; }
   .rbac-roles { grid-template-columns: 1fr; }
+  .tabs-nav {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
+  .tab-btn { flex: 0 0 auto; }
 }
