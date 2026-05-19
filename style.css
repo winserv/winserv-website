@@ -862,7 +862,7 @@ section.alt { background: var(--surface); }
   display: grid;
   grid-template-columns: 1fr 1.1fr;
   gap: 5rem;
-  align-items: start;
+  align-items: center;
   padding: 3rem 0 5rem;
 }
 .contact-info h1 {
