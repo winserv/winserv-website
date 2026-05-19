@@ -166,7 +166,7 @@
     fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,company:company,message:message,turnstileToken:token})})
     .then(function(r){return r.json();})
     .then(function(d){
-      if(d.ok){showStatus('Mensagem enviada! Entraremos em contato em breve.',false);form.reset();if(typeof turnstile!=='undefined')turnstile.reset();}
+      if(d.ok){showStatus('Mensagem enviada! Entraremos em contato em breve.',false);if(typeof turnstile!=='undefined')turnstile.reset();}
       else{showStatus(d.error||'Erro ao enviar. Tente novamente.',true);}
     })
     .catch(function(){showStatus('Falha de conexão. Tente novamente.',true);})
