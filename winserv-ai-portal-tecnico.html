@@ -75,8 +75,8 @@
           </div>
           <div class="intro-card">
             <div class="icon">🔑</div>
-            <strong>API Keys gerenciadas pelo cliente</strong>
-            <p>O cliente usa suas <strong>próprias chaves do Google</strong>. A Winserv não intermedeia, não revende tokens e não tem acesso ao faturamento Google Cloud do cliente.</p>
+            <strong>Google API Keys do cliente</strong>
+            <p>O cliente cria e é titular das próprias chaves do Google Cloud. A Winserv configura as chaves no deploy (via SSH/env) e não intermedeia nem revende tokens. O faturamento Google é 100% direto com o cliente.</p>
           </div>
           <div class="intro-card">
             <div class="icon">🛡️</div>
@@ -295,7 +295,7 @@
 
         <div class="callout"><strong>Fact-Check afirmação por afirmação:</strong> o portal extrai cada afirmação individual de uma resposta e verifica contra fontes web. Nenhum concorrente oferece isso — nem ChatGPT, nem Perplexity, nem Open WebUI.</div>
         <div class="callout"><strong>Audit Trail JSONB com conteúdo completo:</strong> o portal registra cada interação com mensagens completas, custo, latência e modelo. O ChatGPT Enterprise agora oferece Compliance API com logs imutáveis, mas em infra multi-tenant — os dados do seu cliente não são isolados. Perplexity e Dify têm logs parciais. Claude, Open WebUI e Manus simplesmente não têm.</div>
-        <div class="callout"><strong>Single-tenant + cliente soberano:</strong> cada empresa tem seu banco PostgreSQL isolado e 100% das configurações abertas. ChatGPT, Claude e Copilot são multi-tenant. Open WebUI e Dify exigem que o cliente monte e mantenha a infra.</div>
+        <div class="callout"><strong>Single-tenant + cliente soberano:</strong> cada empresa tem seu banco PostgreSQL isolado, é titular da própria conta Google Cloud e controla identidade visual, usuários e feature flags. Modelos, limites e precificação são gerenciados pela Winserv como serviço — garantia de qualidade e custo sem configuração manual pelo cliente. ChatGPT, Claude e Copilot são multi-tenant. Open WebUI e Dify exigem que o cliente monte e mantenha a infra.</div>
       </div>
 
       <!-- Seção 4 -->
@@ -427,7 +427,7 @@
             <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
           </tr>
           <tr>
-            <td>Cliente soberano (100% configs abertas)</td>
+            <td>Cliente soberano (dados, conta Google, branding)</td>
             <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
           </tr>
           <tr>
