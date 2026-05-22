@@ -85,6 +85,10 @@
           </div>
         </div>
 
+        <div class="callout" style="margin-top:1.5rem; border-left-color:var(--blue); background:var(--blue-dim);">
+          <strong>🔒 Privacidade por contrato (Zero Training):</strong> A API do Google utilizada pelo portal proíbe contratualmente o uso dos dados do cliente para treinar modelos públicos. Contratos, pareceres e planilhas confidenciais não viram dado de treinamento do Gemini de ninguém. Interfaces consumer (Gemini.com, ChatGPT gratuito) não têm essa garantia — a API tem.
+        </div>
+
         <div class="callout" style="margin-top:1.5rem;">
           <strong>📜 Compliance à frente da lei:</strong> O PL 2338/2023 — marco regulatório da IA no Brasil, já aprovado no Senado e em discussão na Câmara dos Deputados — estabelecerá exigências de <strong>auditabilidade, transparência e supervisão humana</strong> para sistemas de IA de alto risco. O Winserv AI Portal já entrega todos esses requisitos como arquitetura de fábrica — não como adaptação futura. Audit Trail imutável, Fact-Check afirmação por afirmação, Safety Gate e RBAC 4 níveis são a resposta pronta para o que a lei vai exigir.
         </div>
@@ -142,6 +146,11 @@
             <td><strong>LGPD / Compliance</strong> — auditoria regulatória (Bacen, ANPD) chega</td>
             <td><span class="no">❌</span> Sem trilha de auditoria</td>
             <td><span class="yes">✅</span> Histórico completo, exportável, agrupado por conversa</td>
+          </tr>
+          <tr>
+            <td><strong>Treinamento com dados da empresa</strong> — IA aprende com contratos, planilhas e pareceres enviados</td>
+            <td><span class="no">❌</span> Interfaces consumer não têm garantia contratual — dados podem ser usados para treinar modelos públicos</td>
+            <td><span class="yes">✅</span> Gemini API proíbe contratualmente o uso dos dados do cliente para treinar modelos. <strong>Zero Training por design.</strong></td>
           </tr>
         </table>
         </div>
