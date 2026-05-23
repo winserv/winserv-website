@@ -163,6 +163,14 @@
           <div class="risk-fix">&#10003; RBAC 4 níveis + feature flags por grupo com herança em cascata</div>
         </div>
       </div>
+      <div class="risk-card">
+        <div class="risk-icon d">&#128683;</div>
+        <div>
+          <h4>Ghost seats — ex-funcionários com acesso ativo</h4>
+          <p>Funcionário desligado continua com acesso ao portal até alguém lembrar de cancelar. Seat pago desperdiçado e risco de segurança.</p>
+          <div class="risk-fix">&#10003; Desativação imediata pelo admin + auto-cleanup por inatividade + anonimização LGPD</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -412,6 +420,7 @@
           <li>FinOps dashboard: gasto real por usuário, projeção mensal, custo por conversa</li>
           <li>Feature flags por grupo — Fact-Check obrigatório para jurídico, opcional para outros</li>
           <li>Desligar no Entra ID revoga o acesso ao portal automaticamente via SSO</li>
+          <li>Gestão de ciclo de vida: desativação imediata, auto-cleanup por inatividade (N dias configurável), anonimização LGPD em 1 clique</li>
           <li>Chat Standard (reflexo, 2–5 s) e Advanced (raciocínio estruturado, 10–20 s) — atribuíveis por grupo</li>
         </ul>
         <div class="rbac-roles">
@@ -620,6 +629,7 @@
           <tr><td class="rh">Single-tenant (banco isolado)</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-n">&#10007;</span> multi-tenant</td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-y">&#10003;</span> self-hosted</td><td><span class="ic-y">&#10003;</span> self-hosted</td></tr>
           <tr><td class="rh">Cliente soberano (Google API Keys próprias)</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-y">&#10003;</span></td><td><span class="ic-y">&#10003;</span></td></tr>
           <tr><td class="rh">RBAC 4 níveis + feature flags</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-p">~</span> 2 níveis</td><td><span class="ic-y">&#10003;</span></td><td><span class="ic-p">~</span> básico</td><td><span class="ic-p">~</span> Enterprise</td></tr>
+          <tr><td class="rh">Gestão de ciclo de vida de usuários</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-p">~</span> via Entra</td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td></tr>
           <tr><td class="rh">Docs sem chunking (ICL 1M tokens)</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-p">~</span> RAG/128K</td><td><span class="ic-p">~</span></td><td><span class="ic-p">~</span> RAG</td><td><span class="ic-p">~</span> RAG</td></tr>
           <tr><td class="rh">PL 2338 / LGPD compliance</td><td class="portal"><span class="ic-y">&#10003;</span> de fábrica</td><td><span class="ic-p">~</span> dados nos EUA</td><td><span class="ic-y">&#10003;</span></td><td><span class="ic-p">~</span></td><td><span class="ic-p">~</span></td></tr>
           <tr><td class="rh">Suporte em português + White Label</td><td class="portal"><span class="ic-y">&#10003;</span> incluso</td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-p">~</span></td><td><span class="ic-p">~</span></td></tr>

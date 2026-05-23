@@ -148,6 +148,11 @@
             <td><span class="yes">✅</span> Histórico completo, exportável, agrupado por conversa</td>
           </tr>
           <tr>
+            <td><strong>Seats de ex-funcionários</strong> — desligamento não cancela acesso automaticamente</td>
+            <td><span class="no">❌</span> Acesso persiste até alguém lembrar de cancelar</td>
+            <td><span class="yes">✅</span> <strong>Desativação imediata</strong> pelo admin + auto-cleanup por inatividade + anonimização LGPD</td>
+          </tr>
+          <tr>
             <td><strong>Treinamento com dados da empresa</strong> — IA aprende com contratos, planilhas e pareceres enviados</td>
             <td><span class="no">❌</span> Interfaces consumer não têm garantia contratual — dados podem ser usados para treinar modelos públicos</td>
             <td><span class="yes">✅</span> Gemini API proíbe contratualmente o uso dos dados do cliente para treinar modelos. <strong>Zero Training por design.</strong></td>
@@ -254,6 +259,10 @@
           <tr>
             <td>LGPD</td>
             <td class="yes">✅</td><td class="warn">⚠️ EUA</td><td class="yes">✅ EU</td><td class="warn">⚠️</td><td class="warn">⚠️</td><td class="yes">✅</td><td class="yes">✅</td><td class="warn">⚠️</td>
+          </tr>
+          <tr>
+            <td>Ciclo de vida de usuários</td>
+            <td class="yes">✅ auto+manual</td><td class="no">❌</td><td class="warn">⚠️ Entra</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="warn">⚠️</td><td class="no">❌</td>
           </tr>
         </table>
         </div>
@@ -446,6 +455,10 @@
             <td>Suporte em português</td>
             <td class="warn">Limitado</td><td class="warn">Limitado</td><td class="no">—</td><td class="yes">✅ Nativo</td>
           </tr>
+          <tr>
+            <td>Ciclo de vida de usuários (auto-cleanup + anonimização LGPD)</td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅</td>
+          </tr>
         </table>
         </div>
 
@@ -486,6 +499,7 @@
               <li>Dados em <strong>PostgreSQL isolado na VM</strong> do cliente</li>
               <li><strong>API Keys próprias</strong> — sem intermediação ou revenda de tokens</li>
               <li><strong>Token Economy</strong> — 5 camadas de cache que reduzem até 98% do custo com tokens em uso repetido</li>
+              <li><strong>Ciclo de vida de usuários</strong> — desativação imediata, cleanup automático por inatividade, anonimização LGPD em um clique</li>
             </ul>
           </div>
           <div class="summary-box risk">
@@ -698,6 +712,16 @@
             <td>Plataforma de identidade da Microsoft (antigo Azure AD). Usado para login corporativo no portal. Google Workspaces também disponível como IdP alternativo. Conta de recuperação local <code>winserv</code> para emergências administrativas (V10).</td>
             <td>Single Sign-On corporativo — o usuário não cria mais uma senha. O admin do Entra ID controla quem acessa. Em caso de desligamento, o acesso ao portal cessa automaticamente.</td>
           </tr>
+          <tr>
+            <td><strong>Licenciamento / Ciclo de Vida</strong></td>
+            <td>Módulo de gestão do ciclo de vida de usuários. Controla limites de uso (hard-limit por plano), desativação manual pelo admin, auto-cleanup por inatividade (N dias configurável) e anonimização LGPD. O admin gerencia tudo na aba <strong>Licenciamento</strong> do painel.</td>
+            <td>Resolve o problema de "ghost seats" — ex-funcionários com acesso ativo — e simplifica compliance de offboarding sem chamados de TI. O painel avisa quando o tier está próximo do limite e sugere upgrade automático.</td>
+          </tr>
+          <tr>
+            <td><strong>Anonimização LGPD</strong></td>
+            <td>Processo que substitui nome, e-mail e identificador IdP de um usuário por dados neutros (<code>anon-&lt;hash&gt;</code>), mantendo o histórico técnico intacto. Irreversível. Disponível na aba Licenciamento para admins globais.</td>
+            <td>Permite responder ao direito de esquecimento (Art. 18 LGPD) sem destruir trilhas de auditoria exigidas por normas setoriais. O auditor conserva o histórico completo — sem PII identificável.</td>
+          </tr>
         </table>
         </div>
       </div>
@@ -711,7 +735,7 @@
         </div>
       </div>
 
-      <p class="doc-version-line">Feito por msamoilenko · WinServ TI · Maio 2026 · Versão 2.1</p>
+      <p class="doc-version-line">Feito por msamoilenko · WinServ TI · Maio 2026 · Versão 2.2</p>
 
     </div>
   </div>
