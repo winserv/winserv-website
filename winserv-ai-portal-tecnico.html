@@ -65,7 +65,7 @@
       <!-- Introdução -->
       <div class="doc-section">
         <h2>Introdução</h2>
-        <p>Empresas brasileiras que adotam IA sem governança expõem-se a <strong>riscos reais e mensuráveis</strong>: multas da LGPD, exposição de dados confidenciais em APIs públicas, e impossibilidade de responder a auditorias regulatórias (Bacen, ANPD, CVM). O <strong>Winserv AI Portal</strong> foi projetado para eliminar esses riscos sem sacrificar a potência dos modelos de IA modernos. Diferente de plataformas que usam RAG (Retrieval-Augmented Generation) — eficiente para reduzir custos de token mas que sacrifica o contexto integral entre seções do documento — o portal envia o documento <strong>íntegro diretamente ao Google Gemini</strong> via In-Context Learning na janela de 1 milhão de tokens. Isso significa que um PDF de 200 páginas é processado por inteiro, preservando tabelas, hierarquia e relações entre seções. Sem chunking, sem embeddings, sem complexidade. O trade-off de maior consumo de tokens é mitigado por 5 camadas de cache que reduzem o custo real em até 98%. Além disso, o portal conta com <strong>Content Safety Gate</strong> — uma camada de classificação que analisa cada pergunta e cada resposta antes de entregá-la ao usuário, bloqueando conteúdos inadequados sem depender de filtros externos. E o <strong>Fact-Check afirmação por afirmação</strong> — exclusivo no mercado — extrai cada alegação individual da resposta e a verifica contra fontes web, atribuindo veredito (Precisa, Imprecisa, Contestada, etc.). Para um departamento jurídico, isso significa que <strong>nenhum parecer gerado por IA vai para um processo sem verificação</strong>.</p>
+        <p>Empresas brasileiras que adotam IA sem governança expõem-se a <strong>riscos reais e mensuráveis</strong>: multas da LGPD, exposição de dados confidenciais em APIs públicas, e impossibilidade de responder a auditorias regulatórias (Bacen, ANPD, CVM). O <strong>Winserv AI Portal</strong> foi projetado para eliminar esses riscos sem sacrificar a potência dos modelos de IA modernos. Diferente de plataformas que usam RAG (Retrieval-Augmented Generation) — eficiente para reduzir custos de token mas que sacrifica o contexto integral entre seções do documento — o portal envia o documento <strong>íntegro diretamente ao Google Gemini</strong> via In-Context Learning na janela de 1 milhão de tokens. Isso significa que um PDF de 200 páginas é processado por inteiro, preservando tabelas, hierarquia e relações entre seções. Sem chunking, sem embeddings, sem complexidade. O trade-off de maior consumo de tokens é mitigado por 5 camadas de cache que reduzem o custo real em até 98%. Além disso, o portal conta com <strong>Content Safety Gate</strong> — uma camada de classificação que analisa cada pergunta e cada resposta antes de entregá-la ao usuário, bloqueando conteúdos inadequados sem depender de filtros externos. E o <strong>Fact-Check afirmação por afirmação</strong> — sem equivalente integrado nos concorrentes hoje — extrai cada alegação individual da resposta e a verifica contra fontes web, atribuindo veredito (Precisa, Imprecisa, Contestada, etc.). Para um departamento jurídico, isso significa que <strong>nenhum parecer gerado por IA vai para um processo sem verificação</strong>.</p>
 
         <div class="intro-grid">
           <div class="intro-card">
@@ -135,7 +135,7 @@
           <tr>
             <td><strong>Alucinações sem verificação</strong> — IA inventa dado, funcionário usa</td>
             <td><span class="no">❌</span> Sem mecanismo de checagem</td>
-            <td><span class="yes">✅</span> <strong>Fact-Check afirmação por afirmação</strong> <span class="exclusive">EXCLUSIVO</span></td>
+            <td><span class="yes">✅</span> <strong>Fact-Check afirmação por afirmação</strong></td>
           </tr>
           <tr>
             <td><strong>Acesso descontrolado</strong> — estagiário usa o mesmo tier que o diretor</td>
@@ -214,7 +214,7 @@
           </tr>
           <tr>
             <td>Fact-Check</td>
-            <td class="yes"><span class="exclusive">EXCLUSIVO</span></td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
+            <td class="yes">✅ Integrado</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td>
           </tr>
           <tr>
             <td>Audit Trail</td>
@@ -421,7 +421,7 @@
           </tr>
           <tr>
             <td>Fact-Check afirmação por afirmação</td>
-            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes"><span class="exclusive">EXCLUSIVO</span></td>
+            <td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="yes">✅ Integrado</td>
           </tr>
           <tr>
             <td>Audit trail com conteúdo completo</td>
@@ -670,7 +670,7 @@
           <tr>
             <td><strong>Fact-Check</strong></td>
             <td>Sistema que extrai cada afirmação individual de uma resposta da IA e verifica contra fontes web. Atribui um dos 5 vereditos: <strong>Precisa</strong> (confirmada por fontes), <strong>Imprecisa</strong> (parcialmente correta), <strong>Contestada</strong> (fontes divergem), <strong>Não Verificável</strong> (sem fontes disponíveis), <strong>Enganosa</strong> (fontes contradizem).</td>
-            <td>Exclusivo do portal. Elimina o risco de um advogado protocolar uma petição com jurisprudência inventada pela IA, ou um contador enviar um parecer com artigo de lei que não existe. O veredito vem com fontes — o auditor humano decide.</td>
+            <td>Sem equivalente integrado nos concorrentes hoje. Elimina o risco de um advogado protocolar uma petição com jurisprudência inventada pela IA, ou um contador enviar um parecer com artigo de lei que não existe. O veredito vem com fontes — o auditor humano decide.</td>
           </tr>
           <tr>
             <td><strong>Safety Gate</strong></td>
