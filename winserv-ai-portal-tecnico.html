@@ -552,7 +552,7 @@
           <div class="arch-footer">
             <span>🐳 Docker Compose</span>
             <span>💻 VM Ubuntu 24.04</span>
-            <span>☁️ Nuvem pública ou on-premise</span>
+            <span>☁️ Hetzner — SaaS hospedado e gerido pela Winserv</span>
           </div>
         </div>
 
@@ -664,8 +664,8 @@
           <tr><th>Termo</th><th>Significado</th><th>Por que importa</th></tr>
           <tr>
             <td><strong>JSONB Imutável</strong></td>
-            <td>JSONB (Binary JSON) é o formato nativo do PostgreSQL para armazenar documentos estruturados com indexação e consultas rápidas — superior ao JSON texto. No portal, a API expõe apenas INSERT — sem UPDATE nem DELETE. Na infra SaaS Winserv, não existe painel, API ou ferramenta que permita apagar registros — a imutabilidade é arquitetural. Em implantações on-premises, a proteção do banco recai sobre a política de acesso (IAM) do cliente.</td>
-            <td>É o que torna o portal <strong>auditável de verdade</strong>. Numa auditoria real (Bacen, ANPD, CRC), logs que permitem UPDATE via aplicação não têm valor probatório. O portal elimina o fator humano da equação ao não expor nenhum mecanismo de adulteração via API. <strong>Ninguém pode ser coagido a apagar evidência porque simplesmente não existe o botão.</strong> A responsabilidade pela segurança do banco é compartilhada: Winserv na camada de aplicação, cliente na camada de infraestrutura (quando on-premises).</td>
+            <td>JSONB (Binary JSON) é o formato nativo do PostgreSQL para armazenar documentos estruturados com indexação e consultas rápidas — superior ao JSON texto. No portal, a API expõe apenas INSERT — sem UPDATE nem DELETE. Na infra SaaS Winserv, não existe painel, API ou ferramenta que permita apagar registros — a imutabilidade é arquitetural.</td>
+            <td>É o que torna o portal <strong>auditável de verdade</strong>. Numa auditoria real (Bacen, ANPD, CRC), logs que permitem UPDATE via aplicação não têm valor probatório. O portal elimina o fator humano da equação ao não expor nenhum mecanismo de adulteração via API. <strong>Ninguém pode ser coagido a apagar evidência porque simplesmente não existe o botão.</strong></td>
           </tr>
           <tr>
             <td><strong>Fact-Check</strong></td>
