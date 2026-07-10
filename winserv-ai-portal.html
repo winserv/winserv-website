@@ -179,11 +179,11 @@
 <section id="features">
   <div class="container">
     <div class="section-header-center">
-      <div class="section-label">Funcionalidades exclusivas</div>
-      <h2 class="section-title">O que nenhum concorrente entrega junto</h2>
+      <div class="section-label">Os três pilares</div>
+      <h2 class="section-title">Verificação, rastreabilidade e soberania — juntas</h2>
       <p class="section-sub">
-        Três diferenciais que o ChatGPT Enterprise, o Copilot e o Perplexity
-        não oferecem simultaneamente.
+        Nenhuma delas é difícil isoladamente. O custo está em ter as três
+        ao mesmo tempo, em produção, sob LGPD.
       </p>
     </div>
 
@@ -593,7 +593,7 @@
       <div class="pl-callout-icon">&#127963;&#65039;</div>
       <div>
         <h4>Compliance de fábrica — não adaptação futura</h4>
-        <p>Quando o PL 2338 for sancionado, empresas usando ChatGPT Enterprise ou Copilot terão 6 a 12 meses para se adaptar. Isso custa mais caro que a adoção planejada. O Winserv AI Portal já entrega todos os requisitos como arquitetura de fábrica. <strong style="color:var(--green);">Não é "vamos implementar quando a lei passar" — já está em produção.</strong></p>
+        <p>O PL 2338 ainda não foi sancionado, e nenhum fornecedor pode hoje se declarar certificado por ele. O que se pode comparar é arquitetura: uma plataforma que já nasce com trilha de auditoria de conteúdo, supervisão humana por RBAC e isolamento de dados tende a precisar de menos reengenharia quando a lei entrar em vigor. <strong style="color:var(--green);">Não é "vamos implementar quando a lei passar" — já está em produção.</strong></p>
       </div>
     </div>
   </div>
@@ -604,32 +604,29 @@
   <div class="container">
     <div class="section-header-center">
       <div class="section-label">Comparativo</div>
-      <h2 class="section-title">Governança de IA exige uma combinação que nenhum concorrente tem</h2>
-      <p class="section-sub">Não é sobre o modelo de IA — é sobre o que está em volta dele.</p>
+      <h2 class="section-title">Governança de IA é o que está em volta do modelo</h2>
+      <p class="section-sub">Leve estas perguntas a todo fornecedor da sua lista — inclusive a nós. Cada resposta abaixo é verificável.</p>
     </div>
     <div class="comp-table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Funcionalidade</th>
+            <th>Pergunta ao fornecedor</th>
             <th class="portal">AI Portal</th>
-            <th>ChatGPT Ent.</th>
-            <th>MS Copilot</th>
-            <th>Open WebUI</th>
-            <th>Dify</th>
+            <th>Onde verificar</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td class="rh">Fact-Check por afirmação</td><td class="portal"><span class="ic-y">&#10003;</span> Integrado</td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td></tr>
-          <tr><td class="rh">Audit Trail completo exportável</td><td class="portal"><span class="ic-y">&#10003;</span> JSONB imutável</td><td><span class="ic-p">~</span> Compliance API</td><td><span class="ic-p">~</span> parcial</td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-p">~</span> Enterprise</td></tr>
-          <tr><td class="rh">Safety Gate (dupla camada)</td><td class="portal"><span class="ic-y">&#10003;</span> 10 categorias</td><td><span class="ic-p">~</span> filtros básicos</td><td><span class="ic-p">~</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td></tr>
-          <tr><td class="rh">Single-tenant (banco isolado)</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-n">&#10007;</span> multi-tenant</td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-y">&#10003;</span> self-hosted</td><td><span class="ic-y">&#10003;</span> self-hosted</td></tr>
-          <tr><td class="rh">Cliente soberano (Google API Keys próprias)</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-y">&#10003;</span></td><td><span class="ic-y">&#10003;</span></td></tr>
-          <tr><td class="rh">RBAC 4 níveis + feature flags</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-p">~</span> 2 níveis</td><td><span class="ic-y">&#10003;</span></td><td><span class="ic-p">~</span> básico</td><td><span class="ic-p">~</span> Enterprise</td></tr>
-          <tr><td class="rh">Gestão de ciclo de vida de usuários</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-p">~</span> via Entra</td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td></tr>
-          <tr><td class="rh">Docs sem chunking (ICL 1M tokens)</td><td class="portal"><span class="ic-y">&#10003;</span></td><td><span class="ic-p">~</span> RAG/128K</td><td><span class="ic-p">~</span></td><td><span class="ic-p">~</span> RAG</td><td><span class="ic-p">~</span> RAG</td></tr>
-          <tr><td class="rh">PL 2338 / LGPD compliance</td><td class="portal"><span class="ic-y">&#10003;</span> de fábrica</td><td><span class="ic-p">~</span> dados nos EUA</td><td><span class="ic-y">&#10003;</span></td><td><span class="ic-p">~</span></td><td><span class="ic-p">~</span></td></tr>
-          <tr><td class="rh">Suporte em português + White Label</td><td class="portal"><span class="ic-y">&#10003;</span> incluso</td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-n">&#10007;</span></td><td><span class="ic-p">~</span></td><td><span class="ic-p">~</span></td></tr>
+          <tr><td class="rh">A IA verifica cada afirmação da própria resposta?</td><td class="portal"><span class="ic-y">&#10003;</span> Fact-Check por afirmação, integrado</td><td>Clique em "Verificar"</td></tr>
+          <tr><td class="rh">O log guarda o conteúdo das mensagens, ou só metadados?</td><td class="portal"><span class="ic-y">&#10003;</span> Conteúdo completo, JSONB imutável</td><td>Export do audit trail</td></tr>
+          <tr><td class="rh">Pergunta e resposta passam por classificação de segurança?</td><td class="portal"><span class="ic-y">&#10003;</span> Safety Gate, 10 categorias, dupla camada</td><td>Admin Panel</td></tr>
+          <tr><td class="rh">Meus dados ficam em banco isolado?</td><td class="portal"><span class="ic-y">&#10003;</span> PostgreSQL dedicado por cliente</td><td>Credenciais do banco</td></tr>
+          <tr><td class="rh">Quem é titular da conta e das API keys?</td><td class="portal"><span class="ic-y">&#10003;</span> O cliente</td><td>Console Google Cloud do cliente</td></tr>
+          <tr><td class="rh">Quantos níveis de permissão, e há feature flags por escopo?</td><td class="portal"><span class="ic-y">&#10003;</span> 4 níveis + flags global &rarr; grupo &rarr; usuário</td><td>Admin Panel</td></tr>
+          <tr><td class="rh">Há expurgo automático e anonimização LGPD de inativos?</td><td class="portal"><span class="ic-y">&#10003;</span> Sim, automático e manual</td><td>Admin Panel</td></tr>
+          <tr><td class="rh">Documentos são fatiados em chunks ou lidos inteiros?</td><td class="portal"><span class="ic-y">&#10003;</span> Inteiros — ICL, janela de 1M tokens</td><td>Envie um PDF de 300 páginas</td></tr>
+          <tr><td class="rh">O provedor de IA treina modelos com meus dados?</td><td class="portal"><span class="ic-y">&#10003;</span> Não — paid tier da Gemini API, na conta do cliente</td><td>Termos da Gemini API</td></tr>
+          <tr><td class="rh">Suporte em português e white label?</td><td class="portal"><span class="ic-y">&#10003;</span> Ambos inclusos</td><td>Contrato</td></tr>
         </tbody>
       </table>
     </div>
@@ -642,7 +639,7 @@
     <div class="doc-link-inner">
       <div class="doc-link-text">
         <span class="section-label blue" style="margin-bottom:0.5rem;">Documento Técnico</span>
-        <p>Por que não usar IA diretamente? Comparativo completo com ChatGPT, Claude, Open WebUI e Dify. Cobertura do PL 2338, glossário e arquitetura detalhada.</p>
+        <p>Por que não usar IA diretamente? O checklist de compra para plataformas de IA corporativa, cobertura do PL 2338, glossário e arquitetura detalhada.</p>
       </div>
       <a href="winserv-ai-portal-tecnico.html" class="doc-link-btn">Ler documento técnico &rarr;</a>
     </div>
