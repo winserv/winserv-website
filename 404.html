@@ -10,7 +10,11 @@
     // ── Redirect map ──────────────────────────────────────────────
     // Add entries here as { '/old/path': '/new/path' }
     var REDIRECTS = {
-      '/winserv-ai-portal/winserv-ai-portal-facts.html': '/winserv-ai-portal.html'
+      // ai-portal archived 2026-09-28 — pages excluded in _config.yml. To restore, point
+      // the facts entry back to '/winserv-ai-portal.html' and drop the other two.
+      '/winserv-ai-portal/winserv-ai-portal-facts.html': '/index.html',
+      '/winserv-ai-portal.html': '/index.html',
+      '/winserv-ai-portal-tecnico.html': '/index.html'
     };
     // ─────────────────────────────────────────────────────────────
     var dest = REDIRECTS[window.location.pathname];
@@ -25,7 +29,7 @@
     <li><a href="/index.html">Início</a></li>
     <li><a href="/solucoes.html">Soluções</a></li>
     <li><a href="/conteudo.html">Conteúdo</a></li>
-    <li><a href="/winserv-ai-portal.html">Portal IA<span class="nav-new">novo</span></a></li>
+    <!-- archived 2026-09-28 (ai-portal): <li><a href="/winserv-ai-portal.html">Portal IA<span class="nav-new">novo</span></a></li> -->
   </ul>
   <a class="btn-nav" href="/contato.html">Contato</a>
   <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -34,7 +38,7 @@
   <a href="/index.html">Início</a>
   <a href="/solucoes.html">Soluções</a>
   <a href="/conteudo.html">Conteúdo</a>
-  <a href="/winserv-ai-portal.html">Portal IA</a>
+  <!-- archived 2026-09-28 (ai-portal): <a href="/winserv-ai-portal.html">Portal IA</a> -->
   <a href="/contato.html">Contato</a>
 </div>
 
@@ -61,7 +65,7 @@
           <li><a href="/index.html">Início</a></li>
           <li><a href="/solucoes.html">Soluções</a></li>
           <li><a href="/conteudo.html">Conteúdo</a></li>
-          <li><a href="/winserv-ai-portal.html">Portal IA</a></li>
+          <!-- archived 2026-09-28 (ai-portal): <li><a href="/winserv-ai-portal.html">Portal IA</a></li> -->
           <li><a href="/contato.html">Contato</a></li>
         </ul>
       </div>

@@ -12,3 +12,9 @@ exclude:
   - node_modules/
   - CLAUDE.md
   - README.md
+  # ai-portal archived 2026-09-28 — source kept, not published. Remove to restore.
+  - winserv-ai-portal.html
+  - winserv-ai-portal-tecnico.html
+  - winserv-ai-portal/
+  - portal.css
+  - facts.css
