@@ -7,3 +7,7 @@
 203.0.113.10 - - [08/Oct/2026:10:00:06 +0000] "GET /ti.html HTTP/1.1" 200 8000 "-" "Googlebot/2.1"
 203.0.113.11 - - [08/Oct/2026:10:00:07 +0000] "GET /contato HTTP/1.1" 200 9000 "-" "Mozilla/5.0"
 2026/10/08 10:00:08 [error] 1#1: *1 open() "/usr/share/nginx/html/x" failed (2: No such file or directory)
+203.0.113.20 - - [08/Oct/2026:10:00:09 +0000] "GET / HTTP/1.1" 200 17415 "-" "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
+203.0.113.21 - - [08/Oct/2026:10:00:10 +0000] "GET / HTTP/1.1" 200 17415 "-" "WhatsApp/2.23.20.0"
+203.0.113.22 - - [08/Oct/2026:10:00:11 +0000] "GET / HTTP/1.1" 200 17415 "-" "Go-http-client/1.1"
+203.0.113.23 - - [08/Oct/2026:10:00:12 +0000] "GET / HTTP/1.1" 200 17415 "-" "Mozilla/5.0 zgrab/0.x"

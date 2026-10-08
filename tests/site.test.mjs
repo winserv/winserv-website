@@ -128,7 +128,7 @@ test('nothing links to the apex (each such link costs a 301)', () => {
 });
 
 test('no tracker and no third-party font (D5; Pixel removed 2026-10-08)', () => {
-  const banned = /googletagmanager|google-analytics|connect\.facebook\.net|facebook\.com\/tr|fbevents|fonts\.googleapis|fonts\.gstatic/;
+  const banned = /googletagmanager|google-analytics|facebook|fbevents|fonts\.googleapis|fonts\.gstatic/;   // spec §6: 'facebook'
   for (const f of FILES.filter((x) => /\.(html|js|css)$/.test(x))) assert.ok(!banned.test(read(f)), f);
 });
 
@@ -151,7 +151,8 @@ test('every page links the privacy notice', () => {
 test('the privacy notice names what the site publishes (spec §5)', () => {
   const text = parse(read('privacidade.html')).text;
   for (const must of ['10.411.266/0001-80', 'dpo@winserv.com.br', 'comercial@winserv.com.br',
-    '185 dias', 'Alemanha', 'Estados Unidos', 'não grava cookies']) {
+    '185 dias', 'Alemanha', 'Estados Unidos', 'não grava cookies',
+    'links externos']) {
     assert.ok(text.includes(must), `privacidade.html lacks "${must}"`);
   }
 });

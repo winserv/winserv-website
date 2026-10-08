@@ -6,8 +6,9 @@ NF < 6 { next }                                     # nginx error lines and noti
 {
     lines++
     ua = tolower($6)
-    # The container's own healthcheck is ~2,880 lines a day (measured 2026-10-08).
-    if (ua ~ /wget|bot|crawl|spider|slurp|curl|python|monitor|headless|preview/) { bots++; next }
+    # The container's own healthcheck is ~2,880 lines a day (measured 2026-10-08); link
+    # previews (facebookexternalhit, WhatsApp) and scanners are not readers either.
+    if (ua ~ /wget|bot|crawl|spider|slurp|curl|python|monitor|headless|preview|facebookexternalhit|whatsapp|http-client|okhttp|zgrab|scan|fetch|java/) { bots++; next }
     split($2, req, " "); method = req[1]; path = req[2]
     split($3, sb, " "); status = sb[1]
     if (path ~ /^\/e\/contato-email/) {             # the beacon is a POST
@@ -34,7 +35,9 @@ NF < 6 { next }                                     # nginx error lines and noti
 END {
     if (lines == 0) { print "nenhuma linha do winserv-site no periodo — journal inacessivel ou container parado?"; exit 2 }
     printf "linhas %d, robos/healthcheck %d, visualizacoes %d\n", lines, bots, views
-    if (views > 0) printf "sem origem: %d%%\n", int(100 * origin["(sem origem)"] / views)
+    # Over external views: internal navigation would dilute the share the spec's 20 % floor reads.
+    ext = views - origin["(interno)"]
+    if (ext > 0) printf "sem origem: %d%% das visitas externas\n", int(100 * origin["(sem origem)"] / ext)
     print "-- paginas"; for (k in page) printf "%6d %s\n", page[k], k
     print "-- origem"; for (k in origin) printf "%6d %s\n", origin[k], k
     print "-- cliques no e-mail, por pagina"; for (k in clicks) printf "%6d %s\n", clicks[k], k

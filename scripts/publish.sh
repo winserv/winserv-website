@@ -84,7 +84,13 @@ ok "publicado"
 step "Medindo no ar"
 sleep 3
 FAILED=0
-for page in "" "contato.html" "privacidade.html" "filtro.html"; do
+# The whole tree (spec §6): a drifted style.css or site.js on the VM would pass a page check.
+LOCAL_TREE="$(cd dist && find . -type f | LC_ALL=C sort | xargs shasum -a 256 | shasum -a 256 | cut -d' ' -f1)"
+# shellcheck disable=SC2029  # REMOTE is a local constant and must expand here
+REMOTE_TREE="$(ssh "$HOST" "cd ${REMOTE}/dist && find . -type f | LC_ALL=C sort | xargs sha256sum | sha256sum | cut -d' ' -f1")"
+if [ "$LOCAL_TREE" = "$REMOTE_TREE" ]; then ok "arvore na VM == dist/"; else err "arvore na VM diverge de dist/"; FAILED=1; fi
+# And what nginx actually serves, for two pages.
+for page in "" "contato.html"; do
     file="dist/${page:-index.html}"
     LIVE="$("${CURL[@]}" "https://${SITE}/${page}" | shasum -a 256 | cut -d' ' -f1)"
     LOCAL="$(shasum -a 256 "$file" | cut -d' ' -f1)"

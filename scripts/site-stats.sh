@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # site-stats.sh — agregados do site da Winserv (spec 2026-10-08 §7).
 #   ./scripts/site-stats.sh [DESDE] [ATE]     # formatos do journalctl; padrao: ontem..hoje
-# O awk roda NA VM: nenhuma linha com IP sai da UE. Sem `sudo -n` o journal e uma visao
-# parcial e silenciosa (22,6 MB contra 189,1 MB, medido 2026-10-08) — entao aborta.
+# O awk roda NA VM: nenhuma linha com IP sai da UE. Sem acesso ao journal do sistema a
+# leitura seria parcial e silenciosa — entao aborta.
 set -euo pipefail
 HOST="${DEPLOY_HOST:-winserv-eu}"
 SINCE="${1:-yesterday}"

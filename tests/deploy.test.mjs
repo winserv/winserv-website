@@ -40,6 +40,10 @@ test('our error pages, never nginx\'s', () => {
   assert.match(code, /error_page 400 405 413 414 500 502 503 504 \/error\.html;/);
 });
 
+test('every response is revalidated — or repeat visits never reach the log (Review Focus 1)', () => {
+  assert.match(code, /add_header Cache-Control "no-cache" always;/);
+});
+
 test('the beacon answers 204', () => {
   assert.match(code, /location = \/e\/contato-email \{ return 204; \}/);
 });
