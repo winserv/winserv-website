@@ -977,6 +977,10 @@ section.alt { background: var(--surface); }
 }
 #form-status.ok  { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: var(--green); }
 #form-status.err { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #f87171; }
+a.btn-submit { display: inline-block; text-decoration: none; }
+.contact-email { font-family: var(--mono); font-size: clamp(0.8rem, 3.6vw, 1.05rem); overflow-wrap: anywhere; }
+.contact-email a { color: var(--blue); text-decoration: none; }
+.contact-email a:hover { text-decoration: underline; }
 
 /* ── Conteudo ── */
 .content-category { margin-bottom: 3.5rem; }
