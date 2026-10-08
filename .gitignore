@@ -11,3 +11,9 @@ cloudflare-worker-contact/.wrangler/
 # Internal dev docs (not for public repo)
 CLAUDE.md
 docs/
+
+# Astro
+node_modules/
+dist/
+.astro/
+visual-diff/

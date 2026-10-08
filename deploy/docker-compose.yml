@@ -1,0 +1,39 @@
+# The Winserv company site (spec 2026-10-08, sub-project 1): dist/ behind the edge Caddy on
+# winserv_default as winserv-site:8080, no host port. Names chosen not to collide with
+# unifi-portal and unifi-portal-marketing on the same VM. publish.sh owns this container.
+name: winserv-site
+
+services:
+  site:
+    image: nginxinc/nginx-unprivileged:alpine
+    container_name: winserv-site
+    restart: unless-stopped
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 64m
+    cpus: 0.25
+    volumes:
+      - ../dist:/usr/share/nginx/html:ro
+      - ./site-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      winserv_default:
+        aliases:
+          - winserv-site
+    # journald, not json-file: a json-file log dies with the container, and this log is the
+    # access record the privacy notice keeps 185 days and the source of site-stats.
+    logging:
+      driver: journald
+      options:
+        tag: "winserv-site/{{.Name}}"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+networks:
+  winserv_default:
+    external: true

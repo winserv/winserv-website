@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://winserv.com.br/sitemap.xml

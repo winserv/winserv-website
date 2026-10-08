@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title={"WINSERV | Página não encontrada"}
+  path={"/404.html"}
+  active={"none"}
+  noindex={true}
+>
+<div class="page-hero page-hero--short">
+  <div class="section-label blue">Erro 404</div>
+  <h1 class="error-title">Página não encontrada</h1>
+  <p class="error-text">O endereço que você acessou não existe ou foi movido.</p>
+  <div class="error-actions">
+    <a href="/" class="btn-primary">Ir para o início</a>
+    <a href="/contato.html" class="btn-outline">Falar com a equipe</a>
+  </div>
+</div>
+</BaseLayout>
