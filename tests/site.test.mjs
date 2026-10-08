@@ -29,3 +29,26 @@ const read = (f) => readFileSync(join(DIST, f), 'utf8');
 test('every page builds at its old path', () => {
   for (const f of [...PAGES, ...ERROR_PAGES]) assert.ok(HTML.includes(f), `missing ${f}`);
 });
+
+test('the static files survive byte for byte', () => {
+  for (const f of ['style.css', 'BingSiteAuth.xml', 'googlecc9795c73ab262d5.html',
+    'googlehostedservice.html', '.well-known/winserv-license/sagres-validation.json',
+    'images/og.jpg', 'fonts/plus-jakarta-sans-400.woff2']) {
+    assert.ok(FILES.includes(f), `missing ${f}`);
+  }
+});
+
+test('every page carries the shared script and no other inline code', () => {
+  for (const f of [...PAGES, ...ERROR_PAGES]) {
+    const srcs = parse(read(f)).querySelectorAll('script[src]').map((s) => s.getAttribute('src'));
+    assert.ok(srcs.includes('/js/site.js'), `${f}: no /js/site.js`);
+  }
+});
+
+test('the WiFi tab has its badge on the desktop nav only', () => {
+  for (const f of [...PAGES, ...ERROR_PAGES]) {
+    const root = parse(read(f));
+    assert.equal(root.querySelectorAll('.nav-links .nav-new').length, 1, f);
+    assert.equal(root.querySelectorAll('#mobile-menu .nav-new, .site-footer .nav-new').length, 0, f);
+  }
+});

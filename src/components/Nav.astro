@@ -1,0 +1,24 @@
+---
+interface Props { active: 'inicio' | 'solucoes' | 'conteudo' | 'none' }
+const { active } = Astro.props;
+const on = (k: string) => (active === k ? 'active' : undefined);
+const WIFI = 'https://www.wifi.winserv.com.br/pt-br/';
+---
+<nav class="topnav">
+  <a class="wordmark" href="/"><span class="win">WIN</span><span class="serv">SERV</span></a>
+  <ul class="nav-links">
+    <li><a href="/" class={on('inicio')}>Início</a></li>
+    <li><a href="/solucoes.html" class={on('solucoes')}>Soluções</a></li>
+    <li><a href="/conteudo.html" class={on('conteudo')}>Conteúdo</a></li>
+    <li><a href={WIFI}>Wi-Fi Corporativo<span class="nav-new">novo</span></a></li>
+  </ul>
+  <a class="btn-nav" href="/contato.html">Contato</a>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobile-menu">
+  <a href="/">Início</a>
+  <a href="/solucoes.html">Soluções</a>
+  <a href="/conteudo.html">Conteúdo</a>
+  <a href={WIFI}>Wi-Fi Corporativo</a>
+  <a href="/contato.html">Contato</a>
+</div>

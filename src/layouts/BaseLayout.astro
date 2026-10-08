@@ -1,0 +1,56 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  path: string;                 // "/" or "/x.html" — the canonical path on www
+  ogTitle?: string;
+  ogDescription?: string;
+  ogType?: string;
+  active?: 'inicio' | 'solucoes' | 'conteudo' | 'none';
+  scripts?: string[];           // files under public/, loaded with defer
+  noindex?: boolean;            // error pages: robots noindex, no canonical, no OG
+  googleSiteVerification?: string;
+}
+const {
+  title, description, path, ogTitle = title, ogDescription = description, ogType = 'website',
+  active = 'none', scripts = [], noindex = false, googleSiteVerification,
+} = Astro.props;
+const ORIGIN = 'https://www.winserv.com.br';
+const url = ORIGIN + path;
+const image = ORIGIN + '/images/og.jpg';
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="/images/winserv-logo.svg" type="image/svg+xml" />
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  {noindex && <meta name="robots" content="noindex" />}
+  {!noindex && <link rel="canonical" href={url} />}
+  {!noindex && <meta property="og:type" content={ogType} />}
+  {!noindex && <meta property="og:site_name" content="WINSERV" />}
+  {!noindex && <meta property="og:locale" content="pt_BR" />}
+  {!noindex && <meta property="og:url" content={url} />}
+  {!noindex && <meta property="og:title" content={ogTitle} />}
+  {!noindex && ogDescription && <meta property="og:description" content={ogDescription} />}
+  {!noindex && <meta property="og:image" content={image} />}
+  {!noindex && <meta name="twitter:card" content="summary_large_image" />}
+  {!noindex && <meta name="twitter:title" content={ogTitle} />}
+  {!noindex && ogDescription && <meta name="twitter:description" content={ogDescription} />}
+  {!noindex && <meta name="twitter:image" content={image} />}
+  {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <Nav active={active} />
+  <slot />
+  <Footer />
+  <script is:inline src="/js/site.js" defer></script>
+  {scripts.map((src) => <script is:inline src={src} defer></script>)}
+</body>
+</html>
