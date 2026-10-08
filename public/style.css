@@ -1297,3 +1297,8 @@ section:has(.article-hero-img) { padding-top: 3rem; }
 /* image-left layout for even sections — moved from a <style> block in solucoes.html's <head>
    (the only one on the site, missed by the 2026-10-08 inventory; caught by the visual diff). */
 .sol-inner.img-left .sol-img { order: -1; }
+
+/* A text-only page (privacidade): articles open their section with an image and get a 3rem
+   top (section:has(.article-hero-img)); without one the full 5rem sat under the hero's 4rem. */
+section.section--text { padding-top: 1rem; }
+section.section--text .article-body > h2:first-child { margin-top: 0; }
