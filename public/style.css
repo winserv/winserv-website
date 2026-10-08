@@ -1293,3 +1293,7 @@ section:has(.article-hero-img) { padding-top: 3rem; }
 .error-title { font-size: clamp(2rem,5vw,3.5rem) !important; }
 .error-text { max-width: 480px !important; margin: 0 auto !important; }
 .error-actions { margin-top: 2rem !important; display: flex !important; gap: 1rem !important; justify-content: center !important; flex-wrap: wrap !important; }
+
+/* image-left layout for even sections — moved from a <style> block in solucoes.html's <head>
+   (the only one on the site, missed by the 2026-10-08 inventory; caught by the visual diff). */
+.sol-inner.img-left .sol-img { order: -1; }
