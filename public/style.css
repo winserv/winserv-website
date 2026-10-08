@@ -1275,3 +1275,21 @@ section:has(.article-hero-img) { padding-top: 3rem; }
 @media (max-width: 600px) {
   .about-stats { flex-direction: column; gap: 1.5rem; }
 }
+/* ── Classes that replaced inline style="" (spec 2026-10-08 §4, CSP without 'unsafe-inline').
+   !important on purpose: an inline style beats every selector, and this file has no other
+   !important, so these reproduce the old precedence exactly. Do not add !important elsewhere. ── */
+.hero-logo { height: 140px !important; margin-bottom: 1.25rem !important; display: block !important; margin-left: auto !important; margin-right: auto !important; }
+.page-top { padding-top: 64px !important; }
+.article-h3--spaced { margin-top: 3rem !important; }
+.article-note { color: var(--muted) !important; font-size: .9rem !important; margin-bottom: 1.25rem !important; }
+.container--narrow { max-width: 820px !important; }
+.section-title--sm { font-size: 1.6rem !important; }
+.filtro-text { color: var(--muted) !important; font-size: .975rem !important; line-height: 1.8 !important; }
+.filtro-text--spaced { margin-bottom: 1.5rem !important; }
+.text-strong { color: var(--text) !important; }
+.link-blue { color: var(--blue) !important; }
+.filtro-h3 { font-size: 1rem !important; font-weight: 700 !important; margin: 2rem 0 0.75rem !important; }
+.page-hero--short { min-height: 40vh !important; }
+.error-title { font-size: clamp(2rem,5vw,3.5rem) !important; }
+.error-text { max-width: 480px !important; margin: 0 auto !important; }
+.error-actions { margin-top: 2rem !important; display: flex !important; gap: 1rem !important; justify-content: center !important; flex-wrap: wrap !important; }

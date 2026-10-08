@@ -1,59 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="/images/winserv-logo.svg" type="image/svg+xml" />
-  <title>WINSERV | Soluções</title>
-  <meta name="description" content="Computação em Nuvem, Soluções de Comunicação e Monitoramento — projetos de TI sob medida para a sua empresa." />
-  <link rel="canonical" href="https://winserv.com.br/solucoes.html" />
-  <meta property="og:type"        content="website" />
-  <meta property="og:site_name"   content="WINSERV" />
-  <meta property="og:locale"      content="pt_BR" />
-  <meta property="og:url"         content="https://winserv.com.br/solucoes.html" />
-  <meta property="og:title"       content="Soluções — WINSERV" />
-  <meta property="og:description" content="Computação em Nuvem, Soluções de Comunicação e Monitoramento — projetos de TI sob medida para a sua empresa." />
-  <meta property="og:image"       content="https://winserv.com.br/images/og.jpg" />
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Soluções — WINSERV" />
-  <meta name="twitter:description" content="Computação em Nuvem, Soluções de Comunicação e Monitoramento — projetos de TI sob medida para a sua empresa." />
-  <meta name="twitter:image"       content="https://winserv.com.br/images/og.jpg" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* image-left layout for even sections */
-    .sol-inner.img-left .sol-img { order: -1; }
-  </style>
-</head>
-<body>
-
-<nav class="topnav">
-  <a class="wordmark" href="index.html"><span class="win">WIN</span><span class="serv">SERV</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Início</a></li>
-    <li><a href="solucoes.html" class="active">Soluções</a></li>
-    <li><a href="conteudo.html">Conteúdo</a></li>
-    <!-- archived 2026-09-28 (ai-portal): <li><a href="winserv-ai-portal.html">Portal IA<span class="nav-new">novo</span></a></li> -->
-    <li><a href="https://www.wifi.winserv.com.br/pt-br/">Wi-Fi Corporativo<span class="nav-new">novo</span></a></li>
-  </ul>
-  <a class="btn-nav" href="contato.html">Contato</a>
-  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="nav-mobile" id="mobile-menu">
-  <a href="index.html">Início</a>
-  <a href="solucoes.html">Soluções</a>
-  <a href="conteudo.html">Conteúdo</a>
-  <!-- archived 2026-09-28 (ai-portal): <a href="winserv-ai-portal.html">Portal IA</a> -->
-  <a href="https://www.wifi.winserv.com.br/pt-br/">Wi-Fi Corporativo</a>
-  <a href="contato.html">Contato</a>
-</div>
-
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title={"WINSERV | Soluções"}
+  description={"Computação em Nuvem, Soluções de Comunicação e Monitoramento — projetos de TI sob medida para a sua empresa."}
+  path={"/solucoes.html"}
+  ogTitle={"Soluções — WINSERV"}
+  ogDescription={"Computação em Nuvem, Soluções de Comunicação e Monitoramento — projetos de TI sob medida para a sua empresa."}
+  ogType={"website"}
+  active={"solucoes"}
+>
 <div class="page-hero">
   <div class="section-label">Produtos e Serviços</div>
   <h1>Soluções de TI sob medida</h1>
   <p>Maneiras de ajudar sua empresa a participar da indústria 4.0 com segurança e eficiência.</p>
 </div>
 
-<!-- Cloud -->
+
 <section class="sol-section" id="cloud">
   <div class="container">
     <div class="sol-inner">
@@ -80,7 +43,7 @@
   </div>
 </section>
 
-<!-- Comms -->
+
 <section class="sol-section alt" id="comms">
   <div class="container">
     <div class="sol-inner img-left">
@@ -107,7 +70,7 @@
   </div>
 </section>
 
-<!-- Monitoring -->
+
 <section class="sol-section" id="monitor">
   <div class="container">
     <div class="sol-inner">
@@ -134,55 +97,12 @@
   </div>
 </section>
 
-<!-- CTA -->
+
 <section class="cta-strip">
   <div class="container">
     <h2 class="section-title">Possui outro problema?</h2>
     <p>A Winserv analisa qualquer caso sobre gerenciamento de redes, infraestrutura de TI ou situações similares. Nossa experiência permite atuação em diversas áreas mantendo sempre o foco em resultados práticos.</p>
-    <a class="btn-primary" href="contato.html">Entre em contato</a>
+    <a class="btn-primary" href="/contato.html">Entre em contato</a>
   </div>
 </section>
-
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="wordmark" href="index.html"><span class="win">WIN</span><span class="serv">SERV</span></a>
-        <p>Tecnologia da Informação para empresas que precisam de resultados práticos.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Navegar</h4>
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="solucoes.html">Soluções</a></li>
-          <li><a href="conteudo.html">Conteúdo</a></li>
-          <!-- archived 2026-09-28 (ai-portal): <li><a href="winserv-ai-portal.html">Portal IA</a></li> -->
-          <li><a href="https://www.wifi.winserv.com.br/pt-br/">Wi-Fi Corporativo</a></li>
-          <li><a href="contato.html">Contato</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Empresa</h4>
-        <ul>
-          <li><a href="missao.html">Nossa missão</a></li>
-          <li><a href="valores.html">Valores e Princípios</a></li>
-          <li><a href="https://www.linkedin.com/company/winserv/" target="_blank" rel="noopener">LinkedIn</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>Winserv Tecnologia da Informação &mdash; CNPJ 10.411.266/0001-80 &mdash; Rio Grande, RS</span>
-      <span>&copy; 2026 Winserv TI</span>
-    </div>
-  </div>
-</footer>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3J9ESTRVQG"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3J9ESTRVQG');</script>
-<script>
-  var b=document.getElementById('burger'),m=document.getElementById('mobile-menu');
-  b.addEventListener('click',function(){var o=m.classList.toggle('open');b.classList.toggle('open',o);});
-  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){m.classList.remove('open');b.classList.remove('open');});});
-</script>
-</body>
-</html>
+</BaseLayout>
