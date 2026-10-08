@@ -32,7 +32,7 @@ for a in "$@"; do
     esac
 done
 
-CURL=(curl -s --max-time 10)
+CURL=(curl -sS --max-time 10)
 if [ "$STAGING" -eq 1 ]; then
     CURL+=(-k --resolve "${SITE}:443:${VM_IP}" --resolve "${APEX}:443:${VM_IP}")
 fi
@@ -82,6 +82,9 @@ fi
 ok "publicado"
 
 step "Medindo no ar"
+# Every check runs and says what failed: under set -e a failing curl ended the script with
+# its own exit code and no [ERRO] line (measured 2026-10-08). The exit is still non-zero.
+set +e
 sleep 3
 FAILED=0
 # The whole tree (spec §6): a drifted style.css or site.js on the VM would pass a page check.

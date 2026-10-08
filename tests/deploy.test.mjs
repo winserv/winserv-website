@@ -44,6 +44,11 @@ test('every response is revalidated — or repeat visits never reach the log (Re
   assert.match(code, /add_header Cache-Control "no-cache" always;/);
 });
 
+test('the error pages by name answer 404, not 200 (measured 2026-10-08: try_files served them)', () => {
+  assert.ok(code.includes('location = /404 { return 404; }'));
+  assert.ok(code.includes('location = /error { return 404; }'));
+});
+
 test('the beacon answers 204', () => {
   assert.match(code, /location = \/e\/contato-email \{ return 204; \}/);
 });
