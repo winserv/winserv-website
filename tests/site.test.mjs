@@ -131,3 +131,27 @@ test('no tracker and no third-party font (D5; Pixel removed 2026-10-08)', () => 
   const banned = /googletagmanager|google-analytics|connect\.facebook\.net|facebook\.com\/tr|fbevents|fonts\.googleapis|fonts\.gstatic/;
   for (const f of FILES.filter((x) => /\.(html|js|css)$/.test(x))) assert.ok(!banned.test(read(f)), f);
 });
+
+test('the sitemap lists exactly the published pages', () => {
+  const locs = [...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => resolveSameSite(m[1], 'sitemap.xml'));
+  const expected = HTML.filter((f) => !NOT_IN_SITEMAP.includes(f)).sort();
+  assert.deepEqual([...locs].sort(), expected);
+});
+
+test('robots.txt names the www sitemap', () => {
+  assert.match(read('robots.txt'), /^Sitemap: https:\/\/www\.winserv\.com\.br\/sitemap\.xml$/m);
+});
+
+test('every page links the privacy notice', () => {
+  for (const f of [...PAGES, ...ERROR_PAGES]) {
+    assert.ok(parse(read(f)).querySelector('a[href="/privacidade.html"]'), f);
+  }
+});
+
+test('the privacy notice names what the site publishes (spec §5)', () => {
+  const text = parse(read('privacidade.html')).text;
+  for (const must of ['10.411.266/0001-80', 'dpo@winserv.com.br', 'comercial@winserv.com.br',
+    '185 dias', 'Alemanha', 'Estados Unidos', 'não grava cookies']) {
+    assert.ok(text.includes(must), `privacidade.html lacks "${must}"`);
+  }
+});
