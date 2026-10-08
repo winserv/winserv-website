@@ -1,0 +1,9 @@
+127.0.0.1 - - [08/Oct/2026:10:00:00 +0000] "GET / HTTP/1.1" 200 17415 "-" "Wget"
+203.0.113.7 - - [08/Oct/2026:10:00:01 +0000] "GET / HTTP/1.1" 200 17415 "https://www.google.com/" "Mozilla/5.0"
+203.0.113.8 - - [08/Oct/2026:10:00:02 +0000] "GET /contato.html HTTP/1.1" 304 0 "https://www.winserv.com.br/" "Mozilla/5.0"
+203.0.113.8 - - [08/Oct/2026:10:00:03 +0000] "GET /style.css HTTP/1.1" 200 900 "https://www.winserv.com.br/contato.html" "Mozilla/5.0"
+203.0.113.8 - - [08/Oct/2026:10:00:04 +0000] "POST /e/contato-email?p=contato HTTP/1.1" 204 0 "https://www.winserv.com.br/contato.html" "Mozilla/5.0"
+203.0.113.9 - - [08/Oct/2026:10:00:05 +0000] "GET /nao-existe HTTP/1.1" 404 500 "-" "Mozilla/5.0"
+203.0.113.10 - - [08/Oct/2026:10:00:06 +0000] "GET /ti.html HTTP/1.1" 200 8000 "-" "Googlebot/2.1"
+203.0.113.11 - - [08/Oct/2026:10:00:07 +0000] "GET /contato HTTP/1.1" 200 9000 "-" "Mozilla/5.0"
+2026/10/08 10:00:08 [error] 1#1: *1 open() "/usr/share/nginx/html/x" failed (2: No such file or directory)
