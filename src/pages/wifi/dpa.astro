@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Acordo de tratamento de dados — Winserv WiFi"} description={"Acordo de tratamento de dados (DPA) do Winserv WiFi: o que tratamos em nome do cliente, com quem, onde, como protegemos e o que acontece no encerramento."} path="/wifi/dpa.html" active="wifi">
+<main class="w-main" data-terms-version="2026-10-09">
+    <section class="w-hero">
+      <p class="w-eyebrow">Acordo de tratamento de dados (DPA)</p>
+      <h1>Acordo de tratamento de dados</h1>
+      <p class="w-lede">Este acordo faz parte dos <a href="/wifi/termos.html">termos de serviço</a> e vale para todo portal contratado pelo autosserviço, sem assinatura separada: quem aceita os termos no cadastro aceita também este texto, na mesma versão. Ele cumpre o papel do contrato entre controlador e operador da LGPD (art. 39) e, para clientes sujeitos ao GDPR, o do art. 28 do GDPR.</p>
+      <p class="w-lede">Quem precisa de um DPA assinado, com cláusulas negociadas, pode propor um contrato à parte: <a href="mailto:contact@winserv.com.br">contact@winserv.com.br</a>.</p>
+      <p class="w-eyebrow">Versão 2026-10-09</p>
+    </section>
+
+    <section id="partes">
+      <h2>1. As partes</h2>
+      <p class="w-lede"><strong>Controlador:</strong> a organização que contrata o portal (o cliente). É ela que decide quem pode entrar na própria rede.</p>
+      <p class="w-lede"><strong>Operador:</strong> M. SAMOILENKO INFORMATICA, nome fantasia WinServ Tecnologia da Informação, CNPJ 10.411.266/0001-80, Av. Almirante Tamandaré, 106, apto 201, Vila Nossa Senhora dos Navegantes, Rio Grande/RS, CEP 96202-570, Brasil. Encarregado: Marcelo Samoilenko, <a href="mailto:dpo@winserv.com.br">dpo@winserv.com.br</a>.</p>
+      <p class="w-lede">Os dados de quem contrata (o e-mail do responsável pela conta, a cobrança) são tratados por nós como controlador, e estão descritos na <a href="/wifi/privacidade.html">privacidade</a>. Este acordo trata dos dados que tratamos <strong>em nome do cliente</strong>.</p>
+    </section>
+
+    <section id="instrucoes">
+      <h2>2. Objeto e instruções</h2>
+      <p class="w-lede">Tratamos os dados só para prestar o serviço descrito nos termos: autenticar quem se conecta à rede Wi-Fi do cliente, autorizar o aparelho no controlador UniFi do cliente, renovar e cortar essa autorização. As instruções do cliente são a configuração que ele faz no portal (grupo autorizado, grupo de operadores, vouchers, aparelhos pré-registrados, corte rápido) e o que pedir por escrito ao nosso contato. Se uma instrução nos parecer contrária à lei, avisamos antes de cumpri-la.</p>
+      <p class="w-lede">Não usamos esses dados para nenhum outro fim: nem publicidade, nem venda, nem treinamento de modelos, nem perfil de uso.</p>
+    </section>
+
+    <section id="dados">
+      <h2>3. Dados e titulares</h2>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Titulares</th><th>Dados</th><th>Por quanto tempo</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Funcionários do cliente que entram com a conta Microsoft</td>
+              <td>MAC do aparelho, e-mail (UPN) e identificador da conta no Entra, token de renovação cifrado; nos registros técnicos, IP, MAC, e-mail e rede (SSID) de cada acesso</td>
+              <td>Enquanto o acesso estiver ativo; depois, até o token vencer (90 dias sem renovação). Registros técnicos: 6 meses</td>
+            </tr>
+            <tr>
+              <td>Visitantes que entram com voucher</td>
+              <td>MAC do aparelho, código usado, a nota que o operador escreveu no voucher; nos registros técnicos, IP, MAC e rede (SSID)</td>
+              <td>MAC: até 90 dias depois do fim do acesso. Código e nota: enquanto o voucher valer, e até 90 dias depois de encerrado. Registros técnicos: 6 meses</td>
+            </tr>
+            <tr>
+              <td>Aparelhos pré-registrados</td>
+              <td>MAC, rótulo, tipo e, se houver, o e-mail da pessoa responsável</td>
+              <td>Enquanto o aparelho estiver registrado</td>
+            </tr>
+            <tr>
+              <td>Operadores do console do cliente</td>
+              <td>E-mail de quem criou o voucher, guardado com ele; de quem registrou ou revogou aparelho, só nos registros técnicos</td>
+              <td>Com o voucher. Registros técnicos: 6 meses</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w-lede">Não tratamos dado pessoal sensível. Não lemos e-mail, arquivo, calendário nem o tráfego da rede. No Entra do cliente lemos os grupos de quem entra e, com o corte rápido ligado, os membros do grupo autorizado e se cada conta está habilitada, sem guardar a lista. A cópia de segurança do banco contém tudo o que está acima e expira em até 30 dias.</p>
+    </section>
+
+    <section id="sigilo">
+      <h2>4. Confidencialidade</h2>
+      <p class="w-lede">Só acessa os dados quem precisa deles para operar o serviço, sob dever de sigilo que continua depois do fim do contrato. Hoje é uma pessoa: o titular da empresa.</p>
+    </section>
+
+    <section id="seguranca">
+      <h2>5. Medidas de segurança</h2>
+      <ul class="w-steps">
+        <li>Tokens de renovação e credenciais do controlador cifrados em repouso com uma chave própria de cada portal; essa chave é cifrada por uma chave mestra que nunca é gravada no banco. Um vazamento só do banco não expõe tokens nem senhas.</li>
+        <li>Tráfego cifrado (TLS) entre o aparelho e o portal, e entre o portal e o controlador do cliente, com o certificado do controlador verificado.</li>
+        <li>Banco de dados sem porta aberta para a internet, numa rede só do portal. A credencial da nossa aplicação que lê o diretório do cliente no corte rápido fica fora do processo que atende a internet.</li>
+        <li>Servidor com acesso administrativo só por chave SSH, sem login de root nem por senha, e atualizações de segurança automáticas.</li>
+        <li>Cópia do banco todo dia, com restauração ensaiada. Registros técnicos com prazo de 6 meses.</li>
+        <li>A conta que usamos no controlador é do cliente, criada por ele e restrita a um site, com o papel <em>Site Administrator</em>; o cliente pode revogá-la a qualquer momento.</li>
+      </ul>
+    </section>
+
+    <section id="suboperadores">
+      <h2>6. Suboperadores</h2>
+      <p class="w-lede">Autorização geral: o cliente autoriza os suboperadores abaixo. Um novo suboperador, ou a troca de um deles, é avisado por e-mail ao responsável pela conta com <strong>30 dias</strong> de antecedência; quem não concordar pode encerrar o serviço antes da mudança, sem custo além do período já pago. Cada suboperador trata só o necessário para a sua parte, com obrigações de proteção de dados no contrato que tem conosco.</p>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Quem</th><th>Para quê</th><th>Onde</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Hetzner Online GmbH (Alemanha)</td>
+              <td>Servidor que roda o portal e o banco de dados</td>
+              <td>Falkenstein, Alemanha</td>
+            </tr>
+            <tr>
+              <td>Cloudflare, Inc. (EUA)</td>
+              <td>Armazenamento das cópias de segurança do banco e de registros técnicos arquivados</td>
+              <td>Bucket com jurisdição na União Europeia</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w-lede">Não são suboperadores deste acordo, e por isso não estão na tabela: o Microsoft Entra do próprio cliente, que é o provedor de identidade que ele contratou e por onde o login passa; a Zoho, pela qual enviamos os e-mails do serviço, que vão ao responsável pela conta e à nossa operação, levam no máximo o e-mail do responsável e nunca dado de funcionário nem de visitante; o Microsoft 365 da WinServ, onde chegam as mensagens que nos escrevem; e a Stripe, que cobra o cliente e recebe só o e-mail do responsável. Os quatro estão na <a href="/wifi/privacidade.html#transferencia">privacidade</a>.</p>
+    </section>
+
+    <section id="transferencia">
+      <h2>7. Transferência internacional</h2>
+      <p class="w-lede">Os dados tratados em nome do cliente ficam armazenados na União Europeia. O Brasil reconhece a União Europeia como adequada (LGPD, art. 33, I; Resolução CD/ANPD nº 32/2026), e a Comissão Europeia reconhece o Brasil como adequado (decisão de adequação anunciada em 27/01/2026). Assim, os dados podem sair do Brasil para a União Europeia e da União Europeia para nós, no Brasil, sem cláusulas-padrão.</p>
+      <p class="w-lede">Resíduo que declaramos: o armazenamento das cópias de segurança está na União Europeia, mas a empresa que o presta, a Cloudflare, Inc., é americana.</p>
+    </section>
+
+    <section id="titulares">
+      <h2>8. Pedidos dos titulares</h2>
+      <p class="w-lede">Um pedido de titular que chegar a nós sobre dados de um cliente é encaminhado a esse cliente em até 5 dias úteis, e não respondemos no lugar dele sem instrução. Ajudamos o cliente a atender pedidos de acesso, correção e eliminação com o que o serviço oferece: o console lista quem tem acesso (na página de faturamento) e os aparelhos pré-registrados, e revoga aparelhos e pessoas, e o que o console não fizer nós fazemos a pedido.</p>
+    </section>
+
+    <section id="incidentes">
+      <h2>9. Incidentes de segurança</h2>
+      <p class="w-lede">Confirmado um incidente de segurança que afete dados do cliente, avisamos o responsável pela conta por e-mail sem demora e em até <strong>48 horas</strong>. O aviso diz o que já soubermos: a natureza dos dados e dos titulares afetados, as medidas de proteção que estavam em uso, os riscos e o que fizemos ou vamos fazer. Ele chega em tempo para o cliente fazer, como controlador, a comunicação à ANPD e aos titulares (LGPD, art. 48) ou à autoridade europeia (GDPR, art. 33), e ajudamos com o que ela pedir.</p>
+    </section>
+
+    <section id="encerramento">
+      <h2>10. Fim do contrato</h2>
+      <p class="w-lede">Com a assinatura cancelada, o portal fica suspenso, sem liberar aparelhos novos, e pode ser reativado com os dados preservados, assinando de novo, por até 90 dias. Passado esse prazo, ou antes, se o cliente pedir por escrito, apagamos os dados do portal em até 30 dias, e as cópias de segurança que ainda os contenham expiram em até 30 dias depois disso. Não há exportação a devolver: a autorização dos aparelhos vive no controlador do cliente, e nada do que guardamos precisa sobreviver a uma troca de fornecedor. Os registros técnicos de acesso ficam os 6 meses que o Marco Civil da Internet (art. 15) nos obriga a guardar, e depois são descartados.</p>
+    </section>
+
+    <section id="auditoria">
+      <h2>11. Informação e auditoria</h2>
+      <p class="w-lede">A pedido, damos ao cliente as informações necessárias para demonstrar que cumprimos este acordo: esta página, o inventário do que tratamos e respostas por escrito. Mantemos o registro das operações de tratamento que realizamos (LGPD, art. 37). Auditoria presencial e questionário de segurança só em contrato à parte.</p>
+    </section>
+
+    <section id="vigencia">
+      <h2>12. Vigência, prevalência e foro</h2>
+      <p class="w-lede">Este acordo vale enquanto houver dados do cliente conosco. No que trata de dados pessoais, prevalece sobre os termos de serviço. As mudanças seguem a regra dos termos: as relevantes são avisadas com 30 dias de antecedência. Aplica-se a lei brasileira e, onde for obrigatório, o GDPR, no foro da comarca de Rio Grande/RS.</p>
+      <p class="w-lede">Marcelo Samoilenko, titular da M. SAMOILENKO INFORMATICA e encarregado pelo tratamento de dados. Versão de 30 de setembro de 2026.</p>
+    </section>
+  </main>
+</BaseLayout>

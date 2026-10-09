@@ -1,5 +1,5 @@
 ---
-import { href, external } from '../i18n/routes.mjs';
+import { href } from '../i18n/routes.mjs';
 import { UI } from '../i18n/ui.mjs';
 interface Props { locale: string }
 const { locale } = Astro.props;
@@ -18,7 +18,7 @@ const t = UI[locale];
           <li><a href={href('index', locale)}>{t.nav.home}</a></li>
           <li><a href={href('solucoes', locale)}>{t.nav.solutions}</a></li>
           <li><a href={href('conteudo', locale)}>{t.nav.articles}</a></li>
-          <li><a href={external('wifiHome', locale)}>{t.nav.wifi}</a></li>
+          <li><a href={href('wifi', locale)}>{t.nav.wifi}</a></li>
           <li><a href={href('contato', locale)}>{t.nav.contact}</a></li>
         </ul>
       </div>

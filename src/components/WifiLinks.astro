@@ -1,0 +1,14 @@
+---
+// The WiFi pages' own links — what the landing's footer carried (spec 2026-10-09; review
+// Important 2). Outside <main>, so the legal digest (tests/wifi.test.mjs) does not see it.
+import { href } from '../i18n/routes.mjs';
+import { UI } from '../i18n/ui.mjs';
+interface Props { locale: string }
+const { locale } = Astro.props;
+const t = UI[locale].wifi;
+const keys = ['wifiAjuda', 'wifiRequisitos', 'wifiPrivacidade', 'wifiTermos', 'wifiDpa'];
+---
+<nav class="w-links" aria-label={t.label}>
+  <a href={href('wifi', locale)}>{t.label}</a>
+  {keys.map((k) => <a href={href(k, locale)}>{t[k]}</a>)}
+</nav>

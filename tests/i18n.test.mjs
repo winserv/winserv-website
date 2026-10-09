@@ -7,7 +7,7 @@ import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'node-html-parser';
 import {
-  ORIGIN, LOCALES, LANG, ROUTES, EXTERNAL, href, twins, noindex, pages, external, pageFile, ogImage,
+  ORIGIN, LOCALES, LANG, ROUTES, href, twins, noindex, pages, pageFile, ogImage,
 } from '../src/i18n/routes.mjs';
 
 export const DIST = fileURLToPath(new URL('../dist/', import.meta.url));
@@ -48,9 +48,9 @@ test('language, canonical, og:url, og:locale and hreflang come from the table (g
     const others = Object.keys(twins(p.key)).filter((l) => l !== p.locale).map((l) => LANG[l].og);
     assert.deepEqual(new Set(attrs(root, 'meta[property="og:locale:alternate"]', 'content')), new Set(others), p.path);
     assert.deepEqual(new Set(attrs(root, 'link[rel="alternate"][hreflang]', 'hreflang', 'href')), expectedAlternates(p.key), p.path);
-    assert.equal(meta('og:image'), ORIGIN + ogImage(p.locale), p.path);
+    assert.equal(meta('og:image'), ORIGIN + ogImage(p.locale, p.key), p.path);
     assert.equal(root.querySelector('meta[name="twitter:image"]')?.getAttribute('content'), meta('og:image'), p.path);
-    assert.ok(FILES.includes(ogImage(p.locale).slice(1)), `${ogImage(p.locale)} missing`);
+    assert.ok(FILES.includes(ogImage(p.locale, p.key).slice(1)), `${ogImage(p.locale, p.key)} missing`);
   }
 });
 
@@ -76,16 +76,15 @@ test('internal links stay in the page\'s language, through the table (gate b)', 
       if (a.closest('.nav-lang, .nav-mobile-lang')) continue;            // the switcher has its own gate
       const h = a.getAttribute('href').split('#')[0];
       if (!h.startsWith('/') || h.startsWith('//') || /^\/(images|fonts|js)\//.test(h)) continue;
+      // A link marked hreflang leaves the page's language on purpose: the WiFi homes send each
+      // market to the other's prices (spec 2026-10-09 §11). Only to this route's twin in that language.
+      const hl = a.getAttribute('hreflang');
+      if (hl) {
+        const l = LOCALES.find((x) => LANG[x].hreflang === hl);
+        assert.ok(l && twins(p.key)[l] === h, `${p.path}: ${h} carries hreflang=${hl} but is not this page's ${hl} twin`);
+        continue;
+      }
       assert.ok(allowed.has(h), `${p.path}: ${h} is not a ${p.locale} page of the table`);
-    }
-  }
-});
-
-test('links to the WiFi landing are the table\'s, for the page\'s language (gate b′)', () => {
-  const allowed = (l) => new Set(Object.keys(EXTERNAL).map((k) => external(k, l)));
-  for (const p of PAGES) {
-    for (const a of html(p).querySelectorAll('a[href^="https://www.wifi.winserv.com.br"]')) {
-      assert.ok(allowed(p.locale).has(a.getAttribute('href')), `${p.path}: ${a.getAttribute('href')}`);
     }
   }
 });
@@ -111,14 +110,15 @@ test('noindex pages: their language, robots noindex, no canonical, no alternates
   }
 });
 
-test('the three homes carry the Organization JSON-LD, nothing else does', () => {
+test('the company homes carry the Organization JSON-LD, the WiFi homes their FAQPage, nothing else does', () => {
   for (const p of PAGES) {
     const blocks = html(p).querySelectorAll('script[type="application/ld+json"]');
-    if (p.key !== 'index') { assert.equal(blocks.length, 0, p.path); continue; }
+    const want = p.key === 'index' ? 'Organization' : p.key === 'wifi' ? 'FAQPage' : null;
+    if (!want) { assert.equal(blocks.length, 0, p.path); continue; }
     assert.equal(blocks.length, 1, p.path);
-    const org = JSON.parse(blocks[0].text);
-    assert.equal(org['@type'], 'Organization');
-    assert.equal(org.url, ORIGIN + '/');
+    const ld = JSON.parse(blocks[0].text);
+    assert.equal(ld['@type'], want, p.path);
+    if (want === 'Organization') assert.equal(ld.url, ORIGIN + '/');
   }
 });
 
@@ -231,8 +231,8 @@ test('Spanish pages carry no Portuguese (gate e)', () => {
   }
 });
 
-test('the whole site: 35 indexable pages, a 404 per language, Spanish privacy is the English notice', () => {
-  assert.equal(PAGES.filter((p) => !noindex(p.key)).length, 35);
+test('the whole site: 50 indexable pages, a 404 per language, Spanish privacy is the English notice', () => {
+  assert.equal(PAGES.filter((p) => !noindex(p.key)).length, 50);
   for (const l of LOCALES) assert.ok(twins('404')[l], `no 404 in ${l}`);
   assert.equal(href('privacidade', 'es'), '/en/privacy.html');
   for (const p of ofLocale('es')) {

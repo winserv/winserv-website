@@ -1,7 +1,7 @@
 // The table's own rules — spec 2026-10-08 sub-project 3 §3.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { makeTable, pageFile, ROUTES, pages, routeOf, href } from '../src/i18n/routes.mjs';
+import { makeTable, pageFile, ROUTES, pages, routeOf, href, ogImage } from '../src/i18n/routes.mjs';
 
 const fixture = {
   valores: { paths: { 'pt-br': '/valores.html', es: '/es/valores.html' } },
@@ -49,4 +49,25 @@ test('the real table holds the 14 pages that exist today, by their exact paths',
   assert.ok(ROUTES['404'].noindex && ROUTES.error.noindex);
   assert.ok(pages().length >= 14);
   assert.equal(href('index', 'pt-br'), '/');
+});
+
+test('the WiFi pages sit under /wifi/ in each language; the legal ones have no Spanish page (spec 2026-10-09 §2)', () => {
+  const want = {
+    wifi: ['/wifi/', '/en/wifi/', '/es/wifi/'],
+    wifiRequisitos: ['/wifi/requisitos.html', '/en/wifi/requirements.html', '/es/wifi/requisitos.html'],
+    wifiAjuda: ['/wifi/ajuda.html', '/en/wifi/help.html', '/es/wifi/ayuda.html'],
+    wifiTermos: ['/wifi/termos.html', '/en/wifi/terms.html', '/en/wifi/terms.html'],
+    wifiPrivacidade: ['/wifi/privacidade.html', '/en/wifi/privacy.html', '/en/wifi/privacy.html'],
+    wifiDpa: ['/wifi/dpa.html', '/en/wifi/dpa.html', '/en/wifi/dpa.html'],
+  };
+  for (const [key, paths] of Object.entries(want)) {
+    assert.deepEqual(['pt-br', 'en', 'es'].map((l) => href(key, l)), paths, key);
+  }
+  assert.equal(pages().length, 39 + 15);   // 39 served before (35 indexable + 4 noindex), measured 2026-10-09
+});
+
+test('a WiFi page shares the product card of its language; every other page the company card', () => {
+  assert.equal(ogImage('pt-br', 'wifiTermos'), '/images/wifi/og/pt-br/og-cover.png');
+  assert.equal(ogImage('es', 'wifi'), '/images/wifi/og/es/og-cover.png');
+  assert.equal(ogImage('en', 'contato'), '/images/og/en.jpg');
 });

@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import WifiLinks from '../components/WifiLinks.astro';
 import { ORIGIN, LANG, routeOf, twins, noindex as tableNoindex, ogImage } from '../i18n/routes.mjs';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   ogType?: string;
-  active?: 'inicio' | 'solucoes' | 'conteudo' | 'none';
+  active?: 'inicio' | 'solucoes' | 'conteudo' | 'wifi' | 'none';
   scripts?: string[];           // files under public/, loaded with defer
   noindex?: boolean;            // must agree with the table
   googleSiteVerification?: string;
@@ -27,7 +28,7 @@ const { key, locale } = route;
 if (noindex !== tableNoindex(key)) throw new Error(`BaseLayout: ${path} says noindex=${noindex}, the table says ${tableNoindex(key)}`);
 const lang = LANG[locale];
 const url = ORIGIN + path;                     // the table's own value — never Astro.url
-const image = ORIGIN + ogImage(locale);
+const image = ORIGIN + ogImage(locale, key);
 const tw = twins(key);
 const pairs = Object.entries(tw);
 const alternates = !noindex && pairs.length > 1 ? pairs : [];
@@ -70,6 +71,7 @@ const org = key === 'index' ? JSON.stringify({
 <body>
   <Nav active={active} locale={locale} routeKey={key} noindex={noindex} />
   <slot />
+  {key.startsWith('wifi') && <WifiLinks locale={locale} />}
   <Footer locale={locale} />
   <script is:inline src="/js/site.js" defer></script>
   {scripts.map((src) => <script is:inline src={src} defer></script>)}

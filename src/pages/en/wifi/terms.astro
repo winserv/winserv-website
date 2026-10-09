@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Terms of service — Winserv WiFi"} description={"Winserv WiFi terms of service: what the product does, what depends on you, availability, data and termination."} path="/en/wifi/terms.html" active="wifi">
+<main class="w-main" data-terms-version="2026-10-09">
+    <section class="w-hero">
+      <p class="w-eyebrow">Terms of service</p>
+      <h1>Terms of service</h1>
+      <p class="w-lede">Provided by <strong>M. SAMOILENKO INFORMATICA</strong>, trading as <span lang="pt-BR">WinServ Tecnologia da Informação</span>, Brazilian company registration (CNPJ) 10.411.266/0001-80, <span lang="pt-BR">Av. Almirante Tamandaré, 106, apto 201, Vila Nossa Senhora dos Navegantes, Rio Grande/RS, CEP 96202-570</span>, Brazil, for the <strong>Winserv WiFi</strong> service — captive-portal authentication for UniFi Wi-Fi networks. By creating a portal or consenting to our applications in Microsoft Entra, you accept what is written here.</p>
+      <p class="w-eyebrow">Version 2026-10-09</p>
+    </section>
+
+    <section>
+      <h2>1. What the service does</h2>
+      <p class="w-lede">We authenticate whoever connects to your Wi-Fi network — with your organization's Microsoft account or with a voucher code — and authorize the device on <strong>your</strong> UniFi controller. The authorization lives on your controller; we decide who gets in, you remain the owner of the network.</p>
+      <p class="w-lede">The self-service plan is sold by tier — <strong>up to 50, 100, 250 or 500 people with active access</strong> — at the prices on the <a href="/en/wifi/#pricing">home page</a>. Each distinct person in your organization with at least one authorized device counts; a device pre-registered in someone's name counts as that person, and visitor vouchers do not count. Usage is shown in your console. If you go over your tier, we tell you by e-mail and agree the change with you — nobody is blocked for going over the number.</p>
+    </section>
+
+    <section>
+      <h2>2. What depends on you</h2>
+      <ul class="w-steps">
+        <li>Keeping the UniFi controller reachable from the internet, with a valid certificate, and a dedicated local <strong>Site Administrator</strong> account for us, restricted to one site.</li>
+        <li>Allowing in the firewall and the walled garden what the <a href="/en/wifi/requirements.html">network requirements</a> list.</li>
+        <li>Maintaining in Microsoft Entra the group that defines who has access. <strong>Whoever is in the group gets in</strong> — the list is yours, and so is the consequence of one name too many in it.</li>
+        <li>Using the service only on your own network and for people you have authorized.</li>
+      </ul>
+      <p class="w-lede">Failures caused by any of these items are not a service outage. Most support requests start here.</p>
+    </section>
+
+    <section>
+      <h2>3. Data</h2>
+      <p class="w-lede">What we read, what we keep and how to revoke it is described in <a href="/en/wifi/privacy.html#entra-apps">privacy</a>, including what each Entra application accesses. In short: we identify who got in and with which device, and we do not touch e-mail content, files or network traffic.</p>
+      <p class="w-lede">You are the controller of your users' data; we act as a <strong>processor</strong>, handling it only to provide the service, under the <a href="/en/wifi/dpa.html">data processing agreement</a>, which is part of these terms. We treat your controller credentials and the session tokens as confidential, encrypted at rest with a key of your portal's own.</p>
+    </section>
+
+    <section>
+      <h2>4. Availability</h2>
+      <p class="w-lede">We work to keep the service available, with no contracted SLA by default. One point worth understanding: <strong>an outage on our side does not disconnect people already connected</strong> — the authorization is on your controller and lasts up to 30 days. What becomes unavailable is authenticating new devices.</p>
+      <p class="w-lede">We carry out maintenance and updates without prior notice when no impact is expected; changes that require action from you are announced by e-mail.</p>
+    </section>
+
+    <section>
+      <h2>5. Acceptable use</h2>
+      <p class="w-lede">Do not use the service for unauthorized access to third-party networks, to get around another organization's security controls, or to try to obtain data beyond your own. We may suspend a portal that is causing harm to third parties or to our infrastructure, notifying you as soon as possible.</p>
+    </section>
+
+    <section>
+      <h2>6. Termination</h2>
+      <p class="w-lede">You can end the service whenever you want: remove our applications from your Entra and turn off the external portal on the controller. Devices already authorized stay connected until their authorization expires on your own controller.</p>
+      <p class="w-lede">Once the subscription is canceled, the portal is suspended and can be reactivated, with its data intact, for up to 90 days. After that, or sooner if you ask in writing, we delete your portal's data within 30 days; database backups that still contain it expire within 30 days after that. <strong>There is no export to recover</strong>: nothing we keep survives a reconnection — a sign-in rebuilds everything.</p>
+    </section>
+
+    <section>
+      <h2>7. Limits</h2>
+      <p class="w-lede">The service is provided as is. We are not liable for lost profits or indirect damages. Our liability, where it exists, is limited to the amount paid for the service in the 12 months before the event.</p>
+    </section>
+
+    <section>
+      <h2>8. Changes and jurisdiction</h2>
+      <p class="w-lede">Material changes to these terms are announced 30 days in advance. Brazilian law applies, in the courts of the district of Rio Grande/RS, Brazil.</p>
+      <p class="w-lede">Questions: <a href="mailto:contact@winserv.com.br">contact@winserv.com.br</a>.</p>
+    </section>
+  </main>
+</BaseLayout>

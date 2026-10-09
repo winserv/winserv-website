@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Cómo conectarse al Wi-Fi — Winserv WiFi"} description={"Guía rápida para conectarse al Wi-Fi: inicie sesión con su cuenta de Microsoft (empleados) o con un código de voucher (visitantes), y cómo resolver los problemas más comunes."} path="/es/wifi/ayuda.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Guía del usuario</p>
+      <h1>Cómo conectarse al Wi-Fi</h1>
+      <p class="w-lede">Lleva menos de un minuto. Hay dos formas de entrar, en la misma página: un <strong>empleado</strong> usa su cuenta de trabajo de Microsoft; un <strong>visitante</strong> escribe un código de voucher. Después del primer inicio de sesión el dispositivo sigue conectado durante <strong>30 días</strong> sin repetir nada, y continúa mientras usted use la red. Si pasa más de 30 días sin usarla, basta con iniciar sesión una vez más.</p>
+      <p class="w-note">La página de acceso aparece en inglés (o en portugués, si su dispositivo está en portugués). Por eso los botones se citan abajo tal como aparecen.</p>
+    </section>
+
+    <section id="empleado">
+      <h2>Empleado: inicie sesión con su cuenta de Microsoft</h2>
+      <ol class="w-steps">
+        <li>Conéctese a la red Wi-Fi de la empresa.</li>
+        <li>La página de acceso se abre sola. Si no se abre, abra el navegador e intente entrar en cualquier sitio web: la página aparece.</li>
+        <li>Toque <strong>"Sign in with Microsoft"</strong>.</li>
+        <li>Escriba su <strong>correo y contraseña</strong> de trabajo.</li>
+        <li>Apruebe la solicitud de <strong>MFA</strong> en la aplicación Microsoft Authenticator.</li>
+        <li>Listo: <strong>"Connected!"</strong>. Durante los próximos 30 días es automático.</li>
+      </ol>
+      <p class="w-note"><strong>¿Dispositivo nuevo, sin datos móviles?</strong> Puede que la aprobación de Authenticator no llegue en el primer inicio de sesión. Vea <a href="#problemas">"La aprobación nunca llega"</a>: se resuelve en 10 segundos.</p>
+    </section>
+
+    <section id="visitante">
+      <h2>Visitante: entre con un voucher</h2>
+      <ol class="w-steps">
+        <li>Conéctese a la red Wi-Fi.</li>
+        <li>En la página de acceso, escriba el <strong>código</strong> que le dieron en recepción.</li>
+        <li>Toque <strong>"Connect"</strong> → <strong>"Connected!"</strong>.</li>
+      </ol>
+      <p class="w-lede">El código vence. Cuando vence, pida uno nuevo en recepción.</p>
+    </section>
+
+    <section id="problemas">
+      <h2>¿Algo salió mal?</h2>
+      <div class="w-faq">
+        <details class="w-faq__item" open>
+          <summary>La aprobación de Authenticator nunca llega</summary>
+          <p>Pasa en un dispositivo nuevo (un teléfono restablecido, una laptop recién instalada) que solo tiene el Wi-Fi de la empresa y no tiene datos móviles. La página de Microsoft le pide aprobar la notificación, pero nunca llega, porque la notificación necesita internet abierto, que el dispositivo todavía no tiene. El <strong>código de 6 dígitos</strong> no lo necesita: se muestra dentro de la propia aplicación, sin internet.</p>
+          <ol class="w-steps">
+            <li>En la página de aprobación, elija el enlace que dice que <strong>no puede usar la aplicación Microsoft Authenticator en este momento</strong>.</li>
+            <li>Elija la opción de <strong>usar un código de verificación</strong>.</li>
+            <li>Abra <strong>Microsoft Authenticator</strong>, lea el código de 6 dígitos y escríbalo en la página.</li>
+          </ol>
+        </details>
+        <details class="w-faq__item">
+          <summary>"Invalid session" después de tocar Microsoft</summary>
+          <p>La pequeña ventana de acceso a veces se pierde. <strong>Cierre la ventana y vuelva a conectarse al Wi-Fi</strong>: se abre de nuevo limpia y el inicio de sesión funciona.</p>
+        </details>
+        <details class="w-faq__item">
+          <summary>"Access denied" después de iniciar sesión</summary>
+          <p>Su inicio de sesión funcionó (no es una contraseña incorrecta), pero su cuenta todavía no tiene permiso en esta red. <strong>Pida al equipo de TI de su empresa</strong> que le dé acceso.</p>
+        </details>
+        <details class="w-faq__item">
+          <summary>La página de acceso no abre</summary>
+          <p>Abra el navegador e intente entrar en cualquier sitio web (por ejemplo <code>http://example.com</code>). La página de acceso aparece. En iPhone y Android, volver a conectarse a la red también suele abrirla.</p>
+        </details>
+      </div>
+      <p class="w-lede">¿Sigue sin poder entrar? Pregunte en <strong>recepción</strong> (visitantes) o al <strong>equipo de TI de su empresa</strong> (empleados).</p>
+    </section>
+  </main>
+</BaseLayout>

@@ -34,7 +34,8 @@ test('every page builds at its old path', () => {
 test('the static files survive byte for byte', () => {
   for (const f of ['style.css', 'BingSiteAuth.xml', 'googlecc9795c73ab262d5.html',
     'googlehostedservice.html', '.well-known/winserv-license/sagres-validation.json',
-    'images/og.jpg', 'images/og/pt-br.jpg', 'fonts/plus-jakarta-sans-400.woff2']) {
+    'images/og.jpg', 'images/og/pt-br.jpg', 'fonts/plus-jakarta-sans-400.woff2',
+    'images/wifi/og/pt-br/og-cover.png']) {
     assert.ok(FILES.includes(f), `missing ${f}`);
   }
 });
@@ -143,6 +144,7 @@ test('every page links the privacy notice', () => {
 test('the privacy notice names what the site publishes (spec §5)', () => {
   const text = parse(read('privacidade.html')).text;
   for (const must of ['10.411.266/0001-80', 'dpo@winserv.com.br', 'comercial@winserv.com.br',
+    'contact@winserv.com.br', 'suporte@winserv.com.br',
     '185 dias', 'Alemanha', 'Estados Unidos', 'não grava cookies',
     'links externos']) {
     assert.ok(text.includes(must), `privacidade.html lacks "${must}"`);
@@ -152,6 +154,7 @@ test('the privacy notice names what the site publishes (spec §5)', () => {
 test('the English privacy notice names what the site publishes (spec sub-project 3 §6)', () => {
   const text = parse(read('en/privacy.html')).text;
   for (const must of ['10.411.266/0001-80', 'dpo@winserv.com.br', 'comercial@winserv.com.br',
+    'contact@winserv.com.br', 'suporte@winserv.com.br',
     '185 days', 'Germany', 'United States', 'sets no cookies', 'external links']) {
     assert.ok(text.includes(must), `en/privacy.html lacks "${must}"`);
   }

@@ -31,18 +31,18 @@ export const ROUTES = {
   exposicao: { paths: { 'pt-br': '/exposicao.html', en: '/en/pornography-exposure.html', es: '/es/exposicion-pornografia.html' } },
   filtro: { paths: { 'pt-br': '/filtro.html', en: '/en/internet-filter.html', es: '/es/filtro-internet.html' } },
   privacidade: { paths: { 'pt-br': '/privacidade.html', en: '/en/privacy.html', es: { use: 'en' } } },
+  // Winserv WiFi (spec 2026-10-09 sub-project 4 §2). og: the product's own share card.
+  wifi: { og: 'wifi', paths: { 'pt-br': '/wifi/', en: '/en/wifi/', es: '/es/wifi/' } },
+  wifiRequisitos: { og: 'wifi', paths: { 'pt-br': '/wifi/requisitos.html', en: '/en/wifi/requirements.html', es: '/es/wifi/requisitos.html' } },
+  wifiAjuda: { og: 'wifi', paths: { 'pt-br': '/wifi/ajuda.html', en: '/en/wifi/help.html', es: '/es/wifi/ayuda.html' } },
+  // The text a customer accepts under signup.TERMS_VERSION: pt-BR and EN only (roadmap D3).
+  wifiTermos: { og: 'wifi', paths: { 'pt-br': '/wifi/termos.html', en: '/en/wifi/terms.html', es: { use: 'en' } } },
+  wifiPrivacidade: { og: 'wifi', paths: { 'pt-br': '/wifi/privacidade.html', en: '/en/wifi/privacy.html', es: { use: 'en' } } },
+  wifiDpa: { og: 'wifi', paths: { 'pt-br': '/wifi/dpa.html', en: '/en/wifi/dpa.html', es: { use: 'en' } } },
   404: { noindex: true, paths: { 'pt-br': '/404.html', en: '/en/404.html', es: '/es/404.html' } },
   // One error page, Portuguese, unchanged: behind the edge a container that is down produces the
   // Caddy's 502, never ours (spec §8).
   error: { noindex: true, paths: { 'pt-br': '/error.html' } },
-};
-
-// Links that leave the site, until sub-project 4 brings the WiFi pages in.
-const WIFI = 'https://www.wifi.winserv.com.br';
-export const EXTERNAL = {
-  wifiHome: { paths: { 'pt-br': `${WIFI}/pt-br/`, en: `${WIFI}/`, es: `${WIFI}/es/` } },
-  // The Spanish landing has no privacy page (measured 2026-10-08): ayuda/, requisitos/, 404 only.
-  wifiPrivacy: { paths: { 'pt-br': `${WIFI}/pt-br/privacidade/`, en: `${WIFI}/privacy/`, es: { use: 'en' } } },
 };
 
 export function makeTable(routes) {
@@ -77,9 +77,9 @@ export function makeTable(routes) {
 const site = makeTable(ROUTES);
 export const { href, twins, routeOf, noindex, pages } = site;
 
-const links = makeTable(EXTERNAL);
-export const external = links.href;
-export const externalUrls = () => [...new Set(links.pages().map((p) => p.path))];
-
 export const pageFile = (path) => (path.endsWith('/') ? path.slice(1) + 'index.html' : path.slice(1));
-export const ogImage = (locale) => `/images/og/${locale}.jpg`;
+// Two card conventions on purpose (spec 2026-10-09 §2): the company's one image per language,
+// the WiFi's own cover per language. The table says which a route uses.
+export const ogImage = (locale, key) => (ROUTES[key]?.og === 'wifi'
+  ? `/images/wifi/og/${locale}/og-cover.png`
+  : `/images/og/${locale}.jpg`);

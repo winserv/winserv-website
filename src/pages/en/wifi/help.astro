@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"How to connect to the Wi-Fi — Winserv WiFi"} description={"A quick guide to connecting to the Wi-Fi: sign in with your Microsoft account (employees) or a voucher code (visitors), and how to fix the most common snags."} path="/en/wifi/help.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">User guide</p>
+      <h1>How to connect to the Wi-Fi</h1>
+      <p class="w-lede">It takes less than a minute. There are two ways in, on the same page: an <strong>employee</strong> uses their Microsoft work account; a <strong>visitor</strong> types a voucher code. After the first sign-in the device stays connected for <strong>30 days</strong> with nothing to repeat, and keeps going as long as you use the network. If you stay away from it for more than 30 days, just sign in once more.</p>
+    </section>
+
+    <section id="employee">
+      <h2>Employee — sign in with your Microsoft account</h2>
+      <ol class="w-steps">
+        <li>Connect to the company Wi-Fi network.</li>
+        <li>The sign-in page opens by itself. If it does not, open the browser and try any website — the page appears.</li>
+        <li>Tap <strong>"Sign in with Microsoft"</strong>.</li>
+        <li>Type your work <strong>e-mail and password</strong>.</li>
+        <li>Approve the <strong>MFA</strong> request in the Microsoft Authenticator app.</li>
+        <li>Done: <strong>"Connected!"</strong>. For the next 30 days it is automatic.</li>
+      </ol>
+      <p class="w-note"><strong>New device, no mobile data?</strong> The Authenticator approval may not arrive on the first sign-in. See <a href="#problems">"The approval never arrives"</a> — it takes 10 seconds to solve.</p>
+    </section>
+
+    <section id="visitor">
+      <h2>Visitor — sign in with a voucher</h2>
+      <ol class="w-steps">
+        <li>Connect to the Wi-Fi network.</li>
+        <li>On the sign-in page, type the <strong>code</strong> the front desk gave you.</li>
+        <li>Tap <strong>"Connect"</strong> → <strong>"Connected!"</strong>.</li>
+      </ol>
+      <p class="w-lede">The code expires. When it does, ask the front desk for a new one.</p>
+    </section>
+
+    <section id="problems">
+      <h2>Something went wrong?</h2>
+      <div class="w-faq">
+        <details class="w-faq__item" open>
+          <summary>The Authenticator approval never arrives</summary>
+          <p>It happens on a new device (a reset phone, a freshly installed laptop) that only has the company Wi-Fi and no mobile data. Microsoft's page asks you to approve the notification, but it never arrives — because the notification needs open internet, which the device does not have yet. The <strong>6-digit code</strong> does not: it is shown inside the app itself, with no internet.</p>
+          <ol class="w-steps">
+            <li>On the approval page, choose the link that says you <strong>can't use the Microsoft Authenticator app right now</strong>.</li>
+            <li>Choose the option to <strong>use a verification code</strong>.</li>
+            <li>Open <strong>Microsoft Authenticator</strong>, read the 6-digit code and type it on the page.</li>
+          </ol>
+        </details>
+        <details class="w-faq__item">
+          <summary>"Invalid session" after tapping Microsoft</summary>
+          <p>The small sign-in window sometimes loses its way. <strong>Close the window and reconnect to the Wi-Fi</strong> — it reopens clean and sign-in works.</p>
+        </details>
+        <details class="w-faq__item">
+          <summary>"Access denied" after signing in</summary>
+          <p>Your sign-in worked (it is not a wrong password), but your account is not allowed on this network yet. <strong>Ask your company's IT team</strong> to grant you access.</p>
+        </details>
+        <details class="w-faq__item">
+          <summary>The sign-in page does not open</summary>
+          <p>Open the browser and try any website (for example <code>http://example.com</code>). The sign-in page appears. On iPhone and Android, reconnecting to the network usually reopens it too.</p>
+        </details>
+      </div>
+      <p class="w-lede">Still stuck? Ask the <strong>front desk</strong> (visitors) or your <strong>company's IT team</strong> (employees).</p>
+    </section>
+  </main>
+</BaseLayout>

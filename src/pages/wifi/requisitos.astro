@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Requisitos de rede — Winserv WiFi"} description={"O que liberar no walled garden e no firewall para o portal cativo funcionar: domínios da Microsoft, endereço do portal e a porta do controller UniFi."} path="/wifi/requisitos.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Guia da TI</p>
+      <h1>Requisitos de rede</h1>
+      <p class="w-lede">São três liberações, todas no seu lado. Nenhuma exige VPN, túnel ou acesso SSH à sua infraestrutura — a integração é só HTTPS. Se alguma faltar, o sintoma costuma ser <strong>silencioso</strong>: a tela não abre, ou o login na Microsoft dá certo e volta para uma página em branco. Por isso vale conferir as três antes de liberar a rede para os usuários.</p>
+    </section>
+
+    <section id="walled-garden">
+      <h2>1. Walled garden — o que o aparelho acessa <em>antes</em> de logar</h2>
+      <p class="w-lede">No controller: <strong>Settings → WiFi → Guest Hotspot → Authorization Access → Pre-Authorization Allowances</strong>. O SSID bloqueia tudo até o aparelho ser autorizado; esta lista é a exceção que deixa a tela de login carregar.</p>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Host</th><th>Por que precisa</th><th>Se faltar</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><code>SEU-PORTAL.wifi.winserv.com.br</code></td>
+              <td>O endereço do seu portal, entregue no cadastro</td>
+              <td>A tela de login não abre</td>
+            </tr>
+            <tr>
+              <td><code>auth.wifi.winserv.com.br</code></td>
+              <td>Onde a Microsoft devolve o usuário depois do login</td>
+              <td><strong>O pior sintoma:</strong> o login na Microsoft conclui e volta para uma página que não carrega</td>
+            </tr>
+            <tr>
+              <td><code>login.microsoftonline.com</code></td>
+              <td>Tela de login e autorização da Microsoft</td>
+              <td>Nada acontece ao tocar em "Entrar com Microsoft"</td>
+            </tr>
+            <tr>
+              <td><code>aadcdn.msauth.net</code></td>
+              <td>CSS e scripts da tela da Microsoft</td>
+              <td>A tela abre quebrada ou não termina de carregar</td>
+            </tr>
+            <tr>
+              <td><code>login.live.com</code></td>
+              <td>Caminho de autenticação usado em alguns fluxos da Microsoft</td>
+              <td>Falhas intermitentes no login, difíceis de reproduzir</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w-note"><strong>MFA por notificação exige um detalhe.</strong> A aprovação por push do Microsoft Authenticator viaja fora desta lista, então um aparelho que só tem o WiFi da empresa não recebe a notificação. O <strong>código de 6 dígitos</strong> do próprio app funciona sem internet e resolve — está explicado no <a href="/wifi/ajuda.html">guia do usuário</a>. Não tente liberar isso no walled garden: os endereços de push não são estáveis.</p>
+    </section>
+
+    <section id="firewall">
+      <h2>2. Firewall — o portal precisa alcançar seu controller</h2>
+      <p class="w-lede">O portal roda na nossa infraestrutura e conversa com o seu controller UniFi pela API, para autorizar cada aparelho que fez login. É a única conexão que parte de nós para você.</p>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Origem</th><th>Destino</th><th>Porta</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><code>2.28.19.100</code> <small>(IP do portal)</small></td>
+              <td>Seu UniFi Controller</td>
+              <td><code>8443/tcp</code> no controller instalado em servidor; <code>443/tcp</code> num console UniFi OS; <code>11443/tcp</code> no UniFi OS Server</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w-note"><strong>Versões testadas.</strong> UniFi Network 10.0, 10.4 e 10.6 no controller instalado em servidor, e 10.5 no UniFi OS Server. Os consoles UniFi OS em hardware (Dream Machine, Cloud Gateway, Cloud Key) usam a mesma API do UniFi OS Server, mas ainda não foram testados num aparelho. Se o seu é um deles, <a href="mailto:contact@winserv.com.br?subject=Console%20UniFi%20OS">fale com a Winserv</a> antes de contratar.</p>
+      <p class="w-note"><strong>Um portal atende um site do controller.</strong> Se o seu controller tem vários sites (filiais, prédios), o portal funciona no site escolhido no cadastro; nos demais, o login e os vouchers não liberam o acesso. Tem mais de um site? <a href="mailto:contact@winserv.com.br?subject=Controller%20com%20v%C3%A1rios%20sites">Fale com a Winserv antes de contratar</a>.</p>
+      <p class="w-lede">O controller precisa estar publicado na internet nessa porta, com certificado válido, e ter uma conta dedicada para o portal. Crie-a em <strong>Settings &rarr; Admins &rarr; Add New Site Admin</strong> com o papel <strong>Site Administrator</strong>, dando permissão <strong>apenas ao site</strong> que o portal atende — não é preciso, e não queremos, uma conta de super administrador ou dona do controller.</p>
+      <p class="w-note"><strong>Não use o papel "Hotspot" da tela de administradores.</strong> Ele cria um administrador vinculado a uma conta Ubiquiti e envia um convite por e-mail; essa conta autentica na nuvem da Ubiquiti, não no controller, então a API local recusa o login. Verificado no controller 10.4.57, onde os papéis por site disponíveis são só <em>Site Administrator</em> e <em>View Only</em> — e "View Only" não consegue autorizar convidado.</p>
+      <p class="w-lede">O que a conta faz, e nada além disso: autoriza e desautoriza convidados no site (<code>cmd/stamgr</code>); lê a lista de sites no cadastro, e de novo sempre que o controller ou a conta dele é trocado pelo console, para descobrir o identificador interno do seu site; lê a rede em que um aparelho está conectado quando alguém resgata um voucher (<code>stat/sta</code>), para o voucher valer só na rede de convidados; e lê as configurações do hotspot (<code>rest/setting/guest_access</code>) quando você abre a conferência do portal (pelo link do cadastro ou no console), para dizer o que ainda falta. Nenhuma configuração do controller é alterada.</p>
+    </section>
+
+    <section id="controller">
+      <h2>3. Controller — três opções na tela do hotspot</h2>
+      <p class="w-lede">Em <strong>Settings → WiFi → Guest Hotspot → Landing Page Settings</strong>:</p>
+      <ol class="w-steps">
+        <li><strong>External Portal Server</strong> = <code>2.28.19.100</code>. Esse campo aceita <strong>apenas IP</strong> — o nome não funciona nele.</li>
+        <li><strong>Domain</strong> = <code>SEU-PORTAL.wifi.winserv.com.br</code> (o endereço exato está na página de conferência do seu portal). É o que faz o AP mandar o usuário para o nome, e não para o IP. Sem isso o certificado não confere e o navegador recusa a conexão.</li>
+        <li><strong>Secure Portal</strong> ligado. Faz o aparelho ir direto em HTTPS, sem uma primeira volta em texto claro numa rede aberta.</li>
+      </ol>
+      <p class="w-note">Os dois primeiros parecem redundantes e não são: um diz <em>para onde a conexão vai</em>, o outro diz <em>que nome o navegador vê</em>. Trocá-los é o erro mais comum desta tela.</p>
+    </section>
+
+    <section id="duas-redes">
+      <h2>4. Duas redes: funcionários e visitantes (opcional)</h2>
+      <p class="w-lede">Para separar a rede dos funcionários da rede dos visitantes: duas redes WiFi no UniFi, as duas com <strong>Hotspot</strong> (portal cativo) e cada uma na sua rede/VLAN. As duas usam o mesmo portal — o UniFi aceita um portal por site. No console do portal (<code>/admin</code> → <strong>Redes</strong>), informe o nome de cada uma: na corporativa aparece só a entrada com a Microsoft; na de visitantes, só o voucher.</p>
+      <p class="w-lede"><strong>Quem separa visitantes da rede interna é o seu firewall, não o UniFi.</strong> Com um gateway que não é da Ubiquiti (FortiGate, por exemplo), a lista <strong>Post-Authorization Restrictions</strong> do Hotspot <em>não</em> bloqueia o acesso depois do login — medimos: com as três faixas privadas na lista, um aparelho autenticado abriu outro aparelho da rede local. Ou seja: a lista parece proteger e não protege — não conte com ela. Então:</p>
+      <ol class="w-steps">
+        <li><strong>No firewall</strong>, na VLAN dos visitantes: bloqueie as redes internas (<code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>) e libere só a internet. Na VLAN corporativa, aplique a política da empresa.</li>
+        <li><strong>Confirme dos dois lados</strong>: de um aparelho na rede corporativa, já logado, um sistema interno abre; de um aparelho na rede de visitantes, não abre.</li>
+      </ol>
+      <p class="w-note"><strong>Gateway UniFi (UDM, USG)?</strong> Nesse caso não medimos, e a lista provavelmente é aplicada — o que vale nos dois sentidos: protege os visitantes, mas numa rede com Hotspot também pode impedir os funcionários de alcançar impressora e sistemas internos. Faça o mesmo teste dos dois lados antes de liberar a rede.</p>
+      <p class="w-note"><strong>Uma rede só para todos?</strong> Funciona — a tela mostra a entrada Microsoft e o voucher juntos —, mas funcionário e visitante ficam na mesma VLAN e o firewall não consegue separá-los: com o voucher ligado, o visitante alcança o que o funcionário alcança na rede interna. Se há impressora, servidor ou sistema interno a proteger, use duas redes; ou mantenha uma rede só para funcionários, com o voucher desligado no console.</p>
+      <p class="w-lede"><strong>Client Device Isolation</strong> (na tela de cada rede WiFi, em Security) — impede que os aparelhos da mesma rede sem fio se enxerguem:</p>
+      <ol class="w-steps">
+        <li><strong>Rede de visitantes: marcada.</strong> Um visitante não deve alcançar o celular do outro.</li>
+        <li><strong>Rede corporativa: desmarque</strong> se os funcionários usam pela WiFi impressora, espelhamento de tela (AirPlay, Chromecast) ou compartilhamento entre aparelhos; <strong>marque</strong> se não usam — é mais seguro.</li>
+      </ol>
+      <p class="w-note">Ela não controla o acesso à rede cabeada interna — isso é o firewall, acima. A rede corporativa pode ficar aberta, sem senha: quem entra é quem passa pela Microsoft, e um visitante que tente usar o voucher nela é desconectado em até um minuto.</p>
+      <p class="w-lede"><strong>TVs, ar-condicionado e outros aparelhos sem tela de login</strong> não conseguem passar por portal cativo. Coloque-os numa terceira rede, com senha, na VLAN deles e <em>sem</em> Hotspot. Cada AP transmite até 4 redes por banda (8 com o Wireless Meshing desligado), então funcionários, visitantes e aparelhos cabem com folga.</p>
+    </section>
+
+    <section id="dns">
+      <h2>DNS, se a sua rede usa resolvedor próprio</h2>
+      <p class="w-lede">Os hosts da tabela acima precisam resolver <strong>a partir da rede WiFi dos convidados</strong>, antes da autenticação. Redes com DNS interno restrito costumam ser o ponto onde isso quebra — e o sintoma imita "portal fora do ar".</p>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const faq = "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[\n{\"@type\":\"Question\",\"name\":\"¿Un exempleado conserva el acceso durante 30 días?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"No. Los 30 días son la comodidad de no volver a iniciar sesión mientras la persona está activa. En cuanto la persona sale del grupo o su cuenta se deshabilita en Entra ID, la reconciliación automática corta su acceso en minutos, y un operador puede revocar todos sus dispositivos a la vez desde la consola.\"}},\n{\"@type\":\"Question\",\"name\":\"¿Necesito Active Directory, RADIUS o Windows Server?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"No. La identidad es el Microsoft Entra ID que usted ya usa. Sin controlador de dominio, sin NPS, sin RADIUS.\"}},\n{\"@type\":\"Question\",\"name\":\"¿Necesito una licencia de Microsoft 365 para cada persona que usa el Wi-Fi?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"No. El inicio de sesión usa Microsoft Entra ID, cuya edición gratuita viene con cualquier suscripción de Microsoft 365 o Azure e incluye inicio de sesión en aplicaciones sin límite. Cada persona necesita una cuenta en el Entra ID de su empresa y estar en el grupo autorizado; no hace falta asignarle una licencia de Microsoft 365 u Office.\"}},\n{\"@type\":\"Question\",\"name\":\"¿El MFA requiere Entra ID P1 o P2?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"No. Los valores predeterminados de seguridad de Entra ID son gratuitos: cuando están activados, todos los usuarios se registran en el MFA con una aplicación de autenticación (como Microsoft Authenticator) y Microsoft lo solicita cuando considera que un inicio de sesión lo necesita. Para exigir MFA en cada inicio de sesión, o definir reglas propias, se necesita Acceso condicional, que requiere Entra ID P1, incluido en Microsoft 365 Business Premium, E3 y E5. El portal aplica las reglas que su Entra exige al iniciar sesión y no cobra nada extra por ello. La excepción son las reglas basadas en el dispositivo (dispositivo compatible o unido a Microsoft Entra híbrido): el navegador de un portal cautivo no puede presentar el dispositivo, así que excluya la aplicación del portal de esas directivas.\"}},\n{\"@type\":\"Question\",\"name\":\"¿Y los invitados: visitantes y cuentas de invitado de Entra?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Un visitante sin cuenta en su empresa entra con un voucher, sin iniciar sesión en Microsoft y sin contar en su plan. Una cuenta de invitado (B2B, tipo guest) que usted ponga en el grupo autorizado entra como un empleado, con la cuenta de su propia empresa, y cuenta como una persona en su plan. Microsoft factura a los invitados por usuario activo al mes; los primeros 50.000 son gratuitos.\"}},\n{\"@type\":\"Question\",\"name\":\"¿Hace falta una VPN, una IP pública para RADIUS o UDP?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"No. Todo funciona por HTTPS: el portal llega a la API de su controlador por HTTPS, y los dispositivos llegan al portal por HTTPS. Funciona detrás de CGNAT y en enlaces satelitales.\"}},\n{\"@type\":\"Question\",\"name\":\"¿Qué pasa si el portal se cae?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Quien ya inició sesión no lo nota. El controlador UniFi mantiene los dispositivos autorizados durante 30 días; solo los nuevos inicios de sesión y las renovaciones esperan a que el portal vuelva.\"}},\n{\"@type\":\"Question\",\"name\":\"¿Winserv ve las contraseñas de los usuarios?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"No. La autenticación ocurre en Microsoft; el portal solo orquesta el flujo OIDC y recibe un token. Las contraseñas y el MFA nunca pasan por nosotros.\"}},\n{\"@type\":\"Question\",\"name\":\"¿Qué puntos de acceso y controladores son compatibles?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Solo UniFi Network (Ubiquiti), probado en UniFi Network 10.0, 10.4 y 10.6 y en UniFi OS Server, con un SSID abierto y el portal cautivo. No funciona con controladores de otros fabricantes. Su controlador UniFi sigue de su lado, accesible por HTTPS.\"}},\n{\"@type\":\"Question\",\"name\":\"¿El portal está en español?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Este sitio, sí. La página que ve cada persona al conectarse aparece en inglés, o en portugués si su dispositivo está en portugués. El asistente de alta y la consola de administración están en inglés.\"}}\n]}";
+---
+<BaseLayout title={"Wi-Fi UniFi con Entra ID y MFA — Winserv WiFi"} description={"Portal cautivo para Wi-Fi UniFi con Microsoft Entra ID (antes Azure AD) y MFA. Sin AD, RADIUS ni PKI. Quien deja la empresa pierde la red en minutos."} path="/es/wifi/" active="wifi">
+<script type="application/ld+json" set:html={faq} />
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Gobierno de identidades para el Wi-Fi corporativo</p>
+      <h1>Inicio de sesión Entra ID con MFA<br>en su <span class="w-nb">Wi-Fi</span> UniFi.</h1>
+      <p class="w-hero-sub">Quien deja la empresa, deja la red.</p>
+      <p class="w-lede">Acceso al Wi-Fi corporativo con Microsoft Entra ID, antes Azure AD (OIDC + MFA): sin Active Directory <span class="w-nb">on-premises</span>, sin RADIUS, sin NPS, sin PKI. Los empleados inician sesión una vez y siguen conectados durante 30 días; cuando salen del grupo o de la empresa, su acceso a la red se corta en minutos.</p>
+      <p class="w-note"><strong>Solo UniFi.</strong> Funciona sobre un controlador UniFi (Ubiquiti): es allí donde el portal autoriza los dispositivos. No funciona con puntos de acceso de otros fabricantes: si su Wi-Fi no es UniFi, este producto no es para usted.</p>
+      <div class="w-btn-row">
+        <a class="w-btn" href="https://app.wifi.winserv.com.br/signup">Crear mi portal</a>
+        <a class="w-btn w-btn--ghost" href="mailto:contact@winserv.com.br?subject=Consulta%20winserv%20wifi&amp;body=Empresa%3A%0AN%C3%BAmero%20de%20puntos%20de%20acceso%3A%0AVersi%C3%B3n%20del%20controlador%20UniFi%3A%0ATenant%20de%20Microsoft%20Entra%20ID%3A%0A">Contáctenos</a>
+      </div>
+      <p class="w-note">Para configurarlo usted mismo necesita ser <strong>administrador de Microsoft Entra ID</strong> en su empresa, y su controlador UniFi debe ser accesible desde internet. <a href="/es/wifi/requisitos.html">Ver los requisitos</a>.</p>
+      <p class="w-eyebrow">Funciona en la infraestructura de Winserv · Microsoft autentica, nosotros solo orquestamos</p>
+    </section>
+
+    <section id="desvinculacion">
+      <h2>La salida en minutos, no en 30 días</h2>
+      <p class="w-lede">La diferencia no está en el inicio de sesión, sino en la salida. Los 30 días son una comodidad para quien sigue con usted, no un período de gracia para quien se fue: cada pocos minutos el portal reconcilia el grupo autorizado en Entra ID y corta el Wi-Fi de quien ya no pertenece a él. Además, la pertenencia al grupo se vuelve a comprobar en cada renovación, y un operador puede revocar a un usuario desde la consola, lo que desconecta todos los dispositivos de esa persona a la vez. Esto es gobierno de identidades corporativas, no marketing para invitados.</p>
+    </section>
+
+    <section id="diferencia">
+      <h2>Por qué es diferente</h2>
+      <div class="w-cards">
+        <article class="w-card">
+          <p class="w-eyebrow">MFA real y Acceso condicional</p>
+          <p>Entra ID desafía al usuario con el MFA y las directivas que usted ya tiene. El portal solo orquesta el flujo OIDC; las directivas basadas en el dispositivo (dispositivo compatible) requieren excluir la aplicación del portal, porque el navegador de un portal cautivo no puede presentar el dispositivo.</p>
+        </article>
+        <article class="w-card">
+          <p class="w-eyebrow">Una sola vez · 30 días</p>
+          <p>Mientras el empleado está activo, el dispositivo sigue autorizado durante 30 días con renovación silenciosa: inicia sesión una vez y se olvida del portal. La ventana sigue al vínculo laboral: quien se va pierde el acceso en minutos, no en 30 días.</p>
+        </article>
+        <article class="w-card">
+          <p class="w-eyebrow">Nada que operar</p>
+          <p>Un servicio gestionado: sin servidor, sin VPN y sin UDP que abrir. El portal habla con su controlador por HTTPS, y nada más cambia en su red.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="como-funciona">
+      <h2>Cómo funciona</h2>
+      <ol class="w-steps">
+        <li><strong>Conectarse.</strong> El dispositivo se une al SSID abierto y llega al portal cautivo.</li>
+        <li><strong>Inicio de sesión de Microsoft + MFA.</strong> Entra ID ejecuta el desafío, con sus directivas de Acceso condicional.</li>
+        <li><strong>Autorizar.</strong> El portal deja entrar al dispositivo en el controlador UniFi (<code>authorize-guest</code>).</li>
+        <li><strong>30 días mientras está activo.</strong> Renovación silenciosa, sin nuevo inicio de sesión. Quien se va pierde el acceso en minutos, sea cual sea la ventana. Y si el portal se cae, quien ya está conectado sigue conectado: UniFi conserva la tabla de dispositivos.</li>
+      </ol>
+    </section>
+
+    <section id="reemplaza">
+      <h2>Qué reemplaza</h2>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Antes</th><th>Después</th></tr></thead>
+          <tbody>
+            <tr><td>AD on-premises + NPS + RADIUS</td><td>Un servicio gestionado, nada que instalar</td></tr>
+            <tr><td>Windows Server (licencias + CAL)</td><td>Nada: usa el Entra ID que usted ya paga</td></tr>
+            <tr><td>Una VPN para que las sucursales lleguen al AD</td><td>HTTPS por internet</td></tr>
+            <tr><td>Un certificado por dispositivo (PKI)</td><td>SSID abierto + portal cautivo con MFA nativo</td></tr>
+            <tr><td>Mantenimiento del controlador de dominio</td><td>Nada: Microsoft opera la identidad</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="precios">
+      <h2>Precios</h2>
+      <div class="w-tiers">
+        <article class="w-tier">
+          <p class="w-eyebrow">Winserv WiFi</p>
+          <p class="w-tier__price"><strong>US$ 69</strong>/mes · 14 días de prueba</p>
+          <p class="w-tier__aud">Hasta 50 personas con acceso activo. Dispositivos ilimitados. Un sitio UniFi por portal. Sin cargo de instalación en el alta por cuenta propia.</p>
+          <ul>
+            <li>OIDC + MFA con Entra ID</li>
+            <li>Vouchers para invitados, propios</li>
+            <li>Renovación silenciosa (30 días)</li>
+            <li>Revocación al dar de baja</li>
+            <li>API de prerregistro (Intune)</li>
+            <li>Soporte 8×5, horario comercial de Brasil (UTC−3)</li>
+          </ul>
+        </article>
+      </div>
+      <div class="w-btn-row">
+        <a class="w-btn" href="https://app.wifi.winserv.com.br/signup">Crear mi portal</a>
+      </div>
+      <p class="w-eyebrow">Más de 50 personas: hasta 100 por US$ 99, hasta 250 por US$ 249,
+        hasta 500 por US$ 499 al mes. La prueba empieza en el plan de 50; si su equipo es
+        más grande, el plan se ajusta al final de la prueba según el conteo que usted ve en
+        su propia consola. ¿Más de 500, o muchos sitios?
+        <a href="#contacto">Hable con Winserv</a>.</p>
+      <p class="w-eyebrow">Las empresas de Brasil pagan en reales —
+        <a href="/wifi/#planos" hreflang="pt-BR" lang="pt-BR">preços em português</a>.</p>
+    </section>
+
+    <section id="preguntas">
+      <h2>Preguntas frecuentes</h2>
+      <div class="w-faq">
+        <details class="w-faq__item" open><summary>¿Un exempleado conserva el acceso durante 30 días?</summary><p>No. Los 30 días son la comodidad de no volver a iniciar sesión mientras la persona está activa. En cuanto la persona sale del grupo o su cuenta se deshabilita en Entra ID, la reconciliación automática corta su acceso en minutos, y un operador puede revocar todos sus dispositivos a la vez desde la consola.</p></details>
+        <details class="w-faq__item"><summary>¿Necesito Active Directory, RADIUS o Windows Server?</summary><p>No. La identidad es el Microsoft Entra ID que usted ya usa. Sin controlador de dominio, sin NPS, sin RADIUS.</p></details>
+        <details class="w-faq__item"><summary>¿Necesito una licencia de Microsoft 365 para cada persona que usa el Wi-Fi?</summary><p>No. El inicio de sesión usa Microsoft Entra ID, cuya edición gratuita viene con cualquier suscripción de Microsoft 365 o Azure e incluye inicio de sesión en aplicaciones sin límite. Cada persona necesita una cuenta en el Entra ID de su empresa y estar en el grupo autorizado; no hace falta asignarle una licencia de Microsoft 365 u Office.</p></details>
+        <details class="w-faq__item"><summary>¿El MFA requiere Entra ID P1 o P2?</summary><p>No. Los valores predeterminados de seguridad de Entra ID son gratuitos: cuando están activados, todos los usuarios se registran en el MFA con una aplicación de autenticación (como Microsoft Authenticator) y Microsoft lo solicita cuando considera que un inicio de sesión lo necesita. Para exigir MFA en cada inicio de sesión, o definir reglas propias, se necesita Acceso condicional, que requiere Entra ID P1, incluido en Microsoft 365 Business Premium, E3 y E5. El portal aplica las reglas que su Entra exige al iniciar sesión y no cobra nada extra por ello. La excepción son las reglas basadas en el dispositivo (dispositivo compatible o unido a Microsoft Entra híbrido): el navegador de un portal cautivo no puede presentar el dispositivo, así que excluya la aplicación del portal de esas directivas.</p></details>
+        <details class="w-faq__item"><summary>¿Y los invitados: visitantes y cuentas de invitado de Entra?</summary><p>Un visitante sin cuenta en su empresa entra con un voucher, sin iniciar sesión en Microsoft y sin contar en su plan. Una cuenta de invitado (B2B, tipo guest) que usted ponga en el grupo autorizado entra como un empleado, con la cuenta de su propia empresa, y cuenta como una persona en su plan. Microsoft factura a los invitados por usuario activo al mes; los primeros 50.000 son gratuitos.</p></details>
+        <details class="w-faq__item"><summary>¿Hace falta una VPN, una IP pública para RADIUS o UDP?</summary><p>No. Todo funciona por HTTPS: el portal llega a la API de su controlador por HTTPS, y los dispositivos llegan al portal por HTTPS. Funciona detrás de CGNAT y en enlaces satelitales.</p></details>
+        <details class="w-faq__item"><summary>¿Qué pasa si el portal se cae?</summary><p>Quien ya inició sesión no lo nota. El controlador UniFi mantiene los dispositivos autorizados durante 30 días; solo los nuevos inicios de sesión y las renovaciones esperan a que el portal vuelva.</p></details>
+        <details class="w-faq__item"><summary>¿Winserv ve las contraseñas de los usuarios?</summary><p>No. La autenticación ocurre en Microsoft; el portal solo orquesta el flujo OIDC y recibe un token. Las contraseñas y el MFA nunca pasan por nosotros.</p></details>
+        <details class="w-faq__item"><summary>¿Qué puntos de acceso y controladores son compatibles?</summary><p>Solo UniFi Network (Ubiquiti), probado en UniFi Network 10.0, 10.4 y 10.6 y en UniFi OS Server, con un SSID abierto y el portal cautivo. No funciona con controladores de otros fabricantes. Su controlador UniFi sigue de su lado, accesible por HTTPS.</p></details>
+        <details class="w-faq__item"><summary>¿El portal está en español?</summary><p>Este sitio, sí. La página que ve cada persona al conectarse aparece en inglés, o en portugués si su dispositivo está en portugués. El asistente de alta y la consola de administración están en inglés.</p></details>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <h2>¿Listo para sacar RADIUS de la ecuación?</h2>
+      <p class="w-lede">Cree su portal usted mismo en pocos minutos o, si prefiere hablar antes, una llamada de 20 minutos para ver si encaja con su controlador.</p>
+      <div class="w-btn-row">
+        <a class="w-btn" href="https://app.wifi.winserv.com.br/signup">Crear mi portal</a>
+        <a class="w-btn w-btn--ghost" href="mailto:contact@winserv.com.br?subject=Consulta%20winserv%20wifi&amp;body=Empresa%3A%0AN%C3%BAmero%20de%20puntos%20de%20acceso%3A%0AVersi%C3%B3n%20del%20controlador%20UniFi%3A%0ATenant%20de%20Microsoft%20Entra%20ID%3A%0A">Contáctenos</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

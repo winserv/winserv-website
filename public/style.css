@@ -1313,3 +1313,70 @@ section.section--text { padding-top: 1rem; }
 .nav-mobile-lang a { border-bottom: none !important; font-size: 0.85rem !important; color: var(--muted) !important; }
 @media (max-width: 768px) { .nav-lang { display: none; } }
 section.section--text .article-body > h2:first-child { margin-top: 0; }
+
+/* ═══ Winserv WiFi (sub-project 4, spec 2026-10-09 §11) ═══════════════════════════════════
+   The product pages' components, ported from the WiFi landing and renamed w-*: the site
+   already styles .hero and .hero-sub, and the landing's sheet styled section, h1, h2, a and
+   code globally. Site tokens only. tests/wifi.test.mjs holds that every w- class has a rule. */
+.w-main { max-width: 960px; margin: 0 auto; padding: 64px clamp(16px, 4vw, 28px) 0; }
+.w-main section { padding: clamp(40px, 7vw, 72px) 0; border-bottom: 1px solid var(--border); }
+.w-main h1 { font-size: clamp(1.6rem, 4.4vw, 2.5rem); line-height: 1.1; letter-spacing: -.02em; font-weight: 700; color: var(--text); margin: 12px 0 18px; }
+.w-main h2 { font-size: clamp(1.35rem, 3vw, 1.85rem); line-height: 1.2; letter-spacing: -.015em; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+.w-main a:not([class]) { color: var(--blue); }
+/* Long legal text: the site's reset leaves consecutive paragraphs flush (seen at 390 px, 2026-10-09). */
+.w-main section p + p { margin-top: .8em; }
+/* The site's nav is fixed at 64 px: an anchor opened from Microsoft's consent screen or an old
+   bookmark landed under it on a phone (review 2026-10-09, measured at 390 px). */
+.w-main [id] { scroll-margin-top: 80px; }
+.w-links { max-width: 960px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 28px) 40px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .9rem; }
+.w-links a { color: var(--muted); text-decoration: none; }
+.w-links a:hover { color: var(--blue); }
+.w-main code { font-family: var(--mono); font-size: .9em; background: var(--surface2); border: 1px solid var(--border); padding: .05em .35em; border-radius: 5px; overflow-wrap: anywhere; }
+.w-eyebrow { font-size: .9rem; font-weight: 600; color: var(--blue); }
+.w-hero { padding-top: clamp(36px, 6vw, 64px); }
+.w-hero h1:has(+ .w-hero-sub) { margin-bottom: 6px; }
+.w-hero-sub { font-size: clamp(1.1rem, 2.2vw, 1.35rem); font-weight: 600; color: var(--blue); margin-bottom: 18px; }
+.w-hero .w-eyebrow:last-child { margin-top: 22px; color: var(--muted); font-weight: 400; }
+.w-lede { font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--muted); max-width: 42rem; }
+.w-nb { white-space: nowrap; }
+.w-btn { display: inline-flex; align-items: center; gap: .5em; font: 600 .95rem/1.2 var(--font); background: var(--grad); color: var(--text); border: 1px solid transparent; border-radius: 8px; padding: 11px 18px; text-decoration: none; cursor: pointer; }
+.w-btn:hover { opacity: .86; }
+.w-btn--ghost { background: transparent; border-color: var(--border); }
+.w-btn--ghost:hover { border-color: var(--blue); color: var(--blue); }
+.w-btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+.w-note { border-left: 3px solid var(--blue); background: var(--blue-dim); padding: 12px 16px; margin: 22px 0 0; border-radius: 0 8px 8px 0; font-size: .95rem; color: var(--muted); max-width: 42rem; }
+.w-note strong { color: var(--text); }
+.w-tablewrap { overflow-x: auto; }
+.w-ledger { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: .98rem; }
+.w-ledger th { font-size: .82rem; font-weight: 600; color: var(--muted); text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.w-ledger td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.w-ledger td:first-child { color: var(--muted); }
+.w-ledger td:last-child { font-weight: 600; }
+.w-ledger tbody tr:nth-child(even) { background: var(--surface); }
+.w-cards { display: grid; gap: 16px; margin-top: 8px; }
+@media (min-width: 680px) { .w-cards { grid-template-columns: repeat(3, 1fr); } }
+.w-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.w-card .w-eyebrow { margin-bottom: 8px; }
+.w-card p:last-child { color: var(--muted); }
+.w-steps { margin: 8px 0 0; padding-left: 1.3em; max-width: 46rem; }
+.w-steps li { margin: 12px 0; color: var(--muted); }
+.w-steps strong { color: var(--text); }
+.w-tiers { display: grid; gap: 16px; margin-top: 8px; justify-content: center; }
+@media (min-width: 680px) { .w-tiers { grid-template-columns: repeat(auto-fit, minmax(300px, 420px)); } }
+.w-tier { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+.w-tier__price { font-size: 1.35rem; margin: 6px 0 2px; }
+.w-tier__price strong { font-size: 1.9rem; letter-spacing: -.02em; color: var(--text); }
+.w-tier__aud { color: var(--muted); font-size: .9rem; margin: 4px 0 14px; }
+.w-tier ul { list-style: none; padding: 0; margin: 0; }
+.w-tier li { padding: 9px 0 9px 1.6em; border-bottom: 1px solid var(--border); position: relative; }
+.w-tier li:last-child { border-bottom: 0; }
+.w-tier li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+/* #precios too: the landing's rule forgot the Spanish id (measured 2026-10-09). */
+#planos .w-eyebrow, #pricing .w-eyebrow, #precios .w-eyebrow { margin-top: 18px; color: var(--muted); font-weight: 400; }
+.w-faq { margin-top: 8px; border-top: 1px solid var(--border); }
+.w-faq__item { border-bottom: 1px solid var(--border); }
+.w-faq__item summary { cursor: pointer; padding: 16px 0; font-weight: 600; list-style: none; color: var(--text); }
+.w-faq__item summary::-webkit-details-marker { display: none; }
+.w-faq__item summary::before { content: '+'; color: var(--blue); font-weight: 700; margin-right: .6em; }
+.w-faq__item[open] summary::before { content: '–'; }
+.w-faq__item p { padding: 0 0 16px; color: var(--muted); max-width: 46rem; }

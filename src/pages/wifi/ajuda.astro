@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Como conectar no WiFi — Winserv WiFi"} description={"Guia rápido para conectar na rede WiFi: login com a conta Microsoft (funcionário) ou código de voucher (visitante), e como resolver os tropeços mais comuns."} path="/wifi/ajuda.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Guia do usuário</p>
+      <h1>Como conectar no WiFi</h1>
+      <p class="w-lede">Leva menos de um minuto. Há duas formas de entrar, na mesma tela: <strong>funcionário</strong> usa a conta Microsoft do trabalho; <strong>visitante</strong> digita um código de voucher. Depois do primeiro acesso, o aparelho fica conectado por <strong>30 dias</strong> sem precisar repetir nada, e continua assim enquanto você usar a rede. Se ficar mais de 30 dias sem usá-la, basta entrar de novo uma vez.</p>
+    </section>
+
+    <section id="funcionario">
+      <h2>Funcionário — entrar com a conta Microsoft</h2>
+      <ol class="w-steps">
+        <li>Conecte na rede WiFi da empresa.</li>
+        <li>A tela de login abre sozinha. Se não abrir, abra o navegador e tente acessar qualquer site — a tela aparece.</li>
+        <li>Toque em <strong>"Entrar com Microsoft"</strong>.</li>
+        <li>Digite seu <strong>e-mail e senha</strong> do trabalho.</li>
+        <li>Aprove o <strong>MFA</strong> no app Microsoft Authenticator.</li>
+        <li>Pronto: <strong>"✓ Conectado!"</strong>. Nos próximos 30 dias é automático.</li>
+      </ol>
+      <p class="w-note"><strong>Aparelho novo, sem internet de celular?</strong> A aprovação do Authenticator pode não chegar no primeiro acesso. Veja <a href="#problemas">"A aprovação não chega"</a> — tem solução em 10 segundos.</p>
+    </section>
+
+    <section id="visitante">
+      <h2>Visitante — entrar com voucher</h2>
+      <ol class="w-steps">
+        <li>Conecte na rede WiFi.</li>
+        <li>Na tela de login, digite o <strong>código</strong> que a recepção entregou.</li>
+        <li>Toque em entrar → <strong>"✓ Conectado!"</strong>.</li>
+      </ol>
+      <p class="w-lede">O código tem prazo de validade. Quando expirar, peça um novo na recepção.</p>
+    </section>
+
+    <section id="problemas">
+      <h2>Deu problema?</h2>
+      <div class="w-faq">
+        <details class="w-faq__item" open>
+          <summary>A aprovação do Authenticator não chega</summary>
+          <p>Acontece em aparelho novo (celular zerado, notebook recém-formatado) que só tem o WiFi da empresa, sem dados móveis. A tela da Microsoft pede para aprovar a notificação, mas ela nunca chega — porque a notificação precisa de internet aberta, que o aparelho ainda não tem. O <strong>código de 6 dígitos</strong>, não: ele aparece dentro do próprio app, sem internet.</p>
+          <ol class="w-steps">
+            <li>Na tela "aprovar solicitação", toque em <strong>"Não consigo usar o app Microsoft Authenticator no momento"</strong>.</li>
+            <li>Escolha <strong>"Usar um código de verificação"</strong>.</li>
+            <li>Abra o <strong>Microsoft Authenticator</strong>, veja o código de 6 dígitos e digite na tela.</li>
+          </ol>
+        </details>
+        <details class="w-faq__item">
+          <summary>"Sessão inválida" depois de tocar em Microsoft</summary>
+          <p>A telinha de login às vezes se perde no caminho. <strong>Feche a tela e reconecte no WiFi</strong> — ela reabre limpa e o login funciona.</p>
+        </details>
+        <details class="w-faq__item">
+          <summary>"Acesso negado" depois do login</summary>
+          <p>Seu login funcionou (não é senha errada), mas sua conta ainda não está liberada para esta rede. <strong>Fale com a TI da empresa</strong> para liberar seu acesso.</p>
+        </details>
+        <details class="w-faq__item">
+          <summary>A tela de login não abre</summary>
+          <p>Abra o navegador e tente acessar um site qualquer (por exemplo <code>http://exemplo.com</code>). A tela de login aparece. Em iPhone/Android, conectar de novo na rede também costuma reabri-la.</p>
+        </details>
+      </div>
+      <p class="w-lede">Continua sem conseguir? Fale com a <strong>recepção</strong> (visitante) ou a <strong>TI da empresa</strong> (funcionário).</p>
+    </section>
+  </main>
+</BaseLayout>
