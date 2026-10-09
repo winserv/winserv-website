@@ -17,21 +17,21 @@ export const LANG = {
 
 // key → paths per language. A value is the path as served, or { use: <locale> } when that
 // language has no page of its own (Spanish privacy → the English notice; D3: legal texts are
-// pt-BR and EN only). English and Spanish entries arrive with their pages (Tasks 6 and 7).
+// pt-BR and EN only).
 export const ROUTES = {
-  index: { paths: { 'pt-br': '/', en: '/en/' } },
-  solucoes: { paths: { 'pt-br': '/solucoes.html', en: '/en/solutions.html' } },
-  conteudo: { paths: { 'pt-br': '/conteudo.html', en: '/en/articles.html' } },
-  contato: { paths: { 'pt-br': '/contato.html', en: '/en/contact.html' } },
-  missao: { paths: { 'pt-br': '/missao.html', en: '/en/mission.html' } },
-  valores: { paths: { 'pt-br': '/valores.html', en: '/en/values.html' } },
-  ti: { paths: { 'pt-br': '/ti.html', en: '/en/information-technology.html' } },
-  tiverde: { paths: { 'pt-br': '/tiverde.html', en: '/en/green-it.html' } },
-  telas: { paths: { 'pt-br': '/telas.html', en: '/en/screen-time.html' } },
-  exposicao: { paths: { 'pt-br': '/exposicao.html', en: '/en/pornography-exposure.html' } },
-  filtro: { paths: { 'pt-br': '/filtro.html', en: '/en/internet-filter.html' } },
-  privacidade: { paths: { 'pt-br': '/privacidade.html', en: '/en/privacy.html' } },
-  404: { noindex: true, paths: { 'pt-br': '/404.html', en: '/en/404.html' } },
+  index: { paths: { 'pt-br': '/', en: '/en/', es: '/es/' } },
+  solucoes: { paths: { 'pt-br': '/solucoes.html', en: '/en/solutions.html', es: '/es/soluciones.html' } },
+  conteudo: { paths: { 'pt-br': '/conteudo.html', en: '/en/articles.html', es: '/es/articulos.html' } },
+  contato: { paths: { 'pt-br': '/contato.html', en: '/en/contact.html', es: '/es/contacto.html' } },
+  missao: { paths: { 'pt-br': '/missao.html', en: '/en/mission.html', es: '/es/mision.html' } },
+  valores: { paths: { 'pt-br': '/valores.html', en: '/en/values.html', es: '/es/valores.html' } },
+  ti: { paths: { 'pt-br': '/ti.html', en: '/en/information-technology.html', es: '/es/que-es-ti.html' } },
+  tiverde: { paths: { 'pt-br': '/tiverde.html', en: '/en/green-it.html', es: '/es/ti-verde.html' } },
+  telas: { paths: { 'pt-br': '/telas.html', en: '/en/screen-time.html', es: '/es/tiempo-de-pantalla.html' } },
+  exposicao: { paths: { 'pt-br': '/exposicao.html', en: '/en/pornography-exposure.html', es: '/es/exposicion-pornografia.html' } },
+  filtro: { paths: { 'pt-br': '/filtro.html', en: '/en/internet-filter.html', es: '/es/filtro-internet.html' } },
+  privacidade: { paths: { 'pt-br': '/privacidade.html', en: '/en/privacy.html', es: { use: 'en' } } },
+  404: { noindex: true, paths: { 'pt-br': '/404.html', en: '/en/404.html', es: '/es/404.html' } },
   // One error page, Portuguese, unchanged: behind the edge a container that is down produces the
   // Caddy's 502, never ours (spec §8).
   error: { noindex: true, paths: { 'pt-br': '/error.html' } },

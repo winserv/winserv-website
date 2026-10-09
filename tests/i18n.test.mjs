@@ -209,3 +209,23 @@ test('the English privacy notice: same version date, the Portuguese prevails (ga
   assert.deepEqual([+en[2], EN_M.indexOf(en[1]), en[3]], [+pt[1], PT_M.indexOf(pt[2]), pt[3]]);
   assert.match(parse(read('en/privacy.html')).text, /the Portuguese version prevails/);
 });
+
+test('Spanish pages carry no Portuguese (gate e)', () => {
+  const es = ofLocale('es');
+  assert.ok(es.length >= 12, `only ${es.length} Spanish pages`);
+  for (const p of es) {
+    const raw = read(pageFile(p.path)).replace(foreign('pt-BR'), '');
+    assert.deepEqual([...new Set(raw.match(PT_ONLY_LETTERS) || [])], [], p.path);
+    const copy = raw.replace(URLISH, '');
+    assert.deepEqual([...new Set([...copy.matchAll(PT_ONLY_WORDS)].map((m) => m[0].toLowerCase()))], [], p.path);
+  }
+});
+
+test('the whole site: 35 indexable pages, a 404 per language, Spanish privacy is the English notice', () => {
+  assert.equal(PAGES.filter((p) => !noindex(p.key)).length, 35);
+  for (const l of LOCALES) assert.ok(twins('404')[l], `no 404 in ${l}`);
+  assert.equal(href('privacidade', 'es'), '/en/privacy.html');
+  for (const p of ofLocale('es')) {
+    assert.ok(html(p).querySelector('.site-footer a[href="/en/privacy.html"]'), `${p.path}: footer privacy link`);
+  }
+});

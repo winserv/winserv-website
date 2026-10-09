@@ -9,4 +9,8 @@ export const UI = {
     nav: { home: 'Home', solutions: 'Solutions', articles: 'Articles', wifi: 'Corporate Wi-Fi', badge: 'new', contact: 'Contact', menu: 'Menu' },
     footer: { tagline: 'Information technology for companies that need practical results.', navigate: 'Navigate', company: 'Company', mission: 'Our mission', values: 'Values and Principles', privacy: 'Privacy' },
   },
+  es: {
+    nav: { home: 'Inicio', solutions: 'Soluciones', articles: 'Artículos', wifi: 'Wi-Fi corporativo', badge: 'nuevo', contact: 'Contacto', menu: 'Menú' },
+    footer: { tagline: 'Tecnología de la información para empresas que necesitan resultados prácticos.', navigate: 'Navegar', company: 'Empresa', mission: 'Nuestra misión', values: 'Valores y principios', privacy: 'Privacidad' },
+  },
 };
