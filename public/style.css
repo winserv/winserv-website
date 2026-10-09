@@ -1304,7 +1304,8 @@ section.section--text { padding-top: 1rem; }
 
 /* Language switcher (spec sub-project 3 §4). Final look is sub-project 2's. The !important in
    .nav-mobile-lang a only beats .nav-mobile a's border and size — nowhere else. */
-.nav-lang { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; margin-right: 1.25rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; }
+.nav-right { display: flex; align-items: center; gap: 1.25rem; }
+.nav-lang { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; }
 .nav-lang a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
 .nav-lang a:hover { color: var(--text); }
 .nav-lang-current { color: var(--text); }

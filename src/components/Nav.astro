@@ -19,13 +19,16 @@ const others = LOCALES.filter((l) => l !== locale && target(l)).map((l) => ({ l,
     <li><a href={href('conteudo', locale)} class={on('conteudo')}>{t.articles}</a></li>
     <li><a href={WIFI}>{t.wifi}<span class="nav-new">{t.badge}</span></a></li>
   </ul>
-  {others.length > 0 && (
-    <div class="nav-lang">
-      <span class="nav-lang-current" lang={LANG[locale].html}>{LANG[locale].short}</span>
-      {others.map((o) => <a href={o.to} hreflang={LANG[o.l].hreflang} lang={LANG[o.l].html} aria-label={LANG[o.l].name}>{LANG[o.l].short}</a>)}
-    </div>
-  )}
-  <a class="btn-nav" href={href('contato', locale)}>{t.contact}</a>
+  <!-- One right-hand group, so the nav keeps the three items space-between laid out before the switcher. -->
+  <div class="nav-right">
+    {others.length > 0 && (
+      <div class="nav-lang">
+        <span class="nav-lang-current" lang={LANG[locale].html}>{LANG[locale].short}</span>
+        {others.map((o) => <a href={o.to} hreflang={LANG[o.l].hreflang} lang={LANG[o.l].html} aria-label={LANG[o.l].name}>{LANG[o.l].short}</a>)}
+      </div>
+    )}
+    <a class="btn-nav" href={href('contato', locale)}>{t.contact}</a>
+  </div>
   <button class="nav-burger" id="burger" aria-label={t.menu}><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile" id="mobile-menu">
