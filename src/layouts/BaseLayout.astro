@@ -1,29 +1,46 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { ORIGIN, LANG, routeOf, twins, noindex as tableNoindex, ogImage } from '../i18n/routes.mjs';
 
 interface Props {
   title: string;
   description?: string;
-  path: string;                 // "/" or "/x.html" — the canonical path on www
+  path: string;                 // the page's path exactly as in src/i18n/routes.mjs
   ogTitle?: string;
   ogDescription?: string;
   ogType?: string;
   active?: 'inicio' | 'solucoes' | 'conteudo' | 'none';
   scripts?: string[];           // files under public/, loaded with defer
-  noindex?: boolean;            // error pages: robots noindex, no canonical, no OG
+  noindex?: boolean;            // must agree with the table
   googleSiteVerification?: string;
 }
 const {
   title, description, path, ogTitle = title, ogDescription = description, ogType = 'website',
   active = 'none', scripts = [], noindex = false, googleSiteVerification,
 } = Astro.props;
-const ORIGIN = 'https://www.winserv.com.br';
-const url = ORIGIN + path;
-const image = ORIGIN + '/images/og.jpg';
+
+// Spec sub-project 3 §4: a page the table does not know cannot be built.
+const route = routeOf(path);
+if (!route) throw new Error(`BaseLayout: path ${path} is not in src/i18n/routes.mjs`);
+const { key, locale } = route;
+if (noindex !== tableNoindex(key)) throw new Error(`BaseLayout: ${path} says noindex=${noindex}, the table says ${tableNoindex(key)}`);
+const lang = LANG[locale];
+const url = ORIGIN + path;                     // the table's own value — never Astro.url
+const image = ORIGIN + ogImage(locale);
+const tw = twins(key);
+const pairs = Object.entries(tw);
+const alternates = !noindex && pairs.length > 1 ? pairs : [];
+const xDefault = alternates.length && tw.en ? ORIGIN + tw.en : null;   // x-default → English, on purpose (spec §4)
+const org = key === 'index' ? JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'Organization',
+  name: 'WINSERV', legalName: 'M. SAMOILENKO INFORMATICA',
+  url: ORIGIN + '/', logo: ORIGIN + '/images/winserv-logo.svg',
+  email: 'comercial@winserv.com.br', sameAs: ['https://www.linkedin.com/company/winserv/'],
+}) : null;
 ---
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang={lang.html}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,9 +49,12 @@ const image = ORIGIN + '/images/og.jpg';
   {description && <meta name="description" content={description} />}
   {noindex && <meta name="robots" content="noindex" />}
   {!noindex && <link rel="canonical" href={url} />}
+  {alternates.map(([l, p]) => <link rel="alternate" hreflang={LANG[l].hreflang} href={ORIGIN + p} />)}
+  {xDefault && <link rel="alternate" hreflang="x-default" href={xDefault} />}
   {!noindex && <meta property="og:type" content={ogType} />}
   {!noindex && <meta property="og:site_name" content="WINSERV" />}
-  {!noindex && <meta property="og:locale" content="pt_BR" />}
+  {!noindex && <meta property="og:locale" content={lang.og} />}
+  {!noindex && pairs.filter(([l]) => l !== locale).map(([l]) => <meta property="og:locale:alternate" content={LANG[l].og} />)}
   {!noindex && <meta property="og:url" content={url} />}
   {!noindex && <meta property="og:title" content={ogTitle} />}
   {!noindex && ogDescription && <meta property="og:description" content={ogDescription} />}
@@ -44,12 +64,13 @@ const image = ORIGIN + '/images/og.jpg';
   {!noindex && ogDescription && <meta name="twitter:description" content={ogDescription} />}
   {!noindex && <meta name="twitter:image" content={image} />}
   {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
+  {org && <script type="application/ld+json" set:html={org} />}
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <Nav active={active} />
+  <Nav active={active} locale={locale} routeKey={key} noindex={noindex} />
   <slot />
-  <Footer />
+  <Footer locale={locale} />
   <script is:inline src="/js/site.js" defer></script>
   {scripts.map((src) => <script is:inline src={src} defer></script>)}
 </body>

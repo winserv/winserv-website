@@ -8,10 +8,11 @@
       a.addEventListener('click', function () { m.classList.remove('open'); b.classList.remove('open'); });
     });
   }
-  var slug = location.pathname.replace(/^\//, '').replace(/\.html$/, '') || 'inicio';
+  // "/" → inicio, "/en/" → en/inicio, "/en/contact.html" → en/contact (spec sub-project 3; Review Focus 4)
+  var slug = location.pathname.replace(/^\//, '').replace(/\.html$/, '').replace(/(^|\/)$/, '$1inicio');
   document.querySelectorAll('a[href^="mailto:"]').forEach(function (a) {
     a.addEventListener('click', function () {
-      if (navigator.sendBeacon) navigator.sendBeacon('/e/contato-email?p=' + encodeURIComponent(slug));
+      if (navigator.sendBeacon) navigator.sendBeacon('/e/contato-email?p=' + encodeURIComponent(slug).replace(/%2F/g, '/'));
     });
   });
 })();

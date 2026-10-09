@@ -6,13 +6,14 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'node-html-parser';
+import { pages, noindex, pageFile, href } from '../src/i18n/routes.mjs';
 
 export const DIST = fileURLToPath(new URL('../dist/', import.meta.url));
 export const ORIGIN = 'https://www.winserv.com.br';
-export const PAGES = ['index.html', 'solucoes.html', 'conteudo.html', 'contato.html', 'missao.html',
-  'valores.html', 'ti.html', 'tiverde.html', 'telas.html', 'exposicao.html', 'filtro.html',
-  'privacidade.html'];
-export const ERROR_PAGES = ['404.html', 'error.html'];
+// From the table (spec sub-project 3 §3): the lists that were written here by hand.
+export const PAGES = pages().filter((p) => !noindex(p.key)).map((p) => pageFile(p.path));
+export const ERROR_PAGES = pages().filter((p) => noindex(p.key)).map((p) => pageFile(p.path));
+const LOCALE_OF = Object.fromEntries(pages().map((p) => [pageFile(p.path), p.locale]));
 
 assert.ok(existsSync(DIST), 'dist/ missing — run `npm run build` first');
 
@@ -33,7 +34,7 @@ test('every page builds at its old path', () => {
 test('the static files survive byte for byte', () => {
   for (const f of ['style.css', 'BingSiteAuth.xml', 'googlecc9795c73ab262d5.html',
     'googlehostedservice.html', '.well-known/winserv-license/sagres-validation.json',
-    'images/og.jpg', 'fonts/plus-jakarta-sans-400.woff2']) {
+    'images/og.jpg', 'images/og/pt-br.jpg', 'fonts/plus-jakarta-sans-400.woff2']) {
     assert.ok(FILES.includes(f), `missing ${f}`);
   }
 });
@@ -69,12 +70,6 @@ function resolveSameSite(url, from) {
   return u.endsWith('/') ? u.slice(1) + 'index.html' : u.slice(1);
 }
 
-test("format 'file' + i18n produce the old paths and no locale routes yet (spec §11)", () => {
-  for (const f of ['index.html', 'contato.html', 'filtro.html', '404.html']) assert.ok(HTML.includes(f), f);
-  assert.ok(!HTML.some((f) => f.endsWith('/index.html')), 'a page built as dir/index.html');
-  assert.ok(!FILES.some((f) => /^(en|es|pt-br)\//.test(f)), 'a locale route exists before sub-project 3');
-});
-
 test('no inline style or script anywhere (CSP without unsafe-inline)', () => {
   for (const f of HTML) {
     const root = parse(read(f));
@@ -101,15 +96,12 @@ test('every same-site reference resolves, and none is relative', () => {
   }
 });
 
-test('pages declare language, title, description and a canonical on www', () => {
+// Language and canonical moved to tests/i18n.test.mjs (gate c), which reads them from the table.
+test('pages declare a title and a description', () => {
   for (const f of PAGES) {
     const root = parse(read(f));
-    assert.equal(root.querySelector('html').getAttribute('lang'), 'pt-BR', f);
     assert.ok(root.querySelector('title')?.text.trim(), `${f}: <title>`);
     assert.ok(root.querySelector('meta[name="description"]')?.getAttribute('content'), `${f}: description`);
-    const path = f === 'index.html' ? '/' : `/${f}`;
-    assert.deepEqual(root.querySelectorAll('link[rel="canonical"]').map((e) => e.getAttribute('href')),
-      [ORIGIN + path], f);
   }
 });
 
@@ -144,7 +136,7 @@ test('robots.txt names the www sitemap', () => {
 
 test('every page links the privacy notice', () => {
   for (const f of [...PAGES, ...ERROR_PAGES]) {
-    assert.ok(parse(read(f)).querySelector('a[href="/privacidade.html"]'), f);
+    assert.ok(parse(read(f)).querySelector(`a[href="${href('privacidade', LOCALE_OF[f])}"]`), f);
   }
 });
 

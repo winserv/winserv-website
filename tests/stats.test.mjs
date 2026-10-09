@@ -10,7 +10,7 @@ const run = (f) => execFileSync('awk', ['-f', awk, fileURLToPath(new URL(f, impo
 
 test('counts views, origins and e-mail clicks — and nothing else', () => {
   const out = run('./fixtures/access.log');
-  assert.match(out, /^linhas 12, robos\/healthcheck 6, visualizacoes 3$/m);  // 304 and /contato count
+  assert.match(out, /^linhas 13, robos\/healthcheck 6, visualizacoes 3$/m);  // 304 and /contato count
   assert.match(out, /^\s+1 \/$/m);
   assert.match(out, /^\s+1 \/contato\.html$/m);
   assert.match(out, /^\s+1 \/contato$/m);
@@ -18,6 +18,7 @@ test('counts views, origins and e-mail clicks — and nothing else', () => {
   assert.match(out, /^\s+1 \(interno\)$/m);
   assert.match(out, /^\s+1 \(sem origem\)$/m);
   assert.match(out, /^\s+1 contato$/m);                                       // the POST beacon
+  assert.match(out, /^\s+1 en\/contact$/m);                                   // a language page's beacon (sub-project 3, Review Focus 4)
   // Over external views only: internal navigation would dilute the share the spec's 20 %
   // floor reads (review of the astro branch).
   assert.match(out, /^sem origem: 50% das visitas externas$/m);
