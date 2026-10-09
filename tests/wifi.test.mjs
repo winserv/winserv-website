@@ -93,9 +93,30 @@ test('the legal text changes only with a new version, and the six pages show tha
   }
 });
 
-// Ported from test_marketing.py:263 — links outside this tree end in #aplicativo-entra.
-test('the Portuguese privacy keeps the anchor old links carry', () => {
-  assert.ok(parse(read('wifi/privacidade.html')).querySelector('#aplicativo-entra'));
+// Ported from test_marketing.py:263 (links outside this tree end in #aplicativo-entra) and
+// widened by the 2026-10-09 review: every id the landing exposed in <main> is one an old link
+// or bookmark may carry through the 301. Adding an id stays free; removing one of these is a
+// deliberate edit here. Read from the landing's marketing/ on 2026-10-09.
+const LANDING_IDS = {
+  'wifi/index.html': ['substitui', 'diferenciais', 'governanca', 'como', 'planos', 'faq', 'contato'],
+  'en/wifi/index.html': ['offboarding', 'why', 'how', 'replaces', 'pricing', 'faq', 'contact'],
+  'es/wifi/index.html': ['desvinculacion', 'diferencia', 'como-funciona', 'reemplaza', 'precios', 'preguntas', 'contacto'],
+  'wifi/requisitos.html': ['walled-garden', 'firewall', 'controller', 'duas-redes', 'dns'],
+  'en/wifi/requirements.html': ['walled-garden', 'firewall', 'controller', 'two-networks', 'dns'],
+  'es/wifi/requisitos.html': ['walled-garden', 'firewall', 'controlador', 'dos-redes', 'dns'],
+  'wifi/ajuda.html': ['funcionario', 'visitante', 'problemas'],
+  'en/wifi/help.html': ['employee', 'visitor', 'problems'],
+  'es/wifi/ayuda.html': ['empleado', 'visitante', 'problemas'],
+  'wifi/privacidade.html': ['aplicativo-entra', 'transferencia'],
+  'en/wifi/privacy.html': ['entra-apps', 'transfers'],
+  'wifi/dpa.html': ['partes', 'instrucoes', 'dados', 'sigilo', 'seguranca', 'suboperadores', 'transferencia', 'titulares', 'incidentes', 'encerramento', 'auditoria', 'vigencia'],
+  'en/wifi/dpa.html': ['parties', 'instructions', 'data', 'confidentiality', 'security', 'subprocessors', 'transfers', 'requests', 'incidents', 'termination', 'audit', 'term'],
+};
+test('every anchor the landing exposed survives on its WiFi page', () => {
+  for (const [file, ids] of Object.entries(LANDING_IDS)) {
+    const have = new Set(parse(read(file)).querySelector('main').querySelectorAll('[id]').map((e) => e.getAttribute('id')));
+    assert.deepEqual(ids.filter((id) => !have.has(id)), [], file);
+  }
 });
 
 // Ported from test_marketing.py:290 — LGPD art. 41 §1 (named 2026-09-26; the page had only contact@).
@@ -122,8 +143,9 @@ const TEXT = walk(DIST).filter((f) => /\.(html|txt|xml|json|js|css)$/.test(f));
 // Ported from test_marketing.py:202, plus the landing's own host (spec §6 row 5): what the
 // WiFi left behind must not be linked back. winserv-auth.com left on 2026-10-07 (DBL).
 test('nothing published points at a host or address the product left', () => {
+  // winserv-unifi-portal: the private repo's name rode in the pt-BR home's mailto subject (review 2026-10-09).
   for (const gone of ['www.wifi.winserv.com.br', 'unifi-portal.winserv.com.br', 'contato@winserv.com.br',
-    'winserv-auth.com']) {
+    'winserv-auth.com', 'winserv-unifi-portal']) {
     assert.deepEqual(TEXT.filter((f) => readFileSync(f, 'utf8').includes(gone)).map((f) => f.slice(DIST.length)), [], gone);
   }
 });
