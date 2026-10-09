@@ -1,11 +1,11 @@
 ---
-import { LOCALES, LANG, href, twins, external } from '../i18n/routes.mjs';
+import { LOCALES, LANG, href, twins } from '../i18n/routes.mjs';
 import { UI } from '../i18n/ui.mjs';
-interface Props { active: 'inicio' | 'solucoes' | 'conteudo' | 'none'; locale: string; routeKey: string; noindex: boolean }
+interface Props { active: 'inicio' | 'solucoes' | 'conteudo' | 'wifi' | 'none'; locale: string; routeKey: string; noindex: boolean }
 const { active, locale, routeKey, noindex } = Astro.props;
 const on = (k: string) => (active === k ? 'active' : undefined);
 const t = UI[locale].nav;
-const WIFI = external('wifiHome', locale);
+const WIFI = href('wifi', locale);
 // The switcher (spec §4): the page's other languages; a noindex page has no twin, so it offers
 // the homes. Never .nav-new — the badge gate wants exactly one, on the WiFi tab.
 const target = (l: string) => (noindex ? twins('index')[l] : twins(routeKey)[l]);
@@ -17,7 +17,7 @@ const others = LOCALES.filter((l) => l !== locale && target(l)).map((l) => ({ l,
     <li><a href={href('index', locale)} class={on('inicio')}>{t.home}</a></li>
     <li><a href={href('solucoes', locale)} class={on('solucoes')}>{t.solutions}</a></li>
     <li><a href={href('conteudo', locale)} class={on('conteudo')}>{t.articles}</a></li>
-    <li><a href={WIFI}>{t.wifi}<span class="nav-new">{t.badge}</span></a></li>
+    <li><a href={WIFI} class={on('wifi')}>{t.wifi}<span class="nav-new">{t.badge}</span></a></li>
   </ul>
   <!-- One right-hand group, so the nav keeps the three items space-between laid out before the switcher. -->
   <div class="nav-right">

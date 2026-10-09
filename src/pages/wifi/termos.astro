@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Termos de serviço — Winserv WiFi"} description={"Termos de serviço do Winserv WiFi: o que o produto faz, o que depende de você, disponibilidade, dados e encerramento."} path="/wifi/termos.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Termos de serviço</p>
+      <h1>Termos de serviço</h1>
+      <p class="w-lede">Contratado da <strong>M. SAMOILENKO INFORMATICA</strong>, nome fantasia WinServ Tecnologia da Informação, CNPJ 10.411.266/0001-80, Av. Almirante Tamandaré, 106, apto 201, Vila Nossa Senhora dos Navegantes, Rio Grande/RS, CEP 96202-570, para o serviço <strong>Winserv WiFi</strong> — autenticação de portal cativo para redes Wi-Fi UniFi. Ao criar um portal ou consentir com nossos aplicativos no Microsoft Entra, você aceita o que está aqui.</p>
+    </section>
+
+    <section>
+      <h2>1. O que o serviço faz</h2>
+      <p class="w-lede">Autenticamos quem se conecta à sua rede Wi-Fi — pela conta Microsoft da sua organização ou por código de voucher — e autorizamos o aparelho no <strong>seu</strong> controlador UniFi. A autorização vive no seu controlador; nós decidimos quem entra, você continua dono da rede.</p>
+      <p class="w-lede">O plano de autosserviço é contratado por faixa — <strong>até 50, 100, 250 ou 500 pessoas com acesso ativo</strong> —, com os preços da <a href="/wifi/">página inicial</a>. Conta cada pessoa distinta da sua organização com ao menos um aparelho autorizado; um aparelho pré-registrado em nome de alguém conta como essa pessoa, e vouchers de visitante não contam. O uso aparece no seu console. Passou da faixa, avisamos por e-mail e combinamos a mudança com você — ninguém é bloqueado por passar do número.</p>
+    </section>
+
+    <section>
+      <h2>2. O que depende de você</h2>
+      <ul class="w-steps">
+        <li>Manter o controlador UniFi acessível pela internet, com certificado válido, e uma conta local <strong>Site Administrator</strong> dedicada, restrita a um site, para nós.</li>
+        <li>Liberar no firewall e no walled garden o que está em <a href="/wifi/requisitos.html">requisitos de rede</a>.</li>
+        <li>Manter no Microsoft Entra o grupo que define quem tem acesso. <strong>Quem está no grupo entra</strong> — a lista é sua, e a consequência de um nome a mais nela também.</li>
+        <li>Usar o serviço só na sua própria rede e para pessoas autorizadas por você.</li>
+      </ul>
+      <p class="w-lede">Falhas causadas por qualquer um desses itens não são interrupção do serviço. A maior parte dos chamados começa aqui.</p>
+    </section>
+
+    <section>
+      <h2>3. Dados</h2>
+      <p class="w-lede">O que lemos, o que guardamos e como revogar está descrito em <a href="/wifi/privacidade.html#aplicativo-entra">privacidade</a>, incluindo o que cada aplicativo do Entra acessa. Em resumo: identificamos quem entrou e qual aparelho, e não tocamos em conteúdo de e-mail, arquivos ou tráfego da rede.</p>
+      <p class="w-lede">Você é o controlador dos dados dos seus usuários; nós operamos como <strong>operador</strong>, tratando-os apenas para prestar o serviço, nos termos do <a href="/wifi/dpa.html">acordo de tratamento de dados</a>, que faz parte destes termos. Tratamos as suas credenciais do controlador e os tokens de sessão como confidenciais, cifrados em repouso com chave própria do seu portal.</p>
+    </section>
+
+    <section>
+      <h2>4. Disponibilidade</h2>
+      <p class="w-lede">Trabalhamos para manter o serviço disponível, sem SLA contratado por padrão. Um ponto que vale entender: <strong>uma indisponibilidade nossa não derruba quem já está conectado</strong> — a autorização está no seu controlador e dura até 30 dias. O que fica indisponível é a autenticação de aparelhos novos.</p>
+      <p class="w-lede">Fazemos manutenções e atualizações sem aviso prévio quando não houver impacto esperado; mudanças que exijam ação sua são comunicadas por e-mail.</p>
+    </section>
+
+    <section>
+      <h2>5. Uso aceitável</h2>
+      <p class="w-lede">Não use o serviço para acesso não autorizado a redes de terceiros, para contornar controles de segurança de outra organização, nem para tentar obter dados além dos da sua própria. Podemos suspender um portal que esteja causando dano a terceiros ou à nossa infraestrutura, avisando assim que possível.</p>
+    </section>
+
+    <section>
+      <h2>6. Encerramento</h2>
+      <p class="w-lede">Você pode encerrar quando quiser: remova nossos aplicativos no seu Entra e desligue o portal externo no controlador. Os aparelhos já autorizados continuam conectados até a autorização expirar no seu próprio controlador.</p>
+      <p class="w-lede">Cancelada a assinatura, o portal fica suspenso e pode ser reativado, com os dados preservados, por até 90 dias. Depois disso, ou antes, se você pedir por escrito, apagamos os dados do seu portal em até 30 dias; as cópias de segurança do banco que ainda os contenham expiram em até 30 dias depois disso. <strong>Não há exportação a recuperar</strong>: nada do que guardamos sobrevive a uma reconexão — um login refaz tudo.</p>
+    </section>
+
+    <section>
+      <h2>7. Limites</h2>
+      <p class="w-lede">O serviço é fornecido como está. Não respondemos por lucros cessantes nem por danos indiretos. Nossa responsabilidade, quando houver, limita-se ao valor pago pelo serviço nos 12 meses anteriores ao evento.</p>
+    </section>
+
+    <section>
+      <h2>8. Mudanças e foro</h2>
+      <p class="w-lede">Alterações relevantes destes termos são comunicadas com 30 dias de antecedência. Aplica-se a lei brasileira, no foro da comarca de Rio Grande/RS.</p>
+      <p class="w-lede">Dúvidas: <a href="mailto:contact@winserv.com.br">contact@winserv.com.br</a>.</p>
+    </section>
+  </main>
+</BaseLayout>

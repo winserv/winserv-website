@@ -47,9 +47,6 @@ npm ci --silent
 npm run build --silent
 npm test --silent
 ok "build e testes"
-# The WiFi links (gate live′) before anything is sent: a 404/410 is our content being wrong and
-# stops the publish; a 5xx from the neighbour only warns (2026-10-09 review).
-if node scripts/check-external.mjs; then ok "links externos"; else err "link externo quebrado (404/410) — nada foi enviado"; exit 1; fi
 
 DRY="$(mktemp)"; DRY_DEPLOY="$(mktemp)"
 trap 'rm -f "$DRY" "$DRY_DEPLOY"' EXIT

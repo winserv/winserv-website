@@ -10,7 +10,7 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   ogType?: string;
-  active?: 'inicio' | 'solucoes' | 'conteudo' | 'none';
+  active?: 'inicio' | 'solucoes' | 'conteudo' | 'wifi' | 'none';
   scripts?: string[];           // files under public/, loaded with defer
   noindex?: boolean;            // must agree with the table
   googleSiteVerification?: string;
@@ -27,7 +27,7 @@ const { key, locale } = route;
 if (noindex !== tableNoindex(key)) throw new Error(`BaseLayout: ${path} says noindex=${noindex}, the table says ${tableNoindex(key)}`);
 const lang = LANG[locale];
 const url = ORIGIN + path;                     // the table's own value — never Astro.url
-const image = ORIGIN + ogImage(locale);
+const image = ORIGIN + ogImage(locale, key);
 const tw = twins(key);
 const pairs = Object.entries(tw);
 const alternates = !noindex && pairs.length > 1 ? pairs : [];

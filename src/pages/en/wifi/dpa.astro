@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Data processing agreement — Winserv WiFi"} description={"Winserv WiFi data processing agreement (DPA): what we process on the customer's behalf, with whom, where, how we protect it and what happens at termination."} path="/en/wifi/dpa.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Data processing agreement (DPA)</p>
+      <h1>Data processing agreement</h1>
+      <p class="w-lede">This agreement is part of the <a href="/en/wifi/terms.html">terms of service</a> and applies to every portal subscribed through self-service, with no separate signature: whoever accepts the terms at sign-up also accepts this text, in the same version. It serves as the controller–processor contract of Brazil's LGPD (art. 39) and, for customers subject to the GDPR, as the contract of GDPR Article 28.</p>
+      <p class="w-lede">If you need a signed DPA with negotiated clauses, you may propose a separate contract: <a href="mailto:contact@winserv.com.br">contact@winserv.com.br</a>.</p>
+    </section>
+
+    <section id="parties">
+      <h2>1. The parties</h2>
+      <p class="w-lede"><strong>Controller:</strong> the organization that subscribes to the portal (the customer). It decides who may join its own network.</p>
+      <p class="w-lede"><strong>Processor:</strong> M. SAMOILENKO INFORMATICA, trading as <span lang="pt-BR">WinServ Tecnologia da Informação</span>, Brazilian company registration (CNPJ) 10.411.266/0001-80, <span lang="pt-BR">Av. Almirante Tamandaré, 106, apto 201, Vila Nossa Senhora dos Navegantes, Rio Grande/RS, CEP 96202-570</span>, Brazil. Data protection officer: Marcelo Samoilenko, <a href="mailto:dpo@winserv.com.br">dpo@winserv.com.br</a>.</p>
+      <p class="w-lede">The data of whoever subscribes (the account holder's e-mail, billing) we handle as a controller, as described in <a href="/en/wifi/privacy.html">privacy</a>. This agreement covers the data we process <strong>on the customer's behalf</strong>.</p>
+    </section>
+
+    <section id="instructions">
+      <h2>2. Subject matter and instructions</h2>
+      <p class="w-lede">We process the data only to provide the service described in the terms: authenticating whoever connects to the customer's Wi-Fi network, authorizing the device on the customer's UniFi controller, and renewing and cutting that authorization. The customer's instructions are the configuration it sets in the portal (authorized group, operators group, vouchers, pre-registered devices, fast offboarding) and whatever it asks of our contact in writing. If an instruction seems to us to break the law, we say so before carrying it out.</p>
+      <p class="w-lede">We use this data for nothing else: no advertising, no sale, no model training, no usage profiling.</p>
+    </section>
+
+    <section id="data">
+      <h2>3. Data and data subjects</h2>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Data subjects</th><th>Data</th><th>For how long</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>The customer's employees who sign in with a Microsoft account</td>
+              <td>Device MAC address, e-mail (UPN) and account identifier in Entra, encrypted renewal token; in technical logs, the IP, MAC, e-mail and network (SSID) of each access</td>
+              <td>While access is active; after that, until the token expires (90 days without renewal). Technical logs: 6 months</td>
+            </tr>
+            <tr>
+              <td>Visitors who use a voucher</td>
+              <td>Device MAC address, the code used, the note the operator wrote on the voucher; in technical logs, IP, MAC and network (SSID)</td>
+              <td>MAC: up to 90 days after access ends. Code and note: while the voucher is valid, and up to 90 days after it ends. Technical logs: 6 months</td>
+            </tr>
+            <tr>
+              <td>Pre-registered devices</td>
+              <td>MAC, label, type and, where given, the e-mail of the person responsible</td>
+              <td>While the device is registered</td>
+            </tr>
+            <tr>
+              <td>The customer's console operators</td>
+              <td>E-mail of whoever created the voucher, kept with it; of whoever registered or revoked a device, only in technical logs</td>
+              <td>With the voucher. Technical logs: 6 months</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w-lede">We process no sensitive personal data. We do not read e-mail, files, calendars or network traffic. In the customer's Entra we read the groups of whoever signs in and, with fast offboarding on, the members of the authorized group and whether each account is enabled, without keeping the list. The database backup contains everything above and expires within 30 days.</p>
+    </section>
+
+    <section id="confidentiality">
+      <h2>4. Confidentiality</h2>
+      <p class="w-lede">Only people who need the data to run the service have access to it, under a duty of confidentiality that continues after the contract ends. Today that is one person: the owner of the company.</p>
+    </section>
+
+    <section id="security">
+      <h2>5. Security measures</h2>
+      <ul class="w-steps">
+        <li>Renewal tokens and controller credentials encrypted at rest with a key of each portal's own; that key is encrypted by a master key that is never written to the database. A leak of the database alone exposes no tokens and no passwords.</li>
+        <li>Encrypted traffic (TLS) between the device and the portal, and between the portal and the customer's controller, with the controller's certificate verified.</li>
+        <li>Database with no port open to the internet, on a network of the portal's own. Our application's credential that reads the customer's directory for fast offboarding is kept out of the process that serves the internet.</li>
+        <li>Server administered only with an SSH key, with no root or password login, and automatic security updates.</li>
+        <li>Daily database backup, with a rehearsed restore. Technical logs with a 6-month limit.</li>
+        <li>The account we use on the controller is the customer's, created by the customer and restricted to one site with the <em>Site Administrator</em> role; the customer can revoke it at any time.</li>
+      </ul>
+    </section>
+
+    <section id="subprocessors">
+      <h2>6. Subprocessors</h2>
+      <p class="w-lede">General authorization: the customer authorizes the subprocessors below. A new subprocessor, or a replacement, is announced by e-mail to the account holder <strong>30 days</strong> in advance; a customer who objects may end the service before the change, at no cost beyond the period already paid. Each subprocessor handles only what its part needs, under data protection obligations in its contract with us.</p>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Who</th><th>What for</th><th>Where</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Hetzner Online GmbH (Germany)</td>
+              <td>Server that runs the portal and the database</td>
+              <td>Falkenstein, Germany</td>
+            </tr>
+            <tr>
+              <td>Cloudflare, Inc. (USA)</td>
+              <td>Storage of the database backups and of archived technical logs</td>
+              <td>Bucket under European Union jurisdiction</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w-lede">Not subprocessors under this agreement, and so not in the table: the customer's own Microsoft Entra, which is the identity provider the customer chose and through which sign-in passes; Zoho, through which we send the service's e-mails, which go to the account holder and to our operations team, carry at most the account holder's e-mail and never employee or visitor data; WinServ's Microsoft 365, where the messages people write to us arrive; and Stripe, which bills the customer and receives only the account holder's e-mail. All four are in <a href="/en/wifi/privacy.html#transfers">privacy</a>.</p>
+    </section>
+
+    <section id="transfers">
+      <h2>7. International transfers</h2>
+      <p class="w-lede">The data processed on the customer's behalf is stored in the European Union. Brazil recognizes the European Union as adequate (LGPD art. 33, I; ANPD Resolution CD/ANPD No. 32/2026), and the European Commission recognizes Brazil as adequate (adequacy decision announced on 27 January 2026). The data can therefore move from Brazil to the European Union, and from the European Union to us in Brazil, without standard contractual clauses.</p>
+      <p class="w-lede">A residual we disclose: the backup storage is in the European Union, but the company that provides it, Cloudflare, Inc., is American.</p>
+    </section>
+
+    <section id="requests">
+      <h2>8. Data subject requests</h2>
+      <p class="w-lede">A data subject request that reaches us about a customer's data is forwarded to that customer within 5 business days, and we do not answer in the customer's place without instruction. We help the customer answer access, correction and erasure requests with what the service offers: the console lists who has access (on the billing page) and the pre-registered devices, and revokes devices and people, and what the console does not do we do on request.</p>
+    </section>
+
+    <section id="incidents">
+      <h2>9. Security incidents</h2>
+      <p class="w-lede">Once we confirm a security incident affecting the customer's data, we tell the account holder by e-mail without delay and within <strong>48 hours</strong>. The notice says what we know by then: the nature of the data and of the data subjects affected, the protection measures in place, the risks, and what we have done or will do. It arrives in time for the customer, as controller, to notify the ANPD and the data subjects (LGPD art. 48) or the European authority (GDPR Article 33), and we help with whatever that requires.</p>
+    </section>
+
+    <section id="termination">
+      <h2>10. End of the contract</h2>
+      <p class="w-lede">Once the subscription is canceled, the portal is suspended, authorizing no new devices, and can be reactivated with its data intact, by subscribing again, for up to 90 days. After that, or sooner if the customer asks in writing, we delete the portal's data within 30 days, and backups that still contain it expire within 30 days after that. There is no export to return: device authorization lives on the customer's controller, and nothing we keep needs to survive a change of provider. Technical access logs stay for the 6 months that Brazil's Marco Civil da Internet (art. 15) requires us to keep them, and are then discarded.</p>
+    </section>
+
+    <section id="audit">
+      <h2>11. Information and audit</h2>
+      <p class="w-lede">On request, we give the customer the information needed to show that we comply with this agreement: this page, the inventory of what we process, and written answers. We keep a record of the processing operations we carry out (LGPD art. 37). On-site audits and security questionnaires only under a separate contract.</p>
+    </section>
+
+    <section id="term">
+      <h2>12. Term, precedence and jurisdiction</h2>
+      <p class="w-lede">This agreement applies for as long as we hold the customer's data. On personal data, it prevails over the terms of service. Changes follow the rule of the terms: material ones are announced 30 days in advance. Brazilian law applies and, where mandatory, the GDPR, in the courts of the district of Rio Grande/RS, Brazil.</p>
+      <p class="w-lede">Marcelo Samoilenko, owner of M. SAMOILENKO INFORMATICA and data protection officer. Version of 30 September 2026.</p>
+    </section>
+  </main>
+</BaseLayout>

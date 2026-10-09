@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Privacy — Winserv WiFi"} description={"Privacy notice: what the Winserv WiFi applications read in your Microsoft Entra, what we keep and how to revoke it."} path="/en/wifi/privacy.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Privacy notice</p>
+      <h1>Privacy</h1>
+      <p class="w-lede">This site is the commercial page of the <strong>winserv-unifi-portal</strong> product. It does not authenticate users or process data from your network — that happens in the product you subscribe to, not here.</p>
+    </section>
+    <section>
+      <h2>Who the controller is</h2>
+      <p class="w-lede">M. SAMOILENKO INFORMATICA, trading as <span lang="pt-BR">WinServ Tecnologia da Informação</span>, Brazilian company registration (CNPJ) 10.411.266/0001-80, <span lang="pt-BR">Av. Almirante Tamandaré, 106, apto 201, Vila Nossa Senhora dos Navegantes, Rio Grande/RS, CEP 96202-570</span>, Brazil. Contact: <a href="mailto:contact@winserv.com.br">contact@winserv.com.br</a>.</p>
+      <p class="w-lede">We are the controller of the data of whoever subscribes and of visitors to this site. For the data of a customer's employees and guests we are a <strong>processor</strong>, and what we do with it is in the <a href="/en/wifi/dpa.html">data processing agreement</a>.</p>
+    </section>
+    <section>
+      <h2>Data protection officer</h2>
+      <p class="w-lede">WinServ's data protection officer (<em lang="pt-BR">encarregado</em>, under Brazil's LGPD) is <strong>Marcelo Samoilenko</strong>, at <a href="mailto:dpo@winserv.com.br">dpo@winserv.com.br</a>. The officer receives requests and complaints from data subjects, answers the Brazilian data protection authority (ANPD), and advises our team on data protection.</p>
+      <p class="w-lede">If you are an employee or guest of a company that uses our portal, that company is the controller of your data. You may ask them, or ask our officer directly; whatever is theirs, we forward to them.</p>
+    </section>
+    <section>
+      <h2>Measurement cookies (opt-in)</h2>
+      <p class="w-lede">This site sets no measurement cookies today. If we ever turn on Meta Pixel or Google Analytics 4, to understand where visits come from, they will load only after you click <strong>"Accept"</strong> on the cookie notice; if you click "Decline", nothing loads, and the button below appears so you can change your mind at any time.</p>
+      <p><button type="button" class="w-btn w-btn--ghost" data-cookie-reset hidden>Change my cookie choice</button></p>
+    </section>
+    <section id="entra-apps">
+      <h2>The application in your Microsoft Entra</h2>
+      <p class="w-lede">This section is what you are looking for if you came here from Microsoft's consent screen. There are <strong>two applications</strong>, with purposes kept apart on purpose — you create neither of them: they appear in your directory when someone consents, and that is where you remove them whenever you want.</p>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Application</th><th>What it reads</th><th>What for</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Winserv WiFi</strong></td>
+              <td>The basic profile of whoever signs in (name, e-mail) and that user's groups</td>
+              <td>Deciding whether that person may use the network. Read at sign-in, with the user's own consent</td>
+            </tr>
+            <tr>
+              <td><strong>Winserv WiFi</strong>, at sign-up</td>
+              <td>The directory's groups and the organization's data (verified domains), with an administrator's consent</td>
+              <td>Checking, before the portal is created, that the groups you entered exist, are security groups and have members. Read once, not kept</td>
+            </tr>
+            <tr>
+              <td><strong>Winserv WiFi Directory Reader</strong></td>
+              <td>The members of the authorized group and whether each account is enabled</td>
+              <td>Cutting access within 5 minutes for anyone who was offboarded or removed from the group, without waiting for someone to tell us. Optional: it only works if one of your administrators turns it on</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w-lede">The second permission is broad because Microsoft does not offer a version limited to one group: to know whether an account is still enabled, the permission to read the directory's users is required. We read <strong>the group you named</strong> and nothing else — but the permission granted is larger than that use, and we would rather say so than hide it.</p>
+      <p class="w-lede">What we keep: the device's MAC address; for people who sign in with a Microsoft account, their identifier and e-mail, and an encrypted token that renews the session without asking for a new sign-in; for people who use a voucher, the code used and the note your operator wrote on it; for your organization, the controller account's credential (encrypted) and the e-mail of whoever subscribed. In the technical logs, the IP address of each access to the portal. We do not read e-mail, files, calendars or network traffic.</p>
+      <p class="w-lede">For how long: while access is active. A visitor's MAC and finished vouchers are deleted 90 days after access ends; technical access logs are kept for 6 months, as Brazil's Marco Civil da Internet requires, and then discarded; database backups, within 30 days.</p>
+      <p class="w-lede">Where and with whom: the data is on servers in <strong>Germany, in the European Union</strong> (Hetzner), with backups at Cloudflare, stored in the European Union. Sign-in goes through Microsoft, the service's e-mails go out through Zoho, in the European Union, and billing goes through Stripe, which receives the e-mail of whoever subscribed. We do not sell data, and nobody beyond these providers receives it. The detail, with each one's country, is under <a href="#transfers">international transfers</a>.</p>
+      <p class="w-lede"><strong>How to revoke:</strong> in the Microsoft Entra admin center, <em>Entra ID</em> → <em>Enterprise apps | All applications</em> → select the application → <em>Properties</em> → <em>Delete</em>. Fast offboarding stops working immediately; removing the sign-in application blocks the next sign-ins.</p>
+    </section>
+    <section id="transfers">
+      <h2>International transfers</h2>
+      <p class="w-lede">The data the portal processes is stored in the European Union, which Brazil recognizes as providing adequate protection (LGPD art. 33, I; ANPD Resolution CD/ANPD No. 32/2026). The European Commission recognizes Brazil in the same way (adequacy decision announced on 27 January 2026), which covers a European customer that entrusts data to us.</p>
+      <p class="w-lede">Four providers sit outside that design, or partly outside it, and we would rather name them:</p>
+      <ul class="w-steps">
+        <li><strong>Cloudflare, Inc. (USA)</strong> keeps the database backups and archived technical logs in a bucket under European Union jurisdiction. The storage is in the EU; the company is American.</li>
+        <li><strong>Zoho (sent from the European Union)</strong>: the service's e-mails (welcome, setup and plan notices) go out from no-reply@wifi.winserv.com.br through a Zoho data center in the European Union. They go to whoever subscribed and to our operations team, carry at most the address of whoever subscribed and the text of the notice, and never employee or visitor data. The sending is in the EU; the Zoho group is headquartered in India.</li>
+        <li><strong>Microsoft 365 (USA)</strong>: when you write to us (dpo@, suporte@, contact@) or reply to a service e-mail, the message reaches WinServ's mailbox on Microsoft 365, stored in the United States. Writing is optional, nothing in the service depends on it, and the message is used only to answer you.</li>
+        <li><strong>Stripe (USA)</strong> receives the e-mail of whoever subscribed, for billing, with the ANPD standard contractual clauses in its data transfer addendum (LGPD art. 33, II, b).</li>
+      </ul>
+      <p class="w-lede">Sign-in goes through the customer organization's own Microsoft Entra, which is its identity provider.</p>
+    </section>
+    <section>
+      <h2>Contact details</h2>
+      <p class="w-lede">The "Contact us" button opens your own e-mail client. What you send us through it is used only to answer your commercial inquiry. The site does not store forms.</p>
+    </section>
+  </main>
+</BaseLayout>

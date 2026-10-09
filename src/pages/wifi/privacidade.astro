@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title={"Privacidade — Winserv WiFi"} description={"Aviso de privacidade: o que os aplicativos Winserv WiFi leem no seu Microsoft Entra, o que guardamos e como revogar."} path="/wifi/privacidade.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Aviso de privacidade</p>
+      <h1>Privacidade</h1>
+      <p class="w-lede">Este site é a página comercial do produto <strong>winserv-unifi-portal</strong>. Ele não autentica usuários nem processa dados da sua rede — isso acontece no produto contratado, não aqui.</p>
+    </section>
+    <section>
+      <h2>Quem é o controlador</h2>
+      <p class="w-lede">M. SAMOILENKO INFORMATICA, nome fantasia WinServ Tecnologia da Informação, CNPJ 10.411.266/0001-80, Av. Almirante Tamandaré, 106, apto 201, Vila Nossa Senhora dos Navegantes, Rio Grande/RS, CEP 96202-570. Contato: <a href="mailto:contact@winserv.com.br">contact@winserv.com.br</a>.</p>
+      <p class="w-lede">Somos controlador dos dados de quem nos contrata e visita este site. Dos dados dos funcionários e visitantes de um cliente somos <strong>operador</strong>, e o que fazemos com eles está no <a href="/wifi/dpa.html">acordo de tratamento de dados</a>.</p>
+    </section>
+    <section>
+      <h2>Encarregado pelo tratamento de dados</h2>
+      <p class="w-lede">O encarregado da WinServ é <strong>Marcelo Samoilenko</strong>, em <a href="mailto:dpo@winserv.com.br">dpo@winserv.com.br</a>. Cabe ao encarregado receber pedidos e reclamações de titulares, responder às comunicações da ANPD e orientar a nossa equipe sobre proteção de dados.</p>
+      <p class="w-lede">Se você é funcionário ou visitante de uma empresa que usa o nosso portal, o controlador dos seus dados é essa empresa. Você pode fazer o pedido a ela ou diretamente ao nosso encarregado; o que for dela, encaminhamos.</p>
+    </section>
+    <section>
+      <h2>Cookies de medição (opt-in)</h2>
+      <p class="w-lede">Hoje este site não grava cookies de medição. Se um dia ligarmos o Meta Pixel ou o Google Analytics 4, para entender a origem dos acessos, eles só serão carregados depois que você clicar em <strong>"Aceitar"</strong> no aviso de cookies; se clicar em "Recusar", nada é carregado, e o botão abaixo aparece para você mudar de ideia a qualquer momento.</p>
+      <p><button type="button" class="w-btn w-btn--ghost" data-cookie-reset hidden>Mudar minha escolha de cookies</button></p>
+    </section>
+    <section id="aplicativo-entra">
+      <h2>O aplicativo no seu Microsoft Entra</h2>
+      <p class="w-lede">Esta seção é o que você procura se chegou aqui pela tela de consentimento da Microsoft. São <strong>dois aplicativos</strong>, com finalidades separadas de propósito — nenhum dos dois é criado por você: eles aparecem no seu diretório quando alguém consente, e é de lá que você os remove quando quiser.</p>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>Aplicativo</th><th>O que lê</th><th>Para quê</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Winserv WiFi</strong></td>
+              <td>Perfil básico de quem faz login (nome, e-mail) e os grupos desse usuário</td>
+              <td>Decidir se aquela pessoa pode usar a rede. É lido no momento do login, com o consentimento do próprio usuário</td>
+            </tr>
+            <tr>
+              <td><strong>Winserv WiFi</strong>, no cadastro</td>
+              <td>Os grupos do diretório e os dados da organização (domínios verificados), com consentimento de um administrador</td>
+              <td>Conferir, antes de criar o portal, que os grupos informados existem, são grupos de segurança e têm membros. Lido uma vez, não guardado</td>
+            </tr>
+            <tr>
+              <td><strong>Winserv WiFi Directory Reader</strong></td>
+              <td>Os membros do grupo autorizado e se cada conta está habilitada</td>
+              <td>Cortar o acesso de quem foi desligado ou removido do grupo em até 5 minutos, sem esperar alguém avisar. Opcional: só funciona se um administrador seu ativar</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="w-lede">A segunda permissão é ampla porque a Microsoft não oferece uma versão restrita a um grupo: para saber se uma conta continua habilitada, é preciso a permissão de leitura de usuários do diretório. Nós lemos <strong>o grupo que você indicou</strong> e nada mais — mas a permissão concedida é maior do que esse uso, e preferimos dizer isso do que escondê-lo.</p>
+      <p class="w-lede">O que guardamos: o endereço MAC do aparelho; de quem entra com a conta Microsoft, o identificador e o e-mail, e um token cifrado que renova a sessão sem pedir login de novo; de quem entra com voucher, o código usado e a nota que o seu operador escreveu nele; da sua organização, a credencial da conta do controller (cifrada) e o e-mail de quem contratou. Nos registros técnicos, o endereço IP de cada acesso ao portal. Não lemos e-mail, arquivo, calendário nem tráfego da rede.</p>
+      <p class="w-lede">Por quanto tempo: enquanto o acesso estiver ativo. O MAC de visitante e os vouchers encerrados são apagados 90 dias depois do fim do acesso; os registros técnicos de acesso são guardados por 6 meses, como exige o Marco Civil da Internet, e depois descartados; as cópias de segurança do banco, em até 30 dias.</p>
+      <p class="w-lede">Onde e com quem: os dados ficam em servidores na <strong>Alemanha, na União Europeia</strong> (Hetzner), com cópias de segurança na Cloudflare, armazenadas na União Europeia. O login passa pela Microsoft, os e-mails do serviço saem pela Zoho, na União Europeia, e a cobrança passa pela Stripe, que recebe o e-mail de quem contratou. Não vendemos dados, e ninguém além desses fornecedores os recebe. O detalhe, com o país de cada um, está em <a href="#transferencia">transferência internacional</a>.</p>
+      <p class="w-lede"><strong>Como revogar:</strong> no seu portal do Entra, <em>Aplicativos empresariais</em> → selecione o aplicativo → <em>Excluir</em>. O corte rápido para de funcionar imediatamente; remover o de login desconecta os próximos acessos.</p>
+    </section>
+    <section id="transferencia">
+      <h2>Transferência internacional</h2>
+      <p class="w-lede">Os dados que o portal trata ficam armazenados na União Europeia, que o Brasil reconhece como tendo proteção adequada (LGPD, art. 33, I; Resolução CD/ANPD nº 32/2026). A Comissão Europeia reconhece o Brasil da mesma forma (decisão de adequação anunciada em 27/01/2026), o que cobre o cliente europeu que nos confia dados.</p>
+      <p class="w-lede">Quatro fornecedores ficam fora desse desenho, ou em parte fora dele, e preferimos nomeá-los:</p>
+      <ul class="w-steps">
+        <li><strong>Cloudflare, Inc. (EUA)</strong> guarda as cópias de segurança do banco e registros técnicos arquivados num bucket com jurisdição na União Europeia. O armazenamento é na UE; a empresa é americana.</li>
+        <li><strong>Zoho (envio na União Europeia)</strong>: os e-mails do serviço (boas-vindas, avisos de configuração e de plano) saem do endereço no-reply@wifi.winserv.com.br por um data center da Zoho na União Europeia. Vão a quem contratou e à nossa operação, levam no máximo o endereço de quem contratou e o texto do aviso, e nunca dado de funcionário ou visitante. O envio é na UE; o grupo Zoho tem sede na Índia.</li>
+        <li><strong>Microsoft 365 (EUA)</strong>: quando você nos escreve (dpo@, suporte@, contact@) ou responde a um e-mail do serviço, a mensagem chega à caixa da WinServ no Microsoft 365, armazenada nos Estados Unidos. Escrever é opcional, nada no serviço depende disso, e a mensagem é usada só para responder.</li>
+        <li><strong>Stripe (EUA)</strong> recebe o e-mail de quem contratou para a cobrança, com as cláusulas-padrão da ANPD no seu adendo de transferência de dados (LGPD, art. 33, II, b).</li>
+      </ul>
+      <p class="w-lede">O login passa pelo Microsoft Entra da própria organização cliente, que é o provedor de identidade dela.</p>
+    </section>
+    <section>
+      <h2>Dados de contato</h2>
+      <p class="w-lede">O botão "Entre em contato" abre o seu próprio cliente de e-mail. As informações que você nos enviar por esses canais são usadas só para responder ao seu contato comercial. O site não armazena formulários.</p>
+    </section>
+  </main>
+</BaseLayout>
