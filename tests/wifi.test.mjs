@@ -53,7 +53,7 @@ test('every same-site #fragment on a WiFi page lands on an id of its target', ()
 });
 
 import { createHash } from 'node:crypto';
-import { twins } from '../src/i18n/routes.mjs';
+import { twins, href } from '../src/i18n/routes.mjs';
 
 // The text a customer accepts under signup.TERMS_VERSION (winserv-unifi-portal), version → digest.
 // Spec 2026-10-09 §4.3: over what is read — <title>, description, the text and every href of
@@ -145,4 +145,24 @@ test('the FAQPage of each WiFi home has exactly its visible FAQ questions', () =
 // the requirements pages kept telling customers to allowlist it.
 test('no published page names a retired portal IP', () => {
   assert.deepEqual(TEXT.filter((f) => readFileSync(f, 'utf8').includes('5.161.45.166')), []);
+});
+
+// Review 2026-10-09 (Important 2): the landing's footer linked help, requirements, privacy and
+// terms from every page; keeping only <main> left the WiFi home with no way to the terms
+// before "Criar meu portal". Outside <main>, so the legal digest does not see it.
+test('every WiFi page links the product pages of its language', () => {
+  for (const p of WIFI) {
+    const links = new Set(parse(read(pageFile(p.path))).querySelectorAll('.w-links a').map((a) => a.getAttribute('href')));
+    for (const k of ['wifi', 'wifiAjuda', 'wifiRequisitos', 'wifiPrivacidade', 'wifiTermos', 'wifiDpa']) {
+      assert.ok(links.has(href(k, p.locale)), `${p.path}: no link to ${k}`);
+    }
+  }
+});
+
+// Review 2026-10-09 (Important 1): the site's nav is fixed at 64 px, and an anchor opened from
+// Microsoft's consent screen or an old bookmark landed under it on a phone (measured at 390 px).
+test('a WiFi anchor scrolls clear of the fixed nav', () => {
+  const css = readFileSync(new URL('../public/style.css', import.meta.url), 'utf8');
+  const m = css.match(/\.w-main \[id\] \{[^}]*scroll-margin-top: (\d+)px/);
+  assert.ok(m && Number(m[1]) > 64, 'no scroll-margin-top above the 64 px nav on .w-main [id]');
 });

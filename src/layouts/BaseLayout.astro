@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import WifiLinks from '../components/WifiLinks.astro';
 import { ORIGIN, LANG, routeOf, twins, noindex as tableNoindex, ogImage } from '../i18n/routes.mjs';
 
 interface Props {
@@ -70,6 +71,7 @@ const org = key === 'index' ? JSON.stringify({
 <body>
   <Nav active={active} locale={locale} routeKey={key} noindex={noindex} />
   <slot />
+  {key.startsWith('wifi') && <WifiLinks locale={locale} />}
   <Footer locale={locale} />
   <script is:inline src="/js/site.js" defer></script>
   {scripts.map((src) => <script is:inline src={src} defer></script>)}

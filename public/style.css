@@ -1325,6 +1325,12 @@ section.section--text .article-body > h2:first-child { margin-top: 0; }
 .w-main a:not([class]) { color: var(--blue); }
 /* Long legal text: the site's reset leaves consecutive paragraphs flush (seen at 390 px, 2026-10-09). */
 .w-main section p + p { margin-top: .8em; }
+/* The site's nav is fixed at 64 px: an anchor opened from Microsoft's consent screen or an old
+   bookmark landed under it on a phone (review 2026-10-09, measured at 390 px). */
+.w-main [id] { scroll-margin-top: 80px; }
+.w-links { max-width: 960px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 28px) 40px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: .9rem; }
+.w-links a { color: var(--muted); text-decoration: none; }
+.w-links a:hover { color: var(--blue); }
 .w-main code { font-family: var(--mono); font-size: .9em; background: var(--surface2); border: 1px solid var(--border); padding: .05em .35em; border-radius: 5px; overflow-wrap: anywhere; }
 .w-eyebrow { font-size: .9rem; font-weight: 600; color: var(--blue); }
 .w-hero { padding-top: clamp(36px, 6vw, 64px); }
