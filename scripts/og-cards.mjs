@@ -7,7 +7,8 @@
 // 'g' and 'a' match Helvetica; measured by fit, 2026-10-08), so this script runs on macOS.
 // CONTROL FIRST: redrawing the Portuguese text must reproduce og.jpg. Measured 0.53 % of pixels
 // on 2026-10-08, all on the glyphs' edges, after ruling out font, JPEG and scale as the cause;
-// Marcelo accepted the cards by eye and the limit was set to 0.6 %. A wrong font or position
+// the plan's 0.5 % rose to 0.6 % by the plan's own exit: Marcelo accepted on the comparison shown
+// in session, and an external reviewer saw the three cards on 2026-10-09. A wrong font or position
 // measured 1–11 %: above the limit the drawing is wrong — stop, never raise it to pass.
 import { createServer } from 'node:http';
 import { readFile, writeFile } from 'node:fs/promises';
