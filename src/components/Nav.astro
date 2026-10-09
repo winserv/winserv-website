@@ -23,8 +23,9 @@ const others = LOCALES.filter((l) => l !== locale && target(l)).map((l) => ({ l,
   <div class="nav-right">
     {others.length > 0 && (
       <div class="nav-lang">
-        <span class="nav-lang-current" lang={LANG[locale].html}>{LANG[locale].short}</span>
-        {others.map((o) => <a href={o.to} hreflang={LANG[o.l].hreflang} lang={LANG[o.l].html} aria-label={LANG[o.l].name}>{LANG[o.l].short}</a>)}
+        {LOCALES.filter((l) => l === locale || target(l)).map((l) => (l === locale
+          ? <span class="nav-lang-current" lang={LANG[l].html}>{LANG[l].short}</span>
+          : <a href={target(l)} hreflang={LANG[l].hreflang} lang={LANG[l].html} aria-label={LANG[l].name}>{LANG[l].short}</a>))}
       </div>
     )}
     <a class="btn-nav" href={href('contato', locale)}>{t.contact}</a>

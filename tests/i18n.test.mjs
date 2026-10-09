@@ -159,6 +159,10 @@ test('English pages carry no Portuguese or Spanish (gate e)', () => {
     const text = read(pageFile(p.path)).replace(foreign('pt-BR', 'es'), '');
     const found = new Set([...(text.match(PT_LETTERS) || []), ...(text.match(ES_LETTERS) || [])]);
     assert.deepEqual([...found], [], p.path);
+    // Unaccented Portuguese ("voce", "com seus") carries no letter above; the word list does
+    // (added after the 2026-10-09 translation review: a letters-only floor is a weak claim).
+    const words = new Set([...text.replace(URLISH, '').matchAll(PT_ONLY_WORDS)].map((m) => m[0].toLowerCase()));
+    assert.deepEqual([...words], [], p.path);
   }
 });
 

@@ -72,7 +72,9 @@ for (const l of LOCALES.filter((x) => x !== 'pt-br')) {
     assert.match(block, new RegExp(String.raw`error_page 403 404 =404 /${l}/404\.html;`));
     assert.match(block, /error_page 400 405 413 414 500 502 503 504 \/error\.html;/);
     assert.match(block, /try_files \$uri \$uri\.html \$uri\/ =404;/);
-    assert.ok(code.includes(`location = /${l}/404.html { internal; }`));
-    assert.ok(code.includes(`location = /${l}/404 { return 404; }`));
+    // Each exact location names its own 404 page: without it, it inherits the server's Portuguese
+    // /404.html (2026-10-09 branch review, inferred from error_page inheritance).
+    assert.ok(code.includes(`location = /${l}/404.html { internal; error_page 404 /${l}/404.html; }`));
+    assert.ok(code.includes(`location = /${l}/404 { error_page 404 /${l}/404.html; return 404; }`));
   });
 }
