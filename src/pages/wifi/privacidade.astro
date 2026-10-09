@@ -2,16 +2,17 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title={"Privacidade — Winserv WiFi"} description={"Aviso de privacidade: o que os aplicativos Winserv WiFi leem no seu Microsoft Entra, o que guardamos e como revogar."} path="/wifi/privacidade.html" active="wifi">
-<main class="w-main">
+<main class="w-main" data-terms-version="2026-10-09">
     <section class="w-hero">
       <p class="w-eyebrow">Aviso de privacidade</p>
       <h1>Privacidade</h1>
-      <p class="w-lede">Este site é a página comercial do produto <strong>winserv-unifi-portal</strong>. Ele não autentica usuários nem processa dados da sua rede — isso acontece no produto contratado, não aqui.</p>
+      <p class="w-lede">Este aviso trata do produto Winserv WiFi e de quem o contrata. O que o site da WinServ registra de quem lê estas páginas está no <a href="/privacidade.html">aviso de privacidade da WinServ</a>.</p>
+      <p class="w-eyebrow">Versão 2026-10-09</p>
     </section>
     <section>
       <h2>Quem é o controlador</h2>
       <p class="w-lede">M. SAMOILENKO INFORMATICA, nome fantasia WinServ Tecnologia da Informação, CNPJ 10.411.266/0001-80, Av. Almirante Tamandaré, 106, apto 201, Vila Nossa Senhora dos Navegantes, Rio Grande/RS, CEP 96202-570. Contato: <a href="mailto:contact@winserv.com.br">contact@winserv.com.br</a>.</p>
-      <p class="w-lede">Somos controlador dos dados de quem nos contrata e visita este site. Dos dados dos funcionários e visitantes de um cliente somos <strong>operador</strong>, e o que fazemos com eles está no <a href="/wifi/dpa.html">acordo de tratamento de dados</a>.</p>
+      <p class="w-lede">Somos controlador dos dados de quem nos contrata. Dos dados dos funcionários e visitantes de um cliente somos <strong>operador</strong>, e o que fazemos com eles está no <a href="/wifi/dpa.html">acordo de tratamento de dados</a>.</p>
     </section>
     <section>
       <h2>Encarregado pelo tratamento de dados</h2>
@@ -19,9 +20,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <p class="w-lede">Se você é funcionário ou visitante de uma empresa que usa o nosso portal, o controlador dos seus dados é essa empresa. Você pode fazer o pedido a ela ou diretamente ao nosso encarregado; o que for dela, encaminhamos.</p>
     </section>
     <section>
-      <h2>Cookies de medição (opt-in)</h2>
-      <p class="w-lede">Hoje este site não grava cookies de medição. Se um dia ligarmos o Meta Pixel ou o Google Analytics 4, para entender a origem dos acessos, eles só serão carregados depois que você clicar em <strong>"Aceitar"</strong> no aviso de cookies; se clicar em "Recusar", nada é carregado, e o botão abaixo aparece para você mudar de ideia a qualquer momento.</p>
-      <p><button type="button" class="w-btn w-btn--ghost" data-cookie-reset hidden>Mudar minha escolha de cookies</button></p>
+      <h2>Cookies</h2>
+      <p class="w-lede">Estas páginas não gravam cookies. O serviço usa um único cookie, de sessão e estritamente necessário, nos endereços do serviço sob <code>wifi.winserv.com.br</code> — nunca em <code>www.winserv.com.br</code>. No login ele guarda o MAC do aparelho, o ponto de acesso, a rede e a página que você tentava abrir; no console, a identidade de quem entrou e o grupo que o admitiu. É nosso, assinado mas não cifrado, não é compartilhado com terceiros e expira 1 hora depois da última vez que o serviço o atualiza. Sem ele não é possível autenticar.</p>
     </section>
     <section id="aplicativo-entra">
       <h2>O aplicativo no seu Microsoft Entra</h2>
@@ -68,7 +68,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     </section>
     <section>
       <h2>Dados de contato</h2>
-      <p class="w-lede">O botão "Entre em contato" abre o seu próprio cliente de e-mail. As informações que você nos enviar por esses canais são usadas só para responder ao seu contato comercial. O site não armazena formulários.</p>
+      <p class="w-lede">O botão "Entre em contato" abre o seu próprio cliente de e-mail. As informações que você nos enviar por esses canais são usadas só para responder ao seu contato comercial. Estas páginas não têm formulário.</p>
     </section>
   </main>
 </BaseLayout>

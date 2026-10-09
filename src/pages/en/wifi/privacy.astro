@@ -2,16 +2,17 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 ---
 <BaseLayout title={"Privacy — Winserv WiFi"} description={"Privacy notice: what the Winserv WiFi applications read in your Microsoft Entra, what we keep and how to revoke it."} path="/en/wifi/privacy.html" active="wifi">
-<main class="w-main">
+<main class="w-main" data-terms-version="2026-10-09">
     <section class="w-hero">
       <p class="w-eyebrow">Privacy notice</p>
       <h1>Privacy</h1>
-      <p class="w-lede">This site is the commercial page of the <strong>winserv-unifi-portal</strong> product. It does not authenticate users or process data from your network — that happens in the product you subscribe to, not here.</p>
+      <p class="w-lede">This notice covers the Winserv WiFi product and whoever subscribes to it. What the WinServ website records about people who read these pages is in <a href="/en/privacy.html">WinServ's privacy notice</a>.</p>
+      <p class="w-eyebrow">Version 2026-10-09</p>
     </section>
     <section>
       <h2>Who the controller is</h2>
       <p class="w-lede">M. SAMOILENKO INFORMATICA, trading as <span lang="pt-BR">WinServ Tecnologia da Informação</span>, Brazilian company registration (CNPJ) 10.411.266/0001-80, <span lang="pt-BR">Av. Almirante Tamandaré, 106, apto 201, Vila Nossa Senhora dos Navegantes, Rio Grande/RS, CEP 96202-570</span>, Brazil. Contact: <a href="mailto:contact@winserv.com.br">contact@winserv.com.br</a>.</p>
-      <p class="w-lede">We are the controller of the data of whoever subscribes and of visitors to this site. For the data of a customer's employees and guests we are a <strong>processor</strong>, and what we do with it is in the <a href="/en/wifi/dpa.html">data processing agreement</a>.</p>
+      <p class="w-lede">We are the controller of the data of whoever subscribes. For the data of a customer's employees and guests we are a <strong>processor</strong>, and what we do with it is in the <a href="/en/wifi/dpa.html">data processing agreement</a>.</p>
     </section>
     <section>
       <h2>Data protection officer</h2>
@@ -19,9 +20,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
       <p class="w-lede">If you are an employee or guest of a company that uses our portal, that company is the controller of your data. You may ask them, or ask our officer directly; whatever is theirs, we forward to them.</p>
     </section>
     <section>
-      <h2>Measurement cookies (opt-in)</h2>
-      <p class="w-lede">This site sets no measurement cookies today. If we ever turn on Meta Pixel or Google Analytics 4, to understand where visits come from, they will load only after you click <strong>"Accept"</strong> on the cookie notice; if you click "Decline", nothing loads, and the button below appears so you can change your mind at any time.</p>
-      <p><button type="button" class="w-btn w-btn--ghost" data-cookie-reset hidden>Change my cookie choice</button></p>
+      <h2>Cookies</h2>
+      <p class="w-lede">These pages set no cookies. The service uses a single session cookie, strictly necessary, on the service's addresses under <code>wifi.winserv.com.br</code> — never on <code>www.winserv.com.br</code>. During sign-in it holds the device's MAC address, the access point, the network and the page you were trying to open; in the console, the identity of whoever signed in and the group that admitted them. It is ours, signed but not encrypted, not shared with third parties, and it expires 1 hour after the service last updates it. Without it, signing in is not possible.</p>
     </section>
     <section id="entra-apps">
       <h2>The application in your Microsoft Entra</h2>
@@ -68,7 +68,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
     </section>
     <section>
       <h2>Contact details</h2>
-      <p class="w-lede">The "Contact us" button opens your own e-mail client. What you send us through it is used only to answer your commercial inquiry. The site does not store forms.</p>
+      <p class="w-lede">The "Contact us" button opens your own e-mail client. What you send us through it is used only to answer your commercial inquiry. These pages have no form.</p>
     </section>
   </main>
 </BaseLayout>

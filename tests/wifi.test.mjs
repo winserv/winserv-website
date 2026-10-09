@@ -51,3 +51,65 @@ test('every same-site #fragment on a WiFi page lands on an id of its target', ()
   }
   assert.ok(checked >= 10, `only ${checked} fragments checked`);
 });
+
+import { createHash } from 'node:crypto';
+import { twins } from '../src/i18n/routes.mjs';
+
+// The text a customer accepts under signup.TERMS_VERSION (winserv-unifi-portal), version → digest.
+// Spec 2026-10-09 §4.3: over what is read — <title>, description, the text and every href of
+// <main> — never the bytes, so markup, nav and CSS changes force no bump; pages sorted by
+// path, never by the table's order. A new entry is the change that bumps signup.TERMS_VERSION,
+// and the six pages show its key. Versions up to 2026-10-07c were digests of the landing's
+// bytes; their table is in the spec (§4.4), not here.
+export const LEGAL_DIGEST = {
+  // The pages move into the Winserv site: scope, cookie section and version line (spec §4.1).
+  '2026-10-09': '7337dcce64a0a4ffbd9d85c3f5b1e929df6d2eb1ad83078f2fe24c0484aba2ed',
+};
+const LEGAL = ['wifiTermos', 'wifiPrivacidade', 'wifiDpa'].flatMap((k) => Object.values(twins(k))).sort();
+
+export function legalUnit(html) {
+  const root = parse(html);
+  const main = root.querySelector('main');
+  const norm = (s) => s.replace(/\s+/g, ' ').trim();
+  return [
+    norm(root.querySelector('title').text),
+    root.querySelector('meta[name="description"]').getAttribute('content'),
+    norm(main.text),
+    ...main.querySelectorAll('a[href]').map((a) => a.getAttribute('href')),
+  ].join('\n');
+}
+
+test('the legal text changes only with a new version, and the six pages show that version', () => {
+  assert.equal(LEGAL.length, 6);
+  const digest = createHash('sha256').update(LEGAL.map((p) => legalUnit(read(pageFile(p)))).join('\n\u0000\n')).digest('hex');
+  const versions = Object.keys(LEGAL_DIGEST);
+  const latest = versions.at(-1);
+  assert.deepEqual([...versions].sort(), versions, 'versions out of order');
+  assert.equal(LEGAL_DIGEST[latest], digest, `legal text changed: bump the version and record ${digest} for it`);
+  for (const p of LEGAL) {
+    const main = parse(read(pageFile(p))).querySelector('main');
+    assert.equal(main.getAttribute('data-terms-version'), latest, p);
+    assert.match(main.text, new RegExp(`(Versão|Version) ${latest}`), p);
+  }
+});
+
+// Ported from test_marketing.py:263 — links outside this tree end in #aplicativo-entra.
+test('the Portuguese privacy keeps the anchor old links carry', () => {
+  assert.ok(parse(read('wifi/privacidade.html')).querySelector('#aplicativo-entra'));
+});
+
+// Ported from test_marketing.py:290 — LGPD art. 41 §1 (named 2026-09-26; the page had only contact@).
+test('both privacy pages name the data protection officer', () => {
+  for (const p of Object.values(twins('wifiPrivacidade'))) {
+    const text = read(pageFile(p));
+    assert.ok(text.includes('Marcelo Samoilenko') && text.includes('href="mailto:dpo@winserv.com.br"'), p);
+  }
+});
+
+// Ported from test_marketing.py:300 — Decreto 7.962/2013 art. 2, I-II ("CNPJ sob consulta", 2026-09-19).
+test('the legal pages identify the company', () => {
+  for (const p of LEGAL) {
+    const text = read(pageFile(p));
+    for (const fact of ['M. SAMOILENKO INFORMATICA', '10.411.266/0001-80', '96202-570']) assert.ok(text.includes(fact), `${p}: ${fact}`);
+  }
+});
