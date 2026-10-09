@@ -167,10 +167,16 @@ test('the trade name stays Portuguese, marked (Review Focus 2)', () => {
     const marked = html(p).querySelectorAll('[lang="pt-BR"]').map((e) => e.text);
     assert.ok(marked.includes('Winserv Tecnologia da Informação'), `${p.path}: footer trade name not marked`);
   }
-  const contact = parse(read('en/contact.html'));
-  assert.ok(contact.querySelector('.contact-card-val [lang="pt-BR"]'), 'contact card trade name not marked');
-  const btn = contact.querySelector('#copy-email');
-  assert.ok(btn.getAttribute('data-ok') && btn.getAttribute('data-fail'), 'copy messages not in English (Review Focus 3)');
+  // Every contact page outside Portuguese, from the table: the 2026-10-09 review removed the
+  // Spanish page's attributes and a check on en/contact.html alone stayed green.
+  const contacts = PAGES.filter((p) => p.key === 'contato' && p.locale !== 'pt-br');
+  assert.ok(contacts.length >= 1, 'no translated contact page');
+  for (const p of contacts) {
+    const contact = html(p);
+    assert.ok(contact.querySelector('.contact-card-val [lang="pt-BR"]'), `${p.path}: contact card trade name not marked`);
+    const btn = contact.querySelector('#copy-email');
+    assert.ok(btn.getAttribute('data-ok') && btn.getAttribute('data-fail'), `${p.path}: copy messages not in its language (Review Focus 3)`);
+  }
 });
 
 // First-level blocks and heading levels: what approach A's three copies of a layout must share.
