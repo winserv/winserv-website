@@ -121,3 +121,91 @@ test('the three homes carry the Organization JSON-LD, nothing else does', () => 
     assert.equal(org.url, ORIGIN + '/');
   }
 });
+
+// ── Language leaks: a floor, not a proof (ported from winserv-unifi-portal tests/test_marketing.py
+// 47–76, 209–220). Unaccented Portuguese with no listed word passes.
+const PT_LETTERS = /[áàâãéêíóôõúüçÁÀÂÃÉÊÍÓÔÕÚÜÇ]/gu;
+const PT_ONLY_LETTERS = /[àâãêôõçÀÂÃÊÔÕÇ]/gu;
+const ES_LETTERS = /[ñÑ¿¡]/gu;
+// JavaScript's \b is ASCII-only: "você" has no \b after "ê". Letter-class lookarounds instead
+// (Review Focus 1; the positive control below holds it).
+const PT_ONLY_WORDS = new RegExp(String.raw`(?<![\p{L}\p{N}_])(?:` + [
+  'você', 'voce', 'nao', 'seu', 'sua', 'seus', 'suas', 'pelo', 'pela', 'isso', 'com', 'uma',
+  'senha', 'rede', 'usuário', 'usuários', 'obrigatório', 'obrigatórios',
+  'preencha', 'conta', 'também', 'ainda', 'agora', 'depois', 'foi', 'clique', 'acesso',
+  'nenhum', 'nenhuma', 'aparelho', 'aparelhos', 'tente', 'novamente', 'voltar',
+  'assinatura', 'pagamento', 'pessoas', 'endereço', 'nome', 'falha', 'segurança',
+  'arquivo', 'baixar', 'ajuda',
+].join('|') + String.raw`)(?![\p{L}\p{N}_])`, 'giu');
+const URLISH = /(?:href|src|content)="[^"]*"|\S+@\S+|https?:\/\/\S+|[\w-]+(?:\.[\w-]+)+/g;
+// An element marked lang="…" is that language on purpose (switcher labels, the trade name).
+// Never <html> itself: a page declared Portuguese would erase itself and pass.
+const foreign = (...langs) => new RegExp(String.raw`<(?!html\b)(\w+)\b[^>]*\blang="(?:${langs.join('|')})"[^>]*>[\s\S]*?</\1>`, 'g');
+
+test('the leak regexes catch what they exist for (positive control, Review Focus 1)', () => {
+  const sample = 'Preencha todos os campos obrigatórios, você também.';
+  assert.deepEqual([...sample.matchAll(PT_ONLY_WORDS)].map((m) => m[0].toLowerCase()).sort(),
+    ['obrigatórios', 'preencha', 'também', 'você']);
+  assert.equal('<span lang="pt-BR">Tecnologia da Informação</span> ok'.replace(foreign('pt-BR'), ''), ' ok');
+  assert.equal('<html lang="pt-BR"><p>ção</p>'.replace(foreign('pt-BR'), ''), '<html lang="pt-BR"><p>ção</p>');
+});
+
+const ofLocale = (l) => PAGES.filter((p) => p.locale === l);
+
+test('English pages carry no Portuguese or Spanish (gate e)', () => {
+  const en = ofLocale('en');
+  assert.ok(en.length >= 13, `only ${en.length} English pages`);   // never vacuous
+  for (const p of en) {
+    const text = read(pageFile(p.path)).replace(foreign('pt-BR', 'es'), '');
+    const found = new Set([...(text.match(PT_LETTERS) || []), ...(text.match(ES_LETTERS) || [])]);
+    assert.deepEqual([...found], [], p.path);
+  }
+});
+
+test('the trade name stays Portuguese, marked (Review Focus 2)', () => {
+  for (const p of ofLocale('en')) {
+    const marked = html(p).querySelectorAll('[lang="pt-BR"]').map((e) => e.text);
+    assert.ok(marked.includes('Winserv Tecnologia da Informação'), `${p.path}: footer trade name not marked`);
+  }
+  const contact = parse(read('en/contact.html'));
+  assert.ok(contact.querySelector('.contact-card-val [lang="pt-BR"]'), 'contact card trade name not marked');
+  const btn = contact.querySelector('#copy-email');
+  assert.ok(btn.getAttribute('data-ok') && btn.getAttribute('data-fail'), 'copy messages not in English (Review Focus 3)');
+});
+
+// First-level blocks and heading levels: what approach A's three copies of a layout must share.
+function skeleton(root) {
+  const body = root.querySelector('body');
+  const blocks = body.childNodes.filter((n) => n.nodeType === 1
+    && !['topnav', 'nav-mobile', 'site-footer'].some((c) => (n.getAttribute('class') || '').split(/\s+/).includes(c))
+    && n.tagName !== 'SCRIPT');
+  return {
+    blocks: blocks.map((n) => [n.tagName.toLowerCase(), ...(n.getAttribute('class') || '').split(/\s+/).filter(Boolean).sort()].join('.')),
+    headings: blocks.flatMap((n) => n.querySelectorAll('h1, h2, h3, h4, h5, h6').map((h) => h.tagName.toLowerCase())),
+  };
+}
+
+test('every language version has the Portuguese page\'s blocks and headings (gate d)', () => {
+  let compared = 0;
+  for (const key of Object.keys(ROUTES)) {
+    const tw = twins(key);
+    if (!tw['pt-br']) continue;
+    const want = skeleton(parse(read(pageFile(tw['pt-br']))));
+    for (const [l, path] of Object.entries(tw)) {
+      if (l === 'pt-br') continue;
+      assert.deepEqual(skeleton(parse(read(pageFile(path)))), want, `${path} vs ${tw['pt-br']}`);
+      compared++;
+    }
+  }
+  assert.ok(compared >= 13, `only ${compared} pairs compared`);
+});
+
+test('the English privacy notice: same version date, the Portuguese prevails (gate g)', () => {
+  const PT_M = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+  const EN_M = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const pt = parse(read('privacidade.html')).text.match(/Versão de (\d{1,2}) de (\p{L}+) de (\d{4})/u);
+  const en = parse(read('en/privacy.html')).text.match(/Version of ([A-Z][a-z]+) (\d{1,2}), (\d{4})/);
+  assert.ok(pt && en, 'a version line is missing');
+  assert.deepEqual([+en[2], EN_M.indexOf(en[1]), en[3]], [+pt[1], PT_M.indexOf(pt[2]), pt[3]]);
+  assert.match(parse(read('en/privacy.html')).text, /the Portuguese version prevails/);
+});

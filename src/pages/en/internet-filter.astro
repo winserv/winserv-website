@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title={"WINSERV | Filtering the Internet"}
+  description={"Practical tips to block inappropriate content and protect your children online."}
+  path={"/en/internet-filter.html"}
+  ogTitle={"Filtering the Internet — WINSERV"}
+  ogDescription={"Practical tips to block inappropriate content and protect your children online."}
+  ogType={"website"}
+  active={"conteudo"}
+>
+<div class="page-hero">
+  <div class="section-label gold">Digital Protection</div>
+  <h1>Filtering the Internet for children</h1>
+  <p>Follow the steps and protect your children from inappropriate content</p>
+</div>
+
+<div class="article-hero-img">
+  <img src="/images/filtro.webp" alt="Filtering the Internet" />
+</div>
+
+
+<section class="filtro-section">
+  <div class="container container--narrow">
+    <div class="section-label">Step 1</div>
+    <h2 class="section-title section-title--sm">Quick tips to filter Google</h2>
+    <ul class="tips-list">
+      <li>If you can, use <a href="https://families.google/intl/en_ALL/familylink/" target="_blank" rel="noopener">Google Family Link</a> for full parental control.</li>
+      <li>On YouTube, turn on <a href="https://support.google.com/youtube/answer/174084?hl=en" target="_blank" rel="noopener">Restricted Mode</a> under Settings &rarr; General (in the app) or from your profile picture (on a computer).</li>
+      <li>If you can, subscribe to <a href="https://www.youtube.com/premium/family?app=desktop" target="_blank" rel="noopener">YouTube Premium Family</a> for advanced control.</li>
+      <li>Turn on <a href="https://support.google.com/websearch/answer/510?hl=en" target="_blank" rel="noopener">Google SafeSearch</a> to filter explicit results.</li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="filtro-section alt">
+  <div class="container container--narrow">
+    <div class="section-label">Step 2</div>
+    <h2 class="section-title section-title--sm">Android phones</h2>
+    <p class="filtro-text">On Android devices you can restrict the apps, films and music that can be downloaded. Open the Play Store, tap your profile icon and go to <strong class="text-strong">Settings &rarr; Family &rarr; Content restrictions</strong>. There you choose the age ratings of the apps and films your children can get, protected by a PIN.</p>
+  </div>
+</section>
+
+
+<section class="filtro-section">
+  <div class="container container--narrow">
+    <div class="section-label">Step 3 — recommended</div>
+    <h2 class="section-title section-title--sm">Filtering by DNS</h2>
+    <p class="filtro-text filtro-text--spaced">Setting the DNS servers of your router or device is the most effective way to filter inappropriate content across the <em>whole</em> home connection, whatever app or browser is used.</p>
+
+    <div class="dns-block">
+      <h4>Cloudflare 1.1.1.1 for Families</h4>
+      <p><a href="https://one.one.one.one/family/" target="_blank" rel="noopener" class="link-blue">one.one.one.one/family</a> — blocks malware and adult content.</p>
+      <div class="dns-nums">1.1.1.3<br>1.0.0.3<br>2606:4700:4700::1113<br>2606:4700:4700::1003</div>
+    </div>
+
+    <div class="dns-block">
+      <h4>OpenDNS FamilyShield</h4>
+      <p><a href="https://www.opendns.com/home-internet-security/" target="_blank" rel="noopener" class="link-blue">opendns.com/home-internet-security</a> — a family filter with no account to set up.</p>
+      <div class="dns-nums">208.67.222.123<br>208.67.220.123</div>
+    </div>
+
+    <h3 class="filtro-h3">Apps to pin the DNS servers on mobile devices</h3>
+    <ul class="tips-list">
+      <li>Android — <a href="https://play.google.com/store/apps/details?id=com.frostnerd.dnschanger" target="_blank" rel="noopener">DNS Changer</a> (turn on its automatic start option in the settings)</li>
+      <li>iOS — <a href="https://apps.apple.com/us/app/dnscloak-dnscrypt-client/id1452162351" target="_blank" rel="noopener">DNSCloak</a></li>
+      <li>Computers and routers — <a href="https://www.opendns.com/setupguide/#familyshield" target="_blank" rel="noopener">see OpenDNS's official guide</a></li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="filtro-section alt">
+  <div class="container container--narrow">
+    <h2 class="article-h3">Useful articles</h2>
+    <p class="article-note">Learn more about controlling digital content.</p>
+    <div class="related-grid">
+      <a class="content-card" href="/en/screen-time.html">
+        <img src="/images/telas.webp" alt="Excessive Screen Time" />
+        <div class="content-card-body">
+          <h3>Excessive Screen Time</h3>
+          <p>Understand why uncontrolled exposure to screens can have unexpected consequences.</p>
+          <span class="content-card-link">Read &#8594;</span>
+        </div>
+      </a>
+      <a class="content-card" href="/en/pornography-exposure.html">
+        <img src="/images/exposicao.webp" alt="Exposure to Pornography" />
+        <div class="content-card-body">
+          <h3>Exposure to Pornography</h3>
+          <p>A reflection on how access to adult content can affect children in tragic ways.</p>
+          <span class="content-card-link">Read &#8594;</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="container">
+    <h2 class="section-title">Have another problem?</h2>
+    <p>Winserv is ready to look at any case involving network management, IT infrastructure or similar.</p>
+    <a class="btn-primary" href="/en/contact.html">Get in touch</a>
+  </div>
+</section>
+</BaseLayout>
