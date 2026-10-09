@@ -1301,4 +1301,15 @@ section:has(.article-hero-img) { padding-top: 3rem; }
 /* A text-only page (privacidade): articles open their section with an image and get a 3rem
    top (section:has(.article-hero-img)); without one the full 5rem sat under the hero's 4rem. */
 section.section--text { padding-top: 1rem; }
+
+/* Language switcher (spec sub-project 3 §4). Final look is sub-project 2's. The !important in
+   .nav-mobile-lang a only beats .nav-mobile a's border and size — nowhere else. */
+.nav-right { display: flex; align-items: center; gap: 1.25rem; }
+.nav-lang { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; }
+.nav-lang a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nav-lang a:hover { color: var(--text); }
+.nav-lang-current { color: var(--text); }
+.nav-mobile-lang { display: flex; gap: 1.25rem; padding-top: 0.75rem; }
+.nav-mobile-lang a { border-bottom: none !important; font-size: 0.85rem !important; color: var(--muted) !important; }
+@media (max-width: 768px) { .nav-lang { display: none; } }
 section.section--text .article-body > h2:first-child { margin-top: 0; }

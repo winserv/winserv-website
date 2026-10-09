@@ -47,6 +47,9 @@ npm ci --silent
 npm run build --silent
 npm test --silent
 ok "build e testes"
+# The WiFi links (gate live′) before anything is sent: a 404/410 is our content being wrong and
+# stops the publish; a 5xx from the neighbour only warns (2026-10-09 review).
+if node scripts/check-external.mjs; then ok "links externos"; else err "link externo quebrado (404/410) — nada foi enviado"; exit 1; fi
 
 DRY="$(mktemp)"; DRY_DEPLOY="$(mktemp)"
 trap 'rm -f "$DRY" "$DRY_DEPLOY"' EXIT
@@ -113,5 +116,18 @@ APEX_HEADERS="$("${CURL[@]}" -o /dev/null -D - "https://${APEX}/contato.html" | 
 LOC="$(awk 'tolower($1)=="location:"{print $2}' <<<"$APEX_HEADERS")"
 if [ "$LOC" = "https://${SITE}/contato.html" ]; then ok "apex redireciona preservando o caminho"; else err "apex Location: '${LOC}'"; FAILED=1; fi
 if grep -qi '^strict-transport-security:' <<<"$APEX_HEADERS"; then err "apex manda HSTS — guardrail 4"; FAILED=1; else ok "apex sem HSTS"; fi
+
+# Spec sub-project 3 §9 (live): /en and /es get nginx's native 301 to the slashed form, and a
+# missing English path answers 404 with the English page.
+for l in en es; do
+    H="$("${CURL[@]}" -o /dev/null -D - "https://${SITE}/${l}" | tr -d '\r')"
+    CODE="$(awk 'NR==1{print $2}' <<<"$H")"
+    LOC="$(awk 'tolower($1)=="location:"{print $2}' <<<"$H")"
+    if [ "$CODE" = "301" ] && [ "$LOC" = "/${l}/" ]; then ok "/${l} -> /${l}/ (301)"; else err "/${l}: ${CODE} ${LOC}"; FAILED=1; fi
+    BODY="$("${CURL[@]}" -w '\n%{http_code}' "https://${SITE}/${l}/nao-existe-$$")"
+    if [ "$(tail -n1 <<<"$BODY")" = "404" ] && grep -q "<html lang=\"${l}\"" <<<"$BODY"; then
+        ok "/${l}/<inexistente> -> 404 em ${l}"
+    else err "/${l}/<inexistente> nao deu o 404 do idioma"; FAILED=1; fi
+done
 
 exit "$FAILED"

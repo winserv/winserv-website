@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title={"WINSERV | Contacto"}
+  description={"Póngase en contacto con Winserv para dudas, sugerencias u oportunidades de colaboración."}
+  path={"/es/contacto.html"}
+  ogTitle={"Contacto — WINSERV"}
+  ogDescription={"Póngase en contacto con Winserv para dudas, sugerencias u oportunidades de colaboración."}
+  ogType={"website"}
+  active={"none"}
+  scripts={["/js/contato.js"]}
+>
+<div class="page-top">
+  <div class="container">
+    <div class="contact-layout">
+
+      <div class="contact-info">
+        <div class="section-label">Hable con nosotros</div>
+        <h1>El diálogo es nuestra prioridad</h1>
+        <p class="lead">¿Dudas, sugerencias, colaboraciones o simple curiosidad? Escríbanos o encuéntrenos en las redes sociales; será un placer ayudarle.</p>
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-card-icon">&#127963;</div>
+            <div>
+              <div class="contact-card-label">Empresa</div>
+              <div class="contact-card-val"><span lang="pt-BR">Winserv Tecnologia da Informação</span><br />CNPJ 10.411.266/0001-80<br />Rio Grande, RS, Brasil</div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">&#128172;</div>
+            <div>
+              <div class="contact-card-label">WhatsApp</div>
+              <div class="contact-card-val"><a href="https://wa.me/5553999282423" target="_blank" rel="noopener">+55 53 9 9928-2423</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon">&#128279;</div>
+            <div>
+              <div class="contact-card-label">LinkedIn</div>
+              <div class="contact-card-val"><a href="https://www.linkedin.com/company/winserv/" target="_blank" rel="noopener">linkedin.com/company/winserv</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="contact-form-box">
+        <h2>Envíenos un mensaje</h2>
+        <p class="form-sub">Escriba a la dirección de abajo. Le responderemos pronto.</p>
+        <p class="contact-email"><a href="mailto:comercial@winserv.com.br?subject=Contacto%20desde%20el%20sitio">comercial@winserv.com.br</a></p>
+        <div id="form-status"></div>
+        <div class="form-actions">
+          <a class="btn-submit" href="mailto:comercial@winserv.com.br?subject=Contacto%20desde%20el%20sitio">Abrir mi correo</a>
+          <button type="button" class="btn-reset" id="copy-email" data-ok="Dirección copiada." data-fail="Copie la dirección de arriba: comercial@winserv.com.br">Copiar dirección</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</BaseLayout>

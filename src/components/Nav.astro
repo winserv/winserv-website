@@ -1,24 +1,46 @@
 ---
-interface Props { active: 'inicio' | 'solucoes' | 'conteudo' | 'none' }
-const { active } = Astro.props;
+import { LOCALES, LANG, href, twins, external } from '../i18n/routes.mjs';
+import { UI } from '../i18n/ui.mjs';
+interface Props { active: 'inicio' | 'solucoes' | 'conteudo' | 'none'; locale: string; routeKey: string; noindex: boolean }
+const { active, locale, routeKey, noindex } = Astro.props;
 const on = (k: string) => (active === k ? 'active' : undefined);
-const WIFI = 'https://www.wifi.winserv.com.br/pt-br/';
+const t = UI[locale].nav;
+const WIFI = external('wifiHome', locale);
+// The switcher (spec §4): the page's other languages; a noindex page has no twin, so it offers
+// the homes. Never .nav-new — the badge gate wants exactly one, on the WiFi tab.
+const target = (l: string) => (noindex ? twins('index')[l] : twins(routeKey)[l]);
+const others = LOCALES.filter((l) => l !== locale && target(l)).map((l) => ({ l, to: target(l) }));
 ---
 <nav class="topnav">
-  <a class="wordmark" href="/"><span class="win">WIN</span><span class="serv">SERV</span></a>
+  <a class="wordmark" href={href('index', locale)}><span class="win">WIN</span><span class="serv">SERV</span></a>
   <ul class="nav-links">
-    <li><a href="/" class={on('inicio')}>Início</a></li>
-    <li><a href="/solucoes.html" class={on('solucoes')}>Soluções</a></li>
-    <li><a href="/conteudo.html" class={on('conteudo')}>Conteúdo</a></li>
-    <li><a href={WIFI}>Wi-Fi Corporativo<span class="nav-new">novo</span></a></li>
+    <li><a href={href('index', locale)} class={on('inicio')}>{t.home}</a></li>
+    <li><a href={href('solucoes', locale)} class={on('solucoes')}>{t.solutions}</a></li>
+    <li><a href={href('conteudo', locale)} class={on('conteudo')}>{t.articles}</a></li>
+    <li><a href={WIFI}>{t.wifi}<span class="nav-new">{t.badge}</span></a></li>
   </ul>
-  <a class="btn-nav" href="/contato.html">Contato</a>
-  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <!-- One right-hand group, so the nav keeps the three items space-between laid out before the switcher. -->
+  <div class="nav-right">
+    {others.length > 0 && (
+      <div class="nav-lang">
+        {LOCALES.filter((l) => l === locale || target(l)).map((l) => (l === locale
+          ? <span class="nav-lang-current" lang={LANG[l].html}>{LANG[l].short}</span>
+          : <a href={target(l)} hreflang={LANG[l].hreflang} lang={LANG[l].html} aria-label={LANG[l].name}>{LANG[l].short}</a>))}
+      </div>
+    )}
+    <a class="btn-nav" href={href('contato', locale)}>{t.contact}</a>
+  </div>
+  <button class="nav-burger" id="burger" aria-label={t.menu}><span></span><span></span><span></span></button>
 </nav>
 <div class="nav-mobile" id="mobile-menu">
-  <a href="/">Início</a>
-  <a href="/solucoes.html">Soluções</a>
-  <a href="/conteudo.html">Conteúdo</a>
-  <a href={WIFI}>Wi-Fi Corporativo</a>
-  <a href="/contato.html">Contato</a>
+  <a href={href('index', locale)}>{t.home}</a>
+  <a href={href('solucoes', locale)}>{t.solutions}</a>
+  <a href={href('conteudo', locale)}>{t.articles}</a>
+  <a href={WIFI}>{t.wifi}</a>
+  <a href={href('contato', locale)}>{t.contact}</a>
+  {others.length > 0 && (
+    <div class="nav-mobile-lang">
+      {others.map((o) => <a href={o.to} hreflang={LANG[o.l].hreflang} lang={LANG[o.l].html}>{LANG[o.l].name}</a>)}
+    </div>
+  )}
 </div>
