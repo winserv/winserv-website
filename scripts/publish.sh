@@ -127,4 +127,13 @@ for l in en es; do
     else err "/${l}/<inexistente> nao deu o 404 do idioma"; FAILED=1; fi
 done
 
+# Spec 2026-10-09 sub-project 4 (Review Focus 2): the WiFi homes are directories too, so the
+# slashless form must get the same native, relative 301.
+for d in wifi en/wifi es/wifi; do
+    H="$("${CURL[@]}" -o /dev/null -D - "https://${SITE}/${d}" | tr -d '\r')"
+    CODE="$(awk 'NR==1{print $2}' <<<"$H")"
+    LOC="$(awk 'tolower($1)=="location:"{print $2}' <<<"$H")"
+    if [ "$CODE" = "301" ] && [ "$LOC" = "/${d}/" ]; then ok "/${d} -> /${d}/ (301)"; else err "/${d}: ${CODE} ${LOC}"; FAILED=1; fi
+done
+
 exit "$FAILED"

@@ -31,6 +31,7 @@ test('the beacon slug is readable on every kind of path', () => {
   for (const [path, slug] of [
     ['/', 'inicio'], ['/contato.html', 'contato'], ['/contato', 'contato'],
     ['/en/', 'en/inicio'], ['/en/contact.html', 'en/contact'], ['/es/contacto.html', 'es/contacto'],
+    ['/wifi/', 'wifi/inicio'], ['/en/wifi/help.html', 'en/wifi/help'],
   ]) {
     assert.equal(beaconFor(path), `/e/contato-email?p=${slug}`, path);
   }

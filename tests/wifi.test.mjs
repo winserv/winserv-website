@@ -113,3 +113,36 @@ test('the legal pages identify the company', () => {
     for (const fact of ['M. SAMOILENKO INFORMATICA', '10.411.266/0001-80', '96202-570']) assert.ok(text.includes(fact), `${p}: ${fact}`);
   }
 });
+
+import { readdirSync, statSync } from 'node:fs';
+
+const walk = (d) => readdirSync(d).flatMap((n) => (statSync(join(d, n)).isDirectory() ? walk(join(d, n)) : [join(d, n)]));
+const TEXT = walk(DIST).filter((f) => /\.(html|txt|xml|json|js|css)$/.test(f));
+
+// Ported from test_marketing.py:202, plus the landing's own host (spec §6 row 5): what the
+// WiFi left behind must not be linked back. winserv-auth.com left on 2026-10-07 (DBL).
+test('nothing published points at a host or address the product left', () => {
+  for (const gone of ['www.wifi.winserv.com.br', 'unifi-portal.winserv.com.br', 'contato@winserv.com.br',
+    'winserv-auth.com']) {
+    assert.deepEqual(TEXT.filter((f) => readFileSync(f, 'utf8').includes(gone)).map((f) => f.slice(DIST.length)), [], gone);
+  }
+});
+
+// Structured data that disagrees with the visible page is the defect every other pair of
+// sources here is gated against (spec review 2026-10-09; Google's rule that markup match the
+// visible content was not re-read this session). Measured at the port: 9/9/10.
+test('the FAQPage of each WiFi home has exactly its visible FAQ questions', () => {
+  for (const p of WIFI.filter((x) => x.key === 'wifi')) {
+    const root = parse(read(pageFile(p.path)));
+    const ld = JSON.parse(root.querySelector('script[type="application/ld+json"]').text);
+    const visible = root.querySelectorAll('.w-faq__item summary').map((s) => s.text.replace(/\s+/g, ' ').trim());
+    assert.ok(visible.length >= 9, `${p.path}: only ${visible.length} questions`);
+    assert.deepEqual(ld.mainEntity.map((q) => q.name.replace(/\s+/g, ' ').trim()), visible, p.path);
+  }
+});
+
+// Ported from test_marketing.py:471 — the Ashburn VM's IP, retired at the 2026-09-28 cutover;
+// the requirements pages kept telling customers to allowlist it.
+test('no published page names a retired portal IP', () => {
+  assert.deepEqual(TEXT.filter((f) => readFileSync(f, 'utf8').includes('5.161.45.166')), []);
+});

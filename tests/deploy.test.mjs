@@ -78,3 +78,10 @@ for (const l of LOCALES.filter((x) => x !== 'pt-br')) {
     assert.ok(code.includes(`location = /${l}/404 { error_page 404 /${l}/404.html; return 404; }`));
   });
 }
+
+// Ported from winserv-unifi-portal test_marketing.py:311 (measured 2026-09-22: without it,
+// /termos answered 301 to http://…:8080/termos/). /wifi → /wifi/ depends on it (spec §6 row 17).
+test('nginx answers relative redirects and names no version', () => {
+  assert.match(code, /^\s*absolute_redirect off;/m);
+  assert.match(code, /^\s*server_tokens off;/m);
+});
