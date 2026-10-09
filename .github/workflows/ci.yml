@@ -11,7 +11,11 @@ jobs:
     name: Build and test
     runs-on: ubuntu-24.04
     steps:
+      # fetch-depth 0: tests/source.test.mjs compares src/pages/ with tag pre-i18n, and a shallow
+      # clone has no tags (spec 2026-10-08 sub-project 3 §9).
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 22
