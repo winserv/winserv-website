@@ -114,4 +114,19 @@ LOC="$(awk 'tolower($1)=="location:"{print $2}' <<<"$APEX_HEADERS")"
 if [ "$LOC" = "https://${SITE}/contato.html" ]; then ok "apex redireciona preservando o caminho"; else err "apex Location: '${LOC}'"; FAILED=1; fi
 if grep -qi '^strict-transport-security:' <<<"$APEX_HEADERS"; then err "apex manda HSTS — guardrail 4"; FAILED=1; else ok "apex sem HSTS"; fi
 
+# Spec sub-project 3 §9 (live): /en and /es get nginx's native 301 to the slashed form, and a
+# missing English path answers 404 with the English page.
+for l in en es; do
+    H="$("${CURL[@]}" -o /dev/null -D - "https://${SITE}/${l}" | tr -d '\r')"
+    CODE="$(awk 'NR==1{print $2}' <<<"$H")"
+    LOC="$(awk 'tolower($1)=="location:"{print $2}' <<<"$H")"
+    if [ "$CODE" = "301" ] && [ "$LOC" = "/${l}/" ]; then ok "/${l} -> /${l}/ (301)"; else err "/${l}: ${CODE} ${LOC}"; FAILED=1; fi
+    BODY="$("${CURL[@]}" -w '\n%{http_code}' "https://${SITE}/${l}/nao-existe-$$")"
+    if [ "$(tail -n1 <<<"$BODY")" = "404" ] && grep -q "<html lang=\"${l}\"" <<<"$BODY"; then
+        ok "/${l}/<inexistente> -> 404 em ${l}"
+    else err "/${l}/<inexistente> nao deu o 404 do idioma"; FAILED=1; fi
+done
+# The WiFi links (gate live′): follows redirects; 404/410 fail, 5xx only warns.
+if node scripts/check-external.mjs; then ok "links externos"; else err "link externo quebrado (404/410)"; FAILED=1; fi
+
 exit "$FAILED"
