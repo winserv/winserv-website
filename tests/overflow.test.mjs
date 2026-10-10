@@ -1,5 +1,6 @@
 // Incident: /wifi/privacidade.html scrolled 16 px sideways at 390 px with no sign it did
-// (go-live 29, 2026-10-09). Every built page, at 390 px; prints only the pages that overflow.
+// (go-live 29, 2026-10-09). Every built page, at 390 px and at 360 px (common Android width: review
+// 2026-10-10 found a 3 px scroll there that 390 missed); prints only the pages that overflow.
 // Run after `npm run build`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -16,7 +17,7 @@ const FILES = pages().map((p) => pageFile(p.path));
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
   '.woff2': 'font/woff2', '.jpg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp' };
 
-test('no page scrolls sideways at 390 px', async () => {
+test('no page scrolls sideways at 360 or 390 px', async () => {
   const server = createServer(async (req, res) => {
     const path = normalize(decodeURIComponent(new URL(req.url, 'http://x').pathname)).replace(/^(\.\.[/\\])+/, '');
     try {
@@ -31,15 +32,18 @@ test('no page scrolls sideways at 390 px', async () => {
   let browser;
   try {
     browser = await chromium.launch();
-    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-    for (const f of FILES) {
-      await page.goto(base + f, { waitUntil: 'load' });
-      const over = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-      // A scroll container narrower than its content is the same defect, just hidden.
-      const inner = await page.evaluate(() => [...document.querySelectorAll('*')]
-        .filter((e) => getComputedStyle(e).overflowX === 'auto' && e.scrollWidth > e.clientWidth + 1)
-        .map((e) => `${e.className || e.tagName} +${e.scrollWidth - e.clientWidth}px`));
-      if (over > 0 || inner.length) wide.push(`${f}: page +${over}px ${inner.join(' ')}`);
+    for (const width of [360, 390]) {
+      const page = await browser.newPage({ viewport: { width, height: 844 } });
+      for (const f of FILES) {
+        await page.goto(base + f, { waitUntil: 'load' });
+        const over = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+        // A scroll container narrower than its content is the same defect, just hidden.
+        const inner = await page.evaluate(() => [...document.querySelectorAll('*')]
+          .filter((e) => getComputedStyle(e).overflowX === 'auto' && e.scrollWidth > e.clientWidth + 1)
+          .map((e) => `${e.className || e.tagName} +${e.scrollWidth - e.clientWidth}px`));
+        if (over > 0 || inner.length) wide.push(`${width} ${f}: page +${over}px ${inner.join(' ')}`);
+      }
+      await page.close();
     }
   } finally { await browser?.close(); server.close(); }
   assert.deepEqual(wide, []);

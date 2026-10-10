@@ -1225,6 +1225,8 @@ section:has(.article-hero-img) { padding-top: var(--sp-7); }
 .filtro-text { color: var(--muted); font-size: var(--fs-base); line-height: 1.8; }
 .filtro-text--spaced { margin-bottom: var(--sp-5); }
 .text-strong { color: var(--text); }
+/* Addresses written out as link text have no break point: at 360 px one scrolled the page (review 2026-10-10). */
+.link-blue, .article-body a { overflow-wrap: anywhere; }
 .link-blue { color: var(--accent); }
 .filtro-h3 { font-size: var(--fs-base); font-weight: 700; margin: var(--sp-6) 0 var(--sp-3); }
 .page-hero--short { min-height: 40vh; }
@@ -1289,8 +1291,9 @@ section.section--text .article-body > h2:first-child { margin-top: 0; }
 /* At 390 px the three-column tables scrolled sideways (go-live 29); smaller type and hyphenation
    by the page language make the words fit — "anywhere" split words mid-syllable instead. */
 .w-ledger th, .w-ledger td { overflow-wrap: break-word; hyphens: auto; }
-@media (max-width: 680px) { .w-ledger { font-size: var(--fs-sm); } .w-ledger th, .w-ledger td { padding: var(--sp-2); } }
 .w-ledger td { padding: var(--sp-3) var(--sp-3); border-bottom: 1px solid var(--border); vertical-align: top; }
+/* After the base rules, which have the same specificity (review 2026-10-10: before them it never applied). */
+@media (max-width: 680px) { .w-ledger { font-size: var(--fs-sm); } .w-ledger th, .w-ledger td { padding: var(--sp-2); } }
 .w-ledger td:first-child { color: var(--muted); }
 .w-ledger td:last-child { font-weight: 600; }
 .w-ledger tbody tr:nth-child(even) { background: var(--surface); }
