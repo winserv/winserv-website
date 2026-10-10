@@ -329,7 +329,7 @@
 /* ── Design tokens — one light theme (spec 2026-10-10). Every colour of
    the site lives here; tests/theme.test.mjs holds AA contrast and "no literal outside :root". ── */
 :root {
-  color-scheme: only light; /* "only": Chrome on Android auto-darkens a page that does not say it (developer.chrome.com/blog/auto-dark-theme) */
+  color-scheme: only light; /* "only" is the opt-out Chrome's Auto Dark Theme documents (Android origin trial, Chrome 96, 2021); plain "light" is not named as one */
   --bg:           #FFFFFF;
   --surface:      #F4F6FA;
   --border:       rgba(11,18,32,.09);

@@ -46,11 +46,34 @@ test('every text/background token pair is WCAG AA (4.5:1)', () => {
 // Incident: this migration had to hunt 40 literals across the sheet (2026-10-10); with them
 // gone, a dark theme could return as one token block (spec L1). An id selector made only of
 // hex letters (#add, #face) would match too — rename it rather than weaken the pattern.
+// CSS named colours (CSS Color 4), matched only after a ':' so a class like .c-green never counts;
+// transparent, currentColor and inherit stay allowed. Review 2026-10-10: `color: white` and
+// `oklch(...)` passed the first version of this gate.
+const NAMED = ('aliceblue antiquewhite aqua aquamarine azure beige bisque black blanchedalmond blue blueviolet brown '
+  + 'burlywood cadetblue chartreuse chocolate coral cornflowerblue cornsilk crimson cyan darkblue darkcyan '
+  + 'darkgoldenrod darkgray darkgreen darkgrey darkkhaki darkmagenta darkolivegreen darkorange darkorchid darkred '
+  + 'darksalmon darkseagreen darkslateblue darkslategray darkslategrey darkturquoise darkviolet deeppink deepskyblue '
+  + 'dimgray dimgrey dodgerblue firebrick floralwhite forestgreen fuchsia gainsboro ghostwhite gold goldenrod gray '
+  + 'green greenyellow grey honeydew hotpink indianred indigo ivory khaki lavender lavenderblush lawngreen '
+  + 'lemonchiffon lightblue lightcoral lightcyan lightgoldenrodyellow lightgray lightgreen lightgrey lightpink '
+  + 'lightsalmon lightseagreen lightskyblue lightslategray lightslategrey lightsteelblue lightyellow lime limegreen '
+  + 'linen magenta maroon mediumaquamarine mediumblue mediumorchid mediumpurple mediumseagreen mediumslateblue '
+  + 'mediumspringgreen mediumturquoise mediumvioletred midnightblue mintcream mistyrose moccasin navajowhite navy '
+  + 'oldlace olive olivedrab orange orangered orchid palegoldenrod palegreen paleturquoise palevioletred papayawhip '
+  + 'peachpuff peru pink plum powderblue purple rebeccapurple red rosybrown royalblue saddlebrown salmon sandybrown '
+  + 'seagreen seashell sienna silver skyblue slateblue slategray slategrey snow springgreen steelblue tan teal '
+  + 'thistle tomato turquoise violet wheat white whitesmoke yellow yellowgreen').split(' ');
+const LITERAL = new RegExp(String.raw`#[0-9a-f]{3,8}\b|\b(rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\(`
+  + String.raw`|:[^;{}]*\b(${NAMED.join('|')})\b`, 'i');
+
 test('no colour literal outside :root', () => {
   // Blank the exempt blocks but keep their newlines, so a hit reports the file's own line.
   const blank = (s) => s.replace(/[^\n]/g, '');
   const body = CSS.replace(rootBlock(CSS)[0], blank).replace(/@font-face\s*\{[^}]*\}/g, blank);
-  const hits = body.split('\n').flatMap((line, i) =>
-    /#[0-9a-f]{3,8}\b|\brgba?\(|\bhsla?\(/i.test(line.replace(/\/\*.*?\*\//g, '')) ? [`${i + 1}: ${line.trim()}`] : []);
+  const hits = body.split('\n').flatMap((line, i) => {
+    // Strip comments and quoted strings (content: '✓', font names) before matching.
+    const code = line.replace(/\/\*.*?\*\//g, '').replace(/'[^']*'|"[^"]*"/g, "''");
+    return LITERAL.test(code) ? [`${i + 1}: ${line.trim()}`] : [];
+  });
   assert.deepEqual(hits, []);
 });
