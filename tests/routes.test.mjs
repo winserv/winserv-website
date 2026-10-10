@@ -67,7 +67,7 @@ test('the WiFi pages sit under /wifi/ in each language; the legal ones have no S
 });
 
 test('a WiFi page shares the product card of its language; every other page the company card', () => {
-  assert.equal(ogImage('pt-br', 'wifiTermos'), '/images/wifi/og/pt-br/og-cover.png');
-  assert.equal(ogImage('es', 'wifi'), '/images/wifi/og/es/og-cover.png');
-  assert.equal(ogImage('en', 'contato'), '/images/og/en.jpg');
+  assert.equal(ogImage('pt-br', 'wifiTermos'), '/images/wifi/og/2026-10/pt-br/og-cover.png');
+  assert.equal(ogImage('es', 'wifi'), '/images/wifi/og/2026-10/es/og-cover.png');
+  assert.equal(ogImage('en', 'contato'), '/images/og/2026-10/en.jpg');
 });

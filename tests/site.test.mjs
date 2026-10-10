@@ -34,8 +34,8 @@ test('every page builds at its old path', () => {
 test('the static files survive byte for byte', () => {
   for (const f of ['style.css', 'BingSiteAuth.xml', 'googlecc9795c73ab262d5.html',
     'googlehostedservice.html', '.well-known/winserv-license/sagres-validation.json',
-    'images/og.jpg', 'images/og/pt-br.jpg', 'fonts/plus-jakarta-sans-400.woff2',
-    'images/wifi/og/pt-br/og-cover.png']) {
+    'images/og.jpg', 'images/og/2026-10/pt-br.jpg', 'fonts/plus-jakarta-sans-400.woff2',
+    'images/wifi/og/2026-10/pt-br/og-cover.png']) {
     assert.ok(FILES.includes(f), `missing ${f}`);
   }
 });

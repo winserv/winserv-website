@@ -1,0 +1,11 @@
+/* Served at /share-card.css by render.mjs only; never published. Sizes in vmin so one layout
+   fits the four formats (1200×630, 1080×1080, 1080×1350, 1080×1920). */
+.card { margin: 0; width: 100vw; height: 100vh; background: var(--bg); display: flex; align-items: center; overflow: hidden; }
+.card main { padding: 0 8vw; }
+.card .mark { height: 15vmin; margin-bottom: 3vmin; }
+.card .wordmark { font-size: 6.5vmin; margin-bottom: 6vmin; }
+.card #eyebrow { font-size: 3.6vmin; font-weight: 600; color: var(--accent); margin-bottom: 1.5vmin; }
+.card #eyebrow:empty { display: none; }
+.card h1 { font-size: 7.4vmin; font-weight: 600; letter-spacing: -.02em; line-height: 1.12; max-width: 84vw; }
+.card #sub { font-size: 3.7vmin; line-height: 1.45; color: var(--muted); margin-top: 3vmin; max-width: 80vw; }
+.card #url { font-family: var(--mono); font-size: 3vmin; color: var(--accent); margin-top: 5vmin; }
