@@ -28,7 +28,7 @@ const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p);
 // Incident: .w-note 4.03:1 and .w-ledger 4.23:1 (go-live 29, 2026-10-09) — a palette nobody measured.
 // Every pair a page actually draws text with; WCAG AA for body text is 4.5:1.
 const PAIRS = [
-  ['text', 'bg'], ['text', 'surface'], ['muted', 'bg'], ['muted', 'surface'],
+  ['text', 'bg'], ['text', 'surface'], ['heading', 'bg'], ['heading', 'surface'], ['muted', 'bg'], ['muted', 'surface'],
   ['accent', 'bg'], ['accent', 'surface'], ['danger', 'bg'], ['danger', 'surface'],
   ['on-accent', 'accent'], ['on-accent', 'accent-hover'],
 ];
