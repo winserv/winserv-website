@@ -331,7 +331,7 @@
 :root {
   color-scheme: only light; /* "only" is the opt-out Chrome's Auto Dark Theme documents (Android origin trial, Chrome 96, 2021); plain "light" is not named as one */
   --bg:           #FFFFFF;
-  --surface:      #F4F6FA;
+  --surface:      #F8F9FB;
   --border:       rgba(11,18,32,.09);
   --text:         #0B1220;
   --heading:      #1F3D5C;   /* titles: dark Aço, softer than --text (Marcelo, 2026-10-10: option E) */
