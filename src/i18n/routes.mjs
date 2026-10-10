@@ -80,6 +80,9 @@ export const { href, twins, routeOf, noindex, pages } = site;
 export const pageFile = (path) => (path.endsWith('/') ? path.slice(1) + 'index.html' : path.slice(1));
 // Two card conventions on purpose (spec 2026-10-09 §2): the company's one image per language,
 // the WiFi's own cover per language. The table says which a route uses.
+// New names per redesign: networks cache a card by URL, so new bytes need a new URL (go-live 29).
+// scripts/share-cards/render.mjs writes under the same stamp.
+export const OG_STAMP = '2026-10';
 export const ogImage = (locale, key) => (ROUTES[key]?.og === 'wifi'
-  ? `/images/wifi/og/${locale}/og-cover.png`
-  : `/images/og/${locale}.jpg`);
+  ? `/images/wifi/og/${OG_STAMP}/${locale}/og-cover.png`
+  : `/images/og/${OG_STAMP}/${locale}.jpg`);
