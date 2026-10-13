@@ -809,12 +809,17 @@ section.alt { background: var(--surface); }
 .sol-proposal li { display: flex; align-items: baseline; gap: var(--sp-3); font-size: var(--fs-sm); color: var(--muted); }
 .sol-proposal li::before, .tips-list li::before, .w-tier li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
 
+/* Never wider than the file (700 px; tests/images.test.mjs): the frame shrinks to the image,
+   which fills the column only until it reaches its own width. */
 .sol-img {
   border-radius: var(--r-md);
   overflow: hidden;
   border: 1px solid var(--border);
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
 }
-.sol-img img { width: 100%; aspect-ratio: 3/2; object-fit: cover; }
+.sol-img img { max-width: 100%; height: auto; aspect-ratio: 3/2; object-fit: cover; }
 
 /* ── Contato ── */
 .contact-layout {
@@ -941,6 +946,9 @@ a.btn-submit { display: inline-block; text-decoration: none; }
 .contact-email a:hover { text-decoration: underline; }
 
 /* ── Conteudo ── */
+/* The hero's 64 plus the section's 80 left 144 px over the first category (measured 2026-10-13);
+   the hero's 64 alone, as over an article's photo. */
+.page-hero + section:has(.content-category) { padding-top: 0; }
 .content-category { margin-bottom: var(--sp-8); }
 .category-label {
   font-size: var(--fs-xs);
@@ -968,14 +976,20 @@ a.btn-submit { display: inline-block; text-decoration: none; }
   margin: var(--sp-5) 0 var(--sp-6);
   line-height: 1.7;
 }
-section:has(.article-hero-img) { padding-top: var(--sp-7); }
+/* Around the photo the hero's 64, the section's top, the image's margin, the wrap's top and the
+   title's top added up to 112 px on each side (measured 2026-10-13). Now the hero's 64 above and
+   the image's 48 below — what filtro.html already had. */
+section:has(.article-hero-img) { padding-top: 0; }
+.article-hero-img + .article-wrap { padding-top: 0; }
+.article-hero-img + .article-wrap > .article-h3:first-child { margin-top: 0; }
 .article-hero-img {
   max-width: 820px;
   margin: 0 auto var(--sp-7);
   padding: 0 var(--sp-6);
 }
 .article-hero-img img {
-  width: 100%;
+  max-width: 100%;   /* not width: 100% — the column is 756 px and the photos 700 (tests/images.test.mjs) */
+  margin-inline: auto;
   height: auto;
   display: block;
   border-radius: var(--r-md);
@@ -1213,6 +1227,14 @@ section:has(.article-hero-img) { padding-top: var(--sp-7); }
 @media (max-width: 680px) {
   .about-stats { flex-direction: column; gap: var(--sp-5); }
 }
+/* The WiFi pages' nav carries six items and needs 1103–1133 px in one line (measured 2026-10-13,
+   pt/en/es); between 961 and 1199 px they wrapped to two lines. Below 1200 it folds into the menu. */
+@media (max-width: 1199px) {
+  .topnav--wifi .nav-links { display: none; }
+  .topnav--wifi .nav-burger { display: flex; }
+  /* With the list gone, space-between centred the switcher and the button (seen at 1024 px). */
+  .topnav--wifi .nav-right { margin-left: auto; margin-right: var(--sp-5); }
+}
 /* ── Classes that replaced inline style="" (spec 2026-10-08 §4). No !important since 2026-10-10:
    where another rule competes, the selector names it (.article-body, .page-hero) — computed styles
    compared before/after on every page that uses these classes. ── */
@@ -1276,7 +1298,8 @@ section.section--text .article-body > h2:first-child { margin-top: 0; }
 .w-hero h1:has(+ .w-hero-sub) { margin-bottom: var(--sp-2); }
 .w-hero-sub { font-size: var(--fs-lg); font-weight: 600; color: var(--accent); margin-bottom: var(--sp-4); }
 .w-hero .w-eyebrow:last-child { margin-top: var(--sp-5); color: var(--muted); font-weight: 400; }
-.w-lede { font-size: var(--fs-lg); color: var(--muted); max-width: 42rem; }
+/* Body size, as the home's text (Marcelo, 2026-10-13): at --fs-lg every WiFi paragraph read as a lead. */
+.w-lede { font-size: var(--fs-base); color: var(--muted); max-width: 42rem; }
 .w-nb { white-space: nowrap; }
 .w-btn { display: inline-flex; align-items: center; gap: .5em; font: 600 var(--fs-base)/1.2 var(--font); background: var(--accent); color: var(--on-accent); border: 1px solid transparent; border-radius: var(--r-sm); padding: var(--sp-3) var(--sp-4); text-decoration: none; cursor: pointer; }
 .w-btn:hover { background: var(--accent-hover); }
