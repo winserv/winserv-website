@@ -3,21 +3,26 @@ import { LOCALES, LANG, href, twins } from '../i18n/routes.mjs';
 import { UI } from '../i18n/ui.mjs';
 interface Props { active: 'inicio' | 'solucoes' | 'conteudo' | 'wifi' | 'none'; locale: string; routeKey: string; noindex: boolean }
 const { active, locale, routeKey, noindex } = Astro.props;
-const on = (k: string) => (active === k ? 'active' : undefined);
 const t = UI[locale].nav;
 const WIFI = href('wifi', locale);
+// On the WiFi pages the two pages a customer looks for — help and requirements — sit in the
+// menu, not only in the .w-links footer (Marcelo, 2026-10-13). The page's own item is the active one.
+const WIFI_SUB = routeKey.startsWith('wifi') ? ['wifiAjuda', 'wifiRequisitos'] : [];
+const current = WIFI_SUB.includes(routeKey) ? routeKey : active;
+const on = (k: string) => (current === k ? 'active' : undefined);
 // The switcher (spec §4): the page's other languages; a noindex page has no twin, so it offers
 // the homes. Never .nav-new — the badge gate wants exactly one, on the WiFi tab.
 const target = (l: string) => (noindex ? twins('index')[l] : twins(routeKey)[l]);
 const others = LOCALES.filter((l) => l !== locale && target(l)).map((l) => ({ l, to: target(l) }));
 ---
-<nav class="topnav">
+<nav class:list={['topnav', { 'topnav--wifi': WIFI_SUB.length }]}>
   <a class="wordmark" href={href('index', locale)}><span class="win">WIN</span><span class="serv">SERV</span></a>
   <ul class="nav-links">
     <li><a href={href('index', locale)} class={on('inicio')}>{t.home}</a></li>
     <li><a href={href('solucoes', locale)} class={on('solucoes')}>{t.solutions}</a></li>
     <li><a href={href('conteudo', locale)} class={on('conteudo')}>{t.articles}</a></li>
     <li><a href={WIFI} class={on('wifi')}>{t.wifi}<span class="nav-new">{t.badge}</span></a></li>
+    {WIFI_SUB.map((k) => <li><a href={href(k, locale)} class={on(k)}>{UI[locale].wifi[k]}</a></li>)}
   </ul>
   <!-- One right-hand group, so the nav keeps the three items space-between laid out before the switcher. -->
   <div class="nav-right">
@@ -37,6 +42,7 @@ const others = LOCALES.filter((l) => l !== locale && target(l)).map((l) => ({ l,
   <a href={href('solucoes', locale)}>{t.solutions}</a>
   <a href={href('conteudo', locale)}>{t.articles}</a>
   <a href={WIFI}>{t.wifi}</a>
+  {WIFI_SUB.map((k) => <a href={href(k, locale)}>{UI[locale].wifi[k]}</a>)}
   <a href={href('contato', locale)}>{t.contact}</a>
   {others.length > 0 && (
     <div class="nav-mobile-lang">
