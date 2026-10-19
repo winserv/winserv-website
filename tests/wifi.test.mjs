@@ -14,8 +14,8 @@ export const read = (f) => readFileSync(join(DIST, f), 'utf8');
 export const WIFI = pages().filter((p) => p.key.startsWith('wifi'));
 const mainOf = (p) => parse(read(pageFile(p.path))).querySelector('main');
 
-test('the WiFi pages are the fifteen of the table, each in a <main class="w-main">', () => {
-  assert.equal(WIFI.length, 15);
+test('the WiFi pages are the eighteen of the table, each in a <main class="w-main">', () => {
+  assert.equal(WIFI.length, 18);   // 15 ported on 2026-10-09; +3 the comparison guide, 2026-10-19
   for (const p of WIFI) assert.equal(mainOf(p)?.getAttribute('class'), 'w-main', p.path);
 });
 

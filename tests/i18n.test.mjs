@@ -231,8 +231,8 @@ test('Spanish pages carry no Portuguese (gate e)', () => {
   }
 });
 
-test('the whole site: 50 indexable pages, a 404 per language, Spanish privacy is the English notice', () => {
-  assert.equal(PAGES.filter((p) => !noindex(p.key)).length, 50);
+test('the whole site: 53 indexable pages, a 404 per language, Spanish privacy is the English notice', () => {
+  assert.equal(PAGES.filter((p) => !noindex(p.key)).length, 53);   // +3: the WiFi comparison guide, 2026-10-19
   for (const l of LOCALES) assert.ok(twins('404')[l], `no 404 in ${l}`);
   assert.equal(href('privacidade', 'es'), '/en/privacy.html');
   for (const p of ofLocale('es')) {

@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import WifiDiagram from '../../../components/WifiDiagram.astro';
+// Comparison guide (2026-10-19). Every claim about the UniFi side is quoted from the Ubiquiti
+// help pages linked under "Sources", read that day; re-read them before changing a row.
+---
+<BaseLayout title={"Microsoft 365 (Entra ID) sign-in for UniFi Wi-Fi: native app or captive portal? — Winserv WiFi"} description={"Two ways to join UniFi Wi-Fi with a Microsoft 365 / Entra ID account and MFA: the UniFi Endpoint app with UniFi Fabrics, or a captive portal. What each one requires, side by side."} path="/en/wifi/entra-id-unifi.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">IT guide · checked on October 19, 2026</p>
+      <h1>Microsoft 365 (Entra ID) sign-in for UniFi <span class="w-nb">Wi-Fi</span>: native app or captive portal?</h1>
+      <p class="w-lede">You want employees to join your UniFi Wi-Fi with the same Microsoft 365 account they use for email, with MFA, and to lose access when they leave the company. There are three ways to do it. This guide shows what each one requires, with a link to the official documentation for every statement about Ubiquiti.</p>
+    </section>
+
+    <section id="paths">
+      <h2>The three paths</h2>
+      <ol class="w-steps">
+        <li><strong>RADIUS with NPS and Active Directory (WPA2/WPA3-Enterprise).</strong> The classic path. Entra ID is a cloud service that speaks web protocols (OIDC and SAML), not RADIUS, so a server has to sit in between: NPS on a Windows Server with Active Directory synchronized, or a cloud RADIUS service. Branch offices usually need a VPN to reach that server.</li>
+        <li><strong>The UniFi Endpoint app with UniFi Fabrics.</strong> Ubiquiti's own solution: Entra ID becomes the identity provider of a Fabric, and each person uses the UniFi Endpoint app, on a PC or a phone, for "One-Click WiFi". With Entra ID bound, the app enforces SAML authentication, including MFA if configured.</li>
+        <li><strong>A captive portal with Microsoft sign-in.</strong> The SSID opens a sign-in page; the person signs in with their Microsoft 365 account and Entra ID's MFA, in the device's own browser, and the portal authorizes the device on the UniFi controller. This is the Winserv WiFi path.</li>
+      </ol>
+    </section>
+
+    <section id="side-by-side">
+      <h2>Native app and captive portal, side by side</h2>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>What changes</th><th>UniFi Endpoint app + Fabrics</th><th>Captive portal (Winserv WiFi)</th></tr></thead>
+          <tbody>
+            <tr><td>An app on every device</td><td>Yes: UniFi Endpoint, on a PC or a phone</td><td>No: sign-in happens in the captive portal's browser</td></tr>
+            <tr><td>UniFi equipment</td><td>UniFi OS 4.4 or newer and, in the Fabric, one of these consoles: UDM Pro, UDM SE, UDM Pro Max, UDM Beast, EFG, EF Core, UCG-Fiber, UNVR Pro, ENVR or ENVR Core</td><td>Any UniFi Network controller the portal can reach over HTTPS; tested on 10.0, 10.4 and 10.6 and on UniFi OS Server</td></tr>
+            <tr><td>Entra ID MFA</td><td>Yes, if configured</td><td>Yes, with your Entra ID's own rules</td></tr>
+            <tr><td>Entra ID groups</td><td>Syncing groups requires Entra ID P1 or P2</td><td>Works without P1</td></tr>
+            <tr><td>People who leave</td><td>Real-time SCIM provisioning; the documentation does not say how soon the device loses Wi-Fi</td><td>With fast offboarding on, Wi-Fi is cut within minutes (measured in the field: 4 min 16 s); without it, at the device's renewal</td></tr>
+            <tr><td>Visitors with no Microsoft account</td><td>The documentation checked does not cover visitors</td><td>Vouchers on the same portal</td></tr>
+            <tr><td>In Entra ID</td><td>The Cloud Application Administrator role and an Entra ID plan with unlimited SSO</td><td>An Entra ID administrator authorizes the portal at sign-up</td></tr>
+            <tr><td>Cost</td><td>UniFi Endpoint is license-free</td><td>From US$ 69/month</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="when">
+      <h2>When the captive portal is the way</h2>
+      <p class="w-lede">The native app asks for three things at once: the app installed on every device that uses the Wi-Fi, one of the listed consoles running UniFi OS 4.4 or newer, and the Fabric set up in Site Manager. If any of them does not hold for your network — personal laptops, third-party phones, a controller on a VM or your own server, a console outside the list — the captive portal delivers Microsoft 365 sign-in with MFA without installing anything on the device and without replacing equipment.</p>
+    </section>
+
+    <section id="connectivity">
+      <h2>How the captive portal connects</h2>
+      <p class="w-lede">What stays in your company, what runs in the Winserv cloud and what belongs to Microsoft. For what to allow in the firewall and the walled garden, see the <a href="/en/wifi/requirements.html">requirements</a>.</p>
+      <WifiDiagram kind="zones" locale="en" />
+      <div class="w-btn-row">
+        <a class="w-btn" href="https://app.wifi.winserv.com.br/signup">Create my portal</a>
+        <a class="w-btn w-btn--ghost" href="/en/wifi/">About Winserv WiFi</a>
+      </div>
+    </section>
+
+    <section id="sources">
+      <h2>Sources</h2>
+      <p class="w-lede">Ubiquiti documentation checked on October 19, 2026. If it has changed since, it prevails.</p>
+      <ul class="w-steps">
+        <li><a href="https://help.ui.com/hc/en-us/articles/16936895868823-UniFi-Identity-Endpoint-Overview">UniFi Endpoint Overview</a></li>
+        <li><a href="https://help.ui.com/hc/en-us/articles/31557442664983">Configuring UniFi Endpoint For Zero-Trust Network Access (ZTNA)</a></li>
+        <li><a href="https://help.ui.com/hc/en-us/articles/30968066908439">Integrating Microsoft Entra with UniFi Fabrics</a></li>
+        <li><a href="https://help.ui.com/hc/en-us/articles/30979808349463-Getting-Started-with-UniFi-Fabrics">Getting Started with UniFi Fabrics</a></li>
+      </ul>
+    </section>
+  </main>
+</BaseLayout>

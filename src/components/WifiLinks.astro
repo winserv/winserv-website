@@ -6,7 +6,7 @@ import { UI } from '../i18n/ui.mjs';
 interface Props { locale: string }
 const { locale } = Astro.props;
 const t = UI[locale].wifi;
-const keys = ['wifiAjuda', 'wifiRequisitos', 'wifiPrivacidade', 'wifiTermos', 'wifiDpa'];
+const keys = ['wifiGuia', 'wifiAjuda', 'wifiRequisitos', 'wifiPrivacidade', 'wifiTermos', 'wifiDpa'];
 ---
 <nav class="w-links" aria-label={t.label}>
   <a href={href('wifi', locale)}>{t.label}</a>
