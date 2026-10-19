@@ -17,7 +17,7 @@ export const DIAGRAM_TEXT = {
     },
     cap: {
       zones: 'Nada de AD on-prem, NPS, RADIUS, VPN ou certificados na sua rede: o portal fala com o seu controlador UniFi só por HTTPS, sem UDP. A consulta ao Microsoft Graph é o corte rápido, que você liga no console.',
-      journey: 'Os números são os passos da lista abaixo. Com o corte rápido ligado no console, quem sai do grupo perde o Wi-Fi em minutos; sem ele, na próxima renovação.',
+      journey: 'Os números são os passos da lista abaixo. Com o corte rápido ligado no console, quem sai do grupo perde o Wi-Fi em minutos; sem ele, só quando a autorização do aparelho vence, em até 30 dias.',
       replaces: 'O controlador e os access points Ubiquiti UniFi continuam os mesmos; o que sai é o servidor de autenticação.',
     },
     zoneCompany: 'SUA EMPRESA', zoneCloud: 'NUVEM WINSERV', zoneMs: 'MICROSOFT', before: 'ANTES', after: 'DEPOIS',
@@ -55,7 +55,7 @@ export const DIAGRAM_TEXT = {
     },
     cap: {
       zones: 'No on-prem AD, NPS, RADIUS, VPN or certificates on your network: the portal talks to your UniFi controller over HTTPS only, with no UDP. The Microsoft Graph check is fast offboarding, which you turn on in the console.',
-      journey: 'The numbers are the steps listed below. With fast offboarding turned on in the console, people who leave the group lose Wi-Fi within minutes; without it, at the next renewal.',
+      journey: 'The numbers are the steps listed below. With fast offboarding turned on in the console, people who leave the group lose Wi-Fi within minutes; without it, only when the device\'s authorization ends, within up to 30 days.',
       replaces: 'Your Ubiquiti UniFi controller and access points stay the same; what goes is the authentication server.',
     },
     zoneCompany: 'YOUR COMPANY', zoneCloud: 'WINSERV CLOUD', zoneMs: 'MICROSOFT', before: 'BEFORE', after: 'AFTER',
@@ -93,7 +93,7 @@ export const DIAGRAM_TEXT = {
     },
     cap: {
       zones: 'Sin AD on-premises, NPS, RADIUS, VPN ni certificados en su red: el portal habla con su controlador UniFi solo por HTTPS, sin UDP. La consulta a Microsoft Graph es la desvinculación rápida, que usted activa en la consola.',
-      journey: 'Los números son los pasos de la lista de abajo. Con la desvinculación rápida activada en la consola, quien sale del grupo pierde el Wi-Fi en minutos; sin ella, en la próxima renovación.',
+      journey: 'Los números son los pasos de la lista de abajo. Con la desvinculación rápida activada en la consola, quien sale del grupo pierde el Wi-Fi en minutos; sin ella, solo cuando vence la autorización del dispositivo, en hasta 30 días.',
       replaces: 'El controlador y los puntos de acceso Ubiquiti UniFi siguen iguales; lo que desaparece es el servidor de autenticación.',
     },
     zoneCompany: 'SU EMPRESA', zoneCloud: 'NUBE WINSERV', zoneMs: 'MICROSOFT', before: 'ANTES', after: 'DESPUÉS',
