@@ -32,7 +32,8 @@ import WifiDiagram from '../../../components/WifiDiagram.astro';
             <tr><td>MFA de Entra ID</td><td>Sí, si está configurado</td><td>Sí, con las reglas de su Entra ID</td></tr>
             <tr><td>Grupos de Entra ID</td><td>Sincronizar grupos exige Entra ID P1 o P2</td><td>Funciona sin P1</td></tr>
             <tr><td>Quien deja la empresa</td><td>Aprovisionamiento SCIM en tiempo real; la documentación no dice en cuánto tiempo el dispositivo pierde el Wi-Fi</td><td>Con la desvinculación rápida, que se activa con un clic en la consola, el Wi-Fi se corta en minutos (medido en campo: 4 min 16 s); sin ella, solo cuando vence la autorización del dispositivo, en hasta 30 días</td></tr>
-            <tr><td>Visitantes sin cuenta Microsoft</td><td>La documentación consultada no trata de visitantes</td><td>Vouchers en el mismo portal. Tomar el portal cautivo desactiva los vouchers nativos del controlador</td></tr>
+            <tr><td>Invitados de Entra ID (B2B)</td><td>La documentación consultada no trata de invitados</td><td>Entran como empleados, por el grupo autorizado, con el inicio de sesión de su propia empresa, y cuentan como persona en el plan (medido en campo)</td></tr>
+            <tr><td>Visitantes sin cuenta en su Entra ID</td><td>La documentación consultada no trata de visitantes</td><td>Vouchers en el mismo portal. Tomar el portal cautivo desactiva los vouchers nativos del controlador</td></tr>
             <tr><td>En Entra ID</td><td>El rol Cloud Application Administrator y un plan de Entra ID con SSO ilimitado</td><td>Un administrador de Entra ID autoriza el portal en el alta; la desvinculación rápida pide un segundo consentimiento, en la consola</td></tr>
             <tr><td>Costo</td><td>UniFi Endpoint no requiere licencia</td><td>Desde US$ 69/mes, hasta 50 personas</td></tr>
           </tbody>
