@@ -163,6 +163,19 @@ test('the FAQPage of each WiFi home has exactly its visible FAQ questions', () =
   }
 });
 
+// Review 2026-10-19 (mutations d, g): a diagram dropped from one language passed the skeleton
+// gate, which compares only top-level blocks and headings, and a word missing from one
+// language's src/i18n/wifi-diagrams.mjs rendered an empty label with no build error.
+test('each WiFi home has its three diagrams, and no diagram text is empty', () => {
+  for (const p of WIFI.filter((x) => x.key === 'wifi')) {
+    const main = mainOf(p);
+    const kinds = main.querySelectorAll('figure.w-dg svg').map((s) => s.getAttribute('aria-labelledby')).sort();
+    assert.deepEqual(kinds, ['journey', 'replaces', 'zones'].flatMap((k) => [`w-dg-${k}-tall-t`, `w-dg-${k}-wide-t`]), p.path);
+    const empty = main.querySelectorAll('figure.w-dg text, figure.w-dg title, figure.w-dg desc, figure.w-dg figcaption').filter((t) => !t.text.trim());
+    assert.equal(empty.length, 0, `${p.path}: ${empty.length} empty diagram text(s)`);
+  }
+});
+
 // Ported from test_marketing.py:471 — the Ashburn VM's IP, retired at the 2026-09-28 cutover;
 // the requirements pages kept telling customers to allowlist it.
 test('no published page names a retired portal IP', () => {

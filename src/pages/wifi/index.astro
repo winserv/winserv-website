@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import WifiDiagram from '../../components/WifiDiagram.astro';
 const faq = "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEntity\":[\n{\"@type\":\"Question\",\"name\":\"Preciso de Active Directory, RADIUS ou Windows Server?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Não. A identidade é o Microsoft Entra ID que você já usa. Nada de domain controller, NPS ou RADIUS.\"}},\n{\"@type\":\"Question\",\"name\":\"Preciso de licença Microsoft 365 para cada pessoa que usa o Wi-Fi?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Não. O login usa o Microsoft Entra ID, cuja edição gratuita vem com qualquer assinatura Microsoft 365 ou Azure e inclui login em aplicativos sem limite. A pessoa precisa ter uma conta no Entra ID da sua empresa e estar no grupo autorizado; não é preciso atribuir licença Microsoft 365 ou Office a ela.\"}},\n{\"@type\":\"Question\",\"name\":\"O MFA exige Entra ID P1 ou P2?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Não. Os padrões de segurança do Entra ID são gratuitos: quando ativados, todos cadastram MFA num app autenticador (como o Microsoft Authenticator) e a Microsoft pede o MFA quando julga que o login precisa. Para exigir MFA em todo login, ou criar regras próprias, é preciso Acesso Condicional, que pede Entra ID P1, incluído no Microsoft 365 Business Premium, E3 e E5. O portal aplica as regras que o seu Entra exige no login e não cobra nada a mais por isso. A exceção são regras de dispositivo (em conformidade ou com ingresso híbrido): o navegador do portal cativo não apresenta o aparelho, então exclua o app do portal dessas políticas.\"}},\n{\"@type\":\"Question\",\"name\":\"E os convidados: visitantes e contas guest do Entra?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"O visitante sem conta na sua empresa entra por voucher, sem Microsoft e sem contar no seu plano. Uma conta convidada (B2B, do tipo guest) que você puser no grupo autorizado entra como um funcionário, com o login da própria empresa, e conta como pessoa no plano. A Microsoft cobra guests por usuário ativo no mês, e os primeiros 50.000 são gratuitos.\"}},\n{\"@type\":\"Question\",\"name\":\"Funciona em links CGNAT ou Starlink?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Sim. Toda a comunicação é HTTPS — sem UDP, sem VPN. Imune a bloqueios de operadora e perda de pacotes UDP.\"}},\n{\"@type\":\"Question\",\"name\":\"Um ex-funcionário fica 30 dias com acesso?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Não. Os 30 dias são a conveniência de não refazer login enquanto a pessoa está ativa. Ao ser removida do grupo ou desligada no Entra ID, o acesso é cortado em minutos pela reconciliação automática — e o operador pode revogar todos os dispositivos dela na hora pelo console.\"}},\n{\"@type\":\"Question\",\"name\":\"E se o portal ficar fora do ar?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Quem já está autenticado não percebe. O controlador UniFi mantém os dispositivos autorizados por 30 dias; só novos logins e renovações ficam indisponíveis até a recuperação.\"}},\n{\"@type\":\"Question\",\"name\":\"A Winserv vê as senhas dos usuários?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Não. A autenticação acontece na Microsoft; o portal só orquestra o fluxo OIDC e recebe um token. Senhas e MFA nunca passam por nós.\"}},\n{\"@type\":\"Question\",\"name\":\"Quais access points e controladores são suportados?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Exclusivamente UniFi Network (Ubiquiti), testado no UniFi Network 10.0, 10.4 e 10.6 e no UniFi OS Server, com SSID Open e captive portal. Não funciona com Intelbras, Cisco, Aruba ou outros controladores. O controlador UniFi permanece do seu lado, acessado via HTTPS.\"}}\n]}";
 ---
 <BaseLayout title={"Login Entra ID com MFA no Wi-Fi UniFi — Winserv WiFi"} description={"Portal cativo para Wi-Fi UniFi com login Microsoft Entra ID (antigo Azure AD) e MFA. Sem AD, RADIUS ou PKI. Quem sai da empresa perde a rede em minutos."} path="/wifi/" active="wifi">
@@ -21,6 +22,7 @@ const faq = "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEn
 
     <section id="substitui">
       <h2>O que ele substitui</h2>
+      <WifiDiagram kind="replaces" locale="pt-br" />
       <div class="w-tablewrap">
         <table class="w-ledger">
           <thead><tr><th>Antes</th><th>Depois</th></tr></thead>
@@ -60,6 +62,7 @@ const faq = "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEn
 
     <section id="como">
       <h2>Como funciona</h2>
+      <WifiDiagram kind="journey" locale="pt-br" />
       <ol class="w-steps">
         <li><strong>Conecta.</strong> O dispositivo entra no SSID Open e cai no portal cativo.</li>
         <li><strong>Login Microsoft + MFA.</strong> O desafio é do Entra ID, com as suas políticas de Conditional Access.</li>
@@ -101,6 +104,12 @@ const faq = "{\"@context\":\"https://schema.org\",\"@type\":\"FAQPage\",\"mainEn
         <a href="#contato">Fale com a Winserv</a>.</p>
       <p class="w-eyebrow">Empresa fora do Brasil? A cobrança é em dólar, a partir de US$ 69/mês —
         <a href="/en/wifi/#pricing" hreflang="en" lang="en">see pricing in English</a>.</p>
+    </section>
+
+    <section id="conexao">
+      <h2>Como se conecta</h2>
+      <p class="w-lede">O que fica na sua empresa, o que roda na nuvem da Winserv e o que é da Microsoft. Para o que liberar no firewall e no walled garden, veja os <a href="/wifi/requisitos.html">requisitos</a>.</p>
+      <WifiDiagram kind="zones" locale="pt-br" />
     </section>
 
     <section id="faq">

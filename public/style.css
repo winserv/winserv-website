@@ -1347,3 +1347,41 @@ section.section--text .article-body > h2:first-child { margin-top: 0; }
 .w-faq__item summary::before { content: '+'; color: var(--accent); font-weight: 700; margin-right: .6em; }
 .w-faq__item[open] summary::before { content: '–'; }
 .w-faq__item p { padding: 0 0 var(--sp-4); color: var(--muted); max-width: 46rem; }
+/* Diagrams (src/components/WifiDiagram.astro, 2026-10-19). Sizes are viewBox units: the wide
+   layout draws at ~1:1 in the 904 px column, the tall one at ~1:1 on a 360 px phone. Below 640 px
+   the wide one would shrink its 14 px text to ~5 px, so the tall layout replaces it there. */
+.w-dg { margin: var(--sp-5) 0 var(--sp-4); }
+.w-dg__svg { display: block; width: 100%; height: auto; }
+.w-dg__svg--tall { display: none; max-width: 440px; margin: 0 auto; }
+@media (max-width: 640px) { .w-dg__svg--wide { display: none; } .w-dg__svg--tall { display: block; } }
+.w-dg__cap { margin-top: var(--sp-3); font-size: var(--fs-sm); color: var(--muted); max-width: 42rem; }
+.w-dg__zone { fill: var(--surface); stroke: color-mix(in srgb, var(--muted) 18%, transparent); }
+.w-dg__zone--ours { fill: var(--accent-tint); stroke: color-mix(in srgb, var(--accent) 30%, transparent); }
+.w-dg__zlabel { font-size: 13px; font-weight: 700; letter-spacing: .08em; fill: var(--muted); }
+.w-dg__zlabel--ours { fill: var(--accent); }
+.w-dg__box { fill: var(--bg); stroke: color-mix(in srgb, var(--muted) 35%, transparent); }
+.w-dg__box--ours { fill: var(--accent); stroke: none; }
+.w-dg__box--ok { fill: var(--accent-tint); stroke: var(--accent); }
+.w-dg__box--cut { fill: color-mix(in srgb, var(--danger) 6%, var(--bg)); stroke: color-mix(in srgb, var(--danger) 45%, transparent); }
+.w-dg__t { font-size: 14px; font-weight: 600; fill: var(--text); text-anchor: middle; }
+.w-dg__s { font-size: 12px; fill: var(--muted); text-anchor: middle; }
+.w-dg__t--on { fill: var(--on-accent); font-weight: 700; }
+.w-dg__s--on { fill: var(--on-accent); }
+.w-dg__svg--tall .w-dg__t { font-size: 13px; }
+.w-dg__svg--tall .w-dg__s { font-size: 11px; }
+.w-dg__edge { fill: none; stroke: var(--accent); stroke-width: 2; }
+.w-dg__edge--local { stroke: var(--muted); stroke-dasharray: 4 4; }
+.w-dg__edge--cut { stroke: var(--danger); stroke-dasharray: 5 4; }
+.w-dg__edge--old { stroke: color-mix(in srgb, var(--muted) 55%, transparent); }
+.w-dg__edge--oldlink { stroke: color-mix(in srgb, var(--muted) 55%, transparent); stroke-dasharray: 4 4; }
+.w-dg__head { fill: var(--accent); }
+.w-dg__head--cut { fill: var(--danger); }
+.w-dg__head--old { fill: color-mix(in srgb, var(--muted) 55%, transparent); }
+.w-dg__lbl { font-size: 11px; font-weight: 600; fill: var(--accent); }
+.w-dg__lbl--muted { font-weight: 400; fill: var(--muted); }
+.w-dg__lbl--cut { fill: var(--danger); }
+.w-dg__badge { fill: var(--heading); }
+.w-dg__badge--cut { fill: var(--danger); }
+.w-dg__num { font-size: 12px; font-weight: 700; fill: var(--on-accent); text-anchor: middle; }
+.w-dg__note { font-size: 13px; font-weight: 600; fill: var(--accent); text-anchor: middle; }
+.w-dg__note--bad { fill: var(--danger); }

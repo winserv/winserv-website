@@ -9,3 +9,26 @@
 .card h1 { font-size: 7.4vmin; font-weight: 600; letter-spacing: -.02em; line-height: 1.12; max-width: 84vw; }
 .card #sub { font-size: 3.7vmin; line-height: 1.45; color: var(--muted); margin-top: 3vmin; max-width: 80vw; }
 .card #url { font-family: var(--mono); font-size: 3vmin; color: var(--accent); margin-top: 5vmin; }
+/* The WiFi cards' flow (2026-10-19): in a row on the landscape cover, in a column on the
+   square, portrait and story formats, where a row of three would not fit the width. */
+.card #flow { display: none; }
+.card--wifi #flow { display: flex; align-items: center; gap: 2vmin; list-style: none; padding: 0; margin: 5vmin 0 0; }
+.card #flow .node { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.6vmin 2.6vmin; }
+.card #flow .node--ours { background: var(--accent); border-color: var(--accent); }
+.card #flow b { display: block; font-size: 3.1vmin; font-weight: 700; color: var(--text); }
+.card #flow span { display: block; font-size: 2.4vmin; color: var(--muted); margin-top: .4vmin; }
+.card #flow .node--ours b, .card #flow .node--ours span { color: var(--on-accent); }
+.card #flow .arrow svg { display: block; width: 4.4vmin; height: 4.4vmin; fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+@media (orientation: portrait) {
+  .card--wifi #flow { flex-direction: column; align-items: flex-start; gap: .6vmin; margin-top: 3vmin; }
+  .card--wifi #url { margin-top: 3vmin; }
+  .card--wifi #flow .node { display: flex; align-items: baseline; gap: 1.6vmin; }
+  .card--wifi #flow span { margin-top: 0; }
+  .card #flow .arrow { padding-left: 3vmin; }
+  .card #flow .arrow svg { transform: rotate(90deg); }
+}
+/* Square and portrait: the flow and the long description do not both fit (measured 2026-10-19:
+   the portrait ran 121 px past the card); the story keeps both. */
+@media (orientation: portrait) and (min-aspect-ratio: 3/4) { .card--wifi #sub { display: none; } }
+/* The square, still 16 px over after that: a smaller mark. */
+@media (aspect-ratio: 1/1) { .card--wifi .mark { height: 10vmin; } .card--wifi .wordmark { margin-bottom: 4vmin; } }

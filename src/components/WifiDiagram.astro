@@ -1,0 +1,145 @@
+---
+// The Winserv WiFi homes' diagrams (2026-10-19): zones (where each piece lives), journey (the
+// sign-in path) and replaces (before/after). Inline SVG so the words are the page's language
+// (src/i18n/wifi-diagrams.mjs) and the colours are the site's tokens (.w-dg* in style.css).
+// Two layouts per diagram: the wide one drawn at phone width puts 14 px text at ~5 px, and a
+// sideways-scrolling box fails tests/overflow.test.mjs — so a tall layout replaces it below 640 px.
+import { DIAGRAM_TEXT } from '../i18n/wifi-diagrams.mjs';
+
+interface Props {
+  kind: 'zones' | 'journey' | 'replaces';
+  locale: 'pt-br' | 'en' | 'es';
+}
+const { kind, locale } = Astro.props as Props;
+const T: Record<string, any> = DIAGRAM_TEXT[locale];
+
+// Geometry in viewBox units. Node: [x, y, w, h, text key, variant]; edge: [path, variant, both ends];
+// label: [x, y, text key, variant, anchor]; badge: [x, y, mark, variant]; note: [x, y, text key, variant].
+const G = {
+  zones: {
+    wide: {
+      box: '0 0 900 340',
+      zones: [[10, 20, 340, 300, 'zoneCompany', ''], [380, 20, 200, 300, 'zoneCloud', 'ours'], [610, 20, 280, 300, 'zoneMs', '']],
+      nodes: [[28, 70, 140, 60, 'device'], [196, 70, 140, 60, 'ap'], [196, 230, 140, 60, 'ctrl'],
+        [398, 140, 164, 80, 'portal', 'ours'], [640, 70, 220, 60, 'entra'], [640, 230, 220, 60, 'graph']],
+      edges: [['M168,100 L194,100'], ['M266,130 L266,230', 'local'], ['M336,100 L366,100 L366,160 L396,160'],
+        ['M398,200 L366,200 L366,260 L338,260'], ['M562,160 L600,160 L600,100 L638,100'], ['M562,200 L600,200 L600,260 L638,260']],
+      labels: [[181, 62, 'lWifi', 'muted', 'middle'], [274, 185, 'lLan', 'muted', 'start'], [344, 280, 'lLetIn', '', 'start'],
+        [594, 150, 'lOidc', '', 'end'], [606, 222, 'lEvery', '', 'start']],
+    },
+    tall: {
+      box: '0 0 340 490',
+      // The cloud's label sits between the two lines that cross into its zone (x 100 and 256).
+      zones: [[4, 4, 332, 236, 'zoneCompany', ''], [4, 256, 332, 100, 'zoneCloud', 'ours', 112], [4, 372, 332, 112, 'zoneMs', '']],
+      nodes: [[16, 40, 136, 52, 'device'], [188, 40, 136, 52, 'ap'], [188, 172, 136, 52, 'ctrl'],
+        [80, 288, 140, 56, 'portal', 'ours'], [16, 408, 148, 60, 'entra'], [176, 408, 148, 60, 'graph']],
+      edges: [['M152,66 L186,66'], ['M256,92 L256,172', 'local'], ['M100,92 L100,286'], ['M220,316 L256,316 L256,226'],
+        ['M120,344 L120,406'], ['M190,344 L190,364 L250,364 L250,406']],
+      labels: [[170, 58, 'lWifi', 'muted', 'middle'], [248, 136, 'lLan', 'muted', 'end'], [106, 200, 'lHttps', '', 'start'],
+        [262, 280, 'lHttps', '', 'start'], [126, 368, 'lOidc', '', 'start']],
+    },
+  },
+  journey: {
+    wide: {
+      box: '0 0 900 290',
+      nodes: [[20, 30, 170, 64, 'phone'], [250, 30, 170, 64, 'apOpens'], [480, 22, 170, 80, 'portal', 'ours'],
+        [710, 30, 170, 64, 'entra'], [250, 200, 170, 64, 'online', 'ok'], [480, 200, 170, 64, 'ctrl'], [710, 192, 170, 80, 'cut', 'cut']],
+      edges: [['M190,62 L248,62'], ['M420,62 L478,62'], ['M650,52 L708,52'], ['M708,74 L652,74'], ['M565,102 L565,198'],
+        ['M480,232 L422,232'], ['M650,92 L690,92 L690,214 L708,214', 'cut'], ['M710,250 L652,250', 'cut']],
+      // Numbered as the four steps of the list under the diagram (review 2026-10-19: 1-5 over a 1-4 list).
+      badges: [[449, 62, '1'], [679, 63, '2'], [565, 150, '3'], [451, 232, '4'], [690, 150, '!', 'cut']],
+      labels: [[549, 154, 'lAuth', '', 'end'], [704, 154, 'lEvery', 'cut', 'start']],
+    },
+    tall: {
+      box: '0 0 340 488',
+      nodes: [[16, 16, 150, 52, 'phone'], [16, 104, 150, 52, 'apOpens'], [16, 192, 146, 64, 'portal', 'ours'],
+        [190, 192, 134, 64, 'entra'], [16, 316, 150, 52, 'ctrl'], [186, 316, 138, 66, 'cut', 'cut'], [16, 420, 150, 52, 'online', 'ok']],
+      edges: [['M91,68 L91,102'], ['M91,156 L91,190'], ['M162,212 L188,212'], ['M190,236 L164,236'], ['M91,256 L91,314'],
+        ['M140,256 L140,272 L255,272 L255,314', 'cut'], ['M186,342 L168,342', 'cut'], ['M91,368 L91,418']],
+      badges: [[91, 174, '1'], [176, 224, '2'], [91, 288, '3'], [91, 394, '4'], [255, 293, '!', 'cut']],
+      labels: [[107, 292, 'lAuthShort', '', 'start']],
+    },
+  },
+  replaces: {
+    wide: {
+      box: '0 0 900 330',
+      zones: [[10, 10, 420, 280, 'before', ''], [470, 10, 420, 280, 'after', 'ours']],
+      nodes: [[30, 60, 170, 48, 'apShort'], [240, 56, 170, 56, 'radius'], [240, 140, 170, 56, 'ad'], [30, 140, 170, 56, 'vpn'],
+        [135, 214, 170, 52, 'pki'], [490, 60, 170, 48, 'apShort'], [700, 52, 170, 64, 'portalManaged', 'ours'],
+        [490, 160, 170, 56, 'ctrl'], [700, 160, 170, 56, 'entraYours']],
+      edges: [['M200,84 L238,84', 'old'], ['M325,112 L325,138', 'old'], ['M200,168 L240,168', 'oldlink'],
+        ['M660,84 L698,84'], ['M785,118 L785,158', '', true], ['M720,116 L720,136 L575,136 L575,158']],
+      notes: [[680, 254, 'noteNew', ''], [220, 318, 'noteOld', 'bad'], [680, 318, 'noteLeaves', '']],
+    },
+    tall: {
+      box: '0 0 340 584',
+      zones: [[4, 4, 332, 268, 'before', ''], [4, 306, 332, 240, 'after', 'ours']],
+      nodes: [[16, 40, 148, 48, 'apShort'], [180, 36, 144, 56, 'radius'], [180, 120, 144, 56, 'ad'], [16, 120, 148, 56, 'vpn'],
+        [98, 200, 144, 56, 'pki'], [16, 342, 148, 48, 'apShort'], [180, 334, 144, 64, 'portalManaged', 'ours'],
+        [16, 440, 148, 56, 'ctrl'], [180, 440, 144, 56, 'entraYours']],
+      edges: [['M164,64 L178,64', 'old'], ['M252,92 L252,118', 'old'], ['M164,148 L180,148', 'oldlink'],
+        ['M164,366 L178,366'], ['M252,400 L252,438', '', true], ['M200,398 L200,418 L90,418 L90,438']],
+      notes: [[170, 526, 'noteNew', ''], [170, 292, 'noteOld', 'bad'], [170, 572, 'noteLeaves', '']],
+    },
+  },
+}[kind];
+
+const mod = (base: string, v?: string) => (v ? `${base} ${base}--${v}` : base);
+// Baselines of a node's lines, centred in its box: 18 units apart, cap height ~10.
+const lines = (y: number, h: number, n: number) => Array.from({ length: n }, (_, i) => y + h / 2 - (n - 1) * 9 + 5 + i * 18);
+const MARKER = { '': 'a', cut: 'c', old: 'o' } as Record<string, string>;
+---
+<figure class="w-dg">
+  {(['wide', 'tall'] as const).map((layout) => {
+    const g = G[layout] as any;
+    const id = `w-dg-${kind}-${layout}`;
+    return (
+      <svg class={`w-dg__svg w-dg__svg--${layout}`} viewBox={g.box} role="img" aria-labelledby={`${id}-t`} aria-describedby={`${id}-d`}>
+        <title id={`${id}-t`}>{T.title[kind]}</title>
+        <desc id={`${id}-d`}>{T.desc[kind]}</desc>
+        <defs>
+          {Object.entries(MARKER).map(([v, m]) => (
+            <marker id={`${id}-${m}`} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class={mod('w-dg__head', v)} />
+            </marker>
+          ))}
+        </defs>
+        {(g.zones || []).map(([x, y, w, h, key, v, lx]: any) => (
+          <g>
+            <rect x={x} y={y} width={w} height={h} rx="12" class={mod('w-dg__zone', v)} />
+            <text x={lx ?? x + 16} y={y + 24} class={mod('w-dg__zlabel', v)}>{T[key]}</text>
+          </g>
+        ))}
+        {g.edges.map(([d, v, both]: any) => (
+          <path d={d} class={mod('w-dg__edge', v)}
+            marker-end={v === 'local' || v === 'oldlink' ? undefined : `url(#${id}-${MARKER[v || '']})`}
+            marker-start={both ? `url(#${id}-${MARKER[v || '']})` : undefined} />
+        ))}
+        {g.nodes.map(([x, y, w, h, key, v]: any) => {
+          const text: string[] = T[key];
+          const ys = lines(y, h, text.length);
+          const on = v === 'ours' ? 'on' : undefined;
+          return (
+            <g>
+              <rect x={x} y={y} width={w} height={h} rx={v === 'ours' ? 10 : 8} class={mod('w-dg__box', v)} />
+              {text.map((s, i) => <text x={x + w / 2} y={ys[i]} class={mod(i ? 'w-dg__s' : 'w-dg__t', on)}>{s}</text>)}
+            </g>
+          );
+        })}
+        {(g.labels || []).map(([x, y, key, v, anchor]: any) => (
+          <text x={x} y={y} text-anchor={anchor} class={mod('w-dg__lbl', v)}>{T[key]}</text>
+        ))}
+        {(g.badges || []).map(([x, y, mark, v]: any) => (
+          <g>
+            <circle cx={x} cy={y} r="12" class={mod('w-dg__badge', v)} />
+            <text x={x} y={y + 4} class="w-dg__num">{mark}</text>
+          </g>
+        ))}
+        {(g.notes || []).map(([x, y, key, v]: any) => (
+          <text x={x} y={y} class={mod('w-dg__note', v)}>{T[key]}</text>
+        ))}
+      </svg>
+    );
+  })}
+  <figcaption class="w-dg__cap">{T.cap[kind]}</figcaption>
+</figure>

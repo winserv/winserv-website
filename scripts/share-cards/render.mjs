@@ -7,18 +7,27 @@ import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { parse } from 'node-html-parser';
-import { OG_STAMP } from '../../src/i18n/routes.mjs';
+import { OG_STAMP, WIFI_OG_STAMP } from '../../src/i18n/routes.mjs';
 
 const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const HERE = join(ROOT, 'scripts/share-cards');
 const LOCALES = ['pt-br', 'en', 'es'];
 const home = (l, page) => join(ROOT, 'dist', l === 'pt-br' ? page : `${l}/${page}`);
-// [built page, output path without extension, width, height, type]
+// [built page, output path without extension, width, height, type, WiFi card]
 const JOBS = LOCALES.flatMap((l) => [
-  [home(l, 'index.html'), `public/images/og/${OG_STAMP}/${l}`, 1200, 630, 'jpeg'],
+  [home(l, 'index.html'), `public/images/og/${OG_STAMP}/${l}`, 1200, 630, 'jpeg', false],
   ...[['og-cover', 1200, 630], ['og-portrait', 1080, 1350], ['og-square', 1080, 1080], ['og-story', 1080, 1920]]
-    .map(([n, w, h]) => [home(l, 'wifi/index.html'), `public/images/wifi/og/${OG_STAMP}/${l}/${n}`, w, h, 'png']),
+    .map(([n, w, h]) => [home(l, 'wifi/index.html'), `public/images/wifi/og/${WIFI_OG_STAMP}/${l}/${n}`, w, h, 'png', true]),
 ]);
+// The WiFi card's flow: these three boxes of the page's own connectivity diagram, each as its lines.
+const FLOW = ['Ubiquiti UniFi', 'Winserv WiFi', 'Microsoft Entra ID'];
+function flowOf(doc) {
+  const svg = doc.querySelector('svg[aria-labelledby^="w-dg-zones-wide-t"]');
+  const boxes = (svg?.querySelectorAll('g') ?? []).map((g) => g.querySelectorAll('text').map((t) => t.text))
+    .filter((lines) => FLOW.includes(lines[0]));
+  if (boxes.length !== FLOW.length) throw new Error('the page has no connectivity diagram with the flow\'s three boxes');
+  return FLOW.map((name) => boxes.find((lines) => lines[0] === name));
+}
 // The wordmark already says WINSERV: drop it from the title; a product name ("Winserv WiFi")
 // becomes the eyebrow instead.
 function split(title) {
@@ -39,16 +48,21 @@ const base = `http://127.0.0.1:${server.address().port}`;
 let browser;
 try {
   browser = await chromium.launch();
-  for (const [built, out, w, h, type] of JOBS) {
+  for (const [built, out, w, h, type, wifi] of JOBS) {
     const doc = parse(await readFile(built, 'utf8'));
     const meta = (n) => doc.querySelector(`meta[property="${n}"]`)?.getAttribute('content') ?? '';
     const { title, eyebrow } = split(meta('og:title'));
     const page = await browser.newPage({ viewport: { width: w, height: h } });
     await page.goto(`${base}/card.html`, { waitUntil: 'networkidle' });
-    await page.evaluate(([e, t, s, u]) => {
+    await page.evaluate(([e, t, s, u, flow]) => {
       const $ = (id) => document.getElementById(id);
       $('eyebrow').textContent = e; $('title').textContent = t; $('sub').textContent = s; $('url').textContent = u;
-    }, [eyebrow, title, meta('og:description'), meta('og:url').replace(/^https:\/\//, '').replace(/\/$/, '')]);
+      if (!flow) return;
+      document.body.classList.add('card--wifi');
+      document.querySelectorAll('#flow .node').forEach((li, i) => {
+        li.querySelector('b').textContent = flow[i][0]; li.querySelector('span').textContent = flow[i][1] ?? '';
+      });
+    }, [eyebrow, title, meta('og:description'), meta('og:url').replace(/^https:\/\//, '').replace(/\/$/, ''), wifi ? flowOf(doc) : null]);
     await page.evaluate(() => document.fonts.ready);
     // A card whose text runs past the bottom is a broken card: stop rather than publish it.
     const spill = await page.evaluate(() => document.querySelector('main').getBoundingClientRect().bottom - innerHeight);

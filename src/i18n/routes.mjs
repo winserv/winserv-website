@@ -83,6 +83,9 @@ export const pageFile = (path) => (path.endsWith('/') ? path.slice(1) + 'index.h
 // New names per redesign: networks cache a card by URL, so new bytes need a new URL (go-live 29).
 // scripts/share-cards/render.mjs writes under the same stamp.
 export const OG_STAMP = '2026-10';
+// The WiFi cards carry the connectivity flow since 2026-10-19; the company's are unchanged.
+// The older stamp's files stay published: posts already shared still point at them.
+export const WIFI_OG_STAMP = '2026-10-19';
 export const ogImage = (locale, key) => (ROUTES[key]?.og === 'wifi'
-  ? `/images/wifi/og/${OG_STAMP}/${locale}/og-cover.png`
+  ? `/images/wifi/og/${WIFI_OG_STAMP}/${locale}/og-cover.png`
   : `/images/og/${OG_STAMP}/${locale}.jpg`);
