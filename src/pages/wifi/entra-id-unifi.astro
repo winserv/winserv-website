@@ -32,7 +32,8 @@ import WifiDiagram from '../../components/WifiDiagram.astro';
             <tr><td>MFA do Entra ID</td><td>Sim, se configurado</td><td>Sim, com as regras do seu Entra ID</td></tr>
             <tr><td>Grupos do Entra ID</td><td>Sincronizar grupos exige Entra ID P1 ou P2</td><td>Funciona sem P1</td></tr>
             <tr><td>Quem sai da empresa</td><td>Provisionamento SCIM em tempo real; a documentação não diz em quanto tempo o Wi-Fi do aparelho cai</td><td>Com o corte rápido, ligado num clique no console, o Wi-Fi cai em minutos (medido em campo: 4 min 16 s); sem ele, só quando a autorização do aparelho vence, em até 30 dias</td></tr>
-            <tr><td>Visitantes sem conta Microsoft</td><td>A documentação consultada não trata de visitantes</td><td>Voucher no mesmo portal. Assumir o portal cativo desliga os vouchers nativos do controlador</td></tr>
+            <tr><td>Convidados do Entra ID (B2B)</td><td>A documentação consultada não trata de convidados</td><td>Entram como funcionários, pelo grupo autorizado, com o login da própria empresa, e contam como pessoa no plano (medido em campo)</td></tr>
+            <tr><td>Visitantes sem conta no seu Entra ID</td><td>A documentação consultada não trata de visitantes</td><td>Voucher no mesmo portal. Assumir o portal cativo desliga os vouchers nativos do controlador</td></tr>
             <tr><td>No Entra ID</td><td>Função Cloud Application Administrator e um plano do Entra ID com SSO ilimitado</td><td>Um administrador do Entra ID autoriza o portal no cadastro; o corte rápido pede um segundo consentimento, no console</td></tr>
             <tr><td>Custo</td><td>O UniFi Endpoint não tem licença</td><td>A partir de R$ 349/mês, até 50 pessoas</td></tr>
           </tbody>

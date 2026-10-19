@@ -32,7 +32,8 @@ import WifiDiagram from '../../../components/WifiDiagram.astro';
             <tr><td>Entra ID MFA</td><td>Yes, if configured</td><td>Yes, with your Entra ID's own rules</td></tr>
             <tr><td>Entra ID groups</td><td>Syncing groups requires Entra ID P1 or P2</td><td>Works without P1</td></tr>
             <tr><td>People who leave</td><td>Real-time SCIM provisioning; the documentation does not say how soon the device loses Wi-Fi</td><td>With fast offboarding, turned on with one click in the console, Wi-Fi is cut within minutes (measured in the field: 4 min 16 s); without it, only when the device's authorization ends, within up to 30 days</td></tr>
-            <tr><td>Visitors with no Microsoft account</td><td>The documentation checked does not cover visitors</td><td>Vouchers on the same portal. Taking over the captive portal turns off the controller's native vouchers</td></tr>
+            <tr><td>Entra ID guests (B2B)</td><td>The documentation checked does not cover guests</td><td>They sign in like employees, through the authorized group, with their own company's sign-in, and count as people on the plan (measured in the field)</td></tr>
+            <tr><td>Visitors with no account in your Entra ID</td><td>The documentation checked does not cover visitors</td><td>Vouchers on the same portal. Taking over the captive portal turns off the controller's native vouchers</td></tr>
             <tr><td>In Entra ID</td><td>The Cloud Application Administrator role and an Entra ID plan with unlimited SSO</td><td>An Entra ID administrator authorizes the portal at sign-up; fast offboarding takes a second consent, in the console</td></tr>
             <tr><td>Cost</td><td>UniFi Endpoint is license-free</td><td>From US$ 69/month, up to 50 people</td></tr>
           </tbody>
