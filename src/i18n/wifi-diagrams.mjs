@@ -1,6 +1,6 @@
 // The words of the Winserv WiFi diagrams (src/components/WifiDiagram.astro), per language.
 // Plain .mjs like routes.mjs: tests/wifi.test.mjs imports it to hold the three languages to
-// the same keys. A node's value is its lines, top to bottom; product and vendor names
+// the same keys and line counts (a missing key renders an empty label with no build error). A node's value is its lines, top to bottom; product and vendor names
 // (Ubiquiti UniFi, UniFi Network, Microsoft Entra ID, Microsoft Graph) are never translated.
 
 export const DIAGRAM_TEXT = {
@@ -11,13 +11,13 @@ export const DIAGRAM_TEXT = {
       replaces: 'Antes e depois do Winserv WiFi',
     },
     desc: {
-      zones: 'O notebook ou celular conecta ao access point Ubiquiti UniFi da sua empresa e é levado ao portal Winserv WiFi, na nuvem Winserv. O portal faz o login com o Microsoft Entra ID (OIDC + MFA), libera o aparelho no controlador UniFi Network por HTTPS e consulta o Microsoft Graph a cada poucos minutos para saber quem continua no grupo autorizado.',
-      journey: '1. O celular ou notebook conecta no SSID. 2. O access point Ubiquiti UniFi abre o portal cativo Winserv WiFi. 3. O login é feito no Microsoft Entra ID, com MFA. 4. O portal autoriza o aparelho no controlador UniFi Network por HTTPS. 5. A internet fica liberada por 30 dias, sem novo login. Se a pessoa sai do grupo, o portal percebe pelo Microsoft Graph e corta o acesso em minutos.',
+      zones: 'O notebook ou celular conecta ao access point Ubiquiti UniFi da sua empresa e é levado ao portal Winserv WiFi, na nuvem Winserv. O portal faz o login com o Microsoft Entra ID (OIDC + MFA) e libera o aparelho no controlador UniFi Network por HTTPS. Com o corte rápido ligado no console, o portal consulta o Microsoft Graph a cada poucos minutos para saber quem continua no grupo autorizado.',
+      journey: 'O celular ou notebook conecta no SSID e o access point Ubiquiti UniFi abre o portal cativo Winserv WiFi. O login é feito no Microsoft Entra ID, com MFA. O portal autoriza o aparelho no controlador UniFi Network por HTTPS, e o acesso se renova sozinho enquanto a pessoa está no grupo. Com o corte rápido ligado no console, quem sai do grupo é detectado pelo Microsoft Graph e perde o acesso em minutos.',
       replaces: 'Antes: o access point Ubiquiti UniFi dependia de RADIUS/NPS num Windows Server, de Active Directory on-prem, de VPN entre filiais e de certificados por aparelho. Depois: o access point Ubiquiti UniFi usa o portal Winserv WiFi, um serviço gerenciado que faz o login no Microsoft Entra ID que a empresa já usa e libera o aparelho no controlador UniFi Network, só por HTTPS.',
     },
     cap: {
-      zones: 'Nada de AD on-prem, NPS, RADIUS, VPN ou certificados na sua rede: o portal fala com o seu controlador UniFi só por HTTPS, sem UDP.',
-      journey: 'Login uma vez e 30 dias de acesso enquanto a pessoa está no grupo; quem sai é cortado em minutos.',
+      zones: 'Nada de AD on-prem, NPS, RADIUS, VPN ou certificados na sua rede: o portal fala com o seu controlador UniFi só por HTTPS, sem UDP. A consulta ao Microsoft Graph é o corte rápido, que você liga no console.',
+      journey: 'Os números são os passos da lista abaixo. Com o corte rápido ligado no console, quem sai do grupo perde o Wi-Fi em minutos; sem ele, na próxima renovação.',
       replaces: 'O controlador e os access points Ubiquiti UniFi continuam os mesmos; o que sai é o servidor de autenticação.',
     },
     zoneCompany: 'SUA EMPRESA', zoneCloud: 'NUVEM WINSERV', zoneMs: 'MICROSOFT', before: 'ANTES', after: 'DEPOIS',
@@ -32,7 +32,7 @@ export const DIAGRAM_TEXT = {
     entra: ['Microsoft Entra ID', 'login + MFA'],
     entraYours: ['Microsoft Entra ID', 'que você já usa · MFA'],
     graph: ['Microsoft Graph', 'quem está no grupo'],
-    online: ['Internet liberada', '30 dias sem novo login'],
+    online: ['Internet liberada', 'renovação silenciosa'],
     cut: ['Saiu do grupo?', 'conferido no Graph', 'corte em minutos'],
     radius: ['RADIUS / NPS', 'Windows Server'],
     ad: ['Active Directory', 'on-prem'],
@@ -49,13 +49,13 @@ export const DIAGRAM_TEXT = {
       replaces: 'Before and after Winserv WiFi',
     },
     desc: {
-      zones: 'The laptop or phone joins your company\'s Ubiquiti UniFi access point and is sent to the Winserv WiFi portal, in the Winserv cloud. The portal signs the person in with Microsoft Entra ID (OIDC + MFA), lets the device in on the UniFi Network controller over HTTPS, and checks Microsoft Graph every few minutes to see who is still in the authorized group.',
-      journey: '1. The phone or laptop joins the SSID. 2. The Ubiquiti UniFi access point opens the Winserv WiFi captive portal. 3. The person signs in with Microsoft Entra ID, with MFA. 4. The portal authorizes the device on the UniFi Network controller over HTTPS. 5. Internet access lasts 30 days with no new sign-in. If the person leaves the group, the portal sees it through Microsoft Graph and cuts access within minutes.',
+      zones: 'The laptop or phone joins your company\'s Ubiquiti UniFi access point and is sent to the Winserv WiFi portal, in the Winserv cloud. The portal signs the person in with Microsoft Entra ID (OIDC + MFA) and lets the device in on the UniFi Network controller over HTTPS. With fast offboarding turned on in the console, the portal checks Microsoft Graph every few minutes to see who is still in the authorized group.',
+      journey: 'The phone or laptop joins the SSID and the Ubiquiti UniFi access point opens the Winserv WiFi captive portal. The person signs in with Microsoft Entra ID, with MFA. The portal authorizes the device on the UniFi Network controller over HTTPS, and access renews silently while the person is in the group. With fast offboarding turned on in the console, someone who leaves the group is detected through Microsoft Graph and loses access within minutes.',
       replaces: 'Before: the Ubiquiti UniFi access point relied on RADIUS/NPS on a Windows Server, on-prem Active Directory, a VPN between offices and a certificate per device. After: the Ubiquiti UniFi access point uses the Winserv WiFi portal, a managed service that signs people in with the Microsoft Entra ID the company already uses and lets the device in on the UniFi Network controller, over HTTPS only.',
     },
     cap: {
-      zones: 'No on-prem AD, NPS, RADIUS, VPN or certificates on your network: the portal talks to your UniFi controller over HTTPS only, with no UDP.',
-      journey: 'Sign in once and get 30 days of access while the person is in the group; people who leave are cut within minutes.',
+      zones: 'No on-prem AD, NPS, RADIUS, VPN or certificates on your network: the portal talks to your UniFi controller over HTTPS only, with no UDP. The Microsoft Graph check is fast offboarding, which you turn on in the console.',
+      journey: 'The numbers are the steps listed below. With fast offboarding turned on in the console, people who leave the group lose Wi-Fi within minutes; without it, at the next renewal.',
       replaces: 'Your Ubiquiti UniFi controller and access points stay the same; what goes is the authentication server.',
     },
     zoneCompany: 'YOUR COMPANY', zoneCloud: 'WINSERV CLOUD', zoneMs: 'MICROSOFT', before: 'BEFORE', after: 'AFTER',
@@ -70,7 +70,7 @@ export const DIAGRAM_TEXT = {
     entra: ['Microsoft Entra ID', 'sign-in + MFA'],
     entraYours: ['Microsoft Entra ID', 'you already use · MFA'],
     graph: ['Microsoft Graph', 'who is in the group'],
-    online: ['Internet access', '30 days, no new sign-in'],
+    online: ['Internet access', 'silent renewal'],
     cut: ['Left the group?', 'checked in Graph', 'cut in minutes'],
     radius: ['RADIUS / NPS', 'Windows Server'],
     ad: ['Active Directory', 'on-prem'],
@@ -78,7 +78,7 @@ export const DIAGRAM_TEXT = {
     pki: ['Certificates', 'PKI per device'],
     lWifi: 'Wi-Fi', lLan: 'local network', lHttps: 'HTTPS', lLetIn: 'HTTPS · lets the device in', lOidc: 'OIDC',
     lEvery: 'checks every few minutes', lAuth: 'authorizes the device (HTTPS)', lAuthShort: 'authorizes (HTTPS)',
-    noteOld: 'Servers, licences and upkeep', noteNew: 'HTTPS only · nothing to install', noteLeaves: 'When someone leaves, their access leaves too.',
+    noteOld: 'Servers, licenses and upkeep', noteNew: 'HTTPS only · nothing to install', noteLeaves: 'When someone leaves, their access leaves too.',
   },
   es: {
     title: {
@@ -87,18 +87,18 @@ export const DIAGRAM_TEXT = {
       replaces: 'Antes y después de Winserv WiFi',
     },
     desc: {
-      zones: 'El portátil o celular se conecta al punto de acceso Ubiquiti UniFi de su empresa y es llevado al portal Winserv WiFi, en la nube Winserv. El portal inicia la sesión con Microsoft Entra ID (OIDC + MFA), autoriza el dispositivo en el controlador UniFi Network por HTTPS y consulta Microsoft Graph cada pocos minutos para saber quién sigue en el grupo autorizado.',
-      journey: '1. El celular o portátil se conecta al SSID. 2. El punto de acceso Ubiquiti UniFi abre el portal cautivo Winserv WiFi. 3. La persona inicia sesión con Microsoft Entra ID, con MFA. 4. El portal autoriza el dispositivo en el controlador UniFi Network por HTTPS. 5. El acceso a internet dura 30 días sin nuevo inicio de sesión. Si la persona sale del grupo, el portal lo detecta por Microsoft Graph y corta el acceso en minutos.',
+      zones: 'La laptop o el teléfono se conecta al punto de acceso Ubiquiti UniFi de su empresa y se redirige al portal Winserv WiFi, en la nube Winserv. El portal inicia la sesión con Microsoft Entra ID (OIDC + MFA) y autoriza el dispositivo en el controlador UniFi Network por HTTPS. Con la desvinculación rápida activada en la consola, el portal consulta Microsoft Graph cada pocos minutos para saber quién sigue en el grupo autorizado.',
+      journey: 'El teléfono o la laptop se conecta al SSID y el punto de acceso Ubiquiti UniFi abre el portal cautivo Winserv WiFi. La persona inicia sesión con Microsoft Entra ID, con MFA. El portal autoriza el dispositivo en el controlador UniFi Network por HTTPS, y el acceso se renueva solo mientras la persona está en el grupo. Con la desvinculación rápida activada en la consola, quien sale del grupo es detectado por Microsoft Graph y pierde el acceso en minutos.',
       replaces: 'Antes: el punto de acceso Ubiquiti UniFi dependía de RADIUS/NPS en un Windows Server, de Active Directory on-premises, de una VPN entre sucursales y de un certificado por dispositivo. Después: el punto de acceso Ubiquiti UniFi usa el portal Winserv WiFi, un servicio gestionado que inicia la sesión con el Microsoft Entra ID que la empresa ya usa y autoriza el dispositivo en el controlador UniFi Network, solo por HTTPS.',
     },
     cap: {
-      zones: 'Sin AD on-premises, NPS, RADIUS, VPN ni certificados en su red: el portal habla con su controlador UniFi solo por HTTPS, sin UDP.',
-      journey: 'Inicio de sesión una vez y 30 días de acceso mientras la persona está en el grupo; quien se va pierde el acceso en minutos.',
-      replaces: 'El controlador y los puntos de acceso Ubiquiti UniFi siguen iguales; lo que sale es el servidor de autenticación.',
+      zones: 'Sin AD on-premises, NPS, RADIUS, VPN ni certificados en su red: el portal habla con su controlador UniFi solo por HTTPS, sin UDP. La consulta a Microsoft Graph es la desvinculación rápida, que usted activa en la consola.',
+      journey: 'Los números son los pasos de la lista de abajo. Con la desvinculación rápida activada en la consola, quien sale del grupo pierde el Wi-Fi en minutos; sin ella, en la próxima renovación.',
+      replaces: 'El controlador y los puntos de acceso Ubiquiti UniFi siguen iguales; lo que desaparece es el servidor de autenticación.',
     },
     zoneCompany: 'SU EMPRESA', zoneCloud: 'NUBE WINSERV', zoneMs: 'MICROSOFT', before: 'ANTES', after: 'DESPUÉS',
-    device: ['Portátil', 'o celular'],
-    phone: ['Celular / portátil', 'se conecta al SSID'],
+    device: ['Laptop', 'o teléfono'],
+    phone: ['Teléfono / laptop', 'se conecta al SSID'],
     ap: ['Ubiquiti UniFi', 'punto de acceso'],
     apOpens: ['Ubiquiti UniFi AP', 'abre el portal cautivo'],
     apShort: ['Ubiquiti UniFi AP'],
@@ -108,7 +108,7 @@ export const DIAGRAM_TEXT = {
     entra: ['Microsoft Entra ID', 'inicio de sesión + MFA'],
     entraYours: ['Microsoft Entra ID', 'que ya usa · MFA'],
     graph: ['Microsoft Graph', 'quién está en el grupo'],
-    online: ['Internet habilitada', '30 días sin reingresar'],
+    online: ['Internet habilitada', 'renovación silenciosa'],
     cut: ['¿Salió del grupo?', 'revisado en Graph', 'corte en minutos'],
     radius: ['RADIUS / NPS', 'Windows Server'],
     ad: ['Active Directory', 'on-premises'],
