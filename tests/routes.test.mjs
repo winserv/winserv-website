@@ -56,6 +56,7 @@ test('the WiFi pages sit under /wifi/ in each language; the legal ones have no S
     wifi: ['/wifi/', '/en/wifi/', '/es/wifi/'],
     wifiRequisitos: ['/wifi/requisitos.html', '/en/wifi/requirements.html', '/es/wifi/requisitos.html'],
     wifiAjuda: ['/wifi/ajuda.html', '/en/wifi/help.html', '/es/wifi/ayuda.html'],
+    wifiGuia: ['/wifi/entra-id-unifi.html', '/en/wifi/entra-id-unifi.html', '/es/wifi/entra-id-unifi.html'],
     wifiTermos: ['/wifi/termos.html', '/en/wifi/terms.html', '/en/wifi/terms.html'],
     wifiPrivacidade: ['/wifi/privacidade.html', '/en/wifi/privacy.html', '/en/wifi/privacy.html'],
     wifiDpa: ['/wifi/dpa.html', '/en/wifi/dpa.html', '/en/wifi/dpa.html'],
@@ -63,7 +64,7 @@ test('the WiFi pages sit under /wifi/ in each language; the legal ones have no S
   for (const [key, paths] of Object.entries(want)) {
     assert.deepEqual(['pt-br', 'en', 'es'].map((l) => href(key, l)), paths, key);
   }
-  assert.equal(pages().length, 39 + 15);   // 39 served before (35 indexable + 4 noindex), measured 2026-10-09
+  assert.equal(pages().length, 39 + 15 + 3);   // 39 served before (35 indexable + 4 noindex), measured 2026-10-09; +3 the guide, 2026-10-19
 });
 
 test('a WiFi page shares the product card of its language; every other page the company card', () => {

@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WifiDiagram from '../../components/WifiDiagram.astro';
+// Comparison guide (2026-10-19). Every claim about the UniFi side is quoted from the Ubiquiti
+// help pages linked under "Fontes", read that day; re-read them before changing a row.
+---
+<BaseLayout title={"Login Microsoft 365 (Entra ID) no Wi-Fi UniFi: app nativo ou portal cativo? — Winserv WiFi"} description={"Duas formas de entrar no Wi-Fi UniFi com a conta Microsoft 365 / Entra ID e MFA: o app UniFi Endpoint com UniFi Fabrics, ou um portal cativo. O que cada uma exige, lado a lado."} path="/wifi/entra-id-unifi.html" active="wifi">
+<main class="w-main">
+    <section class="w-hero">
+      <p class="w-eyebrow">Guia da TI · consultado em 19 de outubro de 2026</p>
+      <h1>Login Microsoft 365 (Entra ID) no <span class="w-nb">Wi-Fi</span> UniFi: app nativo ou portal cativo?</h1>
+      <p class="w-lede">Você quer que o funcionário entre no Wi-Fi UniFi com a mesma conta Microsoft 365 que usa no e-mail, com MFA, e que perca o acesso quando sai da empresa. Há três caminhos para o login com a conta Microsoft. Este guia mostra o que cada um exige, com link para a documentação oficial de cada afirmação sobre a Ubiquiti.</p>
+    </section>
+
+    <section id="caminhos">
+      <h2>Os três caminhos</h2>
+      <ol class="w-steps">
+        <li><strong>RADIUS com NPS e Active Directory (WPA2/WPA3-Enterprise).</strong> O caminho clássico. O Entra ID é um serviço de nuvem que fala protocolos web (OIDC e SAML), não RADIUS, então é preciso um servidor no meio: o NPS num Windows Server, com o Active Directory sincronizado, ou um serviço de RADIUS em nuvem. Filiais costumam precisar de VPN até esse servidor.</li>
+        <li><strong>O app UniFi Endpoint com UniFi Fabrics.</strong> A solução da própria Ubiquiti: o Entra ID vira o provedor de identidade de um Fabric, e cada pessoa usa o app UniFi Endpoint, no PC ou no celular, para o "One-Click WiFi". Quando o Entra ID está vinculado, o app aplica a autenticação SAML, incluindo o MFA, se configurado.</li>
+        <li><strong>Um portal cativo com login Microsoft.</strong> Ao conectar no SSID, o aparelho abre uma página de login; a pessoa entra com a conta Microsoft 365 e o MFA do Entra ID, no navegador do próprio aparelho, e o portal autoriza o aparelho no controlador UniFi. É o caminho do Winserv WiFi.</li>
+      </ol>
+    </section>
+
+    <section id="lado-a-lado">
+      <h2>App nativo e portal cativo, lado a lado</h2>
+      <div class="w-tablewrap">
+        <table class="w-ledger">
+          <thead><tr><th>O que muda</th><th>App UniFi Endpoint + Fabrics</th><th>Portal cativo (Winserv WiFi)</th></tr></thead>
+          <tbody>
+            <tr><td>App em cada aparelho</td><td>Sim: o UniFi Endpoint, no PC ou no celular</td><td>Não: o login é no navegador do próprio aparelho</td></tr>
+            <tr><td>Equipamento UniFi</td><td>UniFi OS 4.4 ou mais novo e, no Fabric, um destes consoles: UDM Pro, UDM SE, UDM Pro Max, UDM Beast, EFG, EF Core, UCG-Fiber, UNVR Pro, ENVR ou ENVR Core (o artigo sobre vincular o provedor de identidade traz a mesma lista, sem o UCG-Fiber)</td><td>Um controlador UniFi Network publicado na internet com certificado válido, e um site UniFi por portal. Testado com portal cativo no 10.0, 10.4 e 10.6 instalado em servidor; consoles UniFi OS em hardware ainda não foram testados</td></tr>
+            <tr><td>MFA do Entra ID</td><td>Sim, se configurado</td><td>Sim, com as regras do seu Entra ID</td></tr>
+            <tr><td>Grupos do Entra ID</td><td>Sincronizar grupos exige Entra ID P1 ou P2</td><td>Funciona sem P1</td></tr>
+            <tr><td>Quem sai da empresa</td><td>Provisionamento SCIM em tempo real; a documentação não diz em quanto tempo o Wi-Fi do aparelho cai</td><td>Com o corte rápido, ligado num clique no console, o Wi-Fi cai em minutos (medido em campo: 4 min 16 s); sem ele, só quando a autorização do aparelho vence, em até 30 dias</td></tr>
+            <tr><td>Visitantes sem conta Microsoft</td><td>A documentação consultada não trata de visitantes</td><td>Voucher no mesmo portal. Assumir o portal cativo desliga os vouchers nativos do controlador</td></tr>
+            <tr><td>No Entra ID</td><td>Função Cloud Application Administrator e um plano do Entra ID com SSO ilimitado</td><td>Um administrador do Entra ID autoriza o portal no cadastro; o corte rápido pede um segundo consentimento, no console</td></tr>
+            <tr><td>Custo</td><td>O UniFi Endpoint não tem licença</td><td>A partir de R$ 349/mês, até 50 pessoas</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="quando">
+      <h2>Quando o portal cativo é o caminho</h2>
+      <p class="w-lede">O app nativo pede três coisas ao mesmo tempo: o app instalado em todo aparelho que usa o Wi-Fi, um dos consoles da lista com UniFi OS 4.4 ou mais novo, e o Fabric configurado no Site Manager. Se alguma delas não vale para a sua rede — notebook pessoal, celular de terceiros, controlador numa VM ou num servidor próprio —, o portal cativo entrega o login Microsoft 365 com MFA sem instalar nada no aparelho.</p>
+    </section>
+
+    <section id="conexao">
+      <h2>Como o portal cativo se conecta</h2>
+      <p class="w-lede">O que fica na sua empresa, o que roda na nuvem da Winserv e o que é da Microsoft. Para o que liberar no firewall e no walled garden, veja os <a href="/wifi/requisitos.html">requisitos</a>.</p>
+      <WifiDiagram kind="zones" locale="pt-br" />
+      <div class="w-btn-row">
+        <a class="w-btn" href="https://app.wifi.winserv.com.br/signup">Criar meu portal</a>
+        <a class="w-btn w-btn--ghost" href="/wifi/">Conhecer o Winserv WiFi</a>
+      </div>
+    </section>
+
+    <section id="fontes">
+      <h2>Fontes</h2>
+      <p class="w-lede">Documentação da Ubiquiti consultada em 19 de outubro de 2026. Se ela mudou, vale o que está lá.</p>
+      <ul class="w-steps">
+        <li><a href="https://help.ui.com/hc/en-us/articles/16936895868823-UniFi-Identity-Endpoint-Overview">UniFi Endpoint Overview</a></li>
+        <li><a href="https://help.ui.com/hc/en-us/articles/31557442664983">Configuring UniFi Endpoint For Zero-Trust Network Access (ZTNA)</a></li>
+        <li><a href="https://help.ui.com/hc/en-us/articles/30968066908439">Integrating Microsoft Entra with UniFi Fabrics</a></li>
+        <li><a href="https://help.ui.com/hc/en-us/articles/30979808349463-Getting-Started-with-UniFi-Fabrics">Getting Started with UniFi Fabrics</a></li>
+        <li><a href="https://help.ui.com/hc/en-us/articles/30967924245527-Binding-an-Identity-Provider-IdP-To-A-UniFi-Fabric">Binding an Identity Provider (IdP) To A UniFi Fabric</a></li>
+      </ul>
+    </section>
+  </main>
+</BaseLayout>

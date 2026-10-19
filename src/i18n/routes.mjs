@@ -35,6 +35,8 @@ export const ROUTES = {
   wifi: { og: 'wifi', paths: { 'pt-br': '/wifi/', en: '/en/wifi/', es: '/es/wifi/' } },
   wifiRequisitos: { og: 'wifi', paths: { 'pt-br': '/wifi/requisitos.html', en: '/en/wifi/requirements.html', es: '/es/wifi/requisitos.html' } },
   wifiAjuda: { og: 'wifi', paths: { 'pt-br': '/wifi/ajuda.html', en: '/en/wifi/help.html', es: '/es/wifi/ayuda.html' } },
+  // The comparison guide (2026-10-19): one slug in every language, the words people search.
+  wifiGuia: { og: 'wifi', paths: { 'pt-br': '/wifi/entra-id-unifi.html', en: '/en/wifi/entra-id-unifi.html', es: '/es/wifi/entra-id-unifi.html' } },
   // The text a customer accepts under signup.TERMS_VERSION: pt-BR and EN only (roadmap D3).
   wifiTermos: { og: 'wifi', paths: { 'pt-br': '/wifi/termos.html', en: '/en/wifi/terms.html', es: { use: 'en' } } },
   wifiPrivacidade: { og: 'wifi', paths: { 'pt-br': '/wifi/privacidade.html', en: '/en/wifi/privacy.html', es: { use: 'en' } } },
